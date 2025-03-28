@@ -1,0 +1,15 @@
+.toggle-btn{
+    border: 1px solid #fc5056;
+    border-radius: 4px;
+    padding: 8px 45px;
+    font-weight: 600;
+    width: 100%;
+    color:black;
+    background-color: white;
+    font-family: "Inter", sans-serif;
+}
+
+.toggle-btn-color{
+    background-color: #fc5056;
+    color:white;
+}

@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap');
+
+
+.footer-container{
+width:100%;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #111;  
+}
+
+.footer-section {
+  display: flex;
+  justify-content: space-between;
+  padding-top:5% ;
+  padding-bottom:5%;
+}
+
+.footer-cursive {
+  color: white;
+  font-family: 'Kaushan Script', cursive;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.left-footer {
+  color: white;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.left-footer .p {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.left-footer h6 {
+  font-size: 20px;
+}
+
+.left-footer li{
+    list-style: none;
+
+}
+
+.mid-footer {
+  display: flex;
+  color: white;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.mid-footer li {
+  list-style-type: none;
+  align-items: center;
+}
+
+.company,
+.top-destination,
+li {
+  margin: 20px;
+}
+
+.right-footer {
+  color: white;
+  font-family: 'Work Sans', sans-serif;
+  list-style: none;
+  margin: 20px;
+}
+
+.right-footer p {
+  margin-top: 40px;
+}
+
+.right-footer input{
+    margin-bottom: 8px;
+}

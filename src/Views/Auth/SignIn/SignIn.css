@@ -1,0 +1,28 @@
+.signIn-div{
+display:flex;
+flex-direction: column;
+align-items: center;
+}
+
+.auth-buttons{
+    display:flex;
+}
+
+.signIn-form{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: aliceblue;
+    margin: 30px 30px;
+}
+
+.form-values{
+    display: flex;
+    flex-direction: column;
+}
+
+.social-auth{
+    display: flex;
+    justify-content: space-between;
+}
+

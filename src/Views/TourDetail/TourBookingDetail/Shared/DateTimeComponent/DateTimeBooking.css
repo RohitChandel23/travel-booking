@@ -1,0 +1,21 @@
+.react-datepicker-wrapper{
+    width:91.5%; 
+}
+
+.book-now-date-time{   
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    border: none;
+    border-radius: 8px;
+}
+
+.ticket-label{
+    color: rgba(5, 16, 54, 0.6);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 142.857%;
+}

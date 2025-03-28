@@ -1,0 +1,83 @@
+ .homepage-banner {
+    width: 100%; 
+    height: 565px; 
+    overflow: hidden; 
+    position: relative;
+  }
+  
+  .homepage-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+  }
+
+  .banner-text-container{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    bottom: 38%;
+    right:42%;
+  }
+
+   .banner-text-content{
+    text-align: center;
+  }
+
+  
+  .search-container{
+    top: -55px;
+    position: relative;
+    background-color: aliceblue;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-container-elements{
+    background-color: aliceblue;
+    width: 1116px;
+    height:121px;
+    display: flex;
+    border-radius: 12px;
+  }
+
+  .tour-container{
+    text-align: center;
+  }
+
+   .tour-main-header{
+    display:flex;
+    justify-content: center;
+  } 
+
+  .tour-content-container{
+    display:flex;
+    justify-content: center;
+  }
+
+  .content-header{
+    font-size: 26px;
+  }
+
+  
+
+  .tour-content{
+    display: flex;
+    width:100%;
+    margin-left: 20%;
+    margin-right:20%;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cursive-normal{
+    font-size: 26px;
+  }
+
+  .section-heading{
+    color: #051036;
+    font-family: "Work Sans", sans-serif;;
+    font-size: 40px;
+    line-height:120%;
+    font-weight: 700;
+  }

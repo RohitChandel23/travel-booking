@@ -1,0 +1,80 @@
+.tour-card-container{
+    width: 33.33333333%;
+    padding: 1.5rem;
+    text-align: left;
+    padding-top: 40px;
+}
+
+.tour-card-container p{
+    font-size: 14px;
+    font-family:"Inter", sans-serif;
+     color:rgba(5, 16, 54, 0.6);   
+}
+
+.tour-card-container h4{
+font-size: 26px;
+padding: 0.1% 0px;
+margin:1.5rem 0;
+}
+
+.tour-image-container{
+margin: 0px;
+}
+
+.tour-info-container{
+background: #f7f8f9;
+margin:0px;
+padding:16px 20px;
+}
+
+.tour-info-container p{
+    margin:0px;
+}
+
+h6{
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.tour-additional-info{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rating-reviews{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.tour-price{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 9px 0px 0px;
+    line-height: 130%;
+    letter-spacing: -0.2px;
+
+}
+
+.rating-star-class{
+    color:white;
+    font-family: "Inter", sans-serif;
+    background-color: #fc5056;
+    font-size: 16px;
+    padding: 4px;
+    border-radius: 4px;
+    line-height: 133.333%;
+}
+
+.tour-additional-info-text{
+    color:rgba(5, 16, 54, 0.6);
+}
+
+.tour-price-text{
+    font-family: "Kaushan Script", cursive;
+    font-size: 20px;
+    color:#051036
+}

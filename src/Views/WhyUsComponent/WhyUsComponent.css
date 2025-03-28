@@ -1,0 +1,52 @@
+.whyUs-section {
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+}
+
+.main-div-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  margin-bottom:5%;
+  margin-top:5%;
+}
+
+.whyUs-image-div {
+  height: 527px;
+  width: 660px;
+}
+
+.image-container{
+  position: relative;
+  height: 100%;
+}
+
+.second-image {
+    top:0px;
+    left:0px;
+    display:block;
+}
+
+.first-image {
+  position: absolute;
+  bottom:0%;
+  right:8%; 
+}
+
+.whyUs-content-div {
+  font-family: 'Inter', sans-serif;
+  height: 520px;
+  width: 550px;
+  line-height: 162.5%;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.content-subHeader h2{
+line-height:120%;
+}
+
+.whyUs-content-div p {
+  color: rgba(5, 16, 54, 0.6);
+}
