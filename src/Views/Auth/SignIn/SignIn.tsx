@@ -10,6 +10,7 @@ import SocialBtn from '../buttons/SocialButtons/SocialBtn';
 import { auth, googleProvider } from '../../../firebaseConfig';
 import { ROUTES_CONFIG } from '../../../Shared/Constants';
 import 'react-toastify/dist/ReactToastify.css';
+import AuthBannerImg from '../Shared/AuthBannerImg';
 
 interface SignInFormValues {
   email: string;
@@ -22,6 +23,12 @@ function SignIn() {
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password);
       toast.success('Login Successful');
+
+      const user = auth.currentUser; 
+      if(user)
+        console.log("user",user);
+      console.log(await user?.getIdToken());
+
     } catch {
       toast.error('Error Try again');
     }
@@ -37,6 +44,11 @@ function SignIn() {
   }
 
   return (
+    <>
+        <div className='auth-page-banner'>
+        <AuthBannerImg />
+    </div>
+
     <div className="signIn-div">
       <div className="auth-buttons">
         <ToggleBtn
@@ -89,6 +101,7 @@ function SignIn() {
         <SocialBtn name="Twitter" handleClick={() => console.log('Twitter')} />
       </div>
     </div>
+    </>
   );
 }
 
