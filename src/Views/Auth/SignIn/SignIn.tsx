@@ -45,9 +45,7 @@ function SignIn() {
 
   return (
     <>
-        <div className='auth-page-banner'>
         <AuthBannerImg />
-    </div>
 
     <div className="signIn-div">
       <div className="auth-buttons">
