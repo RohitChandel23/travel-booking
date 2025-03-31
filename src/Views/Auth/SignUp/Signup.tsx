@@ -71,10 +71,7 @@ function Signup() {
   };
   return (
   <>
-    <div className='auth-page-banner'>
         <AuthBannerImg />
-    </div>
-
     <div className="signup-div">
       <div className="form-container">
         <div className="auth-buttons">
