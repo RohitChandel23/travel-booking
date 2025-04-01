@@ -24,12 +24,10 @@ function TourReview({ tourRating }: TourReviewProps) {
       <div className="average-review-section">
         <div className="total-average-reviews">
           <h2 className="project-heading-font">{rating}</h2>
-          {/* tour average review */}
           <p>
             <i className="fa-solid fa-star" />
             {generateRatingCategory(Number(rating))}
           </p>
-          {/* tour review category */}
         </div>
         <div className="review-item">
           <ReviewItem tourRating={rating} tourRatingName="Service" />
