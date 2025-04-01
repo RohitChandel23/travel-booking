@@ -2,6 +2,7 @@ import './TourBookingDetail.css';
 import { useState, useEffect } from 'react';
 import DateTimeComponent from './Shared/DateTimeComponent/DateTimeComponent';
 import { db, collection, addDoc } from '../../../firebaseConfig';
+import TourReview from './TourReview';
 
 interface tourBookingDetailProps {
   tourPrice: string;
@@ -151,6 +152,7 @@ function TourBookingDetail({ tourPrice }: tourBookingDetailProps) {
             </button>
           </div>
         </div>
+          <TourReview />
       </div>
 
       <div className="booking-detail-total">

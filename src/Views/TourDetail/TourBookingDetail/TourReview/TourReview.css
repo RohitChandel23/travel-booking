@@ -1,0 +1,12 @@
+.average-reviews{
+    display: flex;
+}
+
+.total-average-review{
+    background-color: aliceblue;
+}
+
+.review-item{
+    background-color: antiquewhite
+    ;
+}
