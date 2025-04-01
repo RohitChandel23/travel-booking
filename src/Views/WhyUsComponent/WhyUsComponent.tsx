@@ -1,4 +1,4 @@
-import './whyUsComponent.css';
+import './WhyUsComponent.css';
 import ForHomePage from './ForHomePage/index';
 import { ProjectImages } from '../../assets/ProjectImages';
 
