@@ -5,6 +5,7 @@ import MapComponent from '../Shared/MapComponent';
 import { ROUTES_CONFIG } from '../../Shared/Constants';
 import TourBookingDetail from './TourBookingDetail';
 import TourReview from './TourBookingDetail/Shared/TourReview';
+import CalendarComponent from '../Shared/CalendarComponent';
 
 
 function TourDetail() {
@@ -104,6 +105,11 @@ function TourDetail() {
           <div className="tour-detail-overview">
             <h5 className="detail-page-minor-title">Overview</h5>
             <p> {tourDescription} </p>
+          </div>
+
+          <div className='calendar-section'>
+          <h5 className="detail-page-minor-title">Calendar & Prices</h5>
+          <CalendarComponent/>
           </div>
 
           <div className="tour-location-map">
