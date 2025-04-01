@@ -6,16 +6,20 @@ import { format } from 'date-fns';
 import { useGetDateAndTimeQuery } from '../../../../../Services/Api/module/demoApi';
 import './DateTimeBooking.css';
 
-function DateTimeComponent({ sendDateTime }) {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
+interface DateTimeComponentProps{
+  sendDateTime: (dateTime: [string,string]) => void;
+}
 
-  function handleDateChange(date: any) {
+function DateTimeComponent({ sendDateTime }: DateTimeComponentProps) {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+
+  function handleDateChange(date: any) {  
     const formattedDate = date ? format(date, 'yyyy-MM-dd') : 'date error';
 
     setSelectedDate(formattedDate);
     setSelectedTime(null);
-    AvailableTime.length =0;
+    AvailableTime.length = 0;
    // if (selectedTime) sendDateTime([formattedDate, selectedTime]);
   }
 
@@ -31,8 +35,8 @@ function DateTimeComponent({ sendDateTime }) {
     { skip: !selectedDate }
   );
 
-  const AvailableTime =
-    res?.data?.map((item) => item.start.slice(11, 16)) || [];
+  const AvailableTime:string =
+    res?.data?.map((item:{start:string}) => item.start.slice(11, 16)) || [];
 
   return (
     <>
@@ -59,8 +63,8 @@ function DateTimeComponent({ sendDateTime }) {
             choose time
           </option>
 
-          {AvailableTime?.map((timeSlot) => (
-            <option value={timeSlot}> {timeSlot} </option>
+          {AvailableTime?.map((timeSlot,index) => (
+            <option key={index} value={timeSlot}> {timeSlot} </option>
           ))}
         </select>
       </div>

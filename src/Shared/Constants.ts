@@ -30,6 +30,11 @@ const ROUTES_CONFIG = {
     path: ROUTES.REGISTER,
     title: 'Register',
   },
+  LOGOUT: {
+    path: ROUTES.LOGIN,
+    title: 'Logout',
+  },
+
   ABOUT: {
     path: ROUTES.ABOUT,
     title: 'About us',

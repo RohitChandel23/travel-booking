@@ -1,0 +1,42 @@
+.review-item-container {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 17px 0;
+}
+
+.review-item-container p {
+    font-size: 14px;
+    margin: 0px;
+}
+
+.review-item-container span{
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+/* Custom Progress Bar Styling */
+progress {
+    height: 8px;
+    width: 88%;
+    appearance: none;
+}
+
+/* Chrome & Safari */
+progress::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+progress::-webkit-progress-value {
+    background-color: #dd2329;
+    border-radius: 5px; 
+}
+
+/* Firefox */
+progress::-moz-progress-bar {
+    background-color:#dd2329;
+    border-radius: 5px;
+}

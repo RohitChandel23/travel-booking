@@ -1,5 +1,4 @@
 import { AppLayoutProps } from '../AppLayout.d';
-// import Navbar from './Navbar';
 import Footer from '../../Footer/index';
 import Header from '../../Header/index';
 

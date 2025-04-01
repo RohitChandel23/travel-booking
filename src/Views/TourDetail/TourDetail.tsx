@@ -4,6 +4,7 @@ import { useGetTourDetailQuery } from '../../Services/Api/module/demoApi';
 import MapComponent from '../Shared/MapComponent';
 import { ROUTES_CONFIG } from '../../Shared/Constants';
 import TourBookingDetail from './TourBookingDetail';
+import TourReview from './TourBookingDetail/Shared/TourReview';
 
 // import FeaturedTours from '../FeaturedTours/FeaturedTours';
 
@@ -113,6 +114,12 @@ function TourDetail() {
           <div className="tour-location-map">
             <MapComponent cityName={tourCity} />
           </div>
+
+          <div className='tour-detail-review'>
+          <h5 className='project-heading-font'>Average Reviews</h5>
+          <TourReview tourRating = {tourRating} />
+          </div>
+
         </div>
 
         <div className="tour-booking-detail">

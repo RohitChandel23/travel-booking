@@ -2,21 +2,18 @@ import './TourBookingDetail.css';
 import { useState, useEffect } from 'react';
 import DateTimeComponent from './Shared/DateTimeComponent/DateTimeComponent';
 import { db, collection, addDoc } from '../../../firebaseConfig';
-import TourReview from './TourReview';
 
 interface tourBookingDetailProps {
   tourPrice: string;
 }
 
+
 function TourBookingDetail({ tourPrice }: tourBookingDetailProps) {
-  {
-    /* date and time */
-  }
   const [adultsCount, setAdults] = useState(0);
   const [kidsCount, setKidsCount] = useState(0);
   const [childrenCount, setChildrenCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [selectedDateTime, setSelectedDateTime] = useState([null, null]);
+  const [selectedDateTime, setSelectedDateTime] = useState<[string | null, string | null]>([null, null]);
 
   function handleDecrement(peopleType: string): void {
     if (peopleType == 'Adults' && adultsCount) setAdults((count) => count - 1);
@@ -40,14 +37,10 @@ function TourBookingDetail({ tourPrice }: tourBookingDetailProps) {
   }, [childrenCount, kidsCount, adultsCount]);
 
   const handleBooking = async () => {
-    // if(!selectedDate){
-    //   console.log("please select date and time: ")
-    //   return;
-    // }
 
-    const bookingDetail = {
+    const bookingDetail = {           //make it dynamic
       userName: 'john',
-      toatlPrice: totalPrice,
+      totalPrice: totalPrice,
       tickets: kidsCount + childrenCount + adultsCount,
     };
 
@@ -60,7 +53,7 @@ function TourBookingDetail({ tourPrice }: tourBookingDetailProps) {
   };
 
   // this function will be send to the child component to get the data
-  function getDateTime(DateTimeData) {
+  function getDateTime(DateTimeData:any) {
     setSelectedDateTime(DateTimeData);
     console.log('working..........', DateTimeData);
   }
@@ -74,7 +67,6 @@ function TourBookingDetail({ tourPrice }: tourBookingDetailProps) {
         <div className="">
           <label className="book-now-minor-heading">Date</label>
           <DateTimeComponent sendDateTime={getDateTime} />{' '}
-          {/* can have issues here */}
         </div>
 
         <span className="book-now-minor-heading">Ticket</span>
@@ -152,7 +144,6 @@ function TourBookingDetail({ tourPrice }: tourBookingDetailProps) {
             </button>
           </div>
         </div>
-          <TourReview />
       </div>
 
       <div className="booking-detail-total">

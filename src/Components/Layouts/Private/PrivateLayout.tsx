@@ -1,12 +1,12 @@
 import { AppLayoutProps } from '../AppLayout.d';
-import Navbar from '../Public/Navbar';
-
+import Header from '../../Header';
+import Footer from '../../Footer';
 function PrivateLayout({ children }: AppLayoutProps): JSX.Element {
   return (
     <>
-      <Navbar />
+      <Header />
       {children}
-      {/* <Footer /> */}
+      { <Footer />}
     </>
   );
 }

@@ -1,22 +1,34 @@
-import { Navigate } from 'react-router-dom';
-import { ROUTES_CONFIG, WILDCARD_ROUTES } from '../Shared/Constants';
-import { CustomRouter } from './RootRoutes';
+import { Navigate } from "react-router-dom";
+import { ROUTES_CONFIG, WILDCARD_ROUTES } from "../Shared/Constants";
+import { CustomRouter } from "./RootRoutes";
+import Dashboard from "../Views/Dashboard";
+import Logout from "../Views/Auth/Logout/logout";
 
 // eslint-disable-next-line import/prefer-default-export
 export const PRIVATE_ROUTES: Array<CustomRouter> = [
   {
+    path: ROUTES_CONFIG.HOMEPAGE.path,
+    element: <Dashboard />,
+    title: ROUTES_CONFIG.HOMEPAGE.title,
+  },
+  {
+    path: ROUTES_CONFIG.LOGIN.path,
+    element: <Logout />,
+    title: ROUTES_CONFIG.HOMEPAGE.title,
+  },
+  {
     path: ROUTES_CONFIG.ABOUT.path,
-    element: '<ABOUT />',
+    element: "<ABOUT />",
     title: ROUTES_CONFIG.ABOUT.title,
   },
   {
-    path: '/wishlist',
-    element: 'Your wishlist here',
-    title: 'Dashboard',
+    path: "/wishlist",
+    element: "Your wishlist here",
+    title: "Dashboard",
   },
   {
-    path: '*',
+    path: "*",
     element: <Navigate to={WILDCARD_ROUTES.PRIVATE} />,
-    title: 'Rendering wildcard',
+    title: "Rendering wildcard",
   },
 ];
