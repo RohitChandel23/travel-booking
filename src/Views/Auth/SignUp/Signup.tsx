@@ -8,9 +8,8 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import ToggleBtn from '../buttons/ToggleBtn/ToggleBtn';
 import SocialBtn from '../buttons/SocialButtons/SocialBtn';
-
+import AuthBannerImg from '../Shared/AuthBannerImg';
 import { ROUTES_CONFIG } from '../../../Shared/Constants';
-
 import { auth, db, googleProvider } from '../../../firebaseConfig';
 
 interface SignUpFormValues {
@@ -71,6 +70,8 @@ function Signup() {
     }
   };
   return (
+  <>
+        <AuthBannerImg />
     <div className="signup-div">
       <div className="form-container">
         <div className="auth-buttons">
@@ -184,6 +185,7 @@ function Signup() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 export default Signup;

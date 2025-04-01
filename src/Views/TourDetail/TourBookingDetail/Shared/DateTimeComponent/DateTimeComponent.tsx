@@ -14,7 +14,9 @@ function DateTimeComponent({ sendDateTime }) {
     const formattedDate = date ? format(date, 'yyyy-MM-dd') : 'date error';
 
     setSelectedDate(formattedDate);
-    if (selectedTime) sendDateTime([formattedDate, selectedTime]);
+    setSelectedTime(null);
+    AvailableTime.length =0;
+   // if (selectedTime) sendDateTime([formattedDate, selectedTime]);
   }
 
   function handleTimeChange(e) {

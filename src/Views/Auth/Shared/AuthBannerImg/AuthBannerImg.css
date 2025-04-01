@@ -1,0 +1,42 @@
+.auth-page-banner{
+    background-color: green;
+    height: 305px;
+    position: relative;
+    }
+
+.auth-banner-image{
+        width: 100%;
+        height:100%;
+        object-fit: cover;
+    }
+
+.auth-page-banner-text-container{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);    
+
+}
+
+
+.auth-page-banner-text-container h1 {
+    font-size: 56px;
+    line-height: 114.286%;
+    margin: 0px;
+
+    font-family: "Work Sans", sans-serif;
+    font-weight: 700;
+}
+
+.auth-page-banner-text-container span {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+    text-transform: capitalize;
+}

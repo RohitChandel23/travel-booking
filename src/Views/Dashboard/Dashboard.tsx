@@ -20,8 +20,8 @@ export default function Dashboard() {
         <div className="banner-text-container">
           <div className="banner-text-content">
             <h3 className="kaushan-text">Save 15% off in Worldwide</h3>
-            <h1>Travel & Adventures</h1>
-            <p>Find awesome hotel, tour, car and activities in London</p>
+            <h1 className="">Travel & Adventures</h1>
+            <p className='project-normal-font'>Find awesome hotel, tour, car and activities in London</p>
           </div>
         </div>
       </div>
