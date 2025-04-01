@@ -6,6 +6,7 @@
 .tour-detail-container {
   padding: 0 12px;
   width: 880px;
+  height:auto;
 }
 
 .tour-detail-image-container {
@@ -100,12 +101,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: aliceblue;  
 }
 
 .tour-detail-review{
 width:100%;
-height:200px;  
+height: auto;
 margin-top: 12%;
 margin-bottom: 8%;
 }
@@ -117,3 +117,5 @@ line-height:120%;
 font-size: 22px;
 font-weight: 700;
 }
+
+

@@ -1,0 +1,17 @@
+.add-review-container{
+    width: 856px;
+    height:475px;
+    padding:30px;
+    margin-top: 40px;
+    background-color: #f7f8f9;
+}
+
+.add-review-container h5{
+  margin-bottom: 3%;  
+}
+
+.review-rating-container{
+    display: flex;
+    justify-content: space-between;    
+}
+

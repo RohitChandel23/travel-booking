@@ -19,14 +19,14 @@ function DateTimeComponent({ sendDateTime }: DateTimeComponentProps) {
 
     setSelectedDate(formattedDate);
     setSelectedTime(null);
-    AvailableTime.length = 0;
+    //  AvailableTime.length = 0;
    // if (selectedTime) sendDateTime([formattedDate, selectedTime]);
   }
 
-  function handleTimeChange(e) {
-    setSelectedTime(e.target.value);
-    if (selectedDate) sendDateTime([selectedDate, e.target.value]);
-  }
+    function handleTimeChange(e:React.ChangeEvent<HTMLSelectElement>) {
+      setSelectedTime(e.target.value);
+      if (selectedDate) sendDateTime([selectedDate, e.target.value]);
+    }
 
   const { slugId } = useParams();
   const slugValue = slugId;
@@ -35,7 +35,7 @@ function DateTimeComponent({ sendDateTime }: DateTimeComponentProps) {
     { skip: !selectedDate }
   );
 
-  const AvailableTime:string =
+  const AvailableTime:string[] =
     res?.data?.map((item:{start:string}) => item.start.slice(11, 16)) || [];
 
   return (
@@ -56,14 +56,14 @@ function DateTimeComponent({ sendDateTime }: DateTimeComponentProps) {
 
         <select
           className="book-now-date-time"
-          value={selectedTime}
+          value={selectedTime || "choose time"}
           onChange={handleTimeChange}
         >
           <option value="choose time" disabled>
             choose time
           </option>
 
-          {AvailableTime?.map((timeSlot,index) => (
+          {AvailableTime?.map((timeSlot:string,index:number) => (
             <option key={index} value={timeSlot}> {timeSlot} </option>
           ))}
         </select>

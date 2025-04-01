@@ -7,7 +7,6 @@ interface tourBookingDetailProps {
   tourPrice: string;
 }
 
-
 function TourBookingDetail({ tourPrice }: tourBookingDetailProps) {
   const [adultsCount, setAdults] = useState(0);
   const [kidsCount, setKidsCount] = useState(0);
@@ -24,6 +23,7 @@ function TourBookingDetail({ tourPrice }: tourBookingDetailProps) {
   }
 
   function handleIncrement(peopleType: string): void {
+    console.log(selectedDateTime);
     if (peopleType == 'Adults') setAdults((count) => count + 1);
     else if (peopleType == 'Kids') setKidsCount((count) => count + 1);
     else if (peopleType == 'Children') setChildrenCount((count) => count + 1);

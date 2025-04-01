@@ -1,6 +1,11 @@
 import "./ReviewItem.css";
 
-function ReviewItem({ tourRating, tourRatingName }) {
+interface ReviewItemProps {
+  tourRating: string;
+  tourRatingName: string;
+}
+
+function ReviewItem({ tourRating, tourRatingName }:ReviewItemProps) {
   return (
     <div className="review-item-container">
       <p>{tourRatingName}</p>

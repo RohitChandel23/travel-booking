@@ -6,11 +6,8 @@ import { ROUTES_CONFIG } from '../../Shared/Constants';
 import TourBookingDetail from './TourBookingDetail';
 import TourReview from './TourBookingDetail/Shared/TourReview';
 
-// import FeaturedTours from '../FeaturedTours/FeaturedTours';
 
 function TourDetail() {
-  //  const location = useLocation();
-  //  const { slugValue } = location.state;
 
   const { slugId } = useParams();
   const slugValue = slugId;
@@ -25,9 +22,7 @@ function TourDetail() {
   const tourReviewCount = tourData?.reviewsStats?.combinedNumericStats?.total;
   const tourPrice = tourData?.representativePrice?.chargeAmount;
   const tourDescription = tourData?.description;
-
   const tourAllImages = tourData?.photos;
-
   const tourImageItem = tourAllImages?.find((item: any) => item?.isPrimary);
   const tourImage = tourImageItem?.medium || tourImageItem?.small;
 
@@ -119,7 +114,7 @@ function TourDetail() {
           <h5 className='project-heading-font'>Average Reviews</h5>
           <TourReview tourRating = {tourRating} />
           </div>
-
+            
         </div>
 
         <div className="tour-booking-detail">
@@ -131,6 +126,7 @@ function TourDetail() {
          some tours will be featured here
         <FeaturedTours />
       </div> */}
+
     </>
   );
 }
