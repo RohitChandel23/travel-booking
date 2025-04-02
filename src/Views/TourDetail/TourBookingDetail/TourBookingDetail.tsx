@@ -57,9 +57,9 @@ function TourBookingDetail({ tourPrice }: tourBookingDetailProps) {
 
     try {
       const docRef = await addDoc(collection(db, "bookings"), bookingDetail);
-      toast.success("booked successfully", docRef);
+      toast.success(`booked successfully ${docRef}`);
     } catch (error) {
-      toast.error("error in booking", error);
+      toast.error(`error in booking ${error}`);
     }
   };
 

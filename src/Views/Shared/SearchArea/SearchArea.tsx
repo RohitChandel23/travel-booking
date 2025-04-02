@@ -13,7 +13,7 @@ return(
         <SearchAreaElement />
         <SearchAreaElement />
         <SearchAreaElement />
-            
+
         <span className='to-align-btn'>
         <Button name="Search" handleClick={handleClick}/>
         </span>
