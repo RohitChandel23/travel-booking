@@ -56,7 +56,7 @@ function DateTimeComponent({ sendDateTime }: DateTimeComponentProps) {
 
         <select
           className="book-now-date-time"
-          value={selectedTime || "choose time"}
+          value={selectedTime || "Choose time"}
           onChange={handleTimeChange}
         >
           <option value="choose time" disabled>

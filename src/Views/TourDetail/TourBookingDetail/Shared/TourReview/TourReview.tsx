@@ -1,12 +1,14 @@
 import "./TourReview.css";
 import AddReview from "./AddReview";
 import ReviewItem from "./ReviewItem";
+import ShowingReview from "./ShowingReview";
 
 interface TourReviewProps {
   tourRating: string | number;
+  tourId: string;
 }
 
-function TourReview({ tourRating }: TourReviewProps) {
+function TourReview({ tourRating, tourId }: TourReviewProps) {
   // Ensure the tourRating is always a string
   const rating = typeof tourRating === 'number' ? tourRating.toString() : tourRating;
 
@@ -41,7 +43,9 @@ function TourReview({ tourRating }: TourReviewProps) {
         </div>
       </div>
 
-      <AddReview />
+      <ShowingReview tourId = {tourId}/>
+      <AddReview/>
+      
     </div>
   );
 }

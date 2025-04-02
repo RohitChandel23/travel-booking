@@ -52,6 +52,10 @@
   font-weight:400;
 }
 
+.cursive-text{
+  font-family: "Kaushan Script", cursive;
+}
+
 .project-theme-color{
   color: #fc5056;
 }

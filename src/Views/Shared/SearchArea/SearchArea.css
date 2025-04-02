@@ -1,0 +1,22 @@
+.search-area-container{
+    width: 1296px;
+    height:121px;
+    border-radius: 12px;
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+    position:absolute;
+    left:50%;
+    transform: translate(-50%, -50%);
+
+    background-color: white;
+    }
+
+    .to-align-btn{
+        display: flex;
+        flex-direction: column;
+        justify-content: right;
+        margin-top: 2.5%;
+    }

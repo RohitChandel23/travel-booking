@@ -15,6 +15,11 @@ export const userApi = api.injectEndpoints({
       query: ({ slugValue, date }) =>
         `attraction/getAvailability?slug=${slugValue}&date=${date}&currency_code=USD&languagecode=en-us`,
     }),
+
+    getTourReview: build.query({
+      query: (tourId) => 
+        `attraction/getAttractionReviews?id=${tourId}&page=1`
+    })
   }),
   overrideExisting: false,
 });
@@ -25,4 +30,5 @@ export const {
   useGetAttractionQuery,
   useGetTourDetailQuery,
   useGetDateAndTimeQuery,
+  useGetTourReviewQuery
 } = userApi;

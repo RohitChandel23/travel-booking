@@ -5,17 +5,15 @@ import MapComponent from '../Shared/MapComponent';
 import { ROUTES_CONFIG } from '../../Shared/Constants';
 import TourBookingDetail from './TourBookingDetail';
 import TourReview from './TourBookingDetail/Shared/TourReview';
-import CalendarComponent from '../Shared/CalendarComponent';
+import CalendarComponent from './TourBookingDetail/Shared/CalendarComponent/index';
 
 
 function TourDetail() {
 
   const { slugId } = useParams();
   const slugValue = slugId;
-
   const { data } = useGetTourDetailQuery(slugValue);
   const tourData = data?.data;
-
   const tourName = tourData?.name;
   const tourCity: string = tourData?.ufiDetails?.bCityName;
   const tourCountry = tourData?.ufiDetails?.url?.country;
@@ -26,6 +24,8 @@ function TourDetail() {
   const tourAllImages = tourData?.photos;
   const tourImageItem = tourAllImages?.find((item: any) => item?.isPrimary);
   const tourImage = tourImageItem?.medium || tourImageItem?.small;
+  const tourId = tourData?.id;
+
 
   return (
     <>
@@ -46,7 +46,7 @@ function TourDetail() {
 
           <div className="tour-detail-location-share">
             <div className="tour-detail-location">
-              <p>
+              <p className='project-normal-font'>
                 {' '}
                 <i className="fa-solid fa-location-dot" /> {tourCity},{' '}
                 {tourCountry} {'  '}
@@ -63,53 +63,53 @@ function TourDetail() {
               <i className="fa-regular fa-heart" />
             </div>
           </div>
-          <h3>{tourName}</h3>
+          <h3 className='tour-title-name project-heading-font'>{tourName}</h3>
 
           <div className="tour-features-container">
             <div className="tour-feature">
               <span className="tour-feature-heading">From</span>
-              <span className="tour-feature-value project-theme-color">
+              <span className="tour-feature-value project-theme-color project-normal-font">
                 ${tourPrice}
               </span>
             </div>
 
             <div className="tour-feature">
               <span className="tour-feature-heading">Duration</span>
-              <span className="tour-feature-value">1 day</span>
+              <span className="tour-feature-value project-normal-font">1 day</span>
             </div>
 
             <div className="tour-feature">
               <span className="tour-feature-heading">Max People</span>
-              <span className="tour-feature-value">10</span>
+              <span className="tour-feature-value project-normal-font">10</span>
             </div>
 
             <div className="tour-feature">
               <span className="tour-feature-heading">Min Age</span>
-              <span className="tour-feature-value">5</span>
+              <span className="tour-feature-value project-normal-font">5</span>
             </div>
 
             <div className="tour-feature">
               <span className="tour-feature-heading">Tour Type</span>
-              <span className="tour-feature-value">Adventure</span>
+              <span className="tour-feature-value project-normal-font">Adventure</span>
             </div>
 
             <div className="tour-feature">
               <span className="tour-feature-heading">Reviews</span>
-              <span className="tour-feature-value">
+              <span className="tour-feature-value project-normal-font">
                 <i className="fa-solid fa-star project-theme-color" />{' '}
-                {tourRating} ({tourReviewCount} reviews)
+                {tourRating} <span className='project-normal-font'>({tourReviewCount} reviews) </span>
               </span>
             </div>
           </div>
 
           <div className="tour-detail-overview">
             <h5 className="detail-page-minor-title">Overview</h5>
-            <p> {tourDescription} </p>
+            <p className='project-normal-font'> {tourDescription} </p>
           </div>
 
           <div className='calendar-section'>
-          <h5 className="detail-page-minor-title">Calendar & Prices</h5>
-          <CalendarComponent/>
+           <h5 className="detail-page-minor-title">Calendar & Prices</h5> 
+          <CalendarComponent tourPrice={tourPrice}/>
           </div>
 
           <div className="tour-location-map">
@@ -118,7 +118,7 @@ function TourDetail() {
 
           <div className='tour-detail-review'>
           <h5 className='project-heading-font'>Average Reviews</h5>
-          <TourReview tourRating = {tourRating} />
+          <TourReview tourRating = {tourRating} tourId = {tourId}/>
           </div>
             
         </div>

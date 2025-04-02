@@ -1,6 +1,7 @@
 .tour-detail-section {
   display: flex;
   justify-content: center;
+  gap:0.5%;
 }
 
 .tour-detail-container {
@@ -54,6 +55,21 @@
   justify-content: space-between;
 }
 
+
+
+.tour-title-name{
+  margin-top: 1%;
+  font-size: 32px;
+  line-height: 125%;
+}
+
+.tour-detail-location p{
+  font-size: 14px;
+  color:rgba(5, 16, 54, 0.6);
+  margin-top:15%;
+  margin-bottom:5%;
+}
+
 .tour-detail-share{
   display: flex;
   justify-content: space-between;
@@ -67,6 +83,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.tour-feature-value{
+font-weight: 600;
+}
+
+.tour-detail-overview{
+color: rgba(5, 16, 54, 0.6);
 }
 
 .tour-feature {
@@ -116,6 +140,17 @@ margin-bottom: 12px;
 line-height:120%;
 font-size: 22px;
 font-weight: 700;
+}
+
+.calendar-section{
+width:100%;
+height: auto;
+margin-top: 8%;
+margin-bottom: 8%;
+}
+
+.calendar-section h5{
+  margin-bottom: 3%;
 }
 
 

@@ -10,6 +10,7 @@ const ROUTES = {
   TOURS: '/tours',
   CONTACT: '/contact',
   TOURS_DETAIL: '/tours-detail/:slugId',
+
 };
 
 const WILDCARD_ROUTES = {
