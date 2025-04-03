@@ -6,6 +6,7 @@ import { ROUTES_CONFIG } from '../../Shared/Constants';
 import TourBookingDetail from './TourBookingDetail';
 import TourReview from './TourBookingDetail/Shared/TourReview';
 import CalendarComponent from './TourBookingDetail/Shared/CalendarComponent/index';
+import IncludeExclude from './TourBookingDetail/Shared/IncludeExclude';
 
 
 function TourDetail() {
@@ -25,6 +26,25 @@ function TourDetail() {
   const tourImageItem = tourAllImages?.find((item: any) => item?.isPrimary);
   const tourImage = tourImageItem?.medium || tourImageItem?.small;
   const tourId = tourData?.id;
+  const includedItems = tourData?.whatsIncluded;
+  const includedClassName = "fa-solid fa-check";
+  const excludedItems = tourData?.notIncluded;
+  const excludedClassName = "fa-solid fa-xmark";
+
+  const includedItemsObj = {
+    includedItems,
+    includedClassName
+  }
+
+  const excludedItemsObj = {
+    excludedItems,
+    excludedClassName
+  }
+
+  const includedExcludedObj = {
+    includedItemsObj,
+    excludedItemsObj
+  }
 
 
   return (
@@ -105,6 +125,11 @@ function TourDetail() {
           <div className="tour-detail-overview">
             <h5 className="detail-page-minor-title">Overview</h5>
             <p className='project-normal-font'> {tourDescription} </p>
+          </div>
+
+          <div className='include-exclude-container'>
+              <h5 className="detail-page-minor-title">Included / Exclude</h5>
+              <IncludeExclude itemsObj = {includedExcludedObj} />
           </div>
 
           <div className='calendar-section'>
