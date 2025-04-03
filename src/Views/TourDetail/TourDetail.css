@@ -87,10 +87,18 @@
 
 .tour-feature-value{
 font-weight: 600;
+color: #051036;
 }
 
-.tour-detail-overview{
+/* .tour-detail-overview{
 color: rgba(5, 16, 54, 0.6);
+} */
+
+.tour-detail-overview p{
+  color: rgba(5, 16, 54, 0.6);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 162.5%;
 }
 
 .tour-feature {

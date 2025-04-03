@@ -1,4 +1,26 @@
 .include-exclude{
     width:100%;
+    justify-content: left;
+    font-weight: 600;
+    color: #051036;
+    gap:40px;
+    line-height: 150%;
     display:flex;
+}
+
+.include-exclude ul{
+    padding: 0;
+}
+
+.include-exclude li{
+    margin-left: 0;
+    list-style:none;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+}
+
+.include-exclude i{
+    color:red;
+    font-weight: 600;
 }

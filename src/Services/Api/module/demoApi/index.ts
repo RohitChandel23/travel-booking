@@ -19,6 +19,11 @@ export const userApi = api.injectEndpoints({
     getTourReview: build.query({
       query: (tourId) => 
         `attraction/getAttractionReviews?id=${tourId}&page=1`
+    }),
+
+    getTrendingTours:build.query({
+      query:()=>
+        `attraction/searchAttractions?id=eyJ1ZmkiOi0yMDkyMTc0fQ%3D%3D&sortBy=trending&page=1&currency_code=USD&languagecode=en-us`
     })
   }),
   overrideExisting: false,
@@ -30,5 +35,6 @@ export const {
   useGetAttractionQuery,
   useGetTourDetailQuery,
   useGetDateAndTimeQuery,
-  useGetTourReviewQuery
+  useGetTourReviewQuery,
+  useGetTrendingToursQuery
 } = userApi;

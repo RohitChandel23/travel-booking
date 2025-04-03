@@ -1,10 +1,8 @@
 import "./TourBookingDetail.css";
 import { useState, useEffect } from "react";
-import DateTimeComponent from "./Shared/DateTimeComponent/DateTimeComponent";
+import DateTimeComponent from "./Shared/DateTimeComponent";
 import { db, collection, addDoc } from "../../../firebaseConfig";
 import { toast } from 'react-toastify';
-
-
 
 interface tourBookingDetailProps {
   tourPrice: string;

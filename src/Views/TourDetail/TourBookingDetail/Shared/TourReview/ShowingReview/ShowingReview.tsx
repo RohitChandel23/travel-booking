@@ -14,7 +14,7 @@ function ShowingReview({ tourId }: ShowingReviewProps) {
   const reviewerName = reviewer?.user?.name;
   const reviewerRating = reviewer?.numericRating;
   const reviewerComment = reviewer?.content;
-  const reviewerImage = reviewer?.user.avatar;
+  const reviewerImage = reviewer?.user?.avatar;
 
   if(!reviewer)
     return "";

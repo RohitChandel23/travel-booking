@@ -3,22 +3,35 @@
     height:121px;
     border-radius: 12px;
     
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    
     position:absolute;
     left:50%;
     transform: translate(-50%, -50%);
     border: 1px solid #ddd;
     box-shadow:0px 4px 12px 0px rgba(5, 16, 54, 0.1);
-
     background-color: white;
-    }
+    
+    display: flex;
+    align-items: center; 
+}
 
-    .to-align-btn{
-        display: flex;
-        flex-direction: column;
-        justify-content: right;
-        margin-top: 2.5%;
-    }
+.search-area-form-class{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.single-Form-element-class{
+    display: flex;
+    flex-direction: column;
+}
+
+.search-area-form-field{
+    padding: 10px 24px 10px 35px;
+    border: 1px solid rgba(5, 16, 54, 0.1);
+    border-radius: 6px !important;
+    color: #051036;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 142.857%;
+}
+

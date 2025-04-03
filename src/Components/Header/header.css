@@ -2,7 +2,7 @@
 
 .header-section {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 0px 40px;
   color:rgba(5, 16, 54, 0.8);
   background-color: white;
@@ -12,6 +12,7 @@
 .left-header {
   display: flex;
   align-items: center;
+  gap:60px;
 }
 
 .header-items {

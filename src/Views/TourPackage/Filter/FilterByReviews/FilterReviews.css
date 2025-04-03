@@ -1,0 +1,20 @@
+.filter-by-review-container h6{
+    margin:0px;
+    color: #051036;
+    font-size: 20px;
+}
+
+.filter-by-review-container ul{
+padding: 0px;
+}
+
+.filter-by-review-container li{
+margin-left: 0px;
+}
+
+
+.filter-by-review-container{
+    background-color: #f7f8f9;
+    color: rgba(5, 16, 54, 0.6);
+    padding: 5%;
+}

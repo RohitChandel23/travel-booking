@@ -7,7 +7,7 @@ import { default as Register } from '../Views/Auth/SignUp/index';
 import ForgotPassword from '../Views/Auth/forgot-password';
 import TourDetail from '../Views/TourDetail';
 import ContactPage from '../Views/Contact/Contact';
-import Tour from '../Views/Tour Package/index';
+import Tour from '../Views/TourPackage/index';
 
 // eslint-disable-next-line import/prefer-default-export
 export const PUBLIC_ROUTES: Array<CustomRouter> = [

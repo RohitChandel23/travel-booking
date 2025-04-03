@@ -1,5 +1,5 @@
 import './IncludeExclude.css';
-function IncludeExclude(includedExcludedObj){  
+function IncludeExclude(includedExcludedObj:any){  
     const includedItems= includedExcludedObj?.itemsObj?.includedItemsObj?.includedItems;
     const includedClassName= includedExcludedObj?.itemsObj?.includedItemsObj?.includedClassName;
     const excludedItems= includedExcludedObj?.itemsObj?.excludedItemsObj?.excludedItems;
@@ -14,8 +14,8 @@ return(
         <div className='included-items-container'>
         <ul>
               {
-            includedItems?.map((item)=>
-            <li>{item}</li>
+            includedItems?.map((item:any)=>
+            <li><i className={includedClassName}/> <span>{item}</span></li>
             )
             }  
         </ul>
@@ -24,8 +24,8 @@ return(
         <div className='excluded-items-container'>
         <ul>
               {
-            excludedItems?.map((item)=>
-            <li>{item}</li>
+            excludedItems?.map((item:any)=>
+            <li><i className={excludedClassName}/> <span>{item}</span></li>
             )
             }  
         </ul>

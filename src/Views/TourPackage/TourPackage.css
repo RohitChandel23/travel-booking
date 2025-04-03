@@ -1,0 +1,31 @@
+.tours-filter-and-display{
+    margin-top: 11%;
+    margin-bottom: 11%;
+
+    width:100%;
+    padding: 100px;
+    height:auto;
+    display: flex;
+    justify-content: center;
+    gap:1%;
+
+}
+
+.tours-filter-container{
+    width: 306px;
+    height: auto;
+    background-color: lightgreen;
+}
+
+.tours-display-container{
+    width: 990px;
+    height:1450px;
+    display: flex;
+    flex-wrap:wrap ;
+    background-color: lightblue;
+}
+
+.tour-filter-types{
+    margin-top: 10%;
+
+}

@@ -15,7 +15,9 @@ function Header() {
             <li>{ROUTES_CONFIG.HOMEPAGE.title}</li>
           </Link>
           <li>About</li>
+          <Link to={ROUTES_CONFIG.TOURS.path} className='link-class'>
           <li>Tours</li>
+          </Link>
           <li>Destination</li>
           <li>Blog</li>
           <li>Pages</li>

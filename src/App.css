@@ -46,6 +46,11 @@
   color: #888;
 } */
 
+
+li{
+ list-style-type:none;
+}
+
 .kaushan-text{
   font-family: "Kaushan Script", cursive;
   color: #fc5056;
@@ -66,6 +71,7 @@ p{
 
 .link-class{
   text-decoration: none;
+  color: #051036;
 }
 
 .project-heading-font{
