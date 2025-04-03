@@ -3,6 +3,7 @@ import { ProjectImages } from '../../assets/ProjectImages';
 import HomepageDestination from '../HomepageDestination/HomepageDestination';
 import TourCard from '../TourCard/TourCard';
 import WhyUsComponent from '../WhyUsComponent/index';
+import SearchArea from '../Shared/SearchArea';
 import './Dashboard.css';
 
 export default function Dashboard() {
@@ -26,9 +27,10 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="search-container">
+      {/* <div className="search-container">
         <div className="search-container-elements">search elements</div>
-      </div>
+      </div> */}
+      <SearchArea/>
 
       <div className="tour-container">
         <div className="section-headers">
