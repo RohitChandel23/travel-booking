@@ -1,9 +1,8 @@
 .tours-filter-and-display{
     margin-top: 11%;
-    margin-bottom: 11%;
 
     width:100%;
-    padding: 100px;
+    padding: 8px;
     height:auto;
     display: flex;
     justify-content: center;
@@ -19,13 +18,15 @@
 
 .tours-display-container{
     width: 990px;
-    height:1450px;
+    height:auto;
+    margin-bottom: 10%;
     display: flex;
+    justify-content: center;
+    gap:2%;
     flex-wrap:wrap ;
     background-color: lightblue;
 }
 
 .tour-filter-types{
     margin-top: 10%;
-
 }
