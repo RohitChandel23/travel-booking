@@ -34,7 +34,7 @@ function TourCard({
         <p>
           {cityName}, {countryName}
         </p>
-        <Link
+        <Link className='link-class'
           to={ROUTES_CONFIG.TOURS_DETAIL.path.replace(':slugId', slugValue)}
         >
           {' '}

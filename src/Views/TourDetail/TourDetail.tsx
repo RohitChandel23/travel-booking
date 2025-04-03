@@ -9,6 +9,8 @@ import CalendarComponent from './TourBookingDetail/Shared/CalendarComponent/inde
 import IncludeExclude from './TourBookingDetail/Shared/IncludeExclude';
 
 
+
+
 function TourDetail() {
 
   const { slugId } = useParams();

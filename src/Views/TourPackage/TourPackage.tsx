@@ -10,7 +10,7 @@ import { useGetTrendingToursQuery } from '../../Services/Api/module/demoApi';
 function TourPackagePage(){
 
         const {data} = useGetTrendingToursQuery('');
-        const attractions = data?.data?.products?.slice(0, 8) || [];
+        const attractions = data?.data?.products?.slice(0, 9) || [];
 
         console.log(data);    
 
