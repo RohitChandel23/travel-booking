@@ -1,11 +1,14 @@
-import BookingExample from '../FirebaseExample/BookingExample';
-
 function ContactPage() {
   return (
     <>
-      <h2>this is contact page</h2>
-      <BookingExample />
+      <h2>This is the contact page</h2>
+      <img 
+        src="https://lh3.googleusercontent.com/a-/AOh14GiptdaJI3PHLLCPH7TIlIgibuAAKKJFFEUq5krBPg=s96-c" 
+        alt="Profile" 
+        style={{ display: 'block', width: '100px', height: '100px' }}
+      />
     </>
   );
 }
+
 export default ContactPage;

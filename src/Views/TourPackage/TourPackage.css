@@ -13,7 +13,6 @@
 .tours-filter-container{
     width: 306px;
     height: auto;
-    background-color: lightgreen;
 }
 
 .tours-display-container{
@@ -24,7 +23,6 @@
     justify-content: center;
     gap:2%;
     flex-wrap:wrap ;
-    background-color: lightblue;
 }
 
 .tour-filter-types{
