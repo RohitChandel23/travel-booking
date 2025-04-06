@@ -81,3 +81,12 @@ p{
 .project-normal-font{
   font-family:"Inter", sans-serif ;
 }
+
+button{
+  cursor: pointer;
+}
+
+button:hover{
+  background-color: #ff343b;
+}
+
