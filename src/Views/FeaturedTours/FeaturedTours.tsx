@@ -13,7 +13,7 @@ function FeaturedTours() {
         {/* country name, city name, tour name, ratings, reviews, price , duration  */}
 
         {attractions.map((item: any) => {
-          const countryName = (item?.ufiDetails?.url?.country).toUpperCase();
+          const countryName = (item?.ufiDetails?.url?.country)?.toUpperCase();
           const cityName = item?.ufiDetails?.bCityName;
           const tourName = item?.name;
           const tourImage = item?.primaryPhoto?.small;

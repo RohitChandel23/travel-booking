@@ -8,7 +8,7 @@ function Header() {
     <div className="header-section">
       <div className="left-header">
         <div className="header-logo">
-          <img src={ProjectImages.TRISOG_HEADER_LOGO} />
+          <img src={ProjectImages.TRISOG_HEADER_LOGO} alt='project-logo'/>
         </div>
         <div className="header-items">
           <Link to={ROUTES_CONFIG.HOMEPAGE.path} className="link-class">

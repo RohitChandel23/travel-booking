@@ -1,0 +1,38 @@
+.filter-by-price-container{
+font-weight: 500;
+line-height: 150%;
+background-color: #f7f8f9;
+color: #051036;
+padding: 5%;
+}
+
+
+.filter-by-price-container h6{
+color: #051036;
+}
+
+.rc-slider-track {
+    background-color: #fc5056 !important;
+  }
+  
+.rc-slider-rail {
+    background-color: white !important;
+    border: 2px solid #ccc;
+    height: 6px;
+    border-radius: 4px;
+  }
+  
+  .rc-slider-handle {
+    border-color: #fc5056 !important;
+    background-color: #fc5056 !important;
+    width: 15px !important;
+    height: 15px !important;
+    margin-top: -7px;
+    /* box-shadow: 0 0 0 2px rgba(252, 80, 86, 0.2); */
+  }
+
+  .slider-selected-price{
+    display: flex;
+    justify-content: space-between;
+  }
+  

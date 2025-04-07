@@ -1,6 +1,5 @@
 .tours-filter-and-display{
     margin-top: 11%;
-
     width:100%;
     padding: 8px;
     height:auto;
@@ -27,4 +26,30 @@
 
 .tour-filter-types{
     margin-top: 10%;
+}
+
+
+.pages-navigation{
+    padding-left: 50%;
+    display: flex;
+    background-color: aliceblue;
+    display: flex;
+
+}
+
+.page-number-container{
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 100% !important;
+    text-align: center;
+    margin: 0.8%;
+    padding: 1.4% 2%;
+    border: 1px  solid rgba(5, 16, 54, 0.1);
+    color:  rgba(5, 16, 54, 0.6);
+}
+
+.colored-page-number{
+    background-color: #ff5555;
+    color:white;
 }

@@ -1,24 +1,37 @@
 import "./SearchArea.css";
 import "./Shared/constants";
 // import SearchAreaElement from './Shared/SearchAreaElement/SearchAreaElement';
-import Button from "../../../Components/Buttons/Button";
+// import Button from "../../../Components/Buttons/Button";
 import FormElement from "../../../Shared/FormElement/FormElement";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 function SearchArea() {
-  function handleClick() {
-    console.log("start search......");
+  
+  // function handleClick() {
+  //   console.log("start search......");
+  // }
+
+  function handleSearch(values){
+    console.log(values);
   }
 
   return (
     <div className="search-area-container">
         <Formik
-          initialValues={{  }}
+          initialValues={{  
+            "destination-name":"",
+            activity: "",
+            "select-date":"",
+            "guest-numbers":""
+          }}
           validationSchema={Yup.object({
-            email: Yup.string().required("Required"),
+            "destination-name":Yup.string().required("Required"),
+            activity: Yup.string().required("Required"),
+            "select-date": Yup.string().required("Required"),
+            "guest-numbers":Yup.string().required("Required")
           })}
-          onSubmit={() => {}}
+          onSubmit={ handleSearch }
         >
           <Form className="search-area-form-class">
             <FormElement
@@ -60,7 +73,8 @@ function SearchArea() {
               fieldClassName="search-area-form-field"
               containerClass="single-Form-element-class"
             />
-            <Button name="Search" handleClick={handleClick}/>
+            <button type="submit">Submit</button>
+            {/* <Button name="Search" handleClick={handleClick}/> */}
           </Form>
         </Formik>
       </div>

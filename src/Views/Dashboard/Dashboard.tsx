@@ -17,7 +17,7 @@ export default function Dashboard() {
   return (
     <div>
       <div className="homepage-banner">
-        <img src={ProjectImages.HomePageBanner} />
+        <img src={ProjectImages.HomePageBanner} alt="home-page-banner"/>
         <div className="banner-text-container">
           <div className="banner-text-content">
             <h3 className="kaushan-text">Save 15% off in Worldwide</h3>
@@ -41,7 +41,7 @@ export default function Dashboard() {
           <div className="tour-content">
             {attractions.map((item: any) => {
               const countryName =
-                (item?.ufiDetails?.url?.country).toUpperCase();
+                (item?.ufiDetails?.url?.country)?.toUpperCase();
               const cityName = item?.ufiDetails?.bCityName;
               const tourName = item?.name;
               const tourImage = item?.primaryPhoto?.small;

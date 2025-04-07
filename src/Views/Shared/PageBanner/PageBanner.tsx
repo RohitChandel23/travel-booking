@@ -11,7 +11,7 @@ function PageBanner({normalText, coloredText, headingText}: PageBannerProps){
     return(
     <>
     <div className='page-banner-container'>
-        <img src={ProjectImages.TOURPAGE_BANNER}/>
+        <img src={ProjectImages.TOURPAGE_BANNER} alt="page-banner" />
         <div className='pageBanner-text-content'>
         <h1 className='project-heading-font'>{headingText}</h1>
         <p>{normalText}{" "}<span className='project-theme-color project-normal-font'>{coloredText}</span></p>   {/* text, red text */}
