@@ -1,5 +1,5 @@
 import "./TourPackage.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CLASSNAMES } from "./Shared/Constants";
 import PageBanner from "../Shared/PageBanner";
 import SearchArea from "../Shared/SearchArea";
@@ -12,41 +12,108 @@ import {
   useGetAttractionQuery,
 } from "../../Services/Api/module/demoApi";
 
+interface AttractionType {
+  id: string;
+  name: string;
+  slug: string;
+  destinationId: string;
+  ufiDetails: {
+    url: {
+      country: string;
+    };
+    bCityName: string;
+  };
+  primaryPhoto: {
+    small: string;
+  };
+  reviewsStats: {
+    combinedNumericStats: {
+      average: number;
+    };
+    allReviewsCount: number;
+  };
+  representativePrice: {
+    chargeAmount: number;
+  };
+}
+
 //filter by rating: received data, manipulate
 
 function TourPackagePage() {
-  const [selectedDestination, setSelectedDestination] = useState<string[]>();
-  const [selectedRating, setSelectedRating] = useState<any>();
-
-  function handleRatingData(data: any) {
-    setSelectedRating([...data]);
-  }
-  console.log("selected rating", selectedRating);
+  const [selectedDestination, setSelectedDestination] = useState<string[]>([]);
+  const [currentDestinationIndex, setCurrentDestinationIndex] = useState(0);
+  const [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>([]);
 
   function handleDestinationData(data: string[]) {
-    setSelectedDestination([...data]);
+    console.log("Destinations changed:", {
+      previous: selectedDestination,
+      new: data
+    });
+    // Reset state when destinations change
+    setCurrentDestinationIndex(0);
+    setMergedAttractions([]);
+    setSelectedDestination(data || []);
   }
-  console.log("data to be fetched", selectedDestination);
 
+  // Get trending tours when no destination is selected
   const { data: trendingDestination } = useGetTrendingToursQuery("", {
-    skip: selectedDestination?.length! > 0,
+    skip: selectedDestination.length > 0,
   });
+
+  // Get data for current destination
   const { data: filteredDestination } = useGetFilteredDestinationToursQuery(
-    selectedDestination,
-    { skip: selectedDestination?.length == 0 }
+    selectedDestination[currentDestinationIndex] || "",
+    { 
+      skip: !selectedDestination.length || currentDestinationIndex >= selectedDestination.length,
+    }
   );
-  console.log("received filtered data:", filteredDestination);
-  const destinationId = filteredDestination?.data?.products[0]?.id;
-  console.log("destination id is:", destinationId);
 
-  const { data: attractionData } = useGetAttractionQuery(destinationId);
-  console.log("tour card data", attractionData);
-  console.log(attractionData?.status);
+  const destinationId = filteredDestination?.data?.products?.[0]?.id;
 
+  // Get attraction data
+  const { data: attractionData } = useGetAttractionQuery(
+    destinationId || undefined,
+    {
+      skip: !destinationId,
+    }
+  );
 
-  const attractions = !attractionData?.status
-    ? trendingDestination?.data?.products?.slice(0, 9)
-    : attractionData?.data?.products?.slice(0, 9);
+  // Process attractions
+  useEffect(() => {
+    if (selectedDestination.length === 0) {
+      // Show trending destinations when nothing is selected
+      const trendingAttractions = (trendingDestination?.data?.products || []).map((attraction: AttractionType) => ({
+        ...attraction,
+        destinationId: 'trending'
+      }));
+      setMergedAttractions(trendingAttractions.slice(0, 9));
+      return;
+    }
+
+    if (attractionData?.data?.products) {
+      setMergedAttractions(prev => {
+        const newAttractions = [...prev];
+        const currentAttractions = attractionData.data.products.map((attraction: AttractionType) => ({
+          ...attraction,
+          destinationId: selectedDestination[currentDestinationIndex]
+        }));
+        
+        // Add new attractions while maintaining uniqueness
+        currentAttractions.forEach((attraction: AttractionType) => {
+          if (!newAttractions.some(existing => existing.id === attraction.id)) {
+            newAttractions.push(attraction);
+          }
+        });
+
+        // Move to next destination if available
+        if (currentDestinationIndex < selectedDestination.length - 1) {
+          setCurrentDestinationIndex(prev => prev + 1);
+        }
+
+        return newAttractions.slice(0, 9);
+      });
+    }
+  }, [selectedDestination, currentDestinationIndex, attractionData, trendingDestination]);
 
   return (
     <>
@@ -60,32 +127,32 @@ function TourPackagePage() {
       <div className={CLASSNAMES.FILTER_DISPLAY}>
         <div className={CLASSNAMES.FILTER_CONTAINER}>
           <div className="tour-filter-types">
-            <FilterByDestination
-              handleDestinationData={handleDestinationData}
-            />
+            <FilterByDestination handleDestinationData={handleDestinationData} />
           </div>
 
           <div className="tour-filter-types">
-            <FilterByReviews handleRatingData={handleRatingData} />
+            <FilterByReviews handleRatingData={() => {}} />
           </div>
         </div>
 
         <div className={CLASSNAMES.TOURS_CONTAINER}>
-          {attractions?.map((item: any) => {
-            const countryName = item?.ufiDetails?.url?.country?.toUpperCase();
-            const cityName = item?.ufiDetails?.bCityName;
-            const tourName = item?.name;
-            const tourImage = item?.primaryPhoto?.small;
+          {mergedAttractions.map((item: AttractionType) => {
+            const countryName = item?.ufiDetails?.url?.country?.toUpperCase() || "N/A";
+            const cityName = item?.ufiDetails?.bCityName || "N/A";
+            const tourName = item?.name || "N/A";
+            const tourImage = item?.primaryPhoto?.small || "";
             const tourRating =
-              item?.reviewsStats?.combinedNumericStats?.average;
-            const tourReview = item?.reviewsStats?.allReviewsCount;
+              item?.reviewsStats?.combinedNumericStats?.average?.toString() || "N/A";
+            const tourReview =
+              item?.reviewsStats?.allReviewsCount?.toString() || "0";
             const tourPrice = Math.floor(
-              item?.representativePrice?.chargeAmount
+              item?.representativePrice?.chargeAmount || 0
             );
-            const slugValue = item?.slug;
+            const slugValue = item?.slug || item.id.toString();
 
             return (
               <TourCard
+                key={`${item.destinationId}-${slugValue}`}
                 cityName={cityName}
                 countryName={countryName}
                 tourName={tourName}
