@@ -7,6 +7,7 @@ import TourBookingDetail from './TourBookingDetail';
 import TourReview from './TourBookingDetail/Shared/TourReview';
 import CalendarComponent from './TourBookingDetail/Shared/CalendarComponent/index';
 import IncludeExclude from './TourBookingDetail/Shared/IncludeExclude';
+import {useState} from 'react';
 
 
 
@@ -47,6 +48,14 @@ function TourDetail() {
     includedItemsObj,
     excludedItemsObj
   }
+
+  const [selectedCalendarDate, setSelectedCalendarDate] = useState("");
+
+//handling calendar selected date
+    function handleCalendarSelectedDate(date:string){
+      setSelectedCalendarDate(date);
+    }
+  
 
 
   return (
@@ -136,7 +145,7 @@ function TourDetail() {
 
           <div className='calendar-section'>
            <h5 className="detail-page-minor-title">Calendar & Prices</h5> 
-          <CalendarComponent tourPrice={tourPrice}/>
+          <CalendarComponent tourPrice={tourPrice} handleCalendarSelectedDate={handleCalendarSelectedDate} />    { /* date selected --- value */ }
           </div>
 
           <div className="tour-location-map">
@@ -150,8 +159,8 @@ function TourDetail() {
             
         </div>
 
-        <div className="tour-booking-detail">
-          <TourBookingDetail tourPrice={tourPrice} />
+        <div className="tour-booking-detail">   {/* selected calendar date will be passed here */}
+          <TourBookingDetail tourPrice={tourPrice} selectedCalendarDate={selectedCalendarDate} />
         </div>
       </section>
 

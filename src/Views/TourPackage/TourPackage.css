@@ -19,7 +19,7 @@
     height:auto;
     margin-bottom: 10%;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     gap:2%;
     flex-wrap:wrap ;
 }
@@ -32,9 +32,7 @@
 .pages-navigation{
     padding-left: 50%;
     display: flex;
-    background-color: aliceblue;
-    display: flex;
-
+    /* background-color: aliceblue; */
 }
 
 .page-number-container{

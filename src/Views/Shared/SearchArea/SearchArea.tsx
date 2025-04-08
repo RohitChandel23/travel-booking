@@ -9,7 +9,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 
-
 function SearchArea({searchAreaData}) {
   function handleSearch(values) {
     const [startDate, endDate] = values["selectDate"];
@@ -19,11 +18,8 @@ function SearchArea({searchAreaData}) {
       ...values,
       selectDate: [formatDate(startDate),formatDate(endDate)]
     };
-    console.log("yo  got the date", formattedData);
     searchAreaData(formattedData);
   }
-
-  
 
   return (
     <div className="search-area-container">

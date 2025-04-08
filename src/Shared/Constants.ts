@@ -10,6 +10,7 @@ const ROUTES = {
   TOURS: '/tours',
   CONTACT: '/contact',
   TOURS_DETAIL: '/tours-detail/:slugId',
+  DESTINATION:'/destination'
 
 };
 
@@ -35,7 +36,10 @@ const ROUTES_CONFIG = {
     path: ROUTES.LOGIN,
     title: 'Logout',
   },
-
+  DESTINATION:{
+    path: ROUTES.DESTINATION,
+    title: 'Destination',
+  },
   ABOUT: {
     path: ROUTES.ABOUT,
     title: 'About us',
@@ -52,6 +56,7 @@ const ROUTES_CONFIG = {
     path: ROUTES.TOURS_DETAIL,
     title: 'Tours Detail',
   },
+  
   CONTACT: {
     path: ROUTES.CONTACT,
     title: 'Contact',

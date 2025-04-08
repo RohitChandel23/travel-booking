@@ -40,8 +40,7 @@ interface AttractionType {
 }
 
 function TourPackagePage() {
-  const [selectedDestination, setSelectedDestination] = useState<string[]>([]);
-  const [currentDestinationIndex, setCurrentDestinationIndex] = useState(0);
+  const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
   let [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>(
     []
   );
@@ -50,12 +49,10 @@ function TourPackagePage() {
   const [selectedPrice, setSelectedPrice] = useState([]);
   const [selectedDate, setSelectedDate] = useState([]);
 
-
 //handle dates
 function searchAreaData(values){
     setSelectedDate(values.selectDate);
-    setSelectedDestination([values.destinationName]);
-    // console.log("yo got the dsetination is :",selectedDestination, " or date is ", selectedDate);
+    setSelectedDestination(values.destinationName);
   }
 
 //managing selected Price
@@ -63,99 +60,67 @@ function searchAreaData(values){
     setSelectedPrice(value);
   }
 
-  function handleDestinationData(data: string[]) {
-    setCurrentDestinationIndex(0);
+  //handle destination
+  function handleDestinationData(data: string ) {
     setMergedAttractions([]);
-    setSelectedDestination(data || []);
+    setSelectedDestination(data || null);
+    setCurrentPage(1);
   }
-
-
-
   
-  //filtered destination id
-  console.log("destination to search",selectedDestination.length)
-
-  const { data: filteredDestination } = useGetFilteredDestinationToursQuery(
-    selectedDestination[currentDestinationIndex] || "",
+  //filtered destination id and getting data 
+  const { data: filteredDestination } = useGetFilteredDestinationToursQuery(selectedDestination || "",
     {
-      skip:
-        !selectedDestination.length ||
-        currentDestinationIndex >= selectedDestination.length,
+      skip: !selectedDestination
     }
   );
-  //getting destinatin id
-  const destinationId = filteredDestination?.data?.products?.[0]?.id;
-  console.log("destination id is", destinationId);
-
-  //fetching data for destination with date and the destination id
-  const { data: searchedTours } = useGetSearchedToursQuery({destinationId, selectedDate},
+  const destinationId =  filteredDestination?.data?.products?.[0]?.id;                  
+  const { data: searchedTours } = useGetSearchedToursQuery({destinationId, selectedDate, currentPage}, 
     {
-      skip: destinationId || selectedDate.length > 0,
-    }
+      skip: !destinationId || selectedDate.length !== 2,
+    } 
   )
-  console.log("tours data",searchedTours)
+console.log("destination id: ",destinationId, selectedDestination);
 
-  //fetching data for the destination specific
-  const { data: attractionData } = useGetAttractionQuery(
-    destinationId || undefined,
+//fetching data for the destination specific
+  const { data: attractionData } = useGetAttractionQuery({destinationId, currentPage},    
     {
-      skip: !destinationId || selectedDate.length >0,
+      skip: !destinationId || selectedDate.length > 0,
     }
   );
+  console.log(attractionData);
 
-    //trending tour data
-    const { data: trendingDestination } = useGetTrendingToursQuery("", {
-      skip: selectedDestination.length > 0 || selectedDate.length >0,
+//trending tour data
+    const { data: trendingDestination } = useGetTrendingToursQuery(currentPage, {     
+      skip: !!selectedDestination || selectedDate.length == 2 ,
     });
 
-  useEffect(() => {
-    setCurrentPage(1);
-    if (selectedDestination.length === 0) {
-      // Show trending destinations when nothing is selected
-      const trendingAttractions = trendingDestination?.data?.products || [];
-      setMergedAttractions(trendingAttractions);
-      return;
-    }
 
-    if (attractionData?.data?.products) {
-      setMergedAttractions((prev) => {
-        const newAttractions = [...prev];
-        const currentAttractions = attractionData.data.products.map(
-          (attraction: AttractionType) => ({
-            ...attraction,
-            destinationId: selectedDestination[currentDestinationIndex],
-          })
-        );
+    useEffect(() => {
+      if (selectedDestination && selectedDate.length === 2 && searchedTours?.data?.products) {
+        setMergedAttractions(searchedTours.data.products);
+        return;
+      }
+    
+      if (selectedDestination && attractionData?.data?.products) {
+        setMergedAttractions(attractionData.data.products);
+        return;
+      }
+    
+      if (!selectedDestination && trendingDestination?.data?.products) {
+        setMergedAttractions(trendingDestination.data.products);
+        return;
+      }
+    
+      setMergedAttractions([]);
+    }, [selectedDestination, selectedDate, attractionData, trendingDestination, searchedTours]);
+    
 
-        currentAttractions.forEach((attraction: AttractionType) => {
-          if (
-            !newAttractions.some((existing) => existing.id === attraction.id)
-          ) {
-            newAttractions.push(attraction);
-          }
-        });
-
-        if (currentDestinationIndex < selectedDestination.length - 1) {
-          setCurrentDestinationIndex((prev) => prev + 1);
-        }
-
-        // return newAttractions.slice(currentPage * 9 - 9, currentPage * 9);
-        return newAttractions;
-      });
-    }
-  }, [
-    selectedDestination,
-    currentDestinationIndex,
-    attractionData,
-    trendingDestination,
-  ]);
-
-  //getting selected rating input
-  function handleRatingData(value) {
+//getting selected rating input
+  function handleRatingData(value){
     setSelectedRating(value);
   }
 
-  //fitlering based on rating mergedAttraction
+//fitlering based on rating mergedAttraction
   if (selectedRating.length > 0) {
     selectedRating.sort((a, b) => a - b);
 
@@ -168,31 +133,22 @@ function searchAreaData(values){
     );
   }
 
-  //filtering based on price
+//filtering based on price  
   if(selectedPrice?.length > 0){
     const minPrice = selectedPrice[0];
     const maxPrice = selectedPrice[1];
-    
-    console.log("Prices are: ",minPrice, maxPrice);
-
       mergedAttractions = mergedAttractions?.filter((item)=>
        Math.ceil(item?.representativePrice?.chargeAmount) <= maxPrice && 
      Math.ceil(item?.representativePrice?.chargeAmount) >= minPrice
 )
   }
 
-  const totalPages = Math.ceil(
-    mergedAttractions ? mergedAttractions.length / 9 : 0
-  );
-  //direct switching between pages
-  function handlePage(value: any) {
-    setCurrentPage(value);
-  }
   function handlePageChange(value: any) {
-    if (value > 0 && currentPage != totalPages)
+    if (value > 0 )
       setCurrentPage((prev) => prev + 1);
     else if (value < 0 && currentPage != 1) setCurrentPage((prev) => prev - 1);
   }
+
 
   return (
     <>
@@ -201,7 +157,7 @@ function searchAreaData(values){
         normalText="Home /"
         coloredText="Tour Package"
       />
-      <SearchArea searchAreaData={searchAreaData} />
+      <SearchArea searchAreaData={searchAreaData}/>
 
       <div className={CLASSNAMES.FILTER_DISPLAY}>
         <div className={CLASSNAMES.FILTER_CONTAINER}>
@@ -220,9 +176,8 @@ function searchAreaData(values){
         </div>
 
         <div className={CLASSNAMES.TOURS_CONTAINER}>
-          {mergedAttractions
-            .slice(currentPage * 9 - 9, currentPage * 9)
-            .map((item: AttractionType) => {
+          { 
+          mergedAttractions.map((item: AttractionType) => {                
               const countryName =
                 item?.ufiDetails?.url?.country?.toUpperCase() || "N/A";
               const cityName = item?.ufiDetails?.bCityName || "N/A";
@@ -266,19 +221,9 @@ function searchAreaData(values){
           >
             <i className="fa-solid fa-chevron-left" />
           </span>{" "}
-          {[...Array(totalPages)].map((_, i) => (
-            <span
-              key={i + 1}
-              className={
-                currentPage == i + 1
-                  ? "page-number-container colored-page-number"
-                  : "page-number-container"
-              }
-              onClick={() => handlePage(i + 1)}
-            >
-              {i + 1}
-            </span>
-          ))}
+
+    <span className="page-number-container colored-page-number" onClick = {()=> setCurrentPage(prev => prev+1 )} >{currentPage}</span> 
+
           <span
             className="page-number-container"
             onClick={() => {

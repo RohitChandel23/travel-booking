@@ -18,7 +18,11 @@ function Header() {
           <Link to={ROUTES_CONFIG.TOURS.path} className='link-class'>
           <li>Tours</li>
           </Link>
+
+          <Link to={ROUTES_CONFIG.DESTINATION.path} className='link-class'>
           <li>Destination</li>
+          </Link>
+
           <li>Blog</li>
           <li>Pages</li>
           <Link to={ROUTES_CONFIG.CONTACT.path} className="link-class">

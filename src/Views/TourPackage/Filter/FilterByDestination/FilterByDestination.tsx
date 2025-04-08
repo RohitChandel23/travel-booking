@@ -3,21 +3,21 @@ import "./FilterByDestination.css";
 import FilterCheckBox from "../FilterByReviews/Shared/FilterCheckBox";
 
 interface Props{
-    handleDestinationData: (value:string[])=>void
+    handleDestinationData: (value:string | null)=>void
 }
 
 function FilterByDestination({handleDestinationData}:Props) {        
-    const [selectedDestination, setSelectedDestination] = useState<string[]>([]);    
+    const [selectedDestination, setSelectedDestination] = useState<string | null>(null);    
     
     function handleChange(destination:string){
         setSelectedDestination(prev => 
-            prev.includes(destination)?prev.filter((item)=>item!=destination):[...prev,destination]
-        )  
+            prev === destination ? null : destination
+        );  
     }
     console.log(selectedDestination)
 
     useEffect(()=>{
-        handleDestinationData(selectedDestination); 
+        handleDestinationData(selectedDestination ? selectedDestination: null ); 
     },[selectedDestination]);
 
     
@@ -39,7 +39,7 @@ function FilterByDestination({handleDestinationData}:Props) {
               id={locationName}
               value={locationName}
               labelText={locationName}
-              checked={selectedDestination.includes(locationName)}
+              checked={selectedDestination === locationName }
               onChange= {handleChange}
             />
           ))}
@@ -55,7 +55,7 @@ function FilterByDestination({handleDestinationData}:Props) {
             id={locationName}
             value={locationName}
             labelText={locationName}
-            checked={selectedDestination.includes(locationName)}
+            checked={selectedDestination === locationName}
             onChange= {handleChange}
             />
           ))}
@@ -71,7 +71,7 @@ function FilterByDestination({handleDestinationData}:Props) {
             id={locationName}
             value={locationName}
             labelText={locationName}
-            checked={selectedDestination.includes(locationName)}
+            checked={selectedDestination === locationName}
             onChange= {handleChange}
             />
           ))}

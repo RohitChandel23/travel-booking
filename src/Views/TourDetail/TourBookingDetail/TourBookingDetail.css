@@ -67,6 +67,10 @@ border-radius: 6px;
     line-height: 1;
 }
 
+.increment-decrement-btn:hover{
+    background-color: #e6e6e6;
+}
+
 .booking-detail-btn-group{
     display: flex;
     align-items: center;

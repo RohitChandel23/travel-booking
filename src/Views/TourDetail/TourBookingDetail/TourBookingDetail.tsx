@@ -6,9 +6,10 @@ import { toast } from 'react-toastify';
 
 interface tourBookingDetailProps {
   tourPrice: string;
+  selectedCalendarDate: string;
 }
 
-function TourBookingDetail({ tourPrice }: tourBookingDetailProps) {
+function TourBookingDetail({ tourPrice, selectedCalendarDate }: tourBookingDetailProps) {
   const [adultsCount, setAdults] = useState(0);
   const [kidsCount, setKidsCount] = useState(0);
   const [childrenCount, setChildrenCount] = useState(0);
@@ -75,7 +76,7 @@ function TourBookingDetail({ tourPrice }: tourBookingDetailProps) {
       <div className="tour-booking-input-details">
         <div className="">
           <label className="book-now-minor-heading">Date</label>
-          <DateTimeComponent sendDateTime={getDateTime} />{" "}
+          <DateTimeComponent sendDateTime={getDateTime} selectedCalendarDate={selectedCalendarDate} />{" "}
         </div>
 
         <span className="book-now-minor-heading">Ticket</span>

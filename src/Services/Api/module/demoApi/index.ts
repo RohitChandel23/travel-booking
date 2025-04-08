@@ -3,8 +3,8 @@ import api from "../../api";
 export const userApi = api.injectEndpoints({
   endpoints: (build) => ({
     getAttraction: build.query({
-      query: (id) =>
-        `attraction/searchAttractions?id=${id}&sortBy=trending&page=1&currency_code=USD&languagecode=en-us`,
+      query: ({destinationId, currentPage}) =>  
+        `attraction/searchAttractions?id=${destinationId}&sortBy=trending&page=${currentPage}&currency_code=USD&languagecode=en-us`,
     }),
     getTourDetail: build.query({
       query: (slugValue) =>
@@ -21,8 +21,8 @@ export const userApi = api.injectEndpoints({
     }),
 
     getTrendingTours: build.query({
-      query: () =>
-        `attraction/searchAttractions?id=eyJwaW5uZWRQcm9kdWN0IjoiUFJqa0FWUUt4V1hwIiwidWZpIjoyMDA1MDI2NH0%3D&sortBy=trending&page=1&currency_code=USD&languagecode=en-us`,
+      query: (currentPage) =>    
+        `attraction/searchAttractions?id=eyJwaW5uZWRQcm9kdWN0IjoiUFJqa0FWUUt4V1hwIiwidWZpIjoyMDA1MDI2NH0%3D&sortBy=trending&page=${currentPage}&currency_code=USD&languagecode=en-us`,
     }),
 
     getFilteredDestinationTours: build.query({
@@ -31,8 +31,8 @@ export const userApi = api.injectEndpoints({
     }),
 
     getSearchedTours: build.query({
-      query: ({destinationId, selectedDate}) =>
-        `attraction/searchAttractions?id=${destinationId}%3D%3D&startDate=${selectedDate[0]}&endDate=${selectedDate[1]}&sortBy=trending&page=1&currency_code=USD&languagecode=en-us`,
+      query: ({destinationId, selectedDate, currentPage}) =>   //pagination
+        `attraction/searchAttractions?id=${destinationId}%3D%3D&startDate=${selectedDate[0]}&endDate=${selectedDate[1]}&sortBy=trending&page=${currentPage}&currency_code=USD&languagecode=en-us`,
     }),
   }),
   overrideExisting: false,
@@ -40,6 +40,7 @@ export const userApi = api.injectEndpoints({
 
 // We can use the Lazy Query as well for GET requests depends on our Requirements.
 // For POST request we will use mutations.
+
 export const {
   useGetAttractionQuery,
   useGetTourDetailQuery,

@@ -8,6 +8,7 @@ import ForgotPassword from '../Views/Auth/forgot-password';
 import TourDetail from '../Views/TourDetail';
 import ContactPage from '../Views/Contact/Contact';
 import Tour from '../Views/TourPackage/index';
+import DestinationPageBanner from '../Views/DestinationPage/DestinationPage';
 
 // eslint-disable-next-line import/prefer-default-export
 export const PUBLIC_ROUTES: Array<CustomRouter> = [
@@ -16,6 +17,8 @@ export const PUBLIC_ROUTES: Array<CustomRouter> = [
     element: <Dashboard />,
     title: ROUTES_CONFIG.HOMEPAGE.title,
   },
+
+
   {
     path: `${ROUTES_CONFIG.LOGIN.path}`,
     title: ROUTES_CONFIG.LOGIN.title,
@@ -44,6 +47,12 @@ export const PUBLIC_ROUTES: Array<CustomRouter> = [
     path: ROUTES_CONFIG.CONTACT.path,
     title: ROUTES_CONFIG.CONTACT.title,
     element: <ContactPage />,
+  },
+
+  {
+    path: ROUTES_CONFIG.DESTINATION.path,
+    title: ROUTES_CONFIG.DESTINATION.title,
+    element: <DestinationPageBanner />,
   },
   
   {

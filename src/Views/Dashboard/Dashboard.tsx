@@ -7,12 +7,13 @@ import SearchArea from '../Shared/SearchArea';
 import './Dashboard.css';
 
 export default function Dashboard() {
-  // manages the id of the cities as per your requirements
-  const { data } = useGetAttractionQuery(
-    'eyJwaW5uZWRQcm9kdWN0IjoiUFJpSEhIVjB1TGJPIiwidWZpIjoyMDA4ODMyNX0=' // use variables here
-  );
 
-  const attractions = data?.data?.products?.slice(10, 14) || [];
+// manages the id of the cities as per your requirements
+  const currentPage = 1;
+  const destinationId = 'eyJwaW5uZWRQcm9kdWN0IjoiUFJpSEhIVjB1TGJPIiwidWZpIjoyMDA4ODMyNX0=';
+  const { data } = useGetAttractionQuery({destinationId, currentPage });
+
+  const attractions = data?.data?.products?.slice(1, 5) || [];
 
   return (
     <div>
@@ -27,10 +28,13 @@ export default function Dashboard() {
         </div>
       </div>
 
+
       {/* <div className="search-container">
         <div className="search-container-elements">search elements</div>
       </div> */}
-      <SearchArea/>
+
+
+      <SearchArea/> 
 
       <div className="tour-container">
         <div className="section-headers">

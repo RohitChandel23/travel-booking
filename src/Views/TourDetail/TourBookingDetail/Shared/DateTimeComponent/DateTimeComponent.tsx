@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useParams } from 'react-router-dom';
@@ -8,14 +8,17 @@ import './DateTimeBooking.css';
 
 interface DateTimeComponentProps{
   sendDateTime: (dateTime: [string,string]) => void;
+  selectedCalendarDate: string;
 }
 
-function DateTimeComponent({ sendDateTime }: DateTimeComponentProps) {
+function DateTimeComponent({ sendDateTime, selectedCalendarDate }: DateTimeComponentProps) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
 
-  function handleDateChange(date: any) {  
+  function handleDateChange(date: any) {
+    console.log(date);  
     const formattedDate = date ? format(date, 'yyyy-MM-dd') : 'date error';
+    console.log(formattedDate)
 
     setSelectedDate(formattedDate);
     setSelectedTime(null);
@@ -35,7 +38,11 @@ function DateTimeComponent({ sendDateTime }: DateTimeComponentProps) {
     { skip: !selectedDate }
   );
 
-  const AvailableTime:string[] =
+  useEffect(()=>{
+    setSelectedDate(selectedCalendarDate);
+  },[selectedCalendarDate]);
+
+    const AvailableTime:string[] =
     res?.data?.map((item:{start:string}) => item.start.slice(11, 16)) || [];
 
   return (
