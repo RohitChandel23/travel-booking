@@ -11,6 +11,7 @@ import {
   useGetTrendingToursQuery,
   useGetFilteredDestinationToursQuery,
   useGetAttractionQuery,
+  useGetSearchedToursQuery
 } from "../../Services/Api/module/demoApi";
 
 interface AttractionType {
@@ -47,12 +48,19 @@ function TourPackagePage() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedRating, setSelectedRating] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState([]);
+  const [selectedDate, setSelectedDate] = useState([]);
 
 
-  //  managing selected Price
+//handle dates
+function searchAreaData(values){
+    setSelectedDate(values.selectDate);
+    setSelectedDestination([values.destinationName]);
+    // console.log("yo got the dsetination is :",selectedDestination, " or date is ", selectedDate);
+  }
+
+//managing selected Price
   function handleSelectedPrice(value){
     setSelectedPrice(value);
-    console.log("selected price.........",selectedPrice);
   }
 
   function handleDestinationData(data: string[]) {
@@ -61,12 +69,12 @@ function TourPackagePage() {
     setSelectedDestination(data || []);
   }
 
-  //trending tour data
-  const { data: trendingDestination } = useGetTrendingToursQuery("", {
-    skip: selectedDestination.length > 0,
-  });
 
+
+  
   //filtered destination id
+  console.log("destination to search",selectedDestination.length)
+
   const { data: filteredDestination } = useGetFilteredDestinationToursQuery(
     selectedDestination[currentDestinationIndex] || "",
     {
@@ -77,13 +85,28 @@ function TourPackagePage() {
   );
   //getting destinatin id
   const destinationId = filteredDestination?.data?.products?.[0]?.id;
+  console.log("destination id is", destinationId);
+
+  //fetching data for destination with date and the destination id
+  const { data: searchedTours } = useGetSearchedToursQuery({destinationId, selectedDate},
+    {
+      skip: destinationId || selectedDate.length > 0,
+    }
+  )
+  console.log("tours data",searchedTours)
+
   //fetching data for the destination specific
   const { data: attractionData } = useGetAttractionQuery(
     destinationId || undefined,
     {
-      skip: !destinationId,
+      skip: !destinationId || selectedDate.length >0,
     }
   );
+
+    //trending tour data
+    const { data: trendingDestination } = useGetTrendingToursQuery("", {
+      skip: selectedDestination.length > 0 || selectedDate.length >0,
+    });
 
   useEffect(() => {
     setCurrentPage(1);
@@ -135,6 +158,7 @@ function TourPackagePage() {
   //fitlering based on rating mergedAttraction
   if (selectedRating.length > 0) {
     selectedRating.sort((a, b) => a - b);
+
     const minRating = selectedRating[0];
     const maxRating = selectedRating[selectedRating.length - 1];
     mergedAttractions = mergedAttractions?.filter(
@@ -177,7 +201,7 @@ function TourPackagePage() {
         normalText="Home /"
         coloredText="Tour Package"
       />
-      <SearchArea />
+      <SearchArea searchAreaData={searchAreaData} />
 
       <div className={CLASSNAMES.FILTER_DISPLAY}>
         <div className={CLASSNAMES.FILTER_CONTAINER}>

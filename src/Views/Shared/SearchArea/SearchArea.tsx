@@ -3,41 +3,55 @@ import "./Shared/constants";
 // import SearchAreaElement from './Shared/SearchAreaElement/SearchAreaElement';
 // import Button from "../../../Components/Buttons/Button";
 import FormElement from "../../../Shared/FormElement/FormElement";
-import { Formik, Form } from "formik";
+import { Formik, Form, useFormikContext } from "formik";
 import * as Yup from "yup";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
 
-function SearchArea() {
-  
-  // function handleClick() {
-  //   console.log("start search......");
-  // }
 
-  function handleSearch(values){
-    console.log(values);
+function SearchArea({searchAreaData}) {
+  function handleSearch(values) {
+    const [startDate, endDate] = values["selectDate"];
+    const formatDate = (date)=>date?date.toISOString().split("T")[0]:null;
+
+    const formattedData = {
+      ...values,
+      selectDate: [formatDate(startDate),formatDate(endDate)]
+    };
+    console.log("yo  got the date", formattedData);
+    searchAreaData(formattedData);
   }
+
+  
 
   return (
     <div className="search-area-container">
-        <Formik
-          initialValues={{  
-            "destination-name":"",
-            activity: "",
-            "select-date":"",
-            "guest-numbers":""
-          }}
-          validationSchema={Yup.object({
-            "destination-name":Yup.string().required("Required"),
-            activity: Yup.string().required("Required"),
-            "select-date": Yup.string().required("Required"),
-            "guest-numbers":Yup.string().required("Required")
-          })}
-          onSubmit={ handleSearch }
-        >
+      <Formik
+        initialValues={{
+          destinationName: "",
+          activity: "",
+          selectDate: [null, null],
+          "guest-numbers": ""
+        }}
+        validationSchema={Yup.object({
+          destinationName: Yup.string().required("Required"),
+          activity: Yup.string().required("Required"),
+          selectDate: Yup.array()
+            .of(Yup.date().nullable())
+            .test("both-dates", "Please select both start-date and end-data", (value) => {
+              return value && value[0] && value[1];
+            }),
+          "guest-numbers": Yup.string().required("Required")
+        })}
+        onSubmit={handleSearch}
+      >
+        {({ values, setFieldValue, errors, touched }) => (
           <Form className="search-area-form-class">
             <FormElement
               labelText="Destination"
               labelClassName="cursive-text search-area-form-label"
-              name="destination-name"
+              name="destinationName"
               type="text"
               placeholder="Where to go ?"
               fieldClassName="search-area-form-field"
@@ -54,15 +68,23 @@ function SearchArea() {
               containerClass="single-Form-element-class"
             />
 
-            <FormElement
-              labelText="When"
-              labelClassName="cursive-text search-area-form-label search-area-form-label"
-              name="select-date"
-              type="date"
-              placeholder={new Date().toISOString().split("T")[0]}
-              fieldClassName="search-area-form-field"
-              containerClass="single-Form-element-class"
-            />
+            {/* ✅ Inline Date Range Picker */}
+            <div className="single-Form-element-class">
+              <label className="cursive-text search-area-form-label">When</label>
+              <DatePicker
+                selected={values["selectDate"][0]}
+                onChange={(dates) => setFieldValue("selectDate", dates)}
+                startDate={values["selectDate"][0]}
+                endDate={values["selectDate"][1]}
+                selectsRange
+                placeholderText="Select check-in & check-out"
+                className="search-area-form-field"
+                minDate={new Date()}
+              />
+              {touched["selectDate"] && errors["selectDate"] && (
+                <div className="error">{errors["selectDate"]}</div>
+              )}
+            </div>
 
             <FormElement
               labelText="Guests"
@@ -73,13 +95,13 @@ function SearchArea() {
               fieldClassName="search-area-form-field"
               containerClass="single-Form-element-class"
             />
+
             <button type="submit">Submit</button>
-            {/* <Button name="Search" handleClick={handleClick}/> */}
           </Form>
-        </Formik>
-      </div>
+        )}
+      </Formik>
+    </div>
   );
 }
-
 
 export default SearchArea;
