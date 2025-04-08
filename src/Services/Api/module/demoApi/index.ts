@@ -1,4 +1,4 @@
-import api from '../../api';
+import api from "../../api";
 
 export const userApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -17,19 +17,23 @@ export const userApi = api.injectEndpoints({
     }),
 
     getTourReview: build.query({
-      query: (tourId) => 
-        `attraction/getAttractionReviews?id=${tourId}&page=1`
+      query: (tourId) => `attraction/getAttractionReviews?id=${tourId}&page=1`,
     }),
 
-    getTrendingTours:build.query({
-      query:()=>
-        `attraction/searchAttractions?id=eyJwaW5uZWRQcm9kdWN0IjoiUFJqa0FWUUt4V1hwIiwidWZpIjoyMDA1MDI2NH0%3D&sortBy=trending&page=1&currency_code=USD&languagecode=en-us`
+    getTrendingTours: build.query({
+      query: () =>
+        `attraction/searchAttractions?id=eyJwaW5uZWRQcm9kdWN0IjoiUFJqa0FWUUt4V1hwIiwidWZpIjoyMDA1MDI2NH0%3D&sortBy=trending&page=1&currency_code=USD&languagecode=en-us`,
     }),
 
     getFilteredDestinationTours: build.query({
-      query:(selectedDestination)=>
-        `attraction/searchLocation?query=${selectedDestination}&languagecode=en-us`
-    })
+      query: (selectedDestination) =>
+        `attraction/searchLocation?query=${selectedDestination}&languagecode=en-us`,
+    }),
+
+    getSearchedTours: build.query({
+      query: ({destinationId, selectedDate}) =>
+        `attraction/searchAttractions?id=${destinationId}%3D%3D&startDate=${selectedDate[0]}&endDate=${selectedDate[1]}&sortBy=trending&page=1&currency_code=USD&languagecode=en-us`,
+    }),
   }),
   overrideExisting: false,
 });
@@ -43,4 +47,6 @@ export const {
   useGetTourReviewQuery,
   useGetTrendingToursQuery,
   useGetFilteredDestinationToursQuery,
+  useGetSearchedToursQuery,
 } = userApi;
+ 
