@@ -11,7 +11,6 @@ import {useState} from 'react';
 
 
 
-
 function TourDetail() {
 
   const { slugId } = useParams();

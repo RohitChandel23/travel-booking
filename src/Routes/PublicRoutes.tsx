@@ -9,6 +9,7 @@ import TourDetail from '../Views/TourDetail';
 import ContactPage from '../Views/Contact/Contact';
 import Tour from '../Views/TourPackage/index';
 import DestinationPageBanner from '../Views/DestinationPage/DestinationPage';
+import DestinationDetail from '../Views/DestinationDetail';
 
 // eslint-disable-next-line import/prefer-default-export
 export const PUBLIC_ROUTES: Array<CustomRouter> = [
@@ -17,7 +18,6 @@ export const PUBLIC_ROUTES: Array<CustomRouter> = [
     element: <Dashboard />,
     title: ROUTES_CONFIG.HOMEPAGE.title,
   },
-
 
   {
     path: `${ROUTES_CONFIG.LOGIN.path}`,
@@ -41,6 +41,11 @@ export const PUBLIC_ROUTES: Array<CustomRouter> = [
     path: ROUTES_CONFIG.TOURS_DETAIL.path,
     title: ROUTES_CONFIG.TOURS_DETAIL.title,
     element: <TourDetail />,
+  },
+  {
+    path: ROUTES_CONFIG.DESTINATION_DETAIL.path,
+    title: ROUTES_CONFIG.DESTINATION_DETAIL.title,
+    element: <DestinationDetail />,
   },
 
   {

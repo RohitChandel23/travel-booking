@@ -1,0 +1,37 @@
+.destination-card-wrapper{
+    height: 100%;
+    width:100%;
+    background-color: yellow;
+
+    position: relative;
+}
+
+.destination-card-wrapper img{
+    height: 100%;
+    width:100%;
+    object-fit: cover;
+}
+
+
+.destination-name-container{
+    position: absolute;
+    width:100%;
+    bottom:10%;
+    /* left:6%; */
+    background: rgba(0, 0, 0, 0.134);
+}
+
+.destination-card-wrapper h5{
+font-size: 22px;
+line-height: 120%;
+font-weight: 700;
+margin:0;
+padding:0;
+padding-left: 6%;
+color:white;
+}
+
+.destination-card-wrapper h5:hover{
+    color: #fc5056;
+}
+

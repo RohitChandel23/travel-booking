@@ -1,0 +1,43 @@
+.destination-grid-wrapper{
+
+    height: auto;
+    width:100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+
+    margin-bottom: 10%;
+}
+
+.destination-grid-container{
+    display: flex;
+    gap: 3%;
+    height:auto;
+    width:1298px;
+
+}
+
+.grouped-destinations-grid{
+display: flex;
+flex-direction: column;
+gap: 6%;
+width:140%;
+
+}   
+
+.first-grouped-destinations{
+    display:flex;
+    gap: 3%;
+
+}
+
+.second-grouped-destinations{
+    display: flex;
+    gap:3%;
+
+    background-color: lightblue;
+}
+
+.single-destinations-grid{
+    background-color: aquamarine;
+}
