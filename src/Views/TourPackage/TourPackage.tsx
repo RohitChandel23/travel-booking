@@ -13,6 +13,7 @@ import {
   useGetAttractionQuery,
   useGetSearchedToursQuery
 } from "../../Services/Api/module/demoApi";
+import { ProjectImages } from "../../assets/ProjectImages";  
 
 interface AttractionType {
   id: string;
@@ -49,6 +50,7 @@ function TourPackagePage() {
   const [selectedPrice, setSelectedPrice] = useState([]);
   const [selectedDate, setSelectedDate] = useState([]);
 
+
 //handle dates
 function searchAreaData(values){
     setSelectedDate(values.selectDate);
@@ -62,7 +64,7 @@ function searchAreaData(values){
 
   //handle destination
   function handleDestinationData(data: string ) {
-    setMergedAttractions([]);
+     setMergedAttractions([]);
     setSelectedDestination(data || null);
     setCurrentPage(1);
   }
@@ -116,7 +118,7 @@ console.log("destination id: ",destinationId, selectedDestination);
     
 
 //getting selected rating input
-  function handleRatingData(value){
+  function handleRatingData(value:any){
     setSelectedRating(value);
   }
 
@@ -149,6 +151,7 @@ console.log("destination id: ",destinationId, selectedDestination);
     else if (value < 0 && currentPage != 1) setCurrentPage((prev) => prev - 1);
   }
 
+  console.log("data to be displayed", mergedAttractions)
 
   return (
     <>
@@ -156,6 +159,7 @@ console.log("destination id: ",destinationId, selectedDestination);
         headingText="Tour Package"
         normalText="Home /"
         coloredText="Tour Package"
+        bannerImage={ProjectImages.TOURPAGE_BANNER}
       />
       <SearchArea searchAreaData={searchAreaData}/>
 

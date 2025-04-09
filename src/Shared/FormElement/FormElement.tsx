@@ -8,6 +8,7 @@ interface FormElementProps {
   placeholder: string;
   fieldClassName: string;
   containerClass: string;
+  min:number;
 }
 
 function FormElement({
@@ -18,6 +19,7 @@ function FormElement({
   placeholder,
   fieldClassName,
   containerClass,
+  min
 }: FormElementProps) {
   return (
     <>
@@ -30,6 +32,7 @@ function FormElement({
           type={type}
           placeholder={placeholder}
           className={fieldClassName}
+          min={min}
         />
         <ErrorMessage name={name} />
       </span>
