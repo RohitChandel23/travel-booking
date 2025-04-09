@@ -10,6 +10,7 @@ function DestinationDetail() {
   const PEXELS_API_KEY =
     "Gev3EvtXpErr8iA59qj7W9YSuAqSlpUduaRBB2f5fWaULYSB2k9d09Yn";
   const [images, setImages] = useState([]);
+  const [imageIndex, setImageIndex] = useState(0);
   const [timezone, setTimezone] = useState();
   const [countryDescription, setCountryDescription] = useState<
     string | undefined
@@ -22,7 +23,7 @@ function DestinationDetail() {
     const fetchImages = async () => {
       try {
         const response = await fetch(
-          `https://api.pexels.com/v1/search?query=${countryName}&per_page=6`,
+          `https://api.pexels.com/v1/search?query=${countryName}&per_page=4`,
           {
             headers: {
               Authorization: PEXELS_API_KEY,
@@ -82,25 +83,19 @@ function DestinationDetail() {
       <div className="destination-detail-wrapper">
         <div className="destination-detail-container">
           <div className="destinaton-main-image">
-            <img src={images[1]?.src?.large2x} />
+            <img src={images[imageIndex]?.src?.large2x} />
           </div>
 
           <div className="destination-other-images">
 
-            <span className="minor-images">
-            <img src={images[0]?.src?.large2x} />
-            </span>
-            <span className="minor-images">
-            <img src={images[2]?.src?.large2x} />
-            </span>
-            <span className="minor-images">
-            <img src={images[3]?.src?.large2x} />
-            </span>
-            <span className="minor-images">
-            <img src={images[4]?.src?.large2x} />
-            </span>
+{
+  [...Array(4)].map((_,idx)=>{
+    return <span onClick = {()=> setImageIndex(idx)} className="minor-images-container">
+    <img src={images[idx]?.src?.large2x}  className="minor-image"/>
+    </span>
 
-            
+  })
+}
             
           </div>
 

@@ -95,13 +95,20 @@ width: 20%;
     height: 130px;
 }
 
-.minor-images{
+.minor-images-container{
     height:100%;
     width: 100%;
+    overflow: hidden;
 }
 
-.minor-images img{
+.minor-image{
     height:100%;
     width:100%;
     object-fit: cover;
 }
+
+.minor-image:hover {
+    transform: scale(1.05); 
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+      }
