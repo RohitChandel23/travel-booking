@@ -22,9 +22,9 @@ function FilterByDestination({handleDestinationData}:Props) {
 
     
     
-  const asianLocations = ["Japan", "Nepal", "India", "China"];
-  const europenLocations = ["France", "Germany", "Greece"];
-  const americanLocations = ["Argentina", "Canada", "USA"];
+  const asianLocations = ["Tokyo", "Nepal", "Mumbai", "China"];
+  const europenLocations = ["Paris", "Italy", "Greece"];
+  const americanLocations = ["Brazil", "Canada", "New York"];
    
   return (
     <div className="filter-by-review-container">

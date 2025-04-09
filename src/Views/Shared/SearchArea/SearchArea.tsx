@@ -3,11 +3,11 @@ import "./Shared/constants";
 // import SearchAreaElement from './Shared/SearchAreaElement/SearchAreaElement';
 // import Button from "../../../Components/Buttons/Button";
 import FormElement from "../../../Shared/FormElement/FormElement";
-import { Formik, Form, useFormikContext } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
+// import { useState } from "react";
 
 function SearchArea({searchAreaData}) {
   function handleSearch(values) {
@@ -64,7 +64,7 @@ function SearchArea({searchAreaData}) {
               containerClass="single-Form-element-class"
             />
 
-            {/* ✅ Inline Date Range Picker */}
+            {/* Date Range Picker */}
             <div className="single-Form-element-class">
               <label className="cursive-text search-area-form-label">When</label>
               <DatePicker
@@ -90,6 +90,7 @@ function SearchArea({searchAreaData}) {
               placeholder="0"
               fieldClassName="search-area-form-field"
               containerClass="single-Form-element-class"
+              min={1}
             />
 
             <button type="submit">Submit</button>

@@ -1,4 +1,5 @@
 import PageBanner from "../Shared/PageBanner";
+import { ProjectImages } from "../../assets/ProjectImages";
 
 function DestinationPage(){
 return(
@@ -7,7 +8,7 @@ return(
         headingText="Destination"
         normalText="Home /"
         coloredText="Destination"
-    //bannerImage
+        bannerImage = {ProjectImages.DESTINATION_BANNER}
 />
 </>
 )
