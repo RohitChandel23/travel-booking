@@ -7,7 +7,7 @@ import TourBookingDetail from './TourBookingDetail';
 import TourReview from './TourBookingDetail/Shared/TourReview';
 import CalendarComponent from './TourBookingDetail/Shared/CalendarComponent/index';
 import IncludeExclude from './TourBookingDetail/Shared/IncludeExclude';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 
 
@@ -54,6 +54,10 @@ function TourDetail() {
     function handleCalendarSelectedDate(date:string){
       setSelectedCalendarDate(date);
     }
+
+    useEffect(()=>{
+      window.scrollTo(0, 0);
+    })
   
 
 

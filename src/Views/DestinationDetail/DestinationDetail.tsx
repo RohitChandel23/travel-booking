@@ -20,6 +20,8 @@ function DestinationDetail() {
   const [capitals, setCapitals] = useState<string | string[] | undefined>();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     const fetchImages = async () => {
       try {
         const response = await fetch(
@@ -66,9 +68,9 @@ function DestinationDetail() {
       }
     };
 
-    fetchDescription(); //done
+    fetchDescription(); 
     fetchInformation();
-    fetchImages(); //done
+    fetchImages(); 
   }, [countryName]);
 
   return (

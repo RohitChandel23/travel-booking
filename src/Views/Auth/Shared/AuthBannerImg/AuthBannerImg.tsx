@@ -8,7 +8,7 @@ function AuthBannerImg() {
 
         <div className="auth-page-banner-text-container">
           <h1>Authentication</h1>
-          <p>Home * <span className="project-theme-color">Authentication </span></p>
+          <p>Home / <span className="project-theme-color">Authentication </span></p>
       </div>
       </div>
 

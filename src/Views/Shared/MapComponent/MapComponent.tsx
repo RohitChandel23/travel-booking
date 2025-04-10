@@ -37,7 +37,7 @@ function MapComponent({ cityName }: PropsType) {
       <MapContainer
         key={center.toString()}
         center={center}
-        zoom={13}
+        zoom={3}
         style={{ height: '100%', width: '100%' }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
