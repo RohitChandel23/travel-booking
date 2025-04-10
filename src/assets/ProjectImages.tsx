@@ -6,7 +6,8 @@ import TRISOG_HEADER_LOGO from './icons/Trisog-header-logo.svg';
 import AUTH_BANNER from './icons/auth-banner.jpg';
 import BLANK_PROFILE from './icons/blank-profile.png';
 import TOURPAGE_BANNER from './icons/TourPageBanner.jpg';
-import DESTINATION_BANNER from './icons/destinationPageBanner2.jpeg'
+import DESTINATION_BANNER from './icons/destinationPageBanner2.jpeg';
+import CONTACTPAGE_BANNER from './icons/ContactPage-banner.jpg';
 
 export const ProjectImages = {
   HomePageBanner,
@@ -17,5 +18,6 @@ export const ProjectImages = {
   AUTH_BANNER,
   BLANK_PROFILE,
   TOURPAGE_BANNER,
-  DESTINATION_BANNER
+  DESTINATION_BANNER,
+  CONTACTPAGE_BANNER
 };

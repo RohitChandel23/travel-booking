@@ -1,15 +1,18 @@
 import "./SearchArea.css";
 import "./Shared/constants";
-// import SearchAreaElement from './Shared/SearchAreaElement/SearchAreaElement';
-// import Button from "../../../Components/Buttons/Button";
 import FormElement from "../../../Shared/FormElement/FormElement";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { ROUTES_CONFIG } from "../../../Shared/Constants";
 
 function SearchArea({searchAreaData}) {
+  const navigate = useNavigate();
+
+
   function handleSearch(values) {
     const [startDate, endDate] = values["selectDate"];
     const formatDate = (date)=>date?date.toISOString().split("T")[0]:null;
@@ -18,8 +21,15 @@ function SearchArea({searchAreaData}) {
       ...values,
       selectDate: [formatDate(startDate),formatDate(endDate)]
     };
+    //new one  --- form data  -- > tour package's function will run that will asssign these values 
+    // if(data.pathname != '/tours')
+    //   navigate(ROUTES_CONFIG.TOURS.path);
     searchAreaData(formattedData);
   }
+
+  const data = useLocation();
+  console.log(data.pathname);
+
 
   return (
     <div className="search-area-container">

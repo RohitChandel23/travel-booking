@@ -15,9 +15,11 @@ function DestinationDetail() {
   const [countryDescription, setCountryDescription] = useState<
     string | undefined
   >();
-  const [countryInfo, setCountryInfo] = useState({});
+  const [countryInfo, setCountryInfo] = useState<any>({});
   const [languages, setLanguages] = useState<string | string[] | null>();
   const [capitals, setCapitals] = useState<string | string[] | undefined>();
+  
+  const monthNames = ["Jan - Feb", "Mar - Apr", "May - June", "July - Aug", "Sep - Oct", "Nov - Dec"];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -68,9 +70,27 @@ function DestinationDetail() {
       }
     };
 
-    fetchDescription(); 
+    const fetchCoordinates = async () => {
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/search?format=json&q=${countryName}`       // ------------have to use rtk here-----------
+        );
+        const result = await response.json();
+        const { lat, lon } = result[0];
+
+        const weatherData = await fetch(`https://archive-api.open-meteo.com/v1/archive?${lat}=48.8566&${lon}=2.3522&start_date=2020-01-01&end_date=2020-12-31&monthly=temperature_2m_mean&timezone=auto
+`);
+
+        console.log("data are", weatherData);
+        } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchCoordinates();
+    fetchDescription();
     fetchInformation();
-    fetchImages(); 
+    fetchImages();
   }, [countryName]);
 
   return (
@@ -89,16 +109,19 @@ function DestinationDetail() {
           </div>
 
           <div className="destination-other-images">
-
-{
-  [...Array(4)].map((_,idx)=>{
-    return <span onClick = {()=> setImageIndex(idx)} className="minor-images-container">
-    <img src={images[idx]?.src?.large2x}  className="minor-image"/>
-    </span>
-
-  })
-}
-            
+            {[...Array(4)].map((_, idx) => {
+              return (
+                <span
+                  onClick={() => setImageIndex(idx)}
+                  className="minor-images-container"
+                >
+                  <img
+                    src={images[idx]?.src?.large2x}
+                    className="minor-image"
+                  />
+                </span>
+              );
+            })}
           </div>
 
           <div className="destination-description-container">
@@ -117,7 +140,7 @@ function DestinationDetail() {
 
                 <li>
                   <p>Capital</p>
-                  {capitals?.map((item:String, i:number) => {
+                  {capitals?.map((item: String, i: number) => {
                     return (
                       <span>
                         {item}
@@ -129,10 +152,14 @@ function DestinationDetail() {
 
                 <li>
                   <p>Language</p>
-                  {languages?.map((item:string, i:number)=>{
-                    return <span>{item}{i==languages.length-1?"":','}</span>
+                  {languages?.map((item: string, i: number) => {
+                    return (
+                      <span>
+                        {item}
+                        {i == languages.length - 1 ? "" : ","}
+                      </span>
+                    );
                   })}
-                  
                 </li>
 
                 <li>
@@ -144,7 +171,7 @@ function DestinationDetail() {
                 </li>
                 <li>
                   <p>Area</p>
-                  <span>{countryInfo[0]?.area}</span>
+                  <span>{countryInfo[0]?.area} km²</span>
                 </li>
                 <li>
                   <p>Population</p>
@@ -153,10 +180,14 @@ function DestinationDetail() {
                 <li>
                   <p>Timezone</p>
 
-                  {timezone?.map((item:string, i:number) => {
-                    if(i > 3)
-                        return;
-                    return <span>{item}{i==3?"":',' }</span>;
+                  {timezone?.map((item: string, i: number) => {
+                    if (i > 3) return;
+                    return (
+                      <span>
+                        {item}
+                        {i == 3 || timezone.length == 1 ? "" : ","}
+                      </span>
+                    );
                   })}
                 </li>
               </ul>
@@ -169,10 +200,28 @@ function DestinationDetail() {
 
           <div className="weather-wrapper">
             <div className="weather-container">
-                <h6>Weather</h6>
+              <h6>Weather</h6>
+
+              <div className="destination-baisc-info-container weather-report">
+              <ul>
+                {
+                  monthNames.map((item)=>{
+                    return <li>
+                    <p>{item}</p>
+                    <span>22°C - 32°C</span>
+                    <div className="create-line"></div>
+                  </li>
+                  })
+                }
+
+                
+
+        
+                </ul>
+                </div>
+
             </div>
           </div>
-
         </div>
       </div>
     </>

@@ -12,7 +12,8 @@ const ROUTES = {
   TOURS_DETAIL: '/tours-detail/:slugId',
   DESTINATION:'/destination',
   DESTINATION_DETAIL:'/destination-detail/:countryName',
-
+  BLOG:'/blog',
+  BLOG_DETAIL:'/blog-detail',
 };
 
 const WILDCARD_ROUTES = {
@@ -61,10 +62,18 @@ const ROUTES_CONFIG = {
     path:ROUTES.DESTINATION_DETAIL,
     title:'Destination Detail',
   },
+  BLOG:{
+    path:ROUTES.BLOG,
+    title:'Blog',
+  },
   CONTACT: {
     path: ROUTES.CONTACT,
     title: 'Contact',
   },
+  BLOG_DETAIL:{
+    path:ROUTES.BLOG_DETAIL,
+    title:'Blog Detail',
+  }
 };
 
 export { ROUTES, WILDCARD_ROUTES, ROUTES_CONFIG };

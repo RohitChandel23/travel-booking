@@ -5,15 +5,19 @@ import TourCard from '../TourCard/TourCard';
 import WhyUsComponent from '../WhyUsComponent/index';
 import SearchArea from '../Shared/SearchArea';
 import './Dashboard.css';
+import { useEffect } from 'react';
 
 export default function Dashboard() {
 
 // manages the id of the cities as per your requirements
   const currentPage = 1;
-  const destinationId = 'eyJwaW5uZWRQcm9kdWN0IjoiUFJpSEhIVjB1TGJPIiwidWZpIjoyMDA4ODMyNX0=';
+  const destinationId = 'eyJwaW5uZWRQcm9kdWN0IjoiUFJpSEhIVjB1TGJPIiwidWZpIjoyMDA4ODMyNX0=';   //slug id
   const { data } = useGetAttractionQuery({destinationId, currentPage });
-
   const attractions = data?.data?.products?.slice(1, 5) || [];
+
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  })
 
   return (
     <div>

@@ -1,0 +1,28 @@
+.blog-page-wrapper{
+    height:auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.blog-page-container{
+    width: 1320px;
+    height:auto;
+
+    display: flex;
+    justify-content: space-between;
+    gap:10%;
+}
+
+.blog-main-content{
+    width: 100%;
+    height: auto;
+}
+
+.blog-side-bar{
+    width:40%;
+    height: 400px;
+
+    background-color: lightpink;
+}

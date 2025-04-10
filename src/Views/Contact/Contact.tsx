@@ -1,12 +1,24 @@
+import { ProjectImages } from "../../assets/ProjectImages";
+import './Contact.css';
+import PageBanner from "../Shared/PageBanner";
+import ContactElement from "./Shared/ContactElements";
+
 function ContactPage() {
   return (
     <>
-      <h2>This is the contact page</h2>
-      <img 
-        src="https://lh3.googleusercontent.com/a-/AOh14GiptdaJI3PHLLCPH7TIlIgibuAAKKJFFEUq5krBPg=s96-c" 
-        alt="Profile" 
-        style={{ display: 'block', width: '100px', height: '100px' }}
-      />
+      <PageBanner normalText="Home / " coloredText="Contact" headingText="Contact Us" bannerImage={ProjectImages.DESTINATION_BANNER}/>
+
+      <div className="contact-page-wrapper">
+        <div className="contact-page-container">
+          <div className="contact-info-tabs">
+          <ContactElement/>
+          <ContactElement/>
+          <ContactElement/>
+          </div>
+
+        </div>
+
+      </div>
     </>
   );
 }

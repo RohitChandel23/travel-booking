@@ -2,7 +2,7 @@ import './PageBaner.css';
 
 interface PageBannerProps{
 normalText: string,
-coloredText: string,
+coloredText: string | undefined,
 headingText: string
 bannerImage:string
 }

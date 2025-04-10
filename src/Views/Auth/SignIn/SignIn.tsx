@@ -5,8 +5,8 @@ import * as Yup from "yup";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import ToggleBtn from "../buttons/ToggleBtn/ToggleBtn";
-import SocialBtn from "../buttons/SocialButtons/SocialBtn";
+import ToggleBtn from "../button/ToggleBtn/ToggleBtn";
+import SocialBtn from "../button/SocialButtons/SocialBtn";
 import { auth, googleProvider } from "../../../firebaseConfig";
 import { ROUTES_CONFIG } from "../../../Shared/Constants";
 import "react-toastify/dist/ReactToastify.css";
@@ -47,6 +47,8 @@ function SignIn() {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       console.log("User Info:", result.user); // Logged-in user info
+      
+      navigate(ROUTES_CONFIG.HOMEPAGE.path);
     } catch (error) {
       toast.error((error as Error).message || "Something went wrong");
     }

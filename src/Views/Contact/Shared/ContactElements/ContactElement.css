@@ -1,0 +1,30 @@
+.contact-element-wrapper{
+height:181px;
+width:416px;
+display:flex;
+flex-direction: column;
+background-color: #f7f8f9;
+}
+
+.contact-element-container{
+    width:auto;
+    height:auto;
+    margin: 9%;
+}
+
+.contact-element-container i{
+    color:red;
+    font-size: 40px;
+    height:auto;
+}
+
+.contact-element-container span{
+    color: rgba(5, 16, 54, 0.6);
+    font-weight: 600;
+}
+
+.contact-element-container p{
+    color: #051036;
+    font-weight: 600;
+    margin-bottom:3%;
+}
