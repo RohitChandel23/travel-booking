@@ -1,5 +1,4 @@
-.destination-grid-wrapper{
-
+/* .destination-grid-wrapper{
     height: auto;
     width:100%;
     display: flex;
@@ -13,25 +12,30 @@
     display: flex;
     gap: 3%;
     height:auto;
-    width:1298px;
+    width:70%;
 
 }
 
 .grouped-destinations-grid{
 display: flex;
 flex-direction: column;
+justify-content: space-around;
 gap: 6%;
-width:140%;
-
+width:300%;
+height:100%;
 }   
 
 .first-grouped-destinations{
+    width:100%;
+    height:100%;
     display:flex;
     gap: 3%;
 
 }
 
 .second-grouped-destinations{
+    width:100%;
+    height:100%;
     display: flex;
     gap:3%;
 
@@ -39,5 +43,68 @@ width:140%;
 }
 
 .single-destinations-grid{
-    background-color: aquamarine;
-}
+    width:100%;
+    height:100%;
+} */
+
+
+.destination-grid-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+  }
+  
+  .destination-grid-container {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* 3/4 width on the left, 1/4 on right */
+    gap: 2rem;
+    width: 70%;
+  }
+  
+  .grouped-destinations-grid {
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    gap: 2rem;
+  }
+  
+  .first-grouped-destinations,
+  .second-grouped-destinations {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .single-destinations-grid {
+    display: flex;
+    align-items: stretch;
+  }
+  
+  /* Uniform card height */
+  .destination-card {
+    height: 350px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  /* Example overlay styling inside DestinationCard if needed */
+  .destination-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .destination-card .card-content {
+    position: absolute;
+    bottom: 0;
+    padding: 1rem;
+    color: white;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    width: 100%;
+  }
+  

@@ -1,5 +1,6 @@
 import "./AddReview.css";
 import StarRating from "./Shared/StarRating/StarRating";
+import AddingComment from "../../../../../../Components/customComponent/AddingComment/AddingComment";
 
 function AddReview(){   
     return(
@@ -13,6 +14,11 @@ function AddReview(){
                     <StarRating />
                     <StarRating />
             </div>
+            
+            <div className="adding-tour-review">
+            <AddingComment/>
+            </div>
+
             </div>
     )
 }

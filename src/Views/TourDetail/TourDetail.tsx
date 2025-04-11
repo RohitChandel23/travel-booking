@@ -8,6 +8,7 @@ import TourReview from './TourBookingDetail/Shared/TourReview';
 import CalendarComponent from './TourBookingDetail/Shared/CalendarComponent/index';
 import IncludeExclude from './TourBookingDetail/Shared/IncludeExclude';
 import {useEffect, useState} from 'react';
+import AddingComment from '../../Components/customComponent/AddingComment/AddingComment';
 
 
 
@@ -152,12 +153,13 @@ function TourDetail() {
           </div>
 
           <div className="tour-location-map">
-            <MapComponent cityName={tourCity} />
+            <MapComponent cityName={tourCity} mapHeadingText="Map" />
           </div>
 
           <div className='tour-detail-review'>
           <h5 className='project-heading-font'>Average Reviews</h5>
           <TourReview tourRating = {tourRating} tourId = {tourId}/>
+
           </div>
             
         </div>

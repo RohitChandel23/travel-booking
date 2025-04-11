@@ -56,6 +56,7 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate }: DateTimeCompo
           dateFormat="yyyy-MM-dd"
           placeholderText="Choose date"
         />
+        
         <br />
         <br />
         <span className="book-now-minor-heading">Time</span>

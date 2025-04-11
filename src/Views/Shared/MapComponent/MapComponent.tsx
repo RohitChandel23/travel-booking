@@ -6,9 +6,10 @@ import 'leaflet/dist/leaflet.css';
 
 interface PropsType {
   cityName: string | '';
+  mapHeadingText: string | '';
 }
 
-function MapComponent({ cityName }: PropsType) {
+function MapComponent({ cityName, mapHeadingText }: PropsType) {
   const [center, setCenter] = useState<LatLngExpression | null>(null);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function MapComponent({ cityName }: PropsType) {
 
   return (
     <div className="map-container-div">
-      <h5 className="detail-page-minor-title">Map</h5>
+     {mapHeadingText && <h5 className="detail-page-minor-title">{mapHeadingText}</h5>}
 
       <MapContainer
         key={center.toString()}

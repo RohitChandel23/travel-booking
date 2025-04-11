@@ -59,6 +59,8 @@ li{
 
 .cursive-text{
   font-family: "Kaushan Script", cursive;
+  color: #fc5056;
+
 }
 
 .project-theme-color{
@@ -86,8 +88,8 @@ button{
   cursor: pointer;
 }
 
-button:hover{
+/* button:hover{
   background-color: #ff343b;
-}
+} */
 
 

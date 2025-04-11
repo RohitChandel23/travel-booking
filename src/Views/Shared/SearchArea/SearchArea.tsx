@@ -6,11 +6,11 @@ import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { ROUTES_CONFIG } from "../../../Shared/Constants";
 
 function SearchArea({searchAreaData}) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
 
   function handleSearch(values) {
@@ -23,7 +23,12 @@ function SearchArea({searchAreaData}) {
     };
     //new one  --- form data  -- > tour package's function will run that will asssign these values 
     // if(data.pathname != '/tours')
-    //   navigate(ROUTES_CONFIG.TOURS.path);
+    //   navigate(ROUTES_CONFIG.TOURS.path, {
+    // state:{
+    //   formattedData
+    // }});
+
+
     searchAreaData(formattedData);
   }
 

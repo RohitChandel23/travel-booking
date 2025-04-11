@@ -17,3 +17,42 @@
     display:flex;
     justify-content: space-between;
 }
+
+.question-map-section{
+    height:476px;
+    display: flex;
+    justify-content: space-between;
+    gap:1%;
+    
+    margin-bottom: 5%;
+}
+
+.question-wrapper{
+width: 100%;
+height:100%;
+font-size: 26px;
+}
+
+.map__wrapper{
+width:100%;
+height:100%;
+
+background-color: lightblue;
+}
+
+.question-wrapper h4, h2{
+    margin:0px;
+}
+
+.question-wrapper h2{
+    margin-top:2%;
+    margin-bottom: 4%;  
+}
+
+.asking-question-wrapper{
+    height:auto;
+    width:100%;
+}
+
+
+

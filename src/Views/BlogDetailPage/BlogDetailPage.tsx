@@ -1,5 +1,6 @@
 import "./BlogDetailPage.css";
 import { ProjectImages } from "../../assets/ProjectImages";
+import AddingComment from "../../Components/customComponent/AddingComment/AddingComment";
 
 function BlogDetailPage() {
   return (
@@ -75,6 +76,12 @@ function BlogDetailPage() {
             </p>
           </div>
         </div>
+
+        <div className="blog-reply-container">
+          <AddingComment/>
+        </div>
+
+
       </div>
     </div>
   );

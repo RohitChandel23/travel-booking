@@ -1,7 +1,7 @@
 .add-review-container{
-    width: 856px;
+    width: 86%;
     height:475px;
-    padding:30px;
+    padding:7%;
     margin-top: 40px;
     background-color: #f7f8f9;
 }
@@ -13,5 +13,9 @@
 .review-rating-container{
     display: flex;
     justify-content: space-between;    
+}
+
+.adding-tour-review{
+margin-top: 7%;
 }
 

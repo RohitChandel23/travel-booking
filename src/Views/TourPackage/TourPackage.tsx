@@ -13,6 +13,7 @@ import {
   useGetAttractionQuery,
   useGetSearchedToursQuery
 } from "../../Services/Api/module/demoApi";
+import { useLocation } from "react-router-dom";
 import { ProjectImages } from "../../assets/ProjectImages";  
 
 interface AttractionType {
@@ -42,16 +43,19 @@ interface AttractionType {
 
 function TourPackagePage() {
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
-  let [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>(
-    []
-  );
+  let [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedRating, setSelectedRating] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState([]);
   const [selectedDate, setSelectedDate] = useState([]);
+  
+  // const location = useLocation();
+  // const searchingData = location.state || '';
+
+  // console.log("data after navigation",searchingData);
 
 
-//handle dates
+//handle searched data  (destination name , dates)
 function searchAreaData(values){
     setSelectedDate(values.selectDate);
     setSelectedDestination(values.destinationName);
@@ -98,6 +102,7 @@ console.log("destination id: ",destinationId, selectedDestination);
 
 
     useEffect(() => {
+
       if (selectedDestination && selectedDate.length === 2 && searchedTours?.data?.products) {
         setMergedAttractions(searchedTours.data.products);
         return;

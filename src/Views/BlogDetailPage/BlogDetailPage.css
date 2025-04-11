@@ -163,3 +163,12 @@ margin:0;
     font-size: 16px;
     color:rgba(5, 16, 54, 0.6);
 }
+
+.blog-reply-container{
+    height:100%;
+    width:72%;
+    margin-top: 4%;
+    padding: 4%;
+
+    background-color: #f7f8f9;
+}

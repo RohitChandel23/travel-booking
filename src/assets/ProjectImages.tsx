@@ -8,6 +8,8 @@ import BLANK_PROFILE from './icons/blank-profile.png';
 import TOURPAGE_BANNER from './icons/TourPageBanner.jpg';
 import DESTINATION_BANNER from './icons/destinationPageBanner2.jpeg';
 import CONTACTPAGE_BANNER from './icons/ContactPage-banner.jpg';
+import PHONE_ICON from './icons/phoneIcon.png';
+import LOCATION_ICON from './icons/locationIcon.png';
 
 export const ProjectImages = {
   HomePageBanner,
@@ -19,5 +21,7 @@ export const ProjectImages = {
   BLANK_PROFILE,
   TOURPAGE_BANNER,
   DESTINATION_BANNER,
-  CONTACTPAGE_BANNER
+  CONTACTPAGE_BANNER,
+  PHONE_ICON,
+  LOCATION_ICON
 };

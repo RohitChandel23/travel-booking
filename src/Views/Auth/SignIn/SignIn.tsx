@@ -11,7 +11,7 @@ import { auth, googleProvider } from "../../../firebaseConfig";
 import { ROUTES_CONFIG } from "../../../Shared/Constants";
 import "react-toastify/dist/ReactToastify.css";
 import AuthBannerImg from "../Shared/AuthBannerImg";
-import {updateAuthTokenRedux} from "../../../Store/Common/index";
+import { updateAuthTokenRedux } from "../../../Store/Common/index";
 import { useDispatch } from "react-redux";
 
 interface SignInFormValues {
@@ -22,7 +22,7 @@ interface SignInFormValues {
 function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const handleSignIn = async (values: SignInFormValues) => {
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password);
@@ -34,7 +34,7 @@ function SignIn() {
 
         const token = await user?.getIdToken();
         console.log(token);
-        dispatch(updateAuthTokenRedux({token}))
+        dispatch(updateAuthTokenRedux({ token }));
       }
       navigate(ROUTES_CONFIG.HOMEPAGE.path);
     } catch (e) {
@@ -46,9 +46,12 @@ function SignIn() {
   async function handleGoogleLogin() {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      console.log("User Info:", result.user); // Logged-in user info
-      
+      console.log("User Info after google login:", result.user); // Logged-in user info
+      const token = result?.user?.accessToken;
+      dispatch(updateAuthTokenRedux({ token }));
       navigate(ROUTES_CONFIG.HOMEPAGE.path);
+
+      toast.success("Login Successful");
     } catch (error) {
       toast.error((error as Error).message || "Something went wrong");
     }

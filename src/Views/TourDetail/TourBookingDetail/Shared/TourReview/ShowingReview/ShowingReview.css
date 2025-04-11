@@ -39,7 +39,8 @@ gap:1%
 }
 
 .review-description{
- color:rgba(5, 16, 54, 0.6)
+ color:rgba(5, 16, 54, 0.6);
+ margin-top:3%;
 }
 
 .showing-reviewer-image{

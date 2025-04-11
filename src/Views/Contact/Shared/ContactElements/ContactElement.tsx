@@ -1,11 +1,18 @@
 import './ContactElement.css';
-function ContactElement(){
+
+interface contactElementProps{
+contactIcon:string,
+contactType:string,
+contactInfo:string,
+}
+
+function ContactElement({contactIcon, contactType, contactInfo}: contactElementProps){      //contactm icon, contactType, contactIno
 return(
     <div className="contact-element-wrapper">
     <div className='contact-element-container'>
-    <i className="fa-solid fa-location-dot"></i>
-    <p>Location</p>
-    <span>20,Love Street, Muscat, Oman</span>
+    <i className={contactIcon}></i>
+    <p>{contactType}</p>
+    <span>{contactInfo}</span>
     </div>
     </div>
 )

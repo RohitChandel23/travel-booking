@@ -1,0 +1,42 @@
+.adding-comment-wrapper{
+    height:100%;
+    width:100%;
+
+}
+
+.comment-field{
+    width: 99%;
+    height: 150px;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border:1px solid rgba(5, 16, 54, 0.1);
+    border-radius:8px;
+}
+
+.name-email-container{
+    display:flex;
+    gap:2%;
+}
+
+.name-email-container div{
+width:100%;
+
+}
+
+
+.name-email-field{
+    width: 98%;
+    height:55px;
+    border:1px solid rgba(5, 16, 54, 0.1);
+    border-radius:8px;
+    
+}
+
+.adding-comment-wrapper button{
+    background-color:#fc5056;
+    font-size: 15px;
+    color:white;
+    border:none;
+    padding:2% 6%;
+    border-radius: 6px;
+}
