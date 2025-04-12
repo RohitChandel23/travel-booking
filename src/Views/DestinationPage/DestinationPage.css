@@ -54,57 +54,118 @@ height:100%;
     justify-content: center;
     margin-top: 5rem;
     margin-bottom: 5rem;
-  }
-  
-  .destination-grid-container {
-    display: grid;
-    grid-template-columns: 3fr 1fr; /* 3/4 width on the left, 1/4 on right */
-    gap: 2rem;
-    width: 70%;
-  }
-  
-  .grouped-destinations-grid {
-    display: grid;
-    grid-template-rows: repeat(2, auto);
-    gap: 2rem;
-  }
-  
-  .first-grouped-destinations,
-  .second-grouped-destinations {
-    display: flex;
-    gap: 2rem;
-  }
-  
-  .single-destinations-grid {
-    display: flex;
-    align-items: stretch;
-  }
-  
-  /* Uniform card height */
-  .destination-card {
-    height: 350px;
-    width: 100%;
+}
+
+.destination-grid-container {
+    width: 86%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    overflow: hidden;
-    border-radius: 10px;
+    gap: 0rem;
+}
+
+.grid-section {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* For sections where single card is on the left */
+.grid-section.reversed {
+    grid-template-columns: 1fr 3fr;
+}
+
+.grouped-destinations-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.first-grouped-destinations {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.second-grouped-destinations {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.single-destinations-grid {
+    height: 100%;
+}
+
+.destination-card {
     position: relative;
-  }
-  
-  /* Example overlay styling inside DestinationCard if needed */
-  .destination-card img {
+    height: 200px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.destination-card.selected {
+    box-shadow: 0 0 0 3px #007bff;
+    transform: scale(1.02);
+}
+
+.single-destinations-grid .destination-card {
+    height: 100%;
+}
+
+.destination-card:hover {
+    transform: scale(1.02);
+}
+
+.destination-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  
-  .destination-card .card-content {
+}
+
+.card-content {
     position: absolute;
     bottom: 0;
-    padding: 1rem;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
     color: white;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-    width: 100%;
-  }
+}
+
+.card-content h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.travelers-count {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+}
+
+@media (max-width: 1024px) {
+    .grid-section,
+    .grid-section.reversed {
+        grid-template-columns: 1fr;
+    }
+
+    .single-destinations-grid .destination-card {
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .destination-grid-container {
+        width: 90%;
+    }
+
+    .first-grouped-destinations,
+    .second-grouped-destinations {
+        grid-template-columns: 1fr;
+    }
+}
   

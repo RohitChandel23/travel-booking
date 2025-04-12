@@ -1,14 +1,25 @@
-import PageBanner from "../Shared/PageBanner";
-import DestinationCard from "./Shared/DestinationCard";
 import "./DestinationPage.css";
-import { ProjectImages } from "../../assets/ProjectImages";
+import PageBanner from "../Shared/PageBanner";
 import SearchArea from "../Shared/SearchArea";
+import { ProjectImages } from "../../assets/ProjectImages";
+import DestinationCard from "./Shared/DestinationCard";
 
 function DestinationPage() {
   const destinationData = {
-    firstGrouped: ["United Kingdom", "Canada", "Switzerland"],
-    secondGrouped: ["Thailand", "Australia"],
-    singleDestination: "France",
+    section1: {
+      firstGrouped: ["United Kingdom", "Canada", "Switzerland"],
+      secondGrouped: ["Thailand", "Australia"],
+      single: "France"
+    },
+    section2: {
+      firstGrouped: ["Italy", "Norway", "Egypt"],
+      secondGrouped: ["Japan", "India"],
+      single: "New Zealand"
+    }
+  };
+
+  const searchAreaData = (values: any) => {
+    console.log(values);
   };
 
   return (
@@ -19,46 +30,77 @@ function DestinationPage() {
         coloredText="Destination"
         bannerImage={ProjectImages.DESTINATION_BANNER}
       />
-
-      <SearchArea />
+      <SearchArea searchAreaData={searchAreaData} />
 
       <div className="destination-grid-wrapper">
         <div className="destination-grid-container">
+          {/* First Grid Section - Single card on right */}
+          <div className="grid-section">
+            <div className="grouped-destinations-grid">
+              <div className="first-grouped-destinations">
+                {destinationData.section1.firstGrouped.map((countryName) => (
+                  <DestinationCard
+                    key={countryName}
+                    countryName={countryName}
+                    countryImage={ProjectImages.TOURPAGE_BANNER}
+                  />
+                ))}
+              </div>
 
-
-          <div className="grouped-destinations-grid">
-            <div className="first-grouped-destinations">
-              {destinationData.firstGrouped.map((countryName) => (
-                <DestinationCard
-                  countryName={countryName}
-                  countryImage={ProjectImages.TOURPAGE_BANNER}
-                />
-              ))}
+              <div className="second-grouped-destinations">
+                {destinationData.section1.secondGrouped.map((countryName) => (
+                  <DestinationCard
+                    key={countryName}
+                    countryName={countryName}
+                    countryImage={ProjectImages.TOURPAGE_BANNER}
+                  />
+                ))}
+              </div>
             </div>
 
-            <div className="second-grouped-destinations">
-              {destinationData.secondGrouped.map((countryName) => (
-                <DestinationCard
-                  countryName={countryName}
-                  countryImage={ProjectImages.TOURPAGE_BANNER}
-                />
-              ))}
+            <div className="single-destinations-grid">
+              <DestinationCard
+                countryName={destinationData.section1.single}
+                countryImage={ProjectImages.TOURPAGE_BANNER}
+              />
             </div>
           </div>
-          
 
-          <div className="single-destinations-grid">
-            <DestinationCard
-              countryName={destinationData.singleDestination}
-              countryImage={ProjectImages.TOURPAGE_BANNER}
-            />{" "}
-            {/* country-name, country-image*/}
+          {/* Second Grid Section - Single card on left */}
+          <div className="grid-section reversed">
+            <div className="single-destinations-grid">
+              <DestinationCard
+                countryName={destinationData.section2.single}
+                countryImage={ProjectImages.TOURPAGE_BANNER}
+              />
+            </div>
+
+            <div className="grouped-destinations-grid">
+              <div className="first-grouped-destinations">
+                {destinationData.section2.firstGrouped.map((countryName) => (
+                  <DestinationCard
+                    key={countryName}
+                    countryName={countryName}
+                    countryImage={ProjectImages.TOURPAGE_BANNER}
+                  />
+                ))}
+              </div>
+
+              <div className="second-grouped-destinations">
+                {destinationData.section2.secondGrouped.map((countryName) => (
+                  <DestinationCard
+                    key={countryName}
+                    countryName={countryName}
+                    countryImage={ProjectImages.TOURPAGE_BANNER}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-
-
         </div>
       </div>
     </>
   );
 }
+
 export default DestinationPage;
