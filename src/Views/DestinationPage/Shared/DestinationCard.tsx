@@ -11,7 +11,7 @@ function DestinationCard({ countryName, countryImage }: DestinationCardProps) {
   //destination image, country name
   return (
     <div className="destination-card-wrapper">
-      <img src={countryImage} />
+      <img src={countryImage} alt={countryName} />
 
       <div className="destination-name-container">
         <Link
@@ -22,6 +22,7 @@ function DestinationCard({ countryName, countryImage }: DestinationCardProps) {
           )}
         >
           <h5 className="cursive-text">{countryName}</h5>
+          <div className="travelers-count">174,688 Travelers</div>
         </Link>
       </div>
     </div>
