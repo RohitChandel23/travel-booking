@@ -1,24 +1,40 @@
 import "./DestinationPage.css";
 import PageBanner from "../Shared/PageBanner";
 import SearchArea from "../Shared/SearchArea";
-import { ProjectImages } from "../../assets/ProjectImages";
 import DestinationCard from "./Shared/DestinationCard";
+import { ProjectImages } from "../../assets/ProjectImages";
 
 function DestinationPage() {
   const destinationData = {
     section1: {
       firstGrouped: ["United Kingdom", "Canada", "Switzerland"],
-      secondGrouped: ["Thailand", "Australia"],
-      single: "France"
+      secondGrouped: ["Norway", "Japan"],
+      single: "France",
     },
     section2: {
-      firstGrouped: ["Italy", "Norway", "Egypt"],
-      secondGrouped: ["Japan", "India"],
-      single: "New Zealand"
-    }
+      firstGrouped: ["Italy", "Thailand", "Egypt"],
+      secondGrouped: ["Australia", "India"],
+      single: "New Zealand",
+    },
   };
 
-  const searchAreaData = (values: any) => {
+  // Map country names to their respective images
+  const countryImageMap = {
+    "United Kingdom": ProjectImages.UNITED_KINGDOM,
+    Canada: ProjectImages.CANADA,
+    Switzerland: ProjectImages.SWITZERLAND,
+    Thailand: ProjectImages.THAILAND,
+    Australia: ProjectImages.AUSTRALIA,
+    France: ProjectImages.FRANCE,
+    Italy: ProjectImages.ITALY,
+    Norway: ProjectImages.NORWAY,
+    Egypt: ProjectImages.EGYPT,
+    Japan: ProjectImages.JAPAN,
+    India: ProjectImages.INDIA,
+    "New Zealand": ProjectImages.NEWZEALAND,
+  };
+
+  const searchAreaData = (values) => {
     console.log(values);
   };
 
@@ -42,7 +58,7 @@ function DestinationPage() {
                   <DestinationCard
                     key={countryName}
                     countryName={countryName}
-                    countryImage={ProjectImages.TOURPAGE_BANNER}
+                    countryImage={countryImageMap[countryName]}
                   />
                 ))}
               </div>
@@ -52,7 +68,7 @@ function DestinationPage() {
                   <DestinationCard
                     key={countryName}
                     countryName={countryName}
-                    countryImage={ProjectImages.TOURPAGE_BANNER}
+                    countryImage={countryImageMap[countryName]}
                   />
                 ))}
               </div>
@@ -61,7 +77,7 @@ function DestinationPage() {
             <div className="single-destinations-grid">
               <DestinationCard
                 countryName={destinationData.section1.single}
-                countryImage={ProjectImages.TOURPAGE_BANNER}
+                countryImage={countryImageMap[destinationData.section1.single]}
               />
             </div>
           </div>
@@ -71,7 +87,7 @@ function DestinationPage() {
             <div className="single-destinations-grid">
               <DestinationCard
                 countryName={destinationData.section2.single}
-                countryImage={ProjectImages.TOURPAGE_BANNER}
+                countryImage={countryImageMap[destinationData.section2.single]}
               />
             </div>
 
@@ -81,7 +97,7 @@ function DestinationPage() {
                   <DestinationCard
                     key={countryName}
                     countryName={countryName}
-                    countryImage={ProjectImages.TOURPAGE_BANNER}
+                    countryImage={countryImageMap[countryName]}
                   />
                 ))}
               </div>
@@ -91,7 +107,7 @@ function DestinationPage() {
                   <DestinationCard
                     key={countryName}
                     countryName={countryName}
-                    countryImage={ProjectImages.TOURPAGE_BANNER}
+                    countryImage={countryImageMap[countryName]}
                   />
                 ))}
               </div>

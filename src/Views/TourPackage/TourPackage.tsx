@@ -11,10 +11,10 @@ import {
   useGetTrendingToursQuery,
   useGetFilteredDestinationToursQuery,
   useGetAttractionQuery,
-  useGetSearchedToursQuery
+  useGetSearchedToursQuery,
 } from "../../Services/Api/module/demoApi";
 import { useLocation } from "react-router-dom";
-import { ProjectImages } from "../../assets/ProjectImages";  
+import { ProjectImages } from "../../assets/ProjectImages";
 
 interface AttractionType {
   id: string;
@@ -43,120 +43,127 @@ interface AttractionType {
 
 function TourPackagePage() {
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
-  let [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>([]);
+  const [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedRating, setSelectedRating] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState([]);
   const [selectedDate, setSelectedDate] = useState([]);
-  
-  // const location = useLocation();
-  // const searchingData = location.state || '';
 
-  // console.log("data after navigation",searchingData);
+  const location = useLocation();
+  const searchingData = location.state || "";
 
+  // Initialize search data from DestinationPage navigation
+  useEffect(() => {
+    if (searchingData?.formattedData) {
+      const { destinationName, selectDate } = searchingData.formattedData;
+      setSelectedDestination(destinationName || null);
+      setSelectedDate(selectDate || []);
+    }
+  }, []); // Empty dependency array to run only on mount
 
-//handle searched data  (destination name , dates)
-function searchAreaData(values){
+  // Handle searched data (destination name, dates)
+  function searchAreaData(values) {
     setSelectedDate(values.selectDate);
     setSelectedDestination(values.destinationName);
   }
 
-//managing selected Price
-  function handleSelectedPrice(value){
+  // Manage selected price
+  function handleSelectedPrice(value) {
     setSelectedPrice(value);
   }
 
-  //handle destination
-  function handleDestinationData(data: string ) {
-     setMergedAttractions([]);
+  // Handle destination
+  function handleDestinationData(data: string) {
+    setMergedAttractions([]);
     setSelectedDestination(data || null);
     setCurrentPage(1);
   }
-  
-  //filtered destination id and getting data 
-  const { data: filteredDestination } = useGetFilteredDestinationToursQuery(selectedDestination || "",
+
+  // Filtered destination ID and getting data
+  const { data: filteredDestination } = useGetFilteredDestinationToursQuery(
+    selectedDestination || "",
     {
-      skip: !selectedDestination
+      skip: !selectedDestination,
     }
   );
-  const destinationId =  filteredDestination?.data?.products?.[0]?.id;                  
-  const { data: searchedTours } = useGetSearchedToursQuery({destinationId, selectedDate, currentPage}, 
+  const destinationId = filteredDestination?.data?.products?.[0]?.id;
+  const { data: searchedTours } = useGetSearchedToursQuery(
+    { destinationId, selectedDate, currentPage },
     {
       skip: !destinationId || selectedDate.length !== 2,
-    } 
-  )
-console.log("destination id: ",destinationId, selectedDestination);
+    }
+  );
 
-//fetching data for the destination specific
-  const { data: attractionData } = useGetAttractionQuery({destinationId, currentPage},    
+  // Fetching data for the destination-specific attractions
+  const { data: attractionData } = useGetAttractionQuery(
+    { destinationId, currentPage },
     {
       skip: !destinationId || selectedDate.length > 0,
     }
   );
-  console.log(attractionData);
 
-//trending tour data
-    const { data: trendingDestination } = useGetTrendingToursQuery(currentPage, {     
-      skip: !!selectedDestination || selectedDate.length == 2 ,
-    });
+  // Trending tour data
+  const { data: trendingDestination } = useGetTrendingToursQuery(currentPage, {
+    skip: !!selectedDestination || selectedDate.length === 2,
+  });
 
+  useEffect(() => {
+    if (selectedDestination && selectedDate.length === 2 && searchedTours?.data?.products) {
+      setMergedAttractions(searchedTours.data.products);
+      return;
+    }
 
-    useEffect(() => {
+    if (selectedDestination && attractionData?.data?.products) {
+      setMergedAttractions(attractionData.data.products);
+      return;
+    }
 
-      if (selectedDestination && selectedDate.length === 2 && searchedTours?.data?.products) {
-        setMergedAttractions(searchedTours.data.products);
-        return;
-      }
-    
-      if (selectedDestination && attractionData?.data?.products) {
-        setMergedAttractions(attractionData.data.products);
-        return;
-      }
-    
-      if (!selectedDestination && trendingDestination?.data?.products) {
-        setMergedAttractions(trendingDestination.data.products);
-        return;
-      }
-    
-      setMergedAttractions([]);
-    }, [selectedDestination, selectedDate, attractionData, trendingDestination, searchedTours]);
-    
+    if (!selectedDestination && trendingDestination?.data?.products) {
+      setMergedAttractions(trendingDestination.data.products);
+      return;
+    }
 
-//getting selected rating input
-  function handleRatingData(value:any){
+    setMergedAttractions([]);
+  }, [selectedDestination, selectedDate, attractionData, trendingDestination, searchedTours]);
+
+  // Getting selected rating input
+  function handleRatingData(value: any) {
     setSelectedRating(value);
   }
 
-//fitlering based on rating mergedAttraction
+  // Create a filtered copy for display
+  let displayedAttractions = [...mergedAttractions];
+
+  // Filtering based on rating
   if (selectedRating.length > 0) {
     selectedRating.sort((a, b) => a - b);
-
     const minRating = selectedRating[0];
     const maxRating = selectedRating[selectedRating.length - 1];
-    mergedAttractions = mergedAttractions?.filter(
+    displayedAttractions = displayedAttractions.filter(
       (item) =>
         item?.reviewsStats?.combinedNumericStats?.average >= minRating &&
         item?.reviewsStats?.combinedNumericStats?.average <= maxRating
     );
   }
 
-//filtering based on price  
-  if(selectedPrice?.length > 0){
+  // Filtering based on price
+  if (selectedPrice?.length > 0) {
     const minPrice = selectedPrice[0];
     const maxPrice = selectedPrice[1];
-      mergedAttractions = mergedAttractions?.filter((item)=>
-       Math.ceil(item?.representativePrice?.chargeAmount) <= maxPrice && 
-     Math.ceil(item?.representativePrice?.chargeAmount) >= minPrice
-)
+    displayedAttractions = displayedAttractions.filter(
+      (item) =>
+        Math.ceil(item?.representativePrice?.chargeAmount) <= maxPrice &&
+        Math.ceil(item?.representativePrice?.chargeAmount) >= minPrice
+    );
   }
 
   function handlePageChange(value: any) {
-    if (value > 0 )
-      setCurrentPage((prev) => prev + 1);
-    else if (value < 0 && currentPage != 1) setCurrentPage((prev) => prev - 1);
+    if (value > 0) setCurrentPage((prev) => prev + 1);
+    else if (value < 0 && currentPage !== 1) setCurrentPage((prev) => prev - 1);
   }
 
-  console.log("data to be displayed", mergedAttractions)
+  // Prepare initial search values for SearchArea
+  const initialSearchValues = searchingData?.formattedData || {};
 
   return (
     <>
@@ -166,17 +173,16 @@ console.log("destination id: ",destinationId, selectedDestination);
         coloredText="Tour Package"
         bannerImage={ProjectImages.TOURPAGE_BANNER}
       />
-      <SearchArea searchAreaData={searchAreaData}/>
+      <SearchArea searchAreaData={searchAreaData} initialSearchValues={initialSearchValues} />
 
       <div className={CLASSNAMES.FILTER_DISPLAY}>
         <div className={CLASSNAMES.FILTER_CONTAINER}>
-
           <div className="tour-filter-types">
-            <FilterByPrice handleSelectedPrice={handleSelectedPrice}/>
+            <FilterByPrice handleSelectedPrice={handleSelectedPrice} />
           </div>
 
           <div className="tour-filter-types">
-            <FilterByDestination handleDestinationData={handleDestinationData}/>
+            <FilterByDestination handleDestinationData={handleDestinationData} />
           </div>
 
           <div className="tour-filter-types">
@@ -185,38 +191,32 @@ console.log("destination id: ",destinationId, selectedDestination);
         </div>
 
         <div className={CLASSNAMES.TOURS_CONTAINER}>
-          { 
-          mergedAttractions.map((item: AttractionType) => {                
-              const countryName =
-                item?.ufiDetails?.url?.country?.toUpperCase() || "N/A";
-              const cityName = item?.ufiDetails?.bCityName || "N/A";
-              const tourName = item?.name || "N/A";
-              const tourImage = item?.primaryPhoto?.small || "";
-              const tourRating =
-                item?.reviewsStats?.combinedNumericStats?.average?.toString() ||
-                "N/A";
-              const tourReview =
-                item?.reviewsStats?.allReviewsCount?.toString() || "0";
-              const tourPrice = Math.ceil(
-                item?.representativePrice?.chargeAmount || 0
-              );
-              const slugValue = item?.slug || item.id.toString();
+          {displayedAttractions.map((item: AttractionType) => {
+            const countryName = item?.ufiDetails?.url?.country?.toUpperCase() || "N/A";
+            const cityName = item?.ufiDetails?.bCityName || "N/A";
+            const tourName = item?.name || "N/A";
+            const tourImage = item?.primaryPhoto?.small || "";
+            const tourRating =
+              item?.reviewsStats?.combinedNumericStats?.average?.toString() || "N/A";
+            const tourReview = item?.reviewsStats?.allReviewsCount?.toString() || "0";
+            const tourPrice = Math.ceil(item?.representativePrice?.chargeAmount || 0);
+            const slugValue = item?.slug || item.id.toString();
 
-              return (
-                <TourCard
-                  key={`${item.destinationId}-${slugValue}`}
-                  cityName={cityName}
-                  countryName={countryName}
-                  tourName={tourName}
-                  tourImage={tourImage}
-                  tourRating={tourRating}
-                  tourReview={tourReview}
-                  tourPrice={tourPrice}
-                  tourDuration="2 days"
-                  slugValue={slugValue}
-                />
-              );
-            })}
+            return (
+              <TourCard
+                key={`${item.destinationId}-${slugValue}`}
+                cityName={cityName}
+                countryName={countryName}
+                tourName={tourName}
+                tourImage={tourImage}
+                tourRating={tourRating}
+                tourReview={tourReview}
+                tourPrice={tourPrice}
+                tourDuration="2 days"
+                slugValue={slugValue}
+              />
+            );
+          })}
         </div>
       </div>
 
@@ -231,7 +231,12 @@ console.log("destination id: ",destinationId, selectedDestination);
             <i className="fa-solid fa-chevron-left" />
           </span>{" "}
 
-    <span className="page-number-container colored-page-number" onClick = {()=> setCurrentPage(prev => prev+1 )} >{currentPage}</span> 
+          <span
+            className="page-number-container colored-page-number"
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+          >
+            {currentPage}
+          </span>
 
           <span
             className="page-number-container"
@@ -246,4 +251,5 @@ console.log("destination id: ",destinationId, selectedDestination);
     </>
   );
 }
+
 export default TourPackagePage;
