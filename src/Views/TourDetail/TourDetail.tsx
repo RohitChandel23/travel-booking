@@ -1,19 +1,18 @@
-import { Link, useParams } from 'react-router-dom';
-import './TourDetail.css';
-import { useGetTourDetailQuery } from '../../Services/Api/module/demoApi';
-import MapComponent from '../Shared/MapComponent';
-import { ROUTES_CONFIG } from '../../Shared/Constants';
-import TourBookingDetail from './TourBookingDetail';
-import TourReview from './TourBookingDetail/Shared/TourReview';
-import CalendarComponent from './TourBookingDetail/Shared/CalendarComponent/index';
-import IncludeExclude from './TourBookingDetail/Shared/IncludeExclude';
-import {useEffect, useState} from 'react';
-import AddingComment from '../../Components/customComponent/AddingComment/AddingComment';
+import { useParams } from "react-router-dom";
+import "./TourDetail.css";
+import { useGetTourDetailQuery } from "../../Services/Api/module/demoApi";
+import MapComponent from "../Shared/MapComponent";
+// import { ROUTES_CONFIG } from "../../Shared/Constants";
+import TourBookingDetail from "./TourBookingDetail";
+import TourReview from "./TourBookingDetail/Shared/TourReview";
+import CalendarComponent from "./TourBookingDetail/Shared/CalendarComponent/index";
+import IncludeExclude from "./TourBookingDetail/Shared/IncludeExclude";
+import { useEffect, useState } from "react";
+import AddingComment from "../../Components/customComponent/AddingComment/AddingComment";
 
 
 
 function TourDetail() {
-
   const { slugId } = useParams();
   const slugValue = slugId;
   const { data } = useGetTourDetailQuery(slugValue);
@@ -34,33 +33,20 @@ function TourDetail() {
   const excludedItems = tourData?.notIncluded;
   const excludedClassName = "fa-solid fa-xmark";
 
-  const includedItemsObj = {
-    includedItems,
-    includedClassName
-  }
-
-  const excludedItemsObj = {
-    excludedItems,
-    excludedClassName
-  }
-
-  const includedExcludedObj = {
-    includedItemsObj,
-    excludedItemsObj
-  }
+  const includedItemsObj = { includedItems, includedClassName };
+  const excludedItemsObj = { excludedItems, excludedClassName };
+  const includedExcludedObj = { includedItemsObj, excludedItemsObj };
 
   const [selectedCalendarDate, setSelectedCalendarDate] = useState("");
 
-//handling calendar selected date
-    function handleCalendarSelectedDate(date:string){
-      setSelectedCalendarDate(date);
-    }
+  //handling calendar selected date
+  function handleCalendarSelectedDate(date: string) {
+    setSelectedCalendarDate(date);
+  }
 
-    useEffect(()=>{
-      window.scrollTo(0, 0);
-    })
-  
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   return (
     <>
@@ -81,16 +67,18 @@ function TourDetail() {
 
           <div className="tour-detail-location-share">
             <div className="tour-detail-location">
-              <p className='project-normal-font'>
-                {' '}
-                <i className="fa-solid fa-location-dot" /> {tourCity},{' '}
-                {tourCountry} {'  '}
-                <Link
-                  to={ROUTES_CONFIG.LOGIN.path} // {/* -----------put google map link here -----------------  */}
-                  className="link-class project-theme-color"
+              <p className="project-normal-font">
+                {" "}
+                <i className="fa-solid fa-location-dot" /> {tourCity},{" "}
+                {tourCountry?.toUpperCase()} {"  "}
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(tourCity)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-theme-color"
                 >
                   view on map
-                </Link>{' '}
+                </a>
               </p>
             </div>
             <div className="tour-detail-share">
@@ -98,10 +86,11 @@ function TourDetail() {
               <i className="fa-regular fa-heart" />
             </div>
           </div>
-          <h3 className='tour-title-name project-heading-font'>{tourName}</h3>
+          <h3 className="tour-title-name project-heading-font">{tourName}</h3>
 
           <div className="tour-features-container">
             <div className="tour-feature">
+              {/* make component */}
               <span className="tour-feature-heading">From</span>
               <span className="tour-feature-value project-theme-color project-normal-font">
                 ${tourPrice}
@@ -110,7 +99,9 @@ function TourDetail() {
 
             <div className="tour-feature">
               <span className="tour-feature-heading">Duration</span>
-              <span className="tour-feature-value project-normal-font">1 day</span>
+              <span className="tour-feature-value project-normal-font">
+                1 day
+              </span>
             </div>
 
             <div className="tour-feature">
@@ -125,47 +116,59 @@ function TourDetail() {
 
             <div className="tour-feature">
               <span className="tour-feature-heading">Tour Type</span>
-              <span className="tour-feature-value project-normal-font">Adventure</span>
+              <span className="tour-feature-value project-normal-font">
+                Adventure
+              </span>
             </div>
 
             <div className="tour-feature">
               <span className="tour-feature-heading">Reviews</span>
               <span className="tour-feature-value project-normal-font">
-                <i className="fa-solid fa-star project-theme-color" />{' '}
-                {tourRating} <span className='project-normal-font'>({tourReviewCount} reviews) </span>
+                <i className="fa-solid fa-star project-theme-color" />{" "}
+                {tourRating}{" "}
+                <span className="project-normal-font">
+                  ({tourReviewCount} reviews){" "}
+                </span>
               </span>
             </div>
           </div>
 
           <div className="tour-detail-overview">
             <h5 className="detail-page-minor-title">Overview</h5>
-            <p className='project-normal-font'> {tourDescription} </p>
+            <p className="project-normal-font"> {tourDescription} </p>
           </div>
 
-          <div className='include-exclude-container'>
-              <h5 className="detail-page-minor-title">Included / Exclude</h5>
-              <IncludeExclude itemsObj = {includedExcludedObj} />
+          <div className="include-exclude-container">
+            <h5 className="detail-page-minor-title">Included / Exclude</h5>
+            <IncludeExclude itemsObj={includedExcludedObj} />
           </div>
 
-          <div className='calendar-section'>
-           <h5 className="detail-page-minor-title">Calendar & Prices</h5> 
-          <CalendarComponent tourPrice={tourPrice} handleCalendarSelectedDate={handleCalendarSelectedDate} />    { /* date selected --- value */ }
+          <div className="calendar-section">
+            <h5 className="detail-page-minor-title">Calendar & Prices</h5>
+            <CalendarComponent
+              tourPrice={tourPrice}
+              handleCalendarSelectedDate={handleCalendarSelectedDate}
+            />{" "}
+            {/* date selected --- value */}
           </div>
 
           <div className="tour-location-map">
             <MapComponent cityName={tourCity} mapHeadingText="Map" />
           </div>
 
-          <div className='tour-detail-review'>
-          <h5 className='project-heading-font'>Average Reviews</h5>
-          <TourReview tourRating = {tourRating} tourId = {tourId}/>
-
+          <div className="tour-detail-review">
+            <h5 className="project-heading-font">Average Reviews</h5>
+            <TourReview tourRating={tourRating} tourId={tourId} />
           </div>
-            
         </div>
 
-        <div className="tour-booking-detail">   {/* selected calendar date will be passed here */}
-          <TourBookingDetail tourPrice={tourPrice} selectedCalendarDate={selectedCalendarDate} />
+        <div className="tour-booking-detail">
+          {" "}
+          {/* selected calendar date will be passed here */}
+          <TourBookingDetail
+            tourPrice={tourPrice}
+            selectedCalendarDate={selectedCalendarDate}
+          />
         </div>
       </section>
 
@@ -173,7 +176,6 @@ function TourDetail() {
          some tours will be featured here
         <FeaturedTours />
       </div> */}
-
     </>
   );
 }

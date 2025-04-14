@@ -38,14 +38,6 @@
   margin-left: 5px;
 }
 
-
-
-
-
-
-
-
-
 .logout-btn {
   display: flex;
   align-items: center;
@@ -57,11 +49,11 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  transition: background 0.3s, color 0.3s;
+  transition:0.3s, color 0.3s;
 }
 
 .logout-btn:hover {
-  background: #007bff;
+  background: rgba(5, 16, 54, 0.8);
   color: white;
 }
 

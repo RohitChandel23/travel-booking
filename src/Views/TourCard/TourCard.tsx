@@ -31,7 +31,7 @@ function TourCard({
         <img src={tourImage} />
       </div>
       <div className="tour-info-container">
-        <p>
+        <p className='project-theme-color'>
           {cityName}, {countryName}
         </p>
         <Link className='link-class'

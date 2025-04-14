@@ -8,6 +8,11 @@ function HomepageDestination() {
         <h3 className="destination-header section-heading">
           Top Attractions Destinations
         </h3>
+
+        
+
+
+
       </div>
 
       <div className="destination-places">destination cards</div>

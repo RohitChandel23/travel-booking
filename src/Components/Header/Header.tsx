@@ -6,8 +6,12 @@ import { useEffect, useState } from 'react';
 import {auth} from '../../firebaseConfig'
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { toast } from 'react-toastify';
+import { useDispatch } from "react-redux";
+import { updateAuthTokenRedux } from '../../Store/Common';
+
 
 function Header() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
@@ -23,6 +27,7 @@ function Header() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
+          dispatch(updateAuthTokenRedux({token:null}))
       toast.success('Logged out successfully!');
       navigate(ROUTES_CONFIG.HOMEPAGE.path);
     } catch (error) {

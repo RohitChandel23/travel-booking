@@ -41,7 +41,6 @@ margin-top: 5%;
 }
 
 
-
 .tour-info-container{
 height: 201.5px;
 object-fit: contain;
@@ -52,6 +51,7 @@ padding:16px 20px;
 
 .tour-info-container p{
     margin:0px;
+    color:#fc5056;
 }
 
 h6{

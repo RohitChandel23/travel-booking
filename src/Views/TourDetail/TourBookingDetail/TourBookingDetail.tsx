@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import DateTimeComponent from "./Shared/DateTimeComponent";
 import { db, collection, addDoc } from "../../../firebaseConfig";
 import { toast } from 'react-toastify';
+import ConnectWalletButton from "../../ConnectWalletButton";
+
 
 interface tourBookingDetailProps {
   tourPrice: string;
@@ -46,9 +48,11 @@ function TourBookingDetail({ tourPrice, selectedCalendarDate }: tourBookingDetai
       userName: "john",
       totalPrice: totalPrice,
       tickets: kidsCount + childrenCount + adultsCount,
+      date: selectedDateTime[0],
+      time: selectedDateTime[1],
     };
     if(!bookingDetail.userName || !bookingDetail.totalPrice || !bookingDetail.tickets){
-      console.log(bookingDetail.tickets)
+      console.log(bookingDetail)
       toast.error("All fields are required")
       return;
     }
@@ -65,8 +69,9 @@ function TourBookingDetail({ tourPrice, selectedCalendarDate }: tourBookingDetai
   // this function will be send to the child component to get the data
   function getDateTime(DateTimeData: any) {
     setSelectedDateTime(DateTimeData);
-    console.log("working..........", DateTimeData);
   } 
+
+  console.log("data fr date and tim",selectedDateTime);
 
   return (
     <>
@@ -166,6 +171,10 @@ function TourBookingDetail({ tourPrice, selectedCalendarDate }: tourBookingDetai
       <button className="book-now-button" onClick={handleBooking}>
         Book Now
       </button>
+
+      <div className="wallet-btn">
+      <ConnectWalletButton/>
+    </div>
     </>
   );
 }

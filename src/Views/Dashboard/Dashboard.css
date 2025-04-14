@@ -11,6 +11,10 @@
     object-fit: cover; 
   }
 
+.section-headers h4{
+margin:3% 0 0.6% 0 ; 
+}
+
   .banner-text-container{
     position: absolute;
     display: flex;
@@ -79,8 +83,10 @@
 
   .tour-content-container{
     display:flex;
-    justify-content: center;
+    justify-content: space-between;
   }
+
+  
 
   .content-header{
     font-size: 26px;
@@ -90,11 +96,14 @@
 
   .tour-content{
     display: flex;
-    width:100%;
+    width: 1296px;
+    height:auto;
     margin-left: 20%;
     margin-right:20%;
     align-items: center;
     justify-content: space-between;
+
+    background-color: aliceblue;
   }
 
   .cursive-normal{

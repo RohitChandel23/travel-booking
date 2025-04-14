@@ -44,6 +44,7 @@ background-color: #fc5056;
 color:white;
 border: none;
 border-radius: 6px;
+margin-top:4%;
 }
 
 .increment-decrement-btn{       
@@ -88,4 +89,21 @@ border-radius: 6px;
     font-style: normal;
     font-weight: 700;
     line-height: 133.333%;
+}
+
+.wallet-btn{
+display: flex;
+justify-content: space-between;
+gap:4%;
+
+}
+
+.wallet-btn button{
+margin-top: 5%;
+width:90%;
+padding: 12px 28px;
+background-color: #fc5056;
+color:white;
+border: none;
+border-radius: 6px;
 }
