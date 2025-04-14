@@ -27,6 +27,7 @@
   display:flex;
   justify-content: space-between;
   align-items: center;
+  gap:14%;
 }
 
 .right-header i{
@@ -35,4 +36,35 @@
 
 .right-header p{
   margin-left: 5px;
+}
+
+
+
+
+
+
+
+
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(5, 16, 54, 0.8);
+  color: rgba(5, 16, 54, 0.8);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.logout-btn:hover {
+  background: #007bff;
+  color: white;
+}
+
+.logout-btn .fa-sign-out-alt {
+  font-size: 16px;
 }

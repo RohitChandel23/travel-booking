@@ -1,18 +1,18 @@
-import "./SignIn.css";
-import { useNavigate } from "react-router";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import ToggleBtn from "../button/ToggleBtn/ToggleBtn";
-import SocialBtn from "../button/SocialButtons/SocialBtn";
-import { auth, googleProvider } from "../../../firebaseConfig";
-import { ROUTES_CONFIG } from "../../../Shared/Constants";
-import "react-toastify/dist/ReactToastify.css";
-import AuthBannerImg from "../Shared/AuthBannerImg";
-import { updateAuthTokenRedux } from "../../../Store/Common/index";
-import { useDispatch } from "react-redux";
+import './SignIn.css';
+import { useNavigate } from 'react-router';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import ToggleBtn from '../button/ToggleBtn/ToggleBtn';
+import SocialBtn from '../button/SocialButtons/SocialBtn';
+import { auth, googleProvider } from '../../../firebaseConfig';
+import { ROUTES_CONFIG } from '../../../Shared/Constants';
+import 'react-toastify/dist/ReactToastify.css';
+import AuthBannerImg from '../Shared/AuthBannerImg';
+import { updateAuthTokenRedux } from '../../../Store/Common/index';
+import { useDispatch } from 'react-redux';
 
 interface SignInFormValues {
   email: string;
@@ -25,42 +25,66 @@ function SignIn() {
 
   const handleSignIn = async (values: SignInFormValues) => {
     try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
-      toast.success("Login Successful");
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      const { user } = userCredential;
 
-      const user = auth?.currentUser;
-      if (user) {
-        console.log("user", user);
-
-        const token = await user?.getIdToken();
-        console.log(token);
-        dispatch(updateAuthTokenRedux({ token }));
+      if (!user.emailVerified) {
+        await auth.signOut();
+        toast.error('Please verify your email first.');
+        return;
       }
+
+      const token = await user.getIdToken();
+      dispatch(updateAuthTokenRedux({ token }));
+      toast.success('Login successful!');
       navigate(ROUTES_CONFIG.HOMEPAGE.path);
-    } catch (e) {
-      toast.error("Login Error Try again");
-      console.log("error is: ", e);
+    } catch (error: any) {
+      let errorMessage = 'An error occurred. Please try again.';
+      switch (error.code) {
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+          errorMessage = 'Invalid email or password.';
+          break;
+        case 'auth/too-many-requests':
+          errorMessage = 'Too many attempts. Please try again later.';
+          break;
+        default:
+          errorMessage = error.message || errorMessage;
+      }
+      toast.error(errorMessage);
     }
   };
 
-  async function handleGoogleLogin() {
+  const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      console.log("User Info after google login:", result.user); // Logged-in user info
-      const token = result?.user?.accessToken;
-      dispatch(updateAuthTokenRedux({ token }));
-      navigate(ROUTES_CONFIG.HOMEPAGE.path);
+      const { user } = result;
 
-      toast.success("Login Successful");
-    } catch (error) {
-      toast.error((error as Error).message || "Something went wrong");
+      // Google accounts verification
+      if (!user.emailVerified) {
+        await auth.signOut();
+        toast.error('Please verify your email first.');
+        return;
+      }
+
+      const token = await user.getIdToken();
+      dispatch(updateAuthTokenRedux({ token }));
+      toast.success('Login successful!', {
+        position: 'top-center',
+      });
+      navigate(ROUTES_CONFIG.HOMEPAGE.path);
+    } catch (error: any) {
+      toast.error(error.message || 'Google login failed.');
     }
-  }
+  };
 
   return (
     <>
       <AuthBannerImg />
-
       <div className="signIn-div">
         <div className="auth-buttons">
           <ToggleBtn
@@ -76,24 +100,37 @@ function SignIn() {
         <div className="signIn-form">
           <Formik
             initialValues={{
-              email: "",
-              password: "",
+              email: '',
+              password: '',
             }}
             validationSchema={Yup.object({
-              email: Yup.string().required("Required"),
-
-              password: Yup.string().required("Required"),
+              email: Yup.string().email('Invalid email').required('Required'),
+              password: Yup.string().required('Required'),
             })}
             onSubmit={handleSignIn}
           >
             <Form className="form-values">
-              <label htmlFor="email">Email Address</label>
-              <Field name="email" type="email" className="txt-box" />
-              <ErrorMessage name="email" />
+              <div className="input-group">
+                <label htmlFor="email">Email Address</label>
+                <Field
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  className="txt-box"
+                />
+                <ErrorMessage name="email" component="div" className="error" />
+              </div>
 
-              <label htmlFor="password">Password</label>
-              <Field name="password" type="password" className="txt-box" />
-              <ErrorMessage name="password" />
+              <div className="input-group">
+                <label htmlFor="password">Password</label>
+                <Field
+                  name="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  className="txt-box"
+                />
+                <ErrorMessage name="password" component="div" className="error" />
+              </div>
 
               <button type="submit" className="submit-btn">
                 Submit
@@ -102,18 +139,12 @@ function SignIn() {
           </Formik>
         </div>
 
-        <Link to="/reset-password">Forgot Your Password ? </Link>
+        <Link to="/reset-password">Forgot Your Password?</Link>
 
         <div className="social-auth">
           <SocialBtn name="Google" handleClick={handleGoogleLogin} />
-          <SocialBtn
-            name="Facebook"
-            handleClick={() => console.log("Facebook")}
-          />
-          <SocialBtn
-            name="Twitter"
-            handleClick={() => console.log("Twitter")}
-          />
+          <SocialBtn name="Facebook" handleClick={() => console.log('Facebook')} />
+          <SocialBtn name="Twitter" handleClick={() => console.log('Twitter')} />
         </div>
       </div>
     </>

@@ -82,7 +82,7 @@ function DestinationPage() {
             </div>
           </div>
 
-          {/* Second Grid Section - Single card on left */}
+          {/* Second Grid Section */}
           <div className="grid-section reversed">
             <div className="single-destinations-grid">
               <DestinationCard

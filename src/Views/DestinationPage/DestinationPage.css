@@ -1,64 +1,8 @@
-/* .destination-grid-wrapper{
-    height: auto;
-    width:100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 10%;
-
-    margin-bottom: 10%;
-}
-
-.destination-grid-container{
-    display: flex;
-    gap: 3%;
-    height:auto;
-    width:70%;
-
-}
-
-.grouped-destinations-grid{
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-gap: 6%;
-width:300%;
-height:100%;
-}   
-
-.first-grouped-destinations{
-    width:100%;
-    height:100%;
-    display:flex;
-    gap: 3%;
-
-}
-
-.second-grouped-destinations{
-    width:100%;
-    height:100%;
-    display: flex;
-    gap:3%;
-
-    background-color: lightblue;
-}
-
-.single-destinations-grid{
-    width:100%;
-    height:100%;
-} */
-
-
-
-
-
-
-
-
 .destination-grid-wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 5rem;
+    margin-top: 9rem;
     margin-bottom: 5rem;
 }
 
