@@ -1,41 +1,136 @@
-import "./BlogDetailPage.css";
-import { ProjectImages } from "../../assets/ProjectImages";
-import AddingComment from "../../Components/customComponent/AddingComment/AddingComment";
+// import "./BlogDetailPage.css";
+// import { ProjectImages } from "../../assets/ProjectImages";
+// import AddingComment from "../../Components/customComponent/AddingComment/AddingComment";
+
+// function BlogDetailPage() {
+//   return (
+//     <div className="blog-detail-page-wrapper">
+//       <div className="blog-detail-page-container">
+//         <div className="blog-detail-image-container">
+//           <img
+//             src={ProjectImages.DESTINATION_BANNER}
+//             className="blog-detail-image"
+//           />
+//         </div>
+
+//         <div className="blog-detail-content-wrapper">
+//           <div className="blog-detail-date">
+//             <p>Sep 26, 2025 • Admin</p>
+//           </div>
+
+//           <h3 className="blog-detail-title">
+//             The Impact of Covid-19 on travel & tourisom industry
+//           </h3>
+//           <p className="blog__description project-normal-font">
+//             Laboratories used for scientific research take many forms because of
+//             the differing requirements of specialists in the various fields of
+//             science and engineering.
+//             <br />
+//             <br /> A physics laboratory Sed ut perspiciatis unde omnis iste
+//             natus error sit voluptatem accusantium doloremque laudantium,
+//             aperiam ipsquae ab illo inventore veritatis et quasi architecto
+//             beatae vitae dicta sunt explicabo. Nemo enim voluptatem voluptas sit
+//             aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+//             eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+//             qui dolorem ipsum quia dolor sit Sed ut perspiciatis unde omnis iste
+//             natus error sit voluptatem accusantium doloremque laudantium,
+//             aperiam ipsquae ab illo inventore veritatis et quasi architecto
+//             beatae vitae dicta sunt explicabo
+//           </p>
+//         </div>
+
+//         <div className="blog-details-tag-share-wrapper">
+//           <div className="blog-share-tag-container">
+//             <div className="blog-share-container">
+//               <span>Share: </span>
+//               <span className="social-share-icons">
+//                 <i className="fa-brands fa-facebook-f" />
+//                 <i className="fa-brands fa-x-twitter" />
+//                 <i className="fa-brands fa-whatsapp" />
+//                 <i className="fa-brands fa-linkedin-in" />
+//                 <i className="fa-solid fa-link" />
+//               </span>
+//             </div>
+
+//             <div className="blog-detail-page-tags">
+//               <span>Destination</span>
+//               <span>Museums</span>
+//               <span>Sports</span>
+//             </div>
+//           </div>
+//           <div className="blog-tags"></div>
+//         </div>
+
+//         <div className="author-section">
+//           <div className="author-image-wrapper">
+//             <div className="author-image-container">
+//                 <img src={ProjectImages.BLANK_PROFILE}/></div>
+//           </div>
+//           <div className="author-information-container">
+//             <h6>Simmons</h6>
+//             <span>Author</span>
+//             <p className="project-normal-font">
+//               Objectively productivate just in time information with dynamic
+//               channels. Energistically exploit seamless growth strategies after
+//               24/7 experiences.
+//             </p>
+//           </div>
+//         </div>
+
+//         <div className="blog-reply-container">
+//           <AddingComment/>
+//         </div>
+
+
+//       </div>
+//     </div>
+//   );
+// }
+// export default BlogDetailPage;
+
+
+
+
+
+import './BlogDetailPage.css';
+import { useParams } from 'react-router-dom';
+import { ProjectImages } from '../../assets/ProjectImages';
+import AddingComment from '../../Components/customComponent/AddingComment/AddingComment';
+import { blogs, Blog } from '../BlogPage/Blogs';
 
 function BlogDetailPage() {
+  const { id } = useParams<{ id: string }>();
+  const blog: Blog | undefined = blogs.find((b) => b.id === parseInt(id || ''));
+
+  if (!blog) {
+    return <div className="blog-detail-page-wrapper">Blog not found</div>;
+  }
+
   return (
     <div className="blog-detail-page-wrapper">
       <div className="blog-detail-page-container">
         <div className="blog-detail-image-container">
           <img
-            src={ProjectImages.DESTINATION_BANNER}
+            src={blog.image}
             className="blog-detail-image"
+            alt={blog.title}
           />
         </div>
 
         <div className="blog-detail-content-wrapper">
           <div className="blog-detail-date">
-            <p>Sep 26, 2025 • Admin</p>
+            <p>{blog.date} • Admin</p>
           </div>
 
-          <h3 className="blog-detail-title">
-            The Impact of Covid-19 on travel & tourisom industry
-          </h3>
+          <h3 className="blog-detail-title">{blog.title}</h3>
           <p className="blog__description project-normal-font">
-            Laboratories used for scientific research take many forms because of
-            the differing requirements of specialists in the various fields of
-            science and engineering.
-            <br />
-            <br /> A physics laboratory Sed ut perspiciatis unde omnis iste
-            natus error sit voluptatem accusantium doloremque laudantium,
-            aperiam ipsquae ab illo inventore veritatis et quasi architecto
-            beatae vitae dicta sunt explicabo. Nemo enim voluptatem voluptas sit
-            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-            eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
-            qui dolorem ipsum quia dolor sit Sed ut perspiciatis unde omnis iste
-            natus error sit voluptatem accusantium doloremque laudantium,
-            aperiam ipsquae ab illo inventore veritatis et quasi architecto
-            beatae vitae dicta sunt explicabo
+            {blog.content.map((paragraph, index) => (
+              <span key={index}>
+                {paragraph}
+                <br />
+                <br />
+              </span>
+            ))}
           </p>
         </div>
 
@@ -53,9 +148,8 @@ function BlogDetailPage() {
             </div>
 
             <div className="blog-detail-page-tags">
-              <span>Destination</span>
-              <span>Museums</span>
-              <span>Sports</span>
+              <span>{blog.tag}</span>
+              {/* Add more tags if needed, or keep single tag */}
             </div>
           </div>
           <div className="blog-tags"></div>
@@ -64,7 +158,8 @@ function BlogDetailPage() {
         <div className="author-section">
           <div className="author-image-wrapper">
             <div className="author-image-container">
-                <img src={ProjectImages.BLANK_PROFILE}/></div>
+              <img src={ProjectImages.BLANK_PROFILE} alt="Author" />
+            </div>
           </div>
           <div className="author-information-container">
             <h6>Simmons</h6>
@@ -78,12 +173,11 @@ function BlogDetailPage() {
         </div>
 
         <div className="blog-reply-container">
-          <AddingComment/>
+          <AddingComment />
         </div>
-
-
       </div>
     </div>
   );
 }
+
 export default BlogDetailPage;
