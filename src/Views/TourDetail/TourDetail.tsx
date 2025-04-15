@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import AddingComment from "../../Components/customComponent/AddingComment/AddingComment";
 
 
-
 function TourDetail() {
   const { slugId } = useParams();
   const slugValue = slugId;
@@ -90,7 +89,6 @@ function TourDetail() {
 
           <div className="tour-features-container">
             <div className="tour-feature">
-              {/* make component */}
               <span className="tour-feature-heading">From</span>
               <span className="tour-feature-value project-theme-color project-normal-font">
                 ${tourPrice}
@@ -149,7 +147,6 @@ function TourDetail() {
               tourPrice={tourPrice}
               handleCalendarSelectedDate={handleCalendarSelectedDate}
             />{" "}
-            {/* date selected --- value */}
           </div>
 
           <div className="tour-location-map">
@@ -172,10 +169,6 @@ function TourDetail() {
         </div>
       </section>
 
-      {/* <div className="tour-detail-featured-tours">
-         some tours will be featured here
-        <FeaturedTours />
-      </div> */}
     </>
   );
 }

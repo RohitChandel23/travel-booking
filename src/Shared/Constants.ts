@@ -13,7 +13,7 @@ const ROUTES = {
   DESTINATION:'/destination',
   DESTINATION_DETAIL:'/destination-detail/:countryName',
   BLOG:'/blog',
-  BLOG_DETAIL:'/blog-detail',
+  BLOG_DETAIL:'/blog/:id',
 };
 
 const WILDCARD_ROUTES = {
