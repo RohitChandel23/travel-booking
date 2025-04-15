@@ -4,6 +4,7 @@ import HomepageDestination from '../HomepageDestination/HomepageDestination';
 import TourCard from '../TourCard/TourCard';
 import WhyUsComponent from '../WhyUsComponent/index';
 import SearchArea from '../Shared/SearchArea';
+import Testimonial from '../../Shared/FormElement/Testimonial';
 import './Dashboard.css';
 import { useEffect } from 'react';
 
@@ -75,8 +76,10 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* destination section */}
       <HomepageDestination />
+      <div className='testimonial-section'>
+        <Testimonial/>
+      </div>
 
       {/* why us section */}
       <WhyUsComponent />

@@ -1,19 +1,76 @@
-import { useAppKit } from "@reown/appkit/react";
+import { useState } from "react";
+import { ethers } from "ethers";
 
-export default function ConnectWalletButton() {
-  const { open } = useAppKit();
+const ConnectWalletButton = () => {
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleBookNow = async () => {
+    if (!window.ethereum) {
+      alert("Please install MetaMask first.");
+      return;
+    }
+
+    try {
+      setIsProcessing(true);
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+
+      const receiverAddress = "0x1D7e62a808fC888764cfB26D3FD58A0A81DC4886"; // your address
+      const amount = ethers.parseEther("0.0001");
+
+      const balance = await provider.getBalance(await signer.getAddress());
+      if (balance < amount) {
+        throw new Error("Insufficient funds for 0.0001 ETH + gas");
+      }
+
+      const tx = await signer.sendTransaction({
+        to: receiverAddress,
+        value: amount,
+      });
+
+      alert("✅ Booking successful! Tx Hash: " + tx.hash);
+    } catch (err) {
+      console.error("Booking failed:", err);
+      alert("❌ Booking failed: " + err.message);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   return (
-    <>
-      <button onClick={() => open()}>
-        Connect Wallet
+    <div>
+      <h3>Paris Tour Package</h3>
+      <button onClick={handleBookNow} disabled={isProcessing}>
+        {isProcessing ? "Processing..." : "Book Now"}
       </button>
-      <button onClick={() => open({ view: "Networks" })}>
-        Choose Network
-      </button>
-    </>
+    </div>
   );
-}
+};
+
+export default ConnectWalletButton;
+
+
+
+
+// import { useAppKit } from "@reown/appkit/react";
+
+// export default function ConnectWalletButton() {
+//   const { open } = useAppKit();
+
+//   return (
+//     <>
+//       <button onClick={() => open()}>
+//         Connect Wallet
+//       </button>
+//       <button onClick={() => open({ view: "Networks" })}>
+//         Choose Network
+//       </button>
+//     </>
+//   );
+// }
+
+
+
 
 // // import React, { useState } from "react";
 // // import { ethers } from "ethers";

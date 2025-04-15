@@ -69,28 +69,29 @@ import './index.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
-import { createAppKit } from "@reown/appkit/react";
-import { EthersAdapter } from "@reown/appkit-adapter-ethers";
-import { arbitrum, mainnet } from "@reown/appkit/networks";
-const projectId = '354b80f814d44c5ef4989ff6aea5661a';
-const networks:any = [arbitrum, mainnet];
-const metadata = {
-  name: "travel-booking",
-  description: "My Decentralized Application",
-  url: 'https://localhost.com/appkit',
-  icons: ['https://assets.reown.com/reown-profile-pic.png']
+// import { createAppKit } from "@reown/appkit/react";
+// import { EthersAdapter } from "@reown/appkit-adapter-ethers";
+// import { arbitrum, mainnet } from "@reown/appkit/networks";
+// const projectId = '354b80f814d44c5ef4989ff6aea5661a';
+// const networks:any = [arbitrum, mainnet];
+// const metadata = {
+//   name: "travel-booking",
+//   description: "My Decentralized Application",
+//   url: 'https://localhost.com/appkit',
+//   icons: ['https://assets.reown.com/reown-profile-pic.png']
 
-};
+// };
 
-createAppKit({
-  adapters: [new EthersAdapter()],
-  networks, 
-  metadata,
-  projectId,
-  features: {
-    analytics: true,
-  },
-});
+// createAppKit({
+//   adapters: [new EthersAdapter()],
+//   networks, 
+//   metadata,
+//   projectId,
+//   features: {
+//     analytics: true,
+//   },
+// });
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

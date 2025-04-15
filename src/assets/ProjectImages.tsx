@@ -22,6 +22,9 @@ import ITALY from './icons/italy.jpg';
 import NEWZEALAND from './icons/newzealand.jpg';
 import NORWAY from './icons/norway.jpg';
 import SWITZERLAND from './icons/switzerland.jpg';
+import TESTIMONIAL_ONE from './icons/testimonial1.jpg'
+import TESTIMONIAL_TWO from './icons/testimonial2.jpg'
+import TESTIMONIAL_THREE from './icons/testimonial3.jpg'
 
 export const ProjectImages = {
   HomePageBanner,
@@ -47,5 +50,8 @@ export const ProjectImages = {
   NEWZEALAND,
   EGYPT,
   CANADA,
-  ITALY
+  ITALY,
+  TESTIMONIAL_ONE,
+  TESTIMONIAL_TWO,
+  TESTIMONIAL_THREE
 };
