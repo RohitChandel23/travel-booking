@@ -5,7 +5,7 @@ import './MapComponent.css';
 import 'leaflet/dist/leaflet.css';
 
 interface PropsType {
-  cityName: string | '';
+  cityName: string | '' | undefined;
   mapHeadingText: string | '';
 }
 

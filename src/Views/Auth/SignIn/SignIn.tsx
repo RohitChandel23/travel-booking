@@ -85,6 +85,7 @@ function SignIn() {
   return (
     <>
       <AuthBannerImg />
+      <div className='signIn-wrapper'>
       <div className="signIn-div">
         <div className="auth-buttons">
           <ToggleBtn
@@ -139,13 +140,15 @@ function SignIn() {
           </Formik>
         </div>
 
+            <div className='forgot-text'>
         <Link to="/reset-password">Forgot Your Password?</Link>
-
+        </div>
         <div className="social-auth">
           <SocialBtn name="Google" handleClick={handleGoogleLogin} />
           <SocialBtn name="Facebook" handleClick={() => console.log('Facebook')} />
           <SocialBtn name="Twitter" handleClick={() => console.log('Twitter')} />
         </div>
+      </div>
       </div>
     </>
   );

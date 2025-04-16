@@ -1,6 +1,6 @@
 import "./AddReview.css";
 import StarRating from "./Shared/StarRating/StarRating";
-import AddingComment from "../../../../../../Components/customComponent/AddingComment/AddingComment";
+import AddingComment from "../../../../../../Shared/AddingComment/AddingComment";
 
 function AddReview(){   
     return(

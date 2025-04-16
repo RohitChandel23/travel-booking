@@ -1,6 +1,6 @@
-import { useGetAttractionQuery } from '../../Services/Api/module/demoApi';
-import TourCard from '../TourCard';
-
+import { useGetAttractionQuery } from '../../../../Services/Api/module/demoApi';
+import TourCard from '../../../TourCard';
+  
 function FeaturedTours() {
   const { data } = useGetAttractionQuery(
     'eyJwaW5uZWRQcm9kdWN0IjoiUFJpSEhIVjB1TGJPIiwidWZpIjoyMDA4ODMyNX0=' // use variables here

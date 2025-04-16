@@ -1,28 +1,83 @@
-.signIn-div{
-display:flex;
-flex-direction: column;
-align-items: center;
-}
-
-.auth-buttons{
-    display:flex;
-}
-
-.signIn-form{
-    display:flex;
-    flex-direction: column;
+.signIn-wrapper {
+    display: flex;
     justify-content: center;
-    background-color: aliceblue;
-    margin: 30px 30px;
+    margin-top: 3%;
 }
 
-.form-values{
+.signin-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6%;
+    font-family: 'Inter', sans-serif;
+}
+
+.signin-div .auth-buttons {
+    display: flex;
+    margin-bottom: 20px;
+    gap: 4%;
+    width: 100%;
+}
+
+.signin-div .signin-form {
+    width: 500px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.signin-div .form-values {
     display: flex;
     flex-direction: column;
 }
 
-.social-auth{
-    display: flex;
-    justify-content: space-between;
+.signin-div .input-group {
+    margin-bottom: 20px;
 }
 
+.signin-div .input-group label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+}
+
+.signin-div .txt-box {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.signin-div .error {
+    color: red;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.signin-div .submit-btn {
+    background-color: #ff4b5c;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.signin-div .social-auth {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.forgot-text {
+    text-align: center;
+    margin-top: 5%;
+}

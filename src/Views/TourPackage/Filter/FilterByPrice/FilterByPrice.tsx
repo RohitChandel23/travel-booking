@@ -5,7 +5,7 @@ import 'rc-slider/assets/index.css';
 import Button from '../../../../Components/Buttons/Button';
 
 interface priceFilterProps{
-    handleSelectedPrice: (value:string)=> void;
+  handleSelectedPrice: (value: [number, number]) => void;
 }
 
 function FilterByPrice({handleSelectedPrice}:priceFilterProps ) {

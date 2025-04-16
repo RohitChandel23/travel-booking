@@ -1,12 +1,10 @@
-
-
- .testimonial-wrapper {
+.testimonial-wrapper {
     width: 100%;
     height: auto;
     display: flex;
     justify-content: center;
     background-color: #f7f8f9;
-    padding: 80px 0;
+    padding: 4% 0;
   }
   
   .testimonial-container {
@@ -98,8 +96,8 @@
     padding-left: 40px;
   }
 
-  .testimonial-content-container h4,h2{
-    text-align:center;
+  .testimonial-content-container ,h4 h2{
+    text-align:center;  
   }
   
   .testimonial-content-container h4 {

@@ -1,15 +1,12 @@
 import { useParams } from "react-router-dom";
 import "./TourDetail.css";
 import { useGetTourDetailQuery } from "../../Services/Api/module/demoApi";
-import MapComponent from "../Shared/MapComponent";
-// import { ROUTES_CONFIG } from "../../Shared/Constants";
+import MapComponent from "../../Shared/MapComponent";
 import TourBookingDetail from "./TourBookingDetail";
 import TourReview from "./TourBookingDetail/Shared/TourReview";
 import CalendarComponent from "./TourBookingDetail/Shared/CalendarComponent/index";
 import IncludeExclude from "./TourBookingDetail/Shared/IncludeExclude";
 import { useEffect, useState } from "react";
-import AddingComment from "../../Components/customComponent/AddingComment/AddingComment";
-
 
 function TourDetail() {
   const { slugId } = useParams();

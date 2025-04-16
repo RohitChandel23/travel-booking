@@ -7,7 +7,7 @@ interface ShowingReviewProps {
 }
 
 function ShowingReview({ tourId }: ShowingReviewProps) {
-  console.log(tourId);
+  // console.log(tourId);
   const { data } = useGetTourReviewQuery(tourId);
   const reviewer = data?.data[0];
 

@@ -1,7 +1,7 @@
 import './BlogDetailPage.css';
 import { useParams } from 'react-router-dom';
 import { ProjectImages } from '../../assets/ProjectImages';
-import AddingComment from '../../Components/customComponent/AddingComment/AddingComment';
+import AddingComment from '../../Shared/AddingComment/AddingComment';
 import { blogs, Blog } from '../BlogPage/Blogs';
 
 function BlogDetailPage() {

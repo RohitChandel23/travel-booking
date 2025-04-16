@@ -1,11 +1,28 @@
 import "./DestinationPage.css";
-import PageBanner from "../Shared/PageBanner";
-import SearchArea from "../Shared/SearchArea";
+import PageBanner from "../../Shared/PageBanner";
+import SearchArea from "../../Shared/SearchArea";
 import DestinationCard from "./Shared/DestinationCard";
 import { ProjectImages } from "../../assets/ProjectImages";
 
+type DestinationDataType = {
+  section1: {
+    firstGrouped: string[];
+    secondGrouped: string[];
+    single: string;
+  };
+  section2: {
+    firstGrouped: string[];
+    secondGrouped: string[];
+    single: string;
+  };
+};
+
+type CountryImageMapType = {
+  [key: string]: string;
+};
+
 function DestinationPage() {
-  const destinationData = {
+  const destinationData: DestinationDataType = {
     section1: {
       firstGrouped: ["United Kingdom", "Canada", "Switzerland"],
       secondGrouped: ["Norway", "Japan"],
@@ -18,8 +35,7 @@ function DestinationPage() {
     },
   };
 
-  // Map country names to their respective images
-  const countryImageMap = {
+  const countryImageMap: CountryImageMapType = {
     "United Kingdom": ProjectImages.UNITED_KINGDOM,
     Canada: ProjectImages.CANADA,
     Switzerland: ProjectImages.SWITZERLAND,
@@ -34,10 +50,6 @@ function DestinationPage() {
     "New Zealand": ProjectImages.NEWZEALAND,
   };
 
-  const searchAreaData = (values) => {
-    console.log(values);
-  };
-
   return (
     <>
       <PageBanner
@@ -46,7 +58,8 @@ function DestinationPage() {
         coloredText="Destination"
         bannerImage={ProjectImages.DESTINATION_BANNER}
       />
-      <SearchArea searchAreaData={searchAreaData} />
+
+      <SearchArea searchAreaData={() => {}} />
 
       <div className="destination-grid-wrapper">
         <div className="destination-grid-container">

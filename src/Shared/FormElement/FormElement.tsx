@@ -8,7 +8,7 @@ interface FormElementProps {
   placeholder: string;
   fieldClassName: string;
   containerClass: string;
-  min:number;
+  min:number | string;
 }
 
 function FormElement({

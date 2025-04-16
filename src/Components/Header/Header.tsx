@@ -1,21 +1,19 @@
-import { Link, useNavigate } from 'react-router-dom';
-import './header.css';
-import { ProjectImages } from '../../assets/ProjectImages';
-import { ROUTES_CONFIG } from '../../Shared/Constants';
-import { useEffect, useState } from 'react';
-import {auth} from '../../firebaseConfig'
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { toast } from 'react-toastify';
+import { Link, useNavigate } from "react-router-dom";
+import "./header.css";
+import { ProjectImages } from "../../assets/ProjectImages";
+import { ROUTES_CONFIG } from "../../Shared/Constants";
+import { useEffect, useState } from "react";
+import { auth } from "../../firebaseConfig";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { updateAuthTokenRedux } from '../../Store/Common';
-
+import { updateAuthTokenRedux } from "../../Store/Common";
+import { User } from "firebase/auth";
 
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-
-  // Monitor authentication state
+  const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -27,11 +25,11 @@ function Header() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-          dispatch(updateAuthTokenRedux({token:null}))
-      toast.success('Logged out successfully!');
+      dispatch(updateAuthTokenRedux({ token: null }));
+      toast.success("Logged out successfully!");
       navigate(ROUTES_CONFIG.HOMEPAGE.path);
     } catch (error) {
-      toast.error('Logout failed. Please try again.');
+      toast.error("Logout failed. Please try again.");
     }
   };
 
@@ -61,7 +59,6 @@ function Header() {
         </div>
       </div>
       <div className="right-header">
-        {/* <i className="fa-solid fa-magnifying-glass" /> */}
         {user ? (
           <button className="logout-btn" onClick={handleLogout}>
             <i className="fa-solid fa-sign-out-alt" /> Logout
@@ -70,8 +67,8 @@ function Header() {
           <p>
             <Link to={ROUTES_CONFIG.LOGIN.path} className="link-class">
               <i className="fa-regular fa-user" /> {ROUTES_CONFIG.LOGIN.title}
-            </Link>{' '}
-            /{' '}
+            </Link>{" "}
+            /{" "}
             <Link to={ROUTES_CONFIG.REGISTER.path} className="link-class">
               {ROUTES_CONFIG.REGISTER.title}
             </Link>

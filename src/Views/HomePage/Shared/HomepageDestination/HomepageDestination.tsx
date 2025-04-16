@@ -1,17 +1,25 @@
 import './HomepageDestination.css';
-import DestinationCard from '../DestinationPage/Shared/DestinationCard';
-import { ProjectImages } from '../../assets/ProjectImages'; // Adjust path as needed
+import DestinationCard from '../../../DestinationPage/Shared/DestinationCard';
+import { ProjectImages } from '../../../../assets/ProjectImages';
+
+interface DestinationData {
+  firstGrouped: string[];
+  secondGrouped: string[];
+  single: string;
+}
+
+interface CountryImageMap {
+  [key: string]: string; // assuming image URLs/paths are strings
+}
 
 function HomepageDestination() {
-  // Destination data structure similar to the DestinationPage component
-  const destinationData = {
+  const destinationData: DestinationData = {
     firstGrouped: ["United Kingdom", "Canada", "Switzerland"],
     secondGrouped: ["Norway", "Australia"],
     single: "France"
   };
 
-  // Map country names to their respective images
-  const countryImageMap = {
+  const countryImageMap: CountryImageMap = {
     "United Kingdom": ProjectImages.UNITED_KINGDOM,
     "Canada": ProjectImages.CANADA,
     "Switzerland": ProjectImages.SWITZERLAND,
@@ -25,7 +33,7 @@ function HomepageDestination() {
       <div className='homepage-destination-container'>
         <h4 className='cursive-text'>Destination</h4>
         <h2>Top Attractions Destinations</h2>
-        
+
         <div className="destination-grid-wrapper">
           <div className="grid-section">
             <div className="grouped-destinations-grid">

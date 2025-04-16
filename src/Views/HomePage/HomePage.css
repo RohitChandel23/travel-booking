@@ -1,114 +1,117 @@
 .homepage-banner {
-    width: 100%; 
-    height: 565px; 
-    overflow: hidden; 
-    position: relative;
-  }
-  
-  .homepage-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-  }
-
-.section-headers h4{
-margin:3% 0 0.6% 0 ; 
+  width: 100%;
+  height: 565px;
+  overflow: hidden;
+  position: relative;
 }
 
-  .banner-text-container{
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
+.homepage-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-   .banner-text-content{
-    text-align: center;
-  }
-  
-  .banner-text-content p{
-    color:white;
-    font-weight: 400;
-    margin:0;
-    font-size: 16px;
-    line-height: 162.5%;
-   margin-top: .5rem!important
-  }
+.section-headers h4 {
+  margin: 3% 0 0.6% 0;
+}
 
-  .banner-text-content h1{
-    font-size: 56px;
-    font-weight: 700;
-    margin-top: 8px;
-    margin-bottom: 0;
-    color: white;
-  }
+.banner-text-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 
-  .banner-text-content h3{
-    font-size: 32px;
-    line-height: 125%;
-    margin:0;
-    font-weight: 400;
-  }
+.banner-text-content {
+  text-align: center;
+}
 
-  
-  .search-container{
-    top: -55px;
-    position: relative;
-    background-color: aliceblue;
-    background: transparent;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .search-container-elements{
-    background-color: aliceblue;
-    width: 1116px;
-    height:121px;
-    display: flex;
-    border-radius: 12px;
-  }
+.banner-text-content p {
+  color: white;
+  font-weight: 400;
+  margin: 0;
+  font-size: 16px;
+  line-height: 162.5%;
+  margin-top: .5rem !important
+}
 
-  .tour-container{
-    text-align: center;
-    padding-top: 100px;
-  }
+.banner-text-content h1 {
+  font-size: 56px;
+  font-weight: 700;
+  margin-top: 8px;
+  margin-bottom: 0;
+  color: white;
+}
 
-   .tour-main-header{
-    display:flex;
-    justify-content: center;
-  } 
+.banner-text-content h3 {
+  font-size: 32px;
+  line-height: 125%;
+  margin: 0;
+  font-weight: 400;
+}
 
-  .tour-content-container{
-    display:flex;
-    justify-content: center;
-  }
 
-  
+.search-container {
+  top: -55px;
+  position: relative;
+  background-color: aliceblue;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+}
 
-  .content-header{
-    font-size: 26px;
-  }
+.search-container-elements {
+  background-color: aliceblue;
+  width: 1116px;
+  height: 121px;
+  display: flex;
+  border-radius: 12px;
+}
 
-  
+.tour-container {
+  text-align: center;
+  padding-top: 100px;
+}
 
-  .tour-content{
-    display: flex;
-    width: 85%;
-    gap:2%;
-    justify-content: space-between;
-  }
+.tour-main-header {
+  display: flex;
+  justify-content: center;
+}
 
-  .cursive-normal{
-    font-size: 26px;
-  }
+.tour-content-container {
+  display: flex;
+  justify-content: center;
+}
 
-  .section-heading{
-    color: #051036;
-    font-family: "Work Sans", sans-serif;
-    font-size: 40px;
-    line-height:120%;
-    font-weight: 700;
-  }
+
+
+.content-header {
+  font-size: 26px;
+}
+
+
+.tour-content {
+  display: flex;
+  width: 85%;
+  gap: 2%;
+  justify-content: center;
+}
+
+.cursive-normal {
+  font-size: 26px;
+}
+
+.section-heading {
+  color: #051036;
+  font-family: "Work Sans", sans-serif;
+  font-size: 40px;
+  line-height: 120%;
+  font-weight: 700;
+}
+
+.testimonial-section{
+  margin-top: 8%;
+}

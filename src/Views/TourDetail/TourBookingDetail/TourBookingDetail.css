@@ -92,6 +92,7 @@ margin-top:4%;
 }
 
 .wallet-btn{
+    width:100%;
 display: flex;
 justify-content: space-between;
 gap:4%;

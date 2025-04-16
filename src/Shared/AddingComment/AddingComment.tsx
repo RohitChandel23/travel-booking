@@ -1,10 +1,10 @@
-import FormElement from "../../../Shared/FormElement/FormElement";
+import FormElement from "../FormElement/FormElement";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import "./AddingComment.css";
 
 function AddingComment() {      //button name
-  function handleSubmission(values) {
+  function handleSubmission(values:any) {
     console.log("submssion......", values);
   }
 

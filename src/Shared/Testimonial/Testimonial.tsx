@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import './Testimonial.css';
-import { ProjectImages } from '../../../assets/ProjectImages';
+import { ProjectImages } from '../../assets/ProjectImages';
 
 function Testimonial() {
   const testimonials = [
@@ -38,7 +38,7 @@ function Testimonial() {
     trackMouse: true, 
   });
 
-  const goToTestimonial = (index) => {
+  const goToTestimonial = (index:number) => {
     setCurrentIndex(index);
   };
 

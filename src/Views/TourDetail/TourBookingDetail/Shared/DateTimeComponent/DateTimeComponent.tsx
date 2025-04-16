@@ -16,9 +16,9 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate }: DateTimeCompo
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
 
   function handleDateChange(date: any) {
-    console.log(date);  
+    // console.log(date);  
     const formattedDate = date ? format(date, 'yyyy-MM-dd') : 'date error';
-    console.log(formattedDate)
+    // console.log(formattedDate)
 
     setSelectedDate(formattedDate);
     setSelectedTime(null);

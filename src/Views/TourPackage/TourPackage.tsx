@@ -1,8 +1,8 @@
 import "./TourPackage.css";
 import { useState, useEffect } from "react";
 import { CLASSNAMES } from "./Shared/Constants";
-import PageBanner from "../Shared/PageBanner";
-import SearchArea from "../Shared/SearchArea";
+import PageBanner from "../../Shared/PageBanner";
+import SearchArea from "../../Shared/SearchArea";
 import FilterByDestination from "./Filter/FilterByDestination";
 import FilterByReviews from "./Filter/FilterByReviews/index";
 import FilterByPrice from "./Filter/FilterByPrice/index";
@@ -41,6 +41,11 @@ interface AttractionType {
   };
 }
 
+interface SearchAreaDataProps{
+  selectDate:any,
+  destinationName:string
+}
+
 function TourPackagePage() {
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
   const [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>([]);
@@ -52,28 +57,28 @@ function TourPackagePage() {
   const location = useLocation();
   const searchingData = location.state || "";
 
-  // Initialize search data from DestinationPage navigation
+  
   useEffect(() => {
     if (searchingData?.formattedData) {
       const { destinationName, selectDate } = searchingData.formattedData;
       setSelectedDestination(destinationName || null);
       setSelectedDate(selectDate || []);
     }
-  }, []); // Empty dependency array to run only on mount
+  }, []); 
 
   // Handle searched data (destination name, dates)
-  function searchAreaData(values) {
+  function searchAreaData(values: SearchAreaDataProps) {
     setSelectedDate(values.selectDate);
     setSelectedDestination(values.destinationName);
   }
 
   // Manage selected price
-  function handleSelectedPrice(value) {
+  function handleSelectedPrice(value:any) {
     setSelectedPrice(value);
   }
 
   // Handle destination
-  function handleDestinationData(data: string) {
+  function handleDestinationData(data: string | null) {
     setMergedAttractions([]);
     setSelectedDestination(data || null);
     setCurrentPage(1);
@@ -124,14 +129,13 @@ function TourPackagePage() {
     }
 
     setMergedAttractions([]);
-  }, [selectedDestination, selectedDate, attractionData, trendingDestination, searchedTours]);
+    }, [selectedDestination, selectedDate, attractionData, trendingDestination, searchedTours]);
 
   // Getting selected rating input
   function handleRatingData(value: any) {
     setSelectedRating(value);
   }
 
-  // Create a filtered copy for display
   let displayedAttractions = [...mergedAttractions];
 
   // Filtering based on rating
@@ -162,7 +166,6 @@ function TourPackagePage() {
     else if (value < 0 && currentPage !== 1) setCurrentPage((prev) => prev - 1);
   }
 
-  // Prepare initial search values for SearchArea
   const initialSearchValues = searchingData?.formattedData || {};
 
   return (
@@ -233,7 +236,7 @@ function TourPackagePage() {
 
           <span
             className="page-number-container colored-page-number"
-            onClick={() => setCurrentPage((prev) => prev + 1)}
+            onClick={() => setCurrentPage((prev) => prev + 1)}  
           >
             {currentPage}
           </span>
