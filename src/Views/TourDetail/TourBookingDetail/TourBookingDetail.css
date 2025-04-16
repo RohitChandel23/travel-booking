@@ -101,6 +101,7 @@ gap:4%;
 .wallet-btn button{
 margin-top: 5%;
 width:90%;
+height:auto;
 padding: 12px 28px;
 background-color: #fc5056;
 color:white;
