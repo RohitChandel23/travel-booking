@@ -5,7 +5,7 @@ import TourCard from '../TourCard/TourCard';
 import WhyUsComponent from '../WhyUsComponent/index';
 import SearchArea from '../Shared/SearchArea';
 import Testimonial from '../../Shared/FormElement/Testimonial';
-import './Dashboard.css';
+import './HomePage.css';
 import { useEffect } from 'react';
 
 export default function Dashboard() {
@@ -47,6 +47,7 @@ export default function Dashboard() {
         </div>
         <div className="tour-content-container">
           <div className="tour-content">
+            
             {attractions.map((item: any) => {
               const countryName = item?.ufiDetails?.url?.country?.toUpperCase();
               const cityName = item?.ufiDetails?.bCityName;

@@ -48,37 +48,36 @@
 
 .grid-section {
     display: grid;
-    grid-template-columns: 3fr 1fr; /* Same as DestinationPage */
-    gap: 2rem; /* Same as DestinationPage */
+    grid-template-columns: 3fr 1fr; 
+    gap: 1rem; 
     margin-bottom: 2rem;
-    height: 432px; /* Matches DestinationPage: 200px + 2rem (32px) + 200px */
+    height: 432px; 
 }
 
 .grouped-destinations-grid {
     display: flex;
     flex-direction: column;
-    gap: 2rem; /* Same as DestinationPage */
+    gap: 1rem; 
 }
 
 .first-grouped-destinations {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0; /* No gap to ensure 100% space usage */
-    height: 200px; /* Matches DestinationPage card height, equal to second row */
+    gap: 0; 
+    height: 200px; 
 }
 
 .second-grouped-destinations {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0; /* No gap to ensure 100% space usage */
-    height: 200px; /* Matches DestinationPage card height, equal to first row */
+    gap: 0; 
+    height: 200px; 
 }
 
 .single-destinations-grid {
     height: 100%;
 }
 
-/* Override default card height from DestinationCard.css */
 .first-grouped-destinations .destination-card-wrapper,
 .second-grouped-destinations .destination-card-wrapper {
     height: 100%;

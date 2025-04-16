@@ -83,7 +83,7 @@ margin:3% 0 0.6% 0 ;
 
   .tour-content-container{
     display:flex;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   
@@ -96,14 +96,9 @@ margin:3% 0 0.6% 0 ;
 
   .tour-content{
     display: flex;
-    width: 1296px;
-    height:auto;
-    margin-left: 20%;
-    margin-right:20%;
-    align-items: center;
+    width: 85%;
+    gap:2%;
     justify-content: space-between;
-
-    background-color: aliceblue;
   }
 
   .cursive-normal{

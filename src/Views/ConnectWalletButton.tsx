@@ -15,7 +15,7 @@ const ConnectWalletButton = () => {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
 
-      const receiverAddress = "0x1D7e62a808fC888764cfB26D3FD58A0A81DC4886"; // your address
+      const receiverAddress = "0x1D7e62a808fC888764cfB26D3FD58A0A81DC4886";     // your address
       const amount = ethers.parseEther("0.0001");
 
       const balance = await provider.getBalance(await signer.getAddress());
@@ -31,7 +31,7 @@ const ConnectWalletButton = () => {
       alert("✅ Booking successful! Tx Hash: " + tx.hash);
     } catch (err) {
       console.error("Booking failed:", err);
-      alert("❌ Booking failed: " + err.message);
+      alert(" Booking failed: " + err.message);
     } finally {
       setIsProcessing(false);
     }
@@ -39,7 +39,6 @@ const ConnectWalletButton = () => {
 
   return (
     <div>
-      <h3>Paris Tour Package</h3>
       <button onClick={handleBookNow} disabled={isProcessing}>
         {isProcessing ? "Processing..." : "Book Now"}
       </button>

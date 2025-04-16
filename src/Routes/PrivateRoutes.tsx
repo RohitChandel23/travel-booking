@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { ROUTES_CONFIG, WILDCARD_ROUTES } from "../Shared/Constants";
 import { CustomRouter } from "./RootRoutes";
-import Dashboard from "../Views/Dashboard";
+import Dashboard from "../Views/HomePage";
 import Logout from "../Views/Auth/Logout/logout";
 import TourDetail from "../Views/TourDetail";
 import TourPackagePage from "../Views/TourPackage/TourPackage";

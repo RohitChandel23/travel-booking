@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { ROUTES_CONFIG, WILDCARD_ROUTES } from '../Shared/Constants';
-import Dashboard from '../Views/Dashboard/index';
+import Dashboard from '../Views/HomePage/index';
 import { CustomRouter } from './RootRoutes';
 import { default as Login } from '../Views/Auth/SignIn/SignIn';
 import { default as Register } from '../Views/Auth/SignUp/index';
