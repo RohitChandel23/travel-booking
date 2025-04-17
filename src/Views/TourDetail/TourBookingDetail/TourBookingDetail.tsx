@@ -41,7 +41,6 @@ function TourBookingDetail({
     else if (peopleType == "Children") setChildrenCount((count) => count + 1);
   }
 
-
   useEffect(() => {
     const calculateTotalPrice = () => {
       const total = (childrenCount + kidsCount + adultsCount) * Number(tourPrice) || 0;
@@ -73,22 +72,18 @@ function TourBookingDetail({
     fetchEthPriceAndConvert();
   }, [childrenCount, kidsCount, adultsCount, tourPrice]);
 
-  
-
-
   const handleBooking = async () => {
     const bookingDetail = {
       //will make it dynamic
-      userName: "john",
+      // userName: "john",
       totalPrice: totalPrice,
       tickets: kidsCount + childrenCount + adultsCount,
       date: selectedDateTime[0],
       time: selectedDateTime[1],
     };
 
-
     if (
-      !bookingDetail.userName ||
+      // !bookingDetail.userName ||
       !bookingDetail.totalPrice ||
       !bookingDetail.tickets ||
       !bookingDetail.date ||
@@ -98,7 +93,6 @@ function TourBookingDetail({
       return;
     }
     
-
     try {
       const docRef = await addDoc(collection(db, "bookings"), bookingDetail);
       toast.success(`booked successfully`);
@@ -204,7 +198,6 @@ function TourBookingDetail({
           </div>
         </div>
       </div>
-
       <div className="booking-detail-total">
         <span className="ticket-label">Total</span>
         <span className="project-theme-color book-now-total-price">

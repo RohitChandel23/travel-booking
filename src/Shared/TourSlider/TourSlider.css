@@ -1,12 +1,12 @@
 .tour-slider-container {
-    overflow: hidden;
     width: 100%;
   }
   
 
   .tour-slider-content {
-    display: flex;
-    gap: 16px;
+    display: flex;  
+    justify-content: center;
+    gap: 2%;
     transition: transform 0.4s ease;
     flex-wrap: nowrap;
   }

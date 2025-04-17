@@ -1,0 +1,31 @@
+.team-member-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 3% 0% 4% 0%;
+  background-color: aliceblue;
+}
+
+.team-member-container {
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  gap: 3%;
+  align-items: center;
+}
+
+.about-feature-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #f7f8f9;
+  margin: 5% 0% 5% 0%;
+}
+
+.about-feature-container {
+  display: flex;
+  justify-content: center;
+  gap: 2%;
+  width: 80%;
+  margin: 5% 0% 5% 0%;
+}

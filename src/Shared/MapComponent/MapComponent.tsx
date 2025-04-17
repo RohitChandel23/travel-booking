@@ -16,7 +16,7 @@ function MapComponent({ cityName, mapHeadingText }: PropsType) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${cityName}` // ------------have to use rtk here-----------
+          `https://nominatim.openstreetmap.org/search?format=json&q=${cityName}`
         );
         const result = await response.json();
         const { lat, lon } = result[0];

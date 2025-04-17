@@ -21,7 +21,7 @@ function ContactPage() {
             <ContactElement
               contactIcon="fa-solid fa-location-dot"
               contactType="Location"
-              contactInfo="20,Love Street, Muscat, Oman"
+              contactInfo="Chandigarh, India"
             />
             <ContactElement
               contactIcon="fa fa-phone"
@@ -46,7 +46,7 @@ function ContactPage() {
             </div>
 
             <div className="map__wrapper">
-              <MapComponent cityName="India" mapHeadingText="" />
+              <MapComponent cityName="Chandigarh" mapHeadingText="" />
             </div>
           </div>
         </div>

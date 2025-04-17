@@ -16,7 +16,7 @@ export const blogs: Blog[] = [
     id: 1,
     title: 'Trekking the Trails of Patagonia',
     date: 'Sep 26, 2025',
-    image: ProjectImages.DESTINATION_BANNER, // Swap for Patagonia image if available
+    image: ProjectImages.TRAIL, 
     shortDescription:
       'Patagonia’s rugged trails offer breathtaking views and thrilling adventures. From glaciers to peaks, discover why this region is a hiker’s paradise.',
     content: [
@@ -46,7 +46,7 @@ export const blogs: Blog[] = [
     id: 3,
     title: 'Serenity Over Santorini’s Caldera',
     date: 'Oct 12, 2025',
-    image: ProjectImages.DESTINATION_BANNER, // Swap for Santorini image if available
+    image: ProjectImages.SANTORINI, // Swap for Santorini image if available
     shortDescription:
       'Santorini’s whitewashed cliffs and blue domes frame stunning sunsets. Explore Greece’s volcanic gem for peace and beauty.',
     content: [

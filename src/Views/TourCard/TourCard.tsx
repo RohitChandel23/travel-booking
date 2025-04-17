@@ -26,6 +26,7 @@ function TourCard({
   slugValue,
 }: tourCardProps) {
   return (
+    <Link to={ROUTES_CONFIG.TOURS_DETAIL.path.replace(':slugId', slugValue)} className='link-class'>
     <div className="tour-card-container">
       <div className="tour-image-container">
         <img src={tourImage} />
@@ -65,6 +66,7 @@ function TourCard({
         </div>
       </div>
     </div>
+    </Link>
   );
 }
 

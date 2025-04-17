@@ -25,8 +25,22 @@ import SWITZERLAND from './icons/switzerland.jpg';
 import TESTIMONIAL_ONE from './icons/testimonial1.jpg'
 import TESTIMONIAL_TWO from './icons/testimonial2.jpg'
 import TESTIMONIAL_THREE from './icons/testimonial3.jpg'
+import QUALITY_PACKAGES from './icons/QualityPackages.png';
+import BEST_TRAVEL_PLAN from './icons/best-travel-plan.png';
+import CUSTOMER_CARE from './icons/CustomerCare.png';
+import HAND_PICKED_TOUR from './icons/hand-picked-tour.png';
+import PRIVATE_GUIDE from './icons/private-guide.png';
+import QUICK_BOOKING from './icons/quick-booking.png';
+import TRAIL from './icons/Trail.jpg';
+import SANTORINI from './icons/santorini.jpg';
 
 export const ProjectImages = {
+  QUALITY_PACKAGES,
+  BEST_TRAVEL_PLAN,
+  CUSTOMER_CARE,
+  HAND_PICKED_TOUR,
+  PRIVATE_GUIDE,
+  QUICK_BOOKING,
   HomePageBanner,
   WHY_US_IMGONE,
   WHY_US_IMGTWO,
@@ -53,5 +67,7 @@ export const ProjectImages = {
   ITALY,
   TESTIMONIAL_ONE,
   TESTIMONIAL_TWO,
-  TESTIMONIAL_THREE
+  TESTIMONIAL_THREE,
+  TRAIL,
+  SANTORINI
 };

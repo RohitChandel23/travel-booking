@@ -1,18 +1,21 @@
 import './footer.css';
 import { ProjectImages } from '../../assets/ProjectImages';
-
+import { Link } from 'react-router-dom';
 import Button from '../Buttons/Button';
+import { ROUTES_CONFIG } from '../../Shared/Constants';
 
 function Footer() {
   return (
     <div className="footer-container">
       <div className="footer-section">
         <div className="left-footer">
+          <Link to={ROUTES_CONFIG.HOMEPAGE.path}>
           <img src={ProjectImages.TRISOG_LOGO} alt="trisog-logo" />
+          </Link>
           <li className="footer-cursive">Need any help?</li>
           <h6>Call Us: (888)12345678</h6>
           <p>
-            Love Street, Muscat,Oman <br />
+            Chandigarh,India <br />
             exaample@trisog.com
           </p>
         </div>
@@ -26,7 +29,6 @@ function Footer() {
               <li>Data Policy</li>
             </ul>
           </div>
-
           <div className="top-destination">
             <ul>
               <li className="footer-cursive">Top Destination</li>

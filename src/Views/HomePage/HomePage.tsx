@@ -1,7 +1,5 @@
-// import { useGetAttractionQuery } from "../../Services/Api/module/demoApi";
 import { ProjectImages } from "../../assets/ProjectImages";
 import HomepageDestination from "./Shared/HomepageDestination/HomepageDestination";
-// import TourCard from "../TourCard/TourCard";
 import WhyUsComponent from "../WhyUsComponent/index";
 import SearchArea from "../../Shared/SearchArea";
 import Testimonial from "../../Shared/Testimonial";
@@ -10,17 +8,6 @@ import TourSlider from "../../Shared/TourSlider";
 import { useEffect } from "react";
 
 export default function Dashboard() {
-  // manages the id of the cities as per your requirements
-  // const currentPage = 1;
-  // const destinationId =
-  //   "eyJwaW5uZWRQcm9kdWN0IjoiUFJpSEhIVjB1TGJPIiwidWZpIjoyMDA4ODMyNX0="; // slug id
-  // const { data } = useGetAttractionQuery({ destinationId, currentPage });
-  // const attractions = data?.data?.products?.slice(1, 5) || [];
-
-  // const searchAreaData = (values: any) => {
-  //   console.log(values);
-  // };
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -49,49 +36,18 @@ export default function Dashboard() {
         </div>
         <div className="tour-content-container">
           <div className="tour-content">
-            {/* {attractions.map((item: any) => {
-              const countryName = item?.ufiDetails?.url?.country?.toUpperCase();
-              const cityName = item?.ufiDetails?.bCityName;
-              const tourName = item?.name;
-              const tourImage = item?.primaryPhoto?.small;
-              const tourRating =
-                item?.reviewsStats?.combinedNumericStats?.average;
-              const tourReview = item?.reviewsStats?.allReviewsCount;
-              const tourPrice = Math.floor(
-                item?.representativePrice?.chargeAmount
-              );
-              const slugValue = item?.slug;
-
-              return (
-                <TourCard
-                  key={`${item.destinationId}-${slugValue}`}
-                  cityName={cityName}
-                  countryName={countryName}
-                  tourName={tourName}
-                  tourImage={tourImage}
-                  tourRating={tourRating}
-                  tourReview={tourReview}
-                  tourPrice={tourPrice}
-                  tourDuration="2 days"
-                  slugValue={slugValue}
-                />
-              );
-            })} */}
-          <TourSlider/>
-            
+            <TourSlider />
           </div>
         </div>
       </div>
 
       <HomepageDestination />
 
-
       {/* why us section */}
       <WhyUsComponent />
       <div className="testimonial-section">
         <Testimonial />
       </div>
-
     </div>
   );
 }

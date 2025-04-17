@@ -12,6 +12,7 @@ import DestinationPageBanner from '../Views/DestinationPage/DestinationPage';
 import DestinationDetail from '../Views/DestinationDetail';
 import BlogPage from '../Views/BlogPage/BlogPage';
 import BlogDetailPage from '../Views/BlogDetailPage/BlogDetailPage';
+import AboutPage from '../Views/AboutPage';
 
 // eslint-disable-next-line import/prefer-default-export
 export const PUBLIC_ROUTES: Array<CustomRouter> = [
@@ -37,6 +38,11 @@ export const PUBLIC_ROUTES: Array<CustomRouter> = [
     path: ROUTES_CONFIG.RESET_PASSWORD.path,
     title: ROUTES_CONFIG.RESET_PASSWORD.title,
     element: <ForgotPassword />,
+  },
+  {
+    path: ROUTES_CONFIG.ABOUT.path,
+    title: ROUTES_CONFIG.ABOUT.title,
+    element: <AboutPage />,
   },
 
   {

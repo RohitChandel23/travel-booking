@@ -9,22 +9,27 @@ declare global {
   }
 }
 
-const ConnectWalletButton = ({ onSuccess, totalEthPrice}: { onSuccess: () => void; totalEthPrice:any }  ) => {
+const ConnectWalletButton = ({
+  onSuccess,
+  totalEthPrice,
+}: {
+  onSuccess: () => void;
+  totalEthPrice: any;
+}) => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handlePayment = async (totalPrice: number) => {
     if (!window.ethereum) {
-      alert("Please install MetaMask first.");
+      toast.error("Please install MetaMask first.");
       return;
     }
-
     try {
       setIsProcessing(true);
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
-
-      const receiverAddress = "0x1D7e62a808fC888764cfB26D3FD58A0A81DC4886";
-      const amount = ethers.parseEther(totalPrice.toString());  
+      
+      const receiverAddress = "0x37d8a3D58f0D5054c42a966AA0E0fC058f9EC595";
+      const amount = ethers.parseEther(totalPrice.toString());
 
       const balance = await provider.getBalance(await signer.getAddress());
       if (balance < amount) {
@@ -41,7 +46,8 @@ const ConnectWalletButton = ({ onSuccess, totalEthPrice}: { onSuccess: () => voi
     } catch (err: unknown) {
       console.error("Payment failed:", err);
       if (err instanceof Error) {
-        toast.error("Payment failed: " + err.message);
+        toast.error("Payment failed");
+        console.log(err.message)
       } else {
         toast.error("Payment failed: Unknown error");
       }
@@ -52,7 +58,12 @@ const ConnectWalletButton = ({ onSuccess, totalEthPrice}: { onSuccess: () => voi
 
   return (
     <div className="wallet-btn-wrapper">
-      <button onClick={() => handlePayment(totalEthPrice)} disabled={isProcessing}>    {/* requires price*/}
+      <button
+        onClick={() => handlePayment(totalEthPrice)}
+        disabled={isProcessing}
+      >
+        {" "}
+        {/* requires price*/}
         {isProcessing ? "Processing..." : "Book Now"}
       </button>
     </div>

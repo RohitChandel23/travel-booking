@@ -41,7 +41,7 @@ function DestinationDetail() {
     const fetchImages = async () => {
       try {
         const response = await fetch(
-          `https://api.pexels.com/v1/search?query=${countryName}&per_page=4`,
+          `https://api.pexels.com/v1/search?query=${countryName}&per_page=5`,
           {
             headers: {
               Authorization: PEXELS_API_KEY,
@@ -120,7 +120,7 @@ function DestinationDetail() {
           </div>
 
           <div className="destination-other-images">
-            {[...Array(4)].map((_, idx) => (
+            {[...Array(5)].map((_, idx) => (
               <span key={idx} onClick={() => setImageIndex(idx)} className="minor-images-container">
                 <img src={images[idx]?.src?.large2x} className="minor-image" />
               </span>

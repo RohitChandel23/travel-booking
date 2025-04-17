@@ -5,7 +5,7 @@ const ROUTES = {
   HOMEPAGE: '/',
   LOGIN: '/login',
   REGISTER: '/register',
-  ABOUT: '/about-us',
+  ABOUT: '/about',
   RESET_PASSWORD: '/reset-password',
   TOURS: '/tours',
   CONTACT: '/contact',
@@ -44,7 +44,7 @@ const ROUTES_CONFIG = {
   },
   ABOUT: {
     path: ROUTES.ABOUT,
-    title: 'About us',
+    title: 'About',
   },
   RESET_PASSWORD: {
     path: ROUTES.RESET_PASSWORD,

@@ -11,6 +11,7 @@ function DestinationCard({ countryName, countryImage }: DestinationCardProps) {
   //destination image, country name
   return (
     <div className="destination-card-wrapper">
+      
       <img src={countryImage} alt={countryName} />
 
       <div className="destination-name-container">

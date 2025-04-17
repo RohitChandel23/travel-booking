@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { updateAuthTokenRedux } from "../../Store/Common";
 import { User } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 function Header() {
   const dispatch = useDispatch();
@@ -37,23 +38,55 @@ function Header() {
     <div className="header-section">
       <div className="left-header">
         <div className="header-logo">
-          <img src={ProjectImages.TRISOG_HEADER_LOGO} alt="project-logo" />
+          <Link to={ROUTES_CONFIG.HOMEPAGE.path}>
+            <img src={ProjectImages.TRISOG_HEADER_LOGO} alt="project-logo" />
+          </Link>
         </div>
+
         <div className="header-items">
-          <NavLink to={ROUTES_CONFIG.HOMEPAGE.path} className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}>
+          <NavLink
+            to={ROUTES_CONFIG.HOMEPAGE.path}
+            className={({ isActive }) =>
+              `link-class ${isActive ? "active-link" : ""}`
+            }
+          >
             <li>{ROUTES_CONFIG.HOMEPAGE.title}</li>
           </NavLink>
-          <li>About</li>
-          <NavLink to={ROUTES_CONFIG.TOURS.path} className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}>
+
+          {/* <NavLink to={ROUTES_CONFIG.ABOUT.path} className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}>
+            <li>About</li>
+          </NavLink> */}
+
+          <NavLink
+            to={ROUTES_CONFIG.TOURS.path}
+            className={({ isActive }) =>
+              `link-class ${isActive ? "active-link" : ""}`
+            }
+          >
             <li>Tours</li>
           </NavLink>
-          <NavLink to={ROUTES_CONFIG.DESTINATION.path} className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}>
+          <NavLink
+            to={ROUTES_CONFIG.DESTINATION.path}
+            className={({ isActive }) =>
+              `link-class ${isActive ? "active-link" : ""}`
+            }
+          >
             <li>Destination</li>
           </NavLink>
-          <NavLink to={ROUTES_CONFIG.BLOG.path} className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}>
+          <NavLink
+            to={ROUTES_CONFIG.BLOG.path}
+            className={({ isActive }) =>
+              `link-class ${isActive ? "active-link" : ""}`
+            }
+          >
             <li>Blog</li>
           </NavLink>
-          <NavLink to={ROUTES_CONFIG.CONTACT.path} className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}>
+          <NavLink
+            to={ROUTES_CONFIG.CONTACT.path}
+            className={({ isActive }) =>
+              `link-class ${isActive ? "active-link" : ""}`
+            }
+          >
             <li>{ROUTES_CONFIG.CONTACT.title}</li>
           </NavLink>
         </div>
@@ -66,11 +99,21 @@ function Header() {
           </button>
         ) : (
           <div className="auth-links">
-            <NavLink to={ROUTES_CONFIG.LOGIN.path} className={({ isActive }) => `auth-link ${isActive ? "active-link" : ""}`}>
+            <NavLink
+              to={ROUTES_CONFIG.LOGIN.path}
+              className={({ isActive }) =>
+                `auth-link ${isActive ? "active-link" : ""}`
+              }
+            >
               <i className="fa-regular fa-user" /> {ROUTES_CONFIG.LOGIN.title}
             </NavLink>
             <span className="divider">/</span>
-            <NavLink to={ROUTES_CONFIG.REGISTER.path} className={({ isActive }) => `auth-link ${isActive ? "active-link" : ""}`}>
+            <NavLink
+              to={ROUTES_CONFIG.REGISTER.path}
+              className={({ isActive }) =>
+                `auth-link ${isActive ? "active-link" : ""}`
+              }
+            >
               {ROUTES_CONFIG.REGISTER.title}
             </NavLink>
           </div>

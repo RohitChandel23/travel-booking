@@ -1,0 +1,19 @@
+.member-image-container {
+  width: 233px;
+  height: 334px;
+  overflow: hidden;
+}
+
+.member-image-container img {
+  width: 100%;
+  height: 100%;
+}
+
+.name-and-role h6 {
+  color: #051036;
+  margin: 5% 1% 5% 0%;
+}
+
+.name-and-role p {
+  color: rgba(5, 16, 54, 0.6);
+}

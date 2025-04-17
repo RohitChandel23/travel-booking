@@ -52,14 +52,14 @@ function TourDetail() {
             <img className="tour-image" src={tourImage} />
           </div>
 
-          <div className="tour-detail-video-gallery-div">
+          {/* <div className="tour-detail-video-gallery-div">
             <button className="video-gallery-btn">
               Video <i className="fa-solid fa-video" />
             </button>
             <button className="video-gallery-btn">
               Gallery <i className="fa-regular fa-image" />
             </button>
-          </div>
+          </div> */}
 
           <div className="tour-detail-location-share">
             <div className="tour-detail-location">

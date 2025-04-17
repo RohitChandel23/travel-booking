@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     padding: 60px 0;
-    margin-top: 8%;
+    margin-top: 5%;
 
     background-color: #f7f8f9;
 }
@@ -27,7 +27,7 @@
 .homepage-destination-container h2 {
     font-size: 38px;
     color: #1b1b3f;
-    margin-bottom: 40px;
+    margin-bottom: -7%;
     font-weight: 700;
 }
 

@@ -35,7 +35,7 @@ function BlogPage() {
           </div>
           <div className="blog-side-bar">
             <div className="sidebar-section">
-              <h4>Categories</h4>
+            <h4>Categories</h4>
               <ul className="category-list">
                 {categories.map((category) => (
                   <li key={category.name}>
