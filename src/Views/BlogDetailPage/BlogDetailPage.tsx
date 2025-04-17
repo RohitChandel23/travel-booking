@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ProjectImages } from '../../assets/ProjectImages';
 import AddingComment from '../../Shared/AddingComment/AddingComment';
 import { blogs, Blog } from '../BlogPage/Blogs';
+import {useEffect} from 'react';
 
 function BlogDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -11,6 +12,10 @@ function BlogDetailPage() {
   if (!blog) {
     return <div className="blog-detail-page-wrapper">Blog not found</div>;
   }
+
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  })
 
   return (
     <div className="blog-detail-page-wrapper">

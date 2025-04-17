@@ -224,4 +224,3 @@ function TourBookingDetail({
 }
 export default TourBookingDetail;
 
-
