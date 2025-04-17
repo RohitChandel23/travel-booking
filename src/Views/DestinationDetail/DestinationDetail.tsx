@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { ProjectImages } from "../../assets/ProjectImages";
 import "./DestinationDetail.css";
 import MapComponent from "../../Shared/MapComponent";
+import TourSlider from "../../Shared/TourSlider";
 import { useEffect, useState } from "react";
 
 type PexelsPhoto = {
@@ -214,6 +215,14 @@ function DestinationDetail() {
           </div>
         </div>
       </div>
+
+      <div className="destination-tour-slider-wrapper">
+        <div className="destination-tour-slider">
+        <h2>Popular Tours</h2>
+            <TourSlider/>
+        </div>
+          </div>
+
     </>
   );
 }

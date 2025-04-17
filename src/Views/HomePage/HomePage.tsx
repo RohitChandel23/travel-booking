@@ -1,20 +1,21 @@
-import { useGetAttractionQuery } from "../../Services/Api/module/demoApi";
+// import { useGetAttractionQuery } from "../../Services/Api/module/demoApi";
 import { ProjectImages } from "../../assets/ProjectImages";
 import HomepageDestination from "./Shared/HomepageDestination/HomepageDestination";
-import TourCard from "../TourCard/TourCard";
+// import TourCard from "../TourCard/TourCard";
 import WhyUsComponent from "../WhyUsComponent/index";
 import SearchArea from "../../Shared/SearchArea";
 import Testimonial from "../../Shared/Testimonial";
 import "./HomePage.css";
+import TourSlider from "../../Shared/TourSlider";
 import { useEffect } from "react";
 
 export default function Dashboard() {
   // manages the id of the cities as per your requirements
-  const currentPage = 1;
-  const destinationId =
-    "eyJwaW5uZWRQcm9kdWN0IjoiUFJpSEhIVjB1TGJPIiwidWZpIjoyMDA4ODMyNX0="; // slug id
-  const { data } = useGetAttractionQuery({ destinationId, currentPage });
-  const attractions = data?.data?.products?.slice(1, 5) || [];
+  // const currentPage = 1;
+  // const destinationId =
+  //   "eyJwaW5uZWRQcm9kdWN0IjoiUFJpSEhIVjB1TGJPIiwidWZpIjoyMDA4ODMyNX0="; // slug id
+  // const { data } = useGetAttractionQuery({ destinationId, currentPage });
+  // const attractions = data?.data?.products?.slice(1, 5) || [];
 
   // const searchAreaData = (values: any) => {
   //   console.log(values);
@@ -48,7 +49,7 @@ export default function Dashboard() {
         </div>
         <div className="tour-content-container">
           <div className="tour-content">
-            {attractions.map((item: any) => {
+            {/* {attractions.map((item: any) => {
               const countryName = item?.ufiDetails?.url?.country?.toUpperCase();
               const cityName = item?.ufiDetails?.bCityName;
               const tourName = item?.name;
@@ -75,18 +76,22 @@ export default function Dashboard() {
                   slugValue={slugValue}
                 />
               );
-            })}
+            })} */}
+          <TourSlider/>
+            
           </div>
         </div>
       </div>
 
       <HomepageDestination />
+
+
+      {/* why us section */}
+      <WhyUsComponent />
       <div className="testimonial-section">
         <Testimonial />
       </div>
 
-      {/* why us section */}
-      <WhyUsComponent />
     </div>
   );
 }

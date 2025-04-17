@@ -106,7 +106,7 @@ function TourDetail() {
 
             <div className="tour-feature">
               <span className="tour-feature-heading">Min Age</span>
-              <span className="tour-feature-value project-normal-font">5</span>
+              <span className="tour-feature-value project-normal-font">3</span>
             </div>
 
             <div className="tour-feature">

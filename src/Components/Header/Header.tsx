@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./header.css";
 import { ProjectImages } from "../../assets/ProjectImages";
 import { ROUTES_CONFIG } from "../../Shared/Constants";
@@ -14,6 +14,7 @@ function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -21,7 +22,6 @@ function Header() {
     return () => unsubscribe();
   }, []);
 
-  // Handle logout
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -40,39 +40,40 @@ function Header() {
           <img src={ProjectImages.TRISOG_HEADER_LOGO} alt="project-logo" />
         </div>
         <div className="header-items">
-          <Link to={ROUTES_CONFIG.HOMEPAGE.path} className="link-class">
+          <NavLink to={ROUTES_CONFIG.HOMEPAGE.path} className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}>
             <li>{ROUTES_CONFIG.HOMEPAGE.title}</li>
-          </Link>
+          </NavLink>
           <li>About</li>
-          <Link to={ROUTES_CONFIG.TOURS.path} className="link-class">
+          <NavLink to={ROUTES_CONFIG.TOURS.path} className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}>
             <li>Tours</li>
-          </Link>
-          <Link to={ROUTES_CONFIG.DESTINATION.path} className="link-class">
+          </NavLink>
+          <NavLink to={ROUTES_CONFIG.DESTINATION.path} className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}>
             <li>Destination</li>
-          </Link>
-          <Link to={ROUTES_CONFIG.BLOG.path} className="link-class">
+          </NavLink>
+          <NavLink to={ROUTES_CONFIG.BLOG.path} className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}>
             <li>Blog</li>
-          </Link>
-          <Link to={ROUTES_CONFIG.CONTACT.path} className="link-class">
+          </NavLink>
+          <NavLink to={ROUTES_CONFIG.CONTACT.path} className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}>
             <li>{ROUTES_CONFIG.CONTACT.title}</li>
-          </Link>
+          </NavLink>
         </div>
       </div>
+
       <div className="right-header">
         {user ? (
           <button className="logout-btn" onClick={handleLogout}>
             <i className="fa-solid fa-sign-out-alt" /> Logout
           </button>
         ) : (
-          <p>
-            <Link to={ROUTES_CONFIG.LOGIN.path} className="link-class">
+          <div className="auth-links">
+            <NavLink to={ROUTES_CONFIG.LOGIN.path} className={({ isActive }) => `auth-link ${isActive ? "active-link" : ""}`}>
               <i className="fa-regular fa-user" /> {ROUTES_CONFIG.LOGIN.title}
-            </Link>{" "}
-            /{" "}
-            <Link to={ROUTES_CONFIG.REGISTER.path} className="link-class">
+            </NavLink>
+            <span className="divider">/</span>
+            <NavLink to={ROUTES_CONFIG.REGISTER.path} className={({ isActive }) => `auth-link ${isActive ? "active-link" : ""}`}>
               {ROUTES_CONFIG.REGISTER.title}
-            </Link>
-          </p>
+            </NavLink>
+          </div>
         )}
       </div>
     </div>

@@ -116,3 +116,19 @@ padding: 0;
 .weather-report p {
   width: 40%;
 }
+
+.destination-tour-slider-wrapper{
+display: flex;
+width:100%;
+justify-content: center;
+}
+
+.destination-tour-slider{
+margin: 1% 1% 1% 1%;
+}
+
+.destination-tour-slider h2{
+font-size: 38px;
+line-height: 120%;
+}
+
