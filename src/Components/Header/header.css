@@ -1,67 +1,94 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@100..900&display=swap');
-
-.header-section {
+ .header-section {
   display: flex;
   justify-content: space-around;
-  margin: 0px 40px;
-  color: rgba(5, 16, 54, 0.8);
-  background-color: white;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .left-header {
   display: flex;
   align-items: center;
-  gap: 60px;
+}
+
+.header-logo img {
+  height: 40px;
 }
 
 .header-items {
   display: flex;
-  gap: 24px;
-}
-
-.header-items li {
-  list-style-type: none;
-  cursor: pointer;
-  transition: color 0.3s ease;
+  list-style: none;
+  margin-left: 20px;
+  gap: 20px;
 }
 
 .link-class {
   text-decoration: none;
-  color: rgba(5, 16, 54, 0.8);
-  transition: color 0.3s ease;
+  color: #333333;
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.link-class li:hover,
-.link-class.active-link li {
+.link-class:hover {
+  color: #fc5056;
+}
+
+.active-link {
   color: #fc5056;
 }
 
 .right-header {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 15px;
 }
 
 .auth-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
 }
 
 .auth-link {
   text-decoration: none;
-  color: rgba(5, 16, 54, 0.8);
+  color: #333333;
   font-size: 16px;
-  transition: color 0.3s ease;
+  font-weight: 500;
 }
 
-.auth-link:hover,
-.auth-link.active-link {
+.auth-link:hover {
   color: #fc5056;
 }
 
 .divider {
-  color: rgba(5, 16, 54, 0.8);
+  color: #999999;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-right: 15px; 
+}
+
+.user-initial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(5, 16, 54, 0.8);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50%;
+  text-transform: uppercase;
+  margin-right: 10px; 
+}
+
+.user-initial:hover {
+  background-color: #fc5056;
 }
 
 .logout-btn {
@@ -79,10 +106,44 @@
 }
 
 .logout-btn:hover { 
-  background: rgba(5, 16, 54, 0.8);
+  border:1px solid #fc5056;
+  background: #fc5056;
   color: white;
 }
 
 .logout-btn .fa-sign-out-alt {
   font-size: 16px;
+} 
+
+
+.user-dropdown {
+  position: absolute;
+  top: 20%;
+  right: 12%;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 1.1);
+  border-radius: 6px;
+  overflow: hidden;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+}
+
+.dropdown-item {
+  padding: 10px 16px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background-color: #fc5056;
+  color: white;
 }
