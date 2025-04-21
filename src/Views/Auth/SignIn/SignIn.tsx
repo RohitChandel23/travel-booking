@@ -14,6 +14,8 @@ import AuthBannerImg from '../Shared/AuthBannerImg';
 import { updateAuthTokenRedux } from '../../../Store/Common/index';
 import { useDispatch } from 'react-redux';
 
+// import { useLocation } from 'react-router-dom';
+
 interface SignInFormValues {
   email: string;
   password: string;
@@ -22,7 +24,7 @@ interface SignInFormValues {
 function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
   const handleSignIn = async (values: SignInFormValues) => {
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -42,6 +44,7 @@ function SignIn() {
       dispatch(updateAuthTokenRedux({ token }));
       toast.success('Login successful!');
       navigate(ROUTES_CONFIG.HOMEPAGE.path);
+
     } catch (error: any) {
       let errorMessage = 'An error occurred. Please try again.';
       switch (error.code) {
@@ -73,10 +76,9 @@ function SignIn() {
 
       const token = await user.getIdToken();
       dispatch(updateAuthTokenRedux({ token }));
-      toast.success('Login successful!', {
-        position: 'top-center',
-      });
+      toast.success('Login successful!');
       navigate(ROUTES_CONFIG.HOMEPAGE.path);
+
     } catch (error: any) {
       toast.error(error.message || 'Google login failed.');
     }

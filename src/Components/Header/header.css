@@ -4,7 +4,7 @@
   align-items: center;
   padding: 10px 20px;
   background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(163, 128, 128, 0.1);
 }
 
 .left-header {
@@ -85,6 +85,7 @@
   border-radius: 50%;
   text-transform: uppercase;
   margin-right: 10px; 
+  cursor:pointer;
 }
 
 .user-initial:hover {
@@ -118,8 +119,8 @@
 
 .user-dropdown {
   position: absolute;
-  top: 20%;
-  right: 12%;
+  top: 10.5%;
+  right: 13%;
   background-color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 1.1);
   border-radius: 6px;
@@ -146,4 +147,66 @@
 .dropdown-item:hover {
   background-color: #fc5056;
   color: white;
+} 
+
+
+
+.logout-popup-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 9999;
+  /* background-color: green; */
 }
+
+.logout-popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  width: 300px;
+}
+
+.logout-popup h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-btn,
+.confirm-btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+}
+
+.cancel-btn:hover {
+  background-color: #ccc;
+}
+
+.confirm-btn {
+  background-color: #fc5056;
+  color: white;
+  border: none;
+}
+
+.confirm-btn:hover {
+  background-color: #e04e4e;
+}
+ 

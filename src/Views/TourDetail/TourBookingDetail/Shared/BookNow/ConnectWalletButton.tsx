@@ -9,10 +9,13 @@ declare global {
   }
 }
 
+
 const ConnectWalletButton = ({
+  makePayment,
   onSuccess,
   totalEthPrice,
 }: {
+  makePayment: boolean;
   onSuccess: () => void;
   totalEthPrice: any;
 }) => {
@@ -21,6 +24,11 @@ const ConnectWalletButton = ({
   const handlePayment = async (totalPrice: number) => {
     if (!window.ethereum) {
       toast.error("Please install MetaMask first.");
+      return;
+    }
+
+    if(!makePayment){
+      toast.error("All fields are required.");
       return;
     }
     try {

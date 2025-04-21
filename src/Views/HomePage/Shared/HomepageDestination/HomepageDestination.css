@@ -1,4 +1,4 @@
-.homepage-destination-section {
+ /* .homepage-destination-section {
     display: flex;
     justify-content: center;
     padding: 60px 0;
@@ -93,11 +93,10 @@
     padding: 0;
 }
 
-/* Responsive adjustments (adapted from DestinationPage) */
 @media (max-width: 1024px) {
     .grid-section {
         grid-template-columns: 1fr;
-        height: auto; /* Let it adjust naturally */
+        height: auto; 
     }
 
     .first-grouped-destinations,
@@ -125,4 +124,118 @@
     .second-grouped-destinations .destination-card-wrapper {
         height: 200px;
     }
-}
+}  */
+
+
+
+.homepage-destination-section {
+    display: flex;
+    justify-content: center;
+    padding: 60px 0;
+    margin-top: 5%;
+    background-color: #f7f8f9;
+  }
+  
+  .homepage-destination-container {
+    width: 80%;
+    max-width: 1200px;
+  }
+  
+  .homepage-destination-container h2,
+  .homepage-destination-container h4 {
+    margin: 0;
+    text-align: center;
+  }
+  
+  .homepage-destination-container h4 {
+    font-size: 26px;
+    color: #ff5d5d;
+    margin-bottom: 8px;
+  }
+  
+  .homepage-destination-container h2 {
+    font-size: 38px;
+    color: #1b1b3f;
+    font-weight: 700;
+  }
+  
+  .destination-grid-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 6rem;
+    margin-bottom: 5rem;
+  }
+  
+  .grid-section {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .grouped-destinations-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .first-grouped-destinations {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    height: 200px;
+  }
+  
+  .second-grouped-destinations {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    height: 200px;
+  }
+  
+  .single-destinations-grid {
+    height: 100%;
+  }
+  
+  .destination-card-wrapper {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .fixing-margin{
+margin: 6% 0% 0% 2% !important;
+  }
+  
+  
+  @media (max-width: 1024px) {
+    .grid-section {
+      grid-template-columns: 1fr;
+    }
+  
+    .first-grouped-destinations,
+    .second-grouped-destinations {
+      grid-template-columns: repeat(2, 1fr);
+      height: auto;
+    }
+  
+    .single-destinations-grid {
+      margin-top: 1rem;
+      height: 200px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .first-grouped-destinations,
+    .second-grouped-destinations {
+      grid-template-columns: 1fr;
+    }
+  
+    .destination-card-wrapper {
+      height: 200px;
+    }
+  }
+  

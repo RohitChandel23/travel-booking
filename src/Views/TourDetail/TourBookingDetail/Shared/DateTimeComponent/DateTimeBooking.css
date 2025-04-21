@@ -20,5 +20,11 @@
     line-height: 142.857%;
 }
 
+.available-time-loading{
+font-size: 14px;
+color: #051036;
+}
 
-
+.no-time-available{
+    color:red;
+}

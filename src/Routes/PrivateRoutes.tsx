@@ -10,6 +10,9 @@ import DestinationDetail from "../Views/DestinationDetail";
 import ContactPage from "../Views/Contact";
 import BlogPage from "../Views/BlogPage/BlogPage";
 import BlogDetailPage from "../Views/BlogDetailPage/BlogDetailPage";
+import BookedTours from "../Views/BookedTours";
+import FavoritesPage from "../Views/FavoritesPage";
+import AboutPage from "../Views/AboutPage";
 
 // eslint-disable-next-line import/prefer-default-export
 export const PRIVATE_ROUTES: Array<CustomRouter> = [
@@ -25,7 +28,7 @@ export const PRIVATE_ROUTES: Array<CustomRouter> = [
   },
   {
     path: ROUTES_CONFIG.ABOUT.path,
-    element: "<ABOUT />",
+    element: <AboutPage />,
     title: ROUTES_CONFIG.ABOUT.title,
   },
   {
@@ -70,8 +73,18 @@ export const PRIVATE_ROUTES: Array<CustomRouter> = [
 
   {
     path:ROUTES_CONFIG.BLOG_DETAIL.path,
-    title:ROUTES_CONFIG.BLOG_DETAIL.path,
+    title:ROUTES_CONFIG.BLOG_DETAIL.title,
     element:<BlogDetailPage/>
+  },
+  {
+    path:ROUTES_CONFIG.BOOKED_TOURS.path,
+    title:ROUTES_CONFIG.BOOKED_TOURS.title,
+    element:<BookedTours/>
+  },
+  {
+    path: ROUTES_CONFIG.FAVORITES_TOURS.path,
+    title: ROUTES_CONFIG.FAVORITES_TOURS.title,
+    element:<FavoritesPage/>
   },
 
   {

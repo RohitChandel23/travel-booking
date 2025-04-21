@@ -33,6 +33,7 @@ import PRIVATE_GUIDE from './icons/private-guide.png';
 import QUICK_BOOKING from './icons/quick-booking.png';
 import TRAIL from './icons/Trail.jpg';
 import SANTORINI from './icons/santorini.jpg';
+import TEAM_MEMBER from './icons/teamMember.jpg'
 
 export const ProjectImages = {
   QUALITY_PACKAGES,
@@ -69,5 +70,6 @@ export const ProjectImages = {
   TESTIMONIAL_TWO,
   TESTIMONIAL_THREE,
   TRAIL,
-  SANTORINI
+  SANTORINI,
+  TEAM_MEMBER
 };

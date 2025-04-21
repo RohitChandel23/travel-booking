@@ -1,16 +1,13 @@
 .tour-card-container{
     width: 301px;
-    /* margin: 1.5rem; */
     text-align: left;
     padding-top: 40px;
-
+    transition: all 0.3s ease-in-out;
     overflow: hidden;
 }
 
 .tour-card-container:hover{
     transform: scale(1.03); 
-    transition: transform 0.2s ease-in-out;
-    /* cursor: pointer; */
 }
 
 .tour-image-container{
@@ -38,6 +35,11 @@ font-size: 20px;
 padding: 0.1% 0px;
 margin:1.5rem 0;
 margin-top: 5%;
+}
+
+
+.tour-card-container h4:hover{
+    color: rgb(25, 25, 117);
 }
 
 
@@ -101,3 +103,42 @@ h6{
     font-size: 20px;
     color:#051036
 }
+
+
+.favorite-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .favorite-button:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  
+  .heart-icon {
+    color: #ccc;
+    font-size: 16px;
+  }
+  
+  .heart-icon.favorite {
+    color: #fc5056;
+  }
+  
+  /* Ensure the tour-image-container is positioned relatively for absolute positioning of the button */
+  .tour-image-container {
+    position: relative;
+    margin: 0px;
+    width: 100%;
+    height: 245px;
+    overflow: hidden;
+  }

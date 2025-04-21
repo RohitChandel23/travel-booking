@@ -1,0 +1,21 @@
+.favorites-page-container {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .favorites-page-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .favorites-page-container p {
+    font-size: 16px;
+    color: rgba(5, 16, 54, 0.6);
+  }

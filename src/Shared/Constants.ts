@@ -1,3 +1,5 @@
+
+
 const STRING: string = 'Test';
 export { STRING };
 
@@ -14,11 +16,13 @@ const ROUTES = {
   DESTINATION_DETAIL:'/destination-detail/:countryName',
   BLOG:'/blog',
   BLOG_DETAIL:'/blog/:id',
+  BOOKED_TOURS:'/booked-tours',
+  FAVORITE_TOURS:'/favorite-tours',
 };
 
 const WILDCARD_ROUTES = {
-  PUBLIC: ROUTES.HOMEPAGE,
-  PRIVATE: ROUTES.LOGIN,
+  PUBLIC: ROUTES.LOGIN,
+  PRIVATE: ROUTES.HOMEPAGE,
 };
 
 const ROUTES_CONFIG = {
@@ -73,7 +77,16 @@ const ROUTES_CONFIG = {
   BLOG_DETAIL:{
     path:ROUTES.BLOG_DETAIL,
     title:'Blog Detail',
+  },
+  BOOKED_TOURS:{
+  path:ROUTES.BOOKED_TOURS ,
+  title:'Booked Tours' ,
+  },
+  FAVORITES_TOURS:{
+    path:ROUTES.FAVORITE_TOURS,
+    title:'Favorite Tours',
   }
+  
 };
 
 export { ROUTES, WILDCARD_ROUTES, ROUTES_CONFIG };
