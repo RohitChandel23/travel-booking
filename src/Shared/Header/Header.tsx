@@ -1,14 +1,13 @@
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import "./header.css";
 import { ProjectImages } from "../../assets/ProjectImages";
-import { ROUTES_CONFIG } from "../../Shared/Constants";
+import { ROUTES_CONFIG } from "../Constants";
 import { useEffect, useState, useRef } from "react";
 import { auth } from "../../firebaseConfig";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { updateAuthTokenRedux } from "../../Store/Common";
-import { User } from "firebase/auth";
 
 function Header() {
   const dispatch = useDispatch();
@@ -38,9 +37,9 @@ function Header() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      navigate(ROUTES_CONFIG.HOMEPAGE.path);
       dispatch(updateAuthTokenRedux({ token: null }));
       toast.success("Logged out successfully!");
-      navigate(ROUTES_CONFIG.HOMEPAGE.path);
     } catch (error) {
       toast.error("Logout failed. Please try again.");
     }
@@ -49,9 +48,7 @@ function Header() {
   const getUserInitial = () => {
     if (user?.displayName) {
       return user.displayName.charAt(0).toUpperCase();
-    } else if (user?.email) {
-      return user.email.charAt(0).toUpperCase();
-    }
+    } 
     return "?";
   };
 
@@ -126,7 +123,7 @@ function Header() {
             </div>
             {menuOpen && (
               <div className="user-dropdown">
-                <Link to="/profile" className="dropdown-item" onClick={handleMenuLinkClick}>Profile</Link>
+                {/* <Link to="/profile" className="dropdown-item" onClick={handleMenuLinkClick}>Profile</Link> */}
                 <Link to={ROUTES_CONFIG.BOOKED_TOURS.path} className="dropdown-item" onClick={handleMenuLinkClick}>Booked Tours</Link>
                 <Link to={ROUTES_CONFIG.FAVORITES_TOURS.path} className="dropdown-item" onClick={handleMenuLinkClick}>Favourite Tours</Link>
               </div>

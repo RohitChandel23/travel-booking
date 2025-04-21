@@ -64,7 +64,14 @@ function TourPackagePage() {
       setSelectedDestination(destinationName || null);
       setSelectedDate(selectDate || []);
     }
+    if(searchingData){
+      setSelectedDestination(searchingData);
+    }
   }, []); 
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },[]);
 
   // Handle searched data (destination name, dates)
   function searchAreaData(values: SearchAreaDataProps) {

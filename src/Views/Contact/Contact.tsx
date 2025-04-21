@@ -4,8 +4,12 @@ import PageBanner from "../../Shared/PageBanner";
 import ContactElement from "./Shared/ContactElements";
 import MapComponent from "../../Shared/MapComponent";
 import AddingComment from "../../Shared/AddingComment/AddingComment";
+import { useEffect } from "react";
 
 function ContactPage() {
+  useEffect(() => {
+      window.scrollTo(0, 0);
+    });
   return (
     <>
       <PageBanner

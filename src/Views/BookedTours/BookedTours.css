@@ -56,11 +56,3 @@
     width:85%;
   }
   
-  @media (max-width: 768px) {
-    .table-header,
-    .table-row {
-      grid-template-columns: 1fr 1fr;
-      flex-direction: column;
-    }
-  }
-  

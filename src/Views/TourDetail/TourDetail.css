@@ -165,4 +165,12 @@ margin-bottom: 8%;
   margin-bottom: 3%;
 }
 
+.share-icon{
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.share-icon:hover{
+  color: #180352;
+}
 

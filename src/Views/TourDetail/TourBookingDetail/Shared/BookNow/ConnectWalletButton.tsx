@@ -9,7 +9,6 @@ declare global {
   }
 }
 
-
 const ConnectWalletButton = ({
   makePayment,
   onSuccess,
@@ -50,7 +49,8 @@ const ConnectWalletButton = ({
 
       onSuccess();
 
-      toast.success("Booked successfully, Tx Hash: " + tx.hash);
+      // toast.success("Booked successfully, Tx Hash: " + tx.hash);
+      console.log("Booked successfully, Tx Hash: " + tx.hash)
     } catch (err: unknown) {
       console.error("Payment failed:", err);
       if (err instanceof Error) {
@@ -66,12 +66,12 @@ const ConnectWalletButton = ({
 
   return (
     <div className="wallet-btn-wrapper">
-      <button
+      <button className="button-hovering-color"
         onClick={() => handlePayment(totalEthPrice)}
         disabled={isProcessing}
       >
         {" "}
-        {/* requires price*/}
+
         {isProcessing ? "Processing..." : "Book Now"}
       </button>
     </div>

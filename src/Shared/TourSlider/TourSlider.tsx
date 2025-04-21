@@ -1,18 +1,19 @@
 import './TourSlider.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { useGetAttractionQuery } from '../../Services/Api/module/demoApi';
 import TourCard from '../../Views/TourCard';
 import TourCardSkeleton from '../TourCardSkeleton/TourCardSkeleton';
+
 
 function TourSlider() {
   const destinationId = "eyJwaW5uZWRQcm9kdWN0IjoiUFJpSEhIVjB1TGJPIiwidWZpIjoyMDA4ODMyNX0=";
   const currentPage = 1;
   const { data, isLoading} = useGetAttractionQuery({ destinationId, currentPage });
 
-  const attractions = data?.data?.products?.slice(0, 8) || [];
+  const attractions = data?.data?.products?.slice(1, 9) || [];
   const cardsPerSlide = 4;
-
+  const [ethPrice, setEthPrice] = useState();
   const totalSlides = attractions.length - cardsPerSlide + 1;
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -53,6 +54,23 @@ function TourSlider() {
     return visible;
   };
 
+    // useEffect(()=>{
+    //   const fetchEthPriceAndConvert = async () => {
+    //     try {
+    //       const response = await fetch(
+    //         `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
+    //       );
+    //       const data = await response.json();
+    //       const ethPrice = data?.ethereum?.usd;
+    //       setEthPrice(ethPrice);
+    //       console.log(ethPrice);
+    //     } catch (error) {
+    //       console.error("Failed to fetch Current Eth Price:", error);
+    //     }
+    //   };
+    //   fetchEthPriceAndConvert();
+    // },[]);
+
   return (
     <div className="tour-slider-container" {...handlers}>
       <div className="tour-slider-content">
@@ -66,8 +84,11 @@ function TourSlider() {
           const tourImage = item?.primaryPhoto?.small;
           const tourRating = item?.reviewsStats?.combinedNumericStats?.average; 
           const tourReview = item?.reviewsStats?.allReviewsCount;
-          const tourPrice = Math.floor(item?.representativePrice?.chargeAmount);
+          // const tourPrice = Math.floor(item?.representativePrice?.chargeAmount);
+          const tourPrice = Math.floor(item?.representativePrice?.chargeAmount); 
           const slugValue = item?.slug;
+          //eth value
+          
 
           return (
             <TourCard

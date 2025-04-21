@@ -33,7 +33,13 @@ import PRIVATE_GUIDE from './icons/private-guide.png';
 import QUICK_BOOKING from './icons/quick-booking.png';
 import TRAIL from './icons/Trail.jpg';
 import SANTORINI from './icons/santorini.jpg';
-import TEAM_MEMBER from './icons/teamMember.jpg'
+import TEAM_MEMBER from './icons/teamMember.jpg';
+import ADVENTURE from './icons/adventure.png';
+import BEACHES from './icons/beaches.png';
+import BOAT_TOURS from './icons/boatTours.png';
+import CITY_TOURS from './icons/cityTours.png';
+import FOOD_TOURS from './icons/foodTours.png';
+import HIKING_TOURS from './icons/hikingTours.png';
 
 export const ProjectImages = {
   QUALITY_PACKAGES,
@@ -71,5 +77,11 @@ export const ProjectImages = {
   TESTIMONIAL_THREE,
   TRAIL,
   SANTORINI,
-  TEAM_MEMBER
+  TEAM_MEMBER,
+  ADVENTURE,
+  BEACHES,
+  HIKING_TOURS,
+  BOAT_TOURS,
+  FOOD_TOURS,
+  CITY_TOURS
 };

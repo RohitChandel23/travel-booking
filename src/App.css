@@ -87,6 +87,10 @@ button{
   cursor: pointer;
 }
 
+.button-hovering-color:hover {
+  background-color: #e04e4e;
+}
+
 /* button:hover{
   background-color: #ff343b;
 } */

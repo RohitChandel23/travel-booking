@@ -1,77 +1,15 @@
-// import "./AboutPage.css";
-// import Testimonial from "../../Shared/Testimonial";
-// import WhyUsComponent from "../WhyUsComponent";
-// import TeamCard from "./Shared/TeamCard";
-// import { ProjectImages } from "../../assets/ProjectImages";
-// import FeatureBox from "./Shared/FeatureBox/FeatureBox";
-
-// function AboutPage() {
-//   return (
-//     <>  
-//       <WhyUsComponent />
-
-//       <div className="about-feature-wrapper">
-//         <div className="about-feature-container">
-//           {/* First row of features */}
-//           <FeatureBox
-//             image={ProjectImages.QUALITY_PACKAGES}
-//             title="High Quality Travel Packages"
-//             textContent="Credibly target visionary portals rather than prospective human capital."
-//           />
-//           <FeatureBox
-//             image={ProjectImages.BEST_TRAVEL_PLAN}
-//             title="Best Travel Plan"
-//             textContent="Credibly target visionary portals rather than prospective human capital."
-//           />
-//           <FeatureBox
-//             image={ProjectImages.QUICK_BOOKING}
-//             title="Easy & Quick Booking"
-//             textContent="Credibly target visionary portals rather than prospective human capital."
-//           />
-          
-//           {/* Second row of features */}
-//           <FeatureBox
-//             image={ProjectImages.HAND_PICKED_TOUR}
-//             title="Hand-picked Tour"
-//             textContent="Credibly target visionary portals rather than prospective human capital."
-//           />
-//           <FeatureBox
-//             image={ProjectImages.PRIVATE_GUIDE}
-//             title="Private Guide"
-//             textContent="Credibly target visionary portals rather than prospective human capital."
-//           />
-//           <FeatureBox
-//             image={ProjectImages.CUSTOMER_CARE}
-//             title="Customer Care 24/7"
-//             textContent="Credibly target visionary portals rather than prospective human capital."
-//           />
-//         </div>
-//       </div>
-
-//       <div className="team-member-wrapper">
-//         <div className="team-member-container">
-//           <TeamCard profileImage={ProjectImages.TEAM_MEMBER}/>
-//           <TeamCard />
-//           <TeamCard />
-//           <TeamCard />
-//         </div>
-//       </div>
-//       <Testimonial />
-//     </>
-//   );
-// }
-// export default AboutPage;
-
-
-
 import "./AboutPage.css";
 import Testimonial from "../../Shared/Testimonial";
 import WhyUsComponent from "../WhyUsComponent";
 import TeamCard from "./Shared/TeamCard";
 import { ProjectImages } from "../../assets/ProjectImages";
 import FeatureBox from "./Shared/FeatureBox/FeatureBox";
+import { useEffect } from "react";
 
 function AboutPage() {
+  useEffect(() => {
+      window.scrollTo(0, 0);
+    });
   return (
     <>  
       <WhyUsComponent />
@@ -97,7 +35,7 @@ function AboutPage() {
             textContent="Credibly target visionary portals rather than prospective human capital."
           />
           
-          {/* Second row of features */}
+
           <FeatureBox
             image={ProjectImages.HAND_PICKED_TOUR}
             title="Hand-picked Tour"

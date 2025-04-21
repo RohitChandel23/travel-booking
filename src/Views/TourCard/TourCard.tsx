@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES_CONFIG } from '../../Shared/Constants';
 import { useState, useEffect } from 'react';
 import { doc, setDoc, deleteDoc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../../firebaseConfig'; // Adjust path as needed
+import { auth, db } from '../../firebaseConfig'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { toast} from 'react-toastify';
@@ -35,7 +35,7 @@ function TourCard({
   const [isFavorite, setIsFavorite] = useState(false);
   const user = auth.currentUser;
 
-  // Check if tour is in favorites when component mounts
+
   useEffect(() => {
     const checkFavorite = async () => {
       if (user) {

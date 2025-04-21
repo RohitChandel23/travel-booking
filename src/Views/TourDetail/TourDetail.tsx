@@ -7,6 +7,7 @@ import TourReview from "./TourBookingDetail/Shared/TourReview";
 import CalendarComponent from "./TourBookingDetail/Shared/CalendarComponent/index";
 import IncludeExclude from "./TourBookingDetail/Shared/IncludeExclude";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 function TourDetail() {
   const { slugId } = useParams<{ slugId: string | undefined }>(); 
@@ -38,6 +39,12 @@ function TourDetail() {
   //handling calendar selected date
   function handleCalendarSelectedDate(date: string) {
     setSelectedCalendarDate(date);
+  }
+
+  function handleShare(){
+    const currentUrl = window.location.href;
+    navigator.clipboard.writeText(currentUrl);
+    toast.success("Copied");
   }
 
   useEffect(() => {
@@ -78,8 +85,8 @@ function TourDetail() {
               </p>
             </div>
             <div className="tour-detail-share">
-              <i className="fa-solid fa-share-nodes" />
-              <i className="fa-regular fa-heart" />
+              <i className="fa-solid fa-share-nodes share-icon" onClick={handleShare}/>
+              {/* <i className="fa-regular fa-heart" /> */}
             </div>
           </div>
           <h3 className="tour-title-name project-heading-font">{tourName}</h3>

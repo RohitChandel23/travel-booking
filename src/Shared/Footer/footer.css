@@ -12,6 +12,7 @@ background-color: #111;
 
 .footer-section {
   display: flex;
+  width:77%;
   justify-content: space-between;
   padding-top:5% ;
   padding-bottom:5%;
@@ -52,6 +53,7 @@ background-color: #111;
 .mid-footer li {
   list-style-type: none;
   align-items: center;
+  color: white;
 }
 
 .company,
@@ -67,10 +69,22 @@ li {
   margin: 20px;
 }
 
+.right-footer input{
+  padding:3%;
+}
+
 .right-footer p {
   margin-top: 40px;
 }
 
 .right-footer input{
     margin-bottom: 8px;
+}
+
+.right-footer button{
+background-color: #FC5056;
+color: white;
+padding: 4% 7% 4% 7%;
+border-radius: 4px;
+border: none;
 }

@@ -7,7 +7,7 @@ interface buttonProps {
 
 function Button({ name, handleClick }: buttonProps) {
   return (
-    <button className="btn" onClick={handleClick}>
+    <button className="btn button-hovering-color" onClick={handleClick}>
       {' '}
       {name}
     </button>

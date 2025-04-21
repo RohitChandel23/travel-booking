@@ -1,0 +1,36 @@
+.tour-category-card{
+    width:100%;
+    border:1px solid black;
+    padding: 1% 1% 1% 1%;
+}
+
+.tour-category-card:hover{
+    color: #FC5056;
+}
+
+
+.tour-category-card img{
+margin: 8% 1% 1% 0%;
+}
+
+.tour-category-card h6{
+    margin: 10% 1% 2% 1%;
+}
+
+.tour-category-card p{
+    color:rgba(5, 16, 54, 0.6);
+    font-size: 16px;
+}
+
+.category-card-price{
+display: flex;
+align-items: center;
+gap:5%;
+margin: 12% 0% 5% 0%;
+}
+
+.category-card-price h5{
+    font-size: 22px;
+    margin: 0;
+
+}

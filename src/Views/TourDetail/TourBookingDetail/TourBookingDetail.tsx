@@ -2,7 +2,7 @@ import "./TourBookingDetail.css";
 import { useState, useEffect } from "react";
 import DateTimeComponent from "./Shared/DateTimeComponent";
 import { db, collection, addDoc } from "../../../firebaseConfig";
-import { serverTimestamp } from "firebase/firestore"; 
+import { serverTimestamp } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { getAuth } from "firebase/auth";
 import ConnectWalletButton from "./Shared/BookNow/ConnectWalletButton";
@@ -10,15 +10,15 @@ import ConnectWalletButton from "./Shared/BookNow/ConnectWalletButton";
 interface tourBookingDetailProps {
   tourPrice: string;
   selectedCalendarDate: string;
-  tourName:string;
-  slugValue:string ;
+  tourName: string;
+  slugValue: string;
 }
 
 function TourBookingDetail({
   tourPrice,
   selectedCalendarDate,
   tourName,
-  slugValue
+  slugValue,
 }: tourBookingDetailProps) {
   const [adultsCount, setAdults] = useState(0);
   const [kidsCount, setKidsCount] = useState(0);
@@ -49,11 +49,12 @@ function TourBookingDetail({
 
   useEffect(() => {
     const calculateTotalPrice = () => {
-      const total = (childrenCount + kidsCount + adultsCount) * Number(tourPrice) || 0;
+      const total =
+        (childrenCount + kidsCount + adultsCount) * Number(tourPrice) || 0;
       setTotalPrice(total);
       return total;
     };
-  
+
     const fetchEthPriceAndConvert = async () => {
       try {
         const response = await fetch(
@@ -61,45 +62,44 @@ function TourBookingDetail({
         );
         const data = await response.json();
         const ethPrice = data?.ethereum?.usd;
-  
+
         if (ethPrice) {
           const total = calculateTotalPrice();
           const priceInEth = total / ethPrice;
           setTotalEthPrice(priceInEth);
           console.log("ETH Price:", ethPrice);
-          console.log("Total Price in USD:", total);
+          // console.log("Total Price in USD:", total);
           console.log("Total Price in ETH:", priceInEth);
         }
       } catch (error) {
         console.error("Failed to fetch Current Eth Price:", error);
       }
     };
-  
+
     fetchEthPriceAndConvert();
   }, [childrenCount, kidsCount, adultsCount, tourPrice]);
-
 
   const handleBooking = async () => {
     const auth = getAuth();
     const user = auth.currentUser;
-  
+
     const totalTickets = adultsCount + kidsCount + childrenCount;
-  
+
     if (!user) {
       toast.error("Please login to book");
       return;
     }
-  
+
     if (!selectedDateTime[0] || !selectedDateTime[1]) {
       toast.error("Please select both Date and Time");
       return;
     }
-  
+
     if (totalTickets < 1) {
       toast.error("At least one ticket must be selected");
       return;
     }
-  
+
     const bookingDetail = {
       userId: user.uid,
       tourName,
@@ -109,14 +109,13 @@ function TourBookingDetail({
       date: selectedDateTime[0],
       time: selectedDateTime[1],
       createdAt: serverTimestamp(),
-      tourBookedAt: new Date().toISOString(), 
- 
+      tourBookedAt: new Date().toISOString(),
     };
     console.log(bookingDetail);
-  
+
     try {
-      const docRef = await addDoc(collection(db, 'bookings'), bookingDetail);
-      toast.success('Booked successfully!');
+      const docRef = await addDoc(collection(db, "bookings"), bookingDetail);
+      toast.success("Booked successfully!");
       console.log("Booked...", bookingDetail);
       console.log(docRef);
     } catch (error) {
@@ -124,7 +123,6 @@ function TourBookingDetail({
     }
   };
 
-  
   function getDateTime(DateTimeData: any) {
     setSelectedDateTime(DateTimeData);
   }
@@ -228,14 +226,17 @@ function TourBookingDetail({
       <br />
 
       <div className="wallet-btn">
-        <ConnectWalletButton onSuccess={handleBooking} totalEthPrice = {totalEthPrice}
-        makePayment={Boolean(selectedDateTime[0] && selectedDateTime[1] && (kidsCount || adultsCount || childrenCount) )}
-        />   
-      
+        <ConnectWalletButton
+          onSuccess={handleBooking}
+          totalEthPrice={totalEthPrice}
+          makePayment={Boolean(
+            selectedDateTime[0] &&
+              selectedDateTime[1] &&
+              (kidsCount || adultsCount || childrenCount)
+          )}
+        />
       </div>
     </>
   );
 }
 export default TourBookingDetail;
-
-

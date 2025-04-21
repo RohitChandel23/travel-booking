@@ -2,10 +2,29 @@ import FormElement from "../FormElement/FormElement";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import "./AddingComment.css";
+import { db } from "../../firebaseConfig";
+import { addDoc, collection } from "../../firebaseConfig";
+import { toast } from "react-toastify";
 
-function AddingComment() {     
-  function handleSubmission(values:any) {
-    console.log("submssion......", values);
+function AddingComment() {
+  async function handleSubmission(values: any) {
+    console.log("submssion......", values.userName);
+
+    const data = {
+      name: values.userName,
+      email: values.emailAddress,
+      textContent: values.textContent,
+    };
+
+    try {
+      await addDoc(collection(db, "Comment"), data);
+      toast.success("Submitted successfully! ");
+      values.userName=""
+      values.emailAddress=""
+      values.textContent=""
+    } catch (error) {
+      toast.error(`Error: ${error}`);
+    }
   }
 
   return (
@@ -26,29 +45,29 @@ function AddingComment() {
         <Form>
           <div className="name-email-container">
             <div>
-            <FormElement
-              labelText=""
-              labelClassName=""
-              name="userName"
-              type="text"
-              placeholder="Your name"
-              fieldClassName="name-email-field"
-              containerClass=""
-              min={1}
-            />
+              <FormElement
+                labelText=""
+                labelClassName=""
+                name="userName"
+                type="text"
+                placeholder="Your name"
+                fieldClassName="name-email-field"
+                containerClass=""
+                min={1}
+              />
             </div>
 
             <div>
-            <FormElement
-              labelText=""
-              labelClassName=""
-              name="emailAddress"
-              type="email"
-              placeholder="Email address"
-              fieldClassName="name-email-field"
-              containerClass=""
-              min={1}
-            />
+              <FormElement
+                labelText=""
+                labelClassName=""
+                name="emailAddress"
+                type="email"
+                placeholder="Email address"
+                fieldClassName="name-email-field"
+                containerClass=""
+                min={1}
+              />
             </div>
           </div>
 
@@ -63,7 +82,9 @@ function AddingComment() {
             min={1}
           />
           <br />
-          <button type="submit">Submit</button>
+          <button type="submit" className="button-hovering-color">
+            Submit
+          </button>
         </Form>
       </Formik>
     </div>

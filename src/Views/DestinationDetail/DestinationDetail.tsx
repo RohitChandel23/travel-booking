@@ -216,13 +216,12 @@ function DestinationDetail() {
         </div>
       </div>
 
-      <div className="destination-tour-slider-wrapper">
+ <div className="destination-tour-slider-wrapper">
         <div className="destination-tour-slider">
         <h2>Popular Tours</h2>
             <TourSlider/>
         </div>
-          </div>
-
+          </div> 
     </>
   );
 }

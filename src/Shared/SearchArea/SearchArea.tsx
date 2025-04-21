@@ -47,7 +47,7 @@ function SearchArea({
       selectDate: [formatDate(startDate), formatDate(endDate)],
     };
 
-    if (data.pathname === "/destination" || data.pathname === "/") {
+    if (data.pathname ==="/destination"|| data.pathname === "/") {
       navigate(ROUTES_CONFIG.TOURS.path, {
         state: {
           formattedData,
@@ -56,7 +56,6 @@ function SearchArea({
     } else {
       searchAreaData?.(formattedData);
     }
-
     actions.setSubmitting(false);
   }
 
@@ -141,7 +140,7 @@ function SearchArea({
 
               />
               {touched.selectDate && errors.selectDate && (
-                <div className="error">{errors.selectDate}</div>
+                <div>{errors.selectDate}</div>
               )}
             </div>
 
@@ -156,7 +155,7 @@ function SearchArea({
               min={1}
             />
 
-            <button type="submit">Submit</button>
+            <button type="submit" className="submit-search-query button-hovering-color">Submit</button>
           </Form>
         )}
       </Formik>

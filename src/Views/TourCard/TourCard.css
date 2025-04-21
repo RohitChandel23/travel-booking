@@ -112,7 +112,7 @@ h6{
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 1);
     border: none;
     display: flex;
     align-items: center;
@@ -121,20 +121,20 @@ h6{
     transition: background-color 0.2s ease-in-out;
   }
   
-  .favorite-button:hover {
-    background-color: rgba(255, 255, 255, 1);
-  }
   
   .heart-icon {
     color: #ccc;
     font-size: 16px;
+  }
+
+  .heart-icon:hover {
+    color: #ff8a8e;
   }
   
   .heart-icon.favorite {
     color: #fc5056;
   }
   
-  /* Ensure the tour-image-container is positioned relatively for absolute positioning of the button */
   .tour-image-container {
     position: relative;
     margin: 0px;

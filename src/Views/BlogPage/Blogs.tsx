@@ -31,7 +31,7 @@ export const blogs: Blog[] = [
     id: 2,
     title: 'Uncovering Marrakech’s Cultural Souks',
     date: 'Oct 5, 2025',
-    image: ProjectImages.TOURPAGE_BANNER, // Swap for souk image if available
+    image: ProjectImages.TOURPAGE_BANNER, 
     shortDescription:
       'Marrakech’s vibrant souks pulse with history and color. Dive into Morocco’s cultural heart for spices, crafts, and timeless tales.',
     content: [
@@ -46,7 +46,7 @@ export const blogs: Blog[] = [
     id: 3,
     title: 'Serenity Over Santorini’s Caldera',
     date: 'Oct 12, 2025',
-    image: ProjectImages.SANTORINI, // Swap for Santorini image if available
+    image: ProjectImages.SANTORINI, 
     shortDescription:
       'Santorini’s whitewashed cliffs and blue domes frame stunning sunsets. Explore Greece’s volcanic gem for peace and beauty.',
     content: [
@@ -61,7 +61,7 @@ export const blogs: Blog[] = [
     id: 4,
     title: 'Savoring Street Food in Bangkok',
     date: 'Oct 20, 2025',
-    image: ProjectImages.TOURPAGE_BANNER, // Swap for food stall image if available
+    image: ProjectImages.TOURPAGE_BANNER, 
     shortDescription:
       'Bangkok’s street food is a flavor explosion. From spicy som tam to sweet mango sticky rice, taste Thailand’s soul.',
     content: [

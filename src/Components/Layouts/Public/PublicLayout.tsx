@@ -1,6 +1,6 @@
 import { AppLayoutProps } from '../AppLayout.d';
-import Footer from '../../Footer/index';
-import Header from '../../Header/index';
+import Footer from '../../../Shared/Footer';
+import Header from '../../../Shared/Header/index';
 
 function PublicLayout({ children }: AppLayoutProps): JSX.Element {
   return (
