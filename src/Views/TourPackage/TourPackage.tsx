@@ -6,6 +6,7 @@ import SearchArea from "../../Shared/SearchArea";
 import FilterByDestination from "./Filter/FilterByDestination";
 import FilterByReviews from "./Filter/FilterByReviews/index";
 import FilterByPrice from "./Filter/FilterByPrice/index";
+import TourCardSkeleton from "../../Shared/TourCardSkeleton/TourCardSkeleton";
 import TourCard from "../TourCard";
 import {
   useGetTrendingToursQuery,
@@ -56,7 +57,6 @@ function TourPackagePage() {
 
   const location = useLocation();
   const searchingData = location.state || "";
-
   
   useEffect(() => {
     if (searchingData?.formattedData) {
@@ -72,19 +72,21 @@ function TourPackagePage() {
     setSelectedDestination(values.destinationName);
   }
 
-  // Manage selected price
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
+
+
   function handleSelectedPrice(value:any) {
     setSelectedPrice(value);
   }
 
-  // Handle destination
   function handleDestinationData(data: string | null) {
     setMergedAttractions([]);
     setSelectedDestination(data || null);
     setCurrentPage(1);
   }
 
-  // Filtered destination ID and getting data
   const { data: filteredDestination } = useGetFilteredDestinationToursQuery(
     selectedDestination || "",
     {
@@ -138,7 +140,6 @@ function TourPackagePage() {
 
   let displayedAttractions = [...mergedAttractions];
 
-  // Filtering based on rating
   if (selectedRating.length > 0) {
     selectedRating.sort((a, b) => a - b);
     const minRating = selectedRating[0];
@@ -167,7 +168,10 @@ function TourPackagePage() {
   }
 
   const initialSearchValues = searchingData?.formattedData || {};
-
+  const isLoading =
+  (selectedDestination && selectedDate.length === 2 && !searchedTours?.data) ||
+  (selectedDestination && selectedDate.length !== 2 && !attractionData?.data) ||
+  (!selectedDestination && !trendingDestination?.data);
   return (
     <>
       <PageBanner
@@ -194,7 +198,10 @@ function TourPackagePage() {
         </div>
 
         <div className={CLASSNAMES.TOURS_CONTAINER}>
-          {displayedAttractions.map((item: AttractionType) => {
+          {
+          isLoading ?
+           Array.from({ length: 9 }).map((_, i) => <TourCardSkeleton key={i} />)
+           :displayedAttractions.map((item: AttractionType) => {
             const countryName = item?.ufiDetails?.url?.country?.toUpperCase() || "N/A";
             const cityName = item?.ufiDetails?.bCityName || "N/A";
             const tourName = item?.name || "N/A";
@@ -219,7 +226,8 @@ function TourPackagePage() {
                 slugValue={slugValue}
               />
             );
-          })}
+          })
+          }
         </div>
       </div>
 
@@ -256,3 +264,5 @@ function TourPackagePage() {
 }
 
 export default TourPackagePage;
+
+

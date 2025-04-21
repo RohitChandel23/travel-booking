@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import "./AddingComment.css";
 
-function AddingComment() {      //button name
+function AddingComment() {     
   function handleSubmission(values:any) {
     console.log("submssion......", values);
   }

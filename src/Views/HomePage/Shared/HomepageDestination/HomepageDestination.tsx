@@ -9,7 +9,7 @@ interface DestinationData {
 }
 
 interface CountryImageMap {
-  [key: string]: string; // assuming image URLs/paths are strings
+  [key: string]: string; 
 }
 
 function HomepageDestination() {
@@ -34,7 +34,7 @@ function HomepageDestination() {
         <h4 className='cursive-text'>Destination</h4>
         <h2>Top Attractions Destinations</h2>
 
-        <div className="destination-grid-wrapper">
+        <div className="destination-grid-wrapper fixing-margin">
           <div className="grid-section">
             <div className="grouped-destinations-grid">
               <div className="first-grouped-destinations">

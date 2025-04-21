@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import "./header.css";
 import { ProjectImages } from "../../assets/ProjectImages";
 import { ROUTES_CONFIG } from "../../Shared/Constants";
@@ -9,13 +9,13 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { updateAuthTokenRedux } from "../../Store/Common";
 import { User } from "firebase/auth";
-import { Link } from "react-router-dom";
 
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -25,7 +25,6 @@ function Header() {
     return () => unsubscribe();
   }, []);
 
-  // Close menu on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -56,6 +55,18 @@ function Header() {
     return "?";
   };
 
+  const openLogoutPopup = () => {
+    setShowLogoutPopup(true);
+  };
+
+  const closeLogoutPopup = () => {
+    setShowLogoutPopup(false);
+  };
+
+  const handleMenuLinkClick = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <div className="header-section">
       <div className="left-header">
@@ -72,6 +83,14 @@ function Header() {
           >
             <li>{ROUTES_CONFIG.HOMEPAGE.title}</li>
           </NavLink>
+          <NavLink
+            to={ROUTES_CONFIG.ABOUT.path}
+            className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}
+          >
+            <li>{ROUTES_CONFIG.ABOUT.title}</li>
+          </NavLink>
+
+
           <NavLink
             to={ROUTES_CONFIG.TOURS.path}
             className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}
@@ -107,12 +126,12 @@ function Header() {
             </div>
             {menuOpen && (
               <div className="user-dropdown">
-                <Link to="/profile" className="dropdown-item">Profile</Link>
-                <Link to="/booked-tours" className="dropdown-item">Booked Tours</Link>
-                <Link to="/favourite-tours" className="dropdown-item">Favourite Tours</Link>
+                <Link to="/profile" className="dropdown-item" onClick={handleMenuLinkClick}>Profile</Link>
+                <Link to={ROUTES_CONFIG.BOOKED_TOURS.path} className="dropdown-item" onClick={handleMenuLinkClick}>Booked Tours</Link>
+                <Link to={ROUTES_CONFIG.FAVORITES_TOURS.path} className="dropdown-item" onClick={handleMenuLinkClick}>Favourite Tours</Link>
               </div>
             )}
-            <button className="logout-btn" onClick={handleLogout}>
+            <button className="logout-btn" onClick={openLogoutPopup}>
               <i className="fa-solid fa-sign-out-alt" /> Logout
             </button>
           </div>
@@ -134,6 +153,18 @@ function Header() {
           </div>
         )}
       </div>
+
+      {showLogoutPopup && (
+        <div className="logout-popup-wrapper" onClick={closeLogoutPopup}>
+          <div className="logout-popup" onClick={(e) => e.stopPropagation()}>
+            <h3>Are you sure you want to log out?</h3>
+            <div className="popup-actions">
+              <button className="confirm-btn" onClick={handleLogout}>Logout</button>
+              <button className="cancel-btn" onClick={closeLogoutPopup}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

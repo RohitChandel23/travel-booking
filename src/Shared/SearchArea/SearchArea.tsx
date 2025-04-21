@@ -137,6 +137,8 @@ function SearchArea({
                 placeholderText="Select check-in & check-out"
                 className="search-area-form-field"
                 minDate={new Date()}
+                onKeyDown={(e) => e.preventDefault()} 
+
               />
               {touched.selectDate && errors.selectDate && (
                 <div className="error">{errors.selectDate}</div>

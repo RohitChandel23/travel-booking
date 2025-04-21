@@ -2,17 +2,23 @@ import "./TourBookingDetail.css";
 import { useState, useEffect } from "react";
 import DateTimeComponent from "./Shared/DateTimeComponent";
 import { db, collection, addDoc } from "../../../firebaseConfig";
+import { serverTimestamp } from "firebase/firestore"; 
 import { toast } from "react-toastify";
+import { getAuth } from "firebase/auth";
 import ConnectWalletButton from "./Shared/BookNow/ConnectWalletButton";
 
 interface tourBookingDetailProps {
   tourPrice: string;
   selectedCalendarDate: string;
+  tourName:string;
+  slugValue:string ;
 }
 
 function TourBookingDetail({
   tourPrice,
   selectedCalendarDate,
+  tourName,
+  slugValue
 }: tourBookingDetailProps) {
   const [adultsCount, setAdults] = useState(0);
   const [kidsCount, setKidsCount] = useState(0);
@@ -72,42 +78,57 @@ function TourBookingDetail({
     fetchEthPriceAndConvert();
   }, [childrenCount, kidsCount, adultsCount, tourPrice]);
 
-  const handleBooking = async () => {
-    const bookingDetail = {
-      //will make it dynamic
-      // userName: "john",
-      totalPrice: totalPrice,
-      tickets: kidsCount + childrenCount + adultsCount,
-      date: selectedDateTime[0],
-      time: selectedDateTime[1],
-    };
 
-    if (
-      // !bookingDetail.userName ||
-      !bookingDetail.totalPrice ||
-      !bookingDetail.tickets ||
-      !bookingDetail.date ||
-      !bookingDetail.time
-    ) {
-      toast.error("All fields are required, including Date, Time and Ticket");
+  const handleBooking = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+  
+    const totalTickets = adultsCount + kidsCount + childrenCount;
+  
+    if (!user) {
+      toast.error("Please login to book");
       return;
     }
-    
+  
+    if (!selectedDateTime[0] || !selectedDateTime[1]) {
+      toast.error("Please select both Date and Time");
+      return;
+    }
+  
+    if (totalTickets < 1) {
+      toast.error("At least one ticket must be selected");
+      return;
+    }
+  
+    const bookingDetail = {
+      userId: user.uid,
+      tourName,
+      slugValue,
+      totalEthPrice,
+      tickets: totalTickets,
+      date: selectedDateTime[0],
+      time: selectedDateTime[1],
+      createdAt: serverTimestamp(),
+      tourBookedAt: new Date().toISOString(), 
+ 
+    };
+    console.log(bookingDetail);
+  
     try {
-      const docRef = await addDoc(collection(db, "bookings"), bookingDetail);
-      toast.success(`booked successfully`);
-       console.log("booked...",docRef)
+      const docRef = await addDoc(collection(db, 'bookings'), bookingDetail);
+      toast.success('Booked successfully!');
+      console.log("Booked...", bookingDetail);
+      console.log(docRef);
     } catch (error) {
-      toast.error(`error in booking ${error}`);
+      toast.error(`Error in booking: ${error}`);
     }
   };
 
-  // this function will be send to the child component to get the data
+  
   function getDateTime(DateTimeData: any) {
     setSelectedDateTime(DateTimeData);
   }
 
-  // console.log("data fr date and tim", selectedDateTime);
   return (
     <>
       <h3 className="tour-booking-price-title">
@@ -122,7 +143,7 @@ function TourBookingDetail({
           />{" "}
         </div>
 
-        <span className="book-now-minor-heading">Ticket</span>
+        <span className="book-now-minor-heading ticket-heading">Ticket</span>
         <div className="booking-people-category">
           <label htmlFor="adult" className="ticket-label">
             Adults (18+ years)
@@ -205,15 +226,16 @@ function TourBookingDetail({
         </span>
       </div>
       <br />
-      {/* <button className="book-now-button" onClick={handleBooking}>
-        Book Now
-      </button> */}
 
       <div className="wallet-btn">
-        <ConnectWalletButton onSuccess={handleBooking} totalEthPrice = {totalEthPrice}/>   {/* requires price */}
+        <ConnectWalletButton onSuccess={handleBooking} totalEthPrice = {totalEthPrice}
+        makePayment={Boolean(selectedDateTime[0] && selectedDateTime[1] && (kidsCount || adultsCount || childrenCount) )}
+        />   
+      
       </div>
     </>
   );
 }
 export default TourBookingDetail;
+
 

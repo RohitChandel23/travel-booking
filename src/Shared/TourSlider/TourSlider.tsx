@@ -3,11 +3,12 @@ import { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { useGetAttractionQuery } from '../../Services/Api/module/demoApi';
 import TourCard from '../../Views/TourCard';
+import TourCardSkeleton from '../TourCardSkeleton/TourCardSkeleton';
 
 function TourSlider() {
   const destinationId = "eyJwaW5uZWRQcm9kdWN0IjoiUFJpSEhIVjB1TGJPIiwidWZpIjoyMDA4ODMyNX0=";
   const currentPage = 1;
-  const { data } = useGetAttractionQuery({ destinationId, currentPage });
+  const { data, isLoading} = useGetAttractionQuery({ destinationId, currentPage });
 
   const attractions = data?.data?.products?.slice(0, 8) || [];
   const cardsPerSlide = 4;
@@ -55,7 +56,10 @@ function TourSlider() {
   return (
     <div className="tour-slider-container" {...handlers}>
       <div className="tour-slider-content">
-        {getVisibleCards().map((item: any, i: number) => {
+        { isLoading ?
+        Array.from({ length: 4 }).map((_, i) => <TourCardSkeleton key={i} />)
+        :
+        getVisibleCards().map((item: any, i: number) => {
           const countryName = item?.ufiDetails?.url?.country?.toUpperCase();
           const cityName = item?.ufiDetails?.bCityName;
           const tourName = item?.name;

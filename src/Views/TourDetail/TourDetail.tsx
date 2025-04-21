@@ -9,8 +9,8 @@ import IncludeExclude from "./TourBookingDetail/Shared/IncludeExclude";
 import { useEffect, useState } from "react";
 
 function TourDetail() {
-  const { slugId } = useParams();
-  const slugValue = slugId;
+  const { slugId } = useParams<{ slugId: string | undefined }>(); 
+  const slugValue = slugId || ""; 
   const { data } = useGetTourDetailQuery(slugValue);
   const tourData = data?.data;
   const tourName = tourData?.name;
@@ -158,11 +158,13 @@ function TourDetail() {
 
         <div className="tour-booking-detail">
           {" "}
-          {/* selected calendar date will be passed here */}
           <TourBookingDetail
             tourPrice={tourPrice}
             selectedCalendarDate={selectedCalendarDate}
+            tourName={tourName}
+            slugValue={slugValue}
           />
+        
         </div>
       </section>
 
