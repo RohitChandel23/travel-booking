@@ -11,8 +11,8 @@ function ShowingReview({ tourId }: ShowingReviewProps) {
   const { data } = useGetTourReviewQuery(tourId);
   const reviewer = data?.data[0];
 
-  const reviewerName = reviewer?.user?.name;
-  const reviewerRating = reviewer?.numericRating;
+  const reviewerName = reviewer?.user?.name || 'Anonymous User';
+  const reviewerRating = reviewer?.numericRating || 0;
   const reviewerComment = reviewer?.content;
   const reviewerImage = reviewer?.user?.avatar;
 

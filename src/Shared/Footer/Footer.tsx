@@ -68,7 +68,6 @@ function Footer() {
                   state={destinationName}
                   className="link-class"
                 >
-                  {" "}
                   <li key={destinationName}>{destinationName}</li>{" "}
                 </Link>
               ))}

@@ -6,6 +6,7 @@ import { ProjectImages } from "../../assets/ProjectImages";
 import FeatureBox from "./Shared/FeatureBox/FeatureBox";
 import { useEffect } from "react";
 
+
 function AboutPage() {
   useEffect(() => {
       window.scrollTo(0, 0);
@@ -13,6 +14,8 @@ function AboutPage() {
   return (
     <>  
       <WhyUsComponent />
+
+      <appkit-button />
 
       <div className="about-feature-wrapper">
         <h4 className='cursive-text'>Features</h4>

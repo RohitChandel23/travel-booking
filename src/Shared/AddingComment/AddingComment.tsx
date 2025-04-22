@@ -54,6 +54,7 @@ function AddingComment() {
                 fieldClassName="name-email-field"
                 containerClass=""
                 min={1}
+                max=""
               />
             </div>
 
@@ -67,6 +68,7 @@ function AddingComment() {
                 fieldClassName="name-email-field"
                 containerClass=""
                 min={1}
+                max=""
               />
             </div>
           </div>
@@ -80,6 +82,7 @@ function AddingComment() {
             fieldClassName="comment-field"
             containerClass=""
             min={1}
+            max=""
           />
           <br />
           <button type="submit" className="button-hovering-color">

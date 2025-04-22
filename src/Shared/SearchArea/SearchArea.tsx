@@ -47,7 +47,7 @@ function SearchArea({
       selectDate: [formatDate(startDate), formatDate(endDate)],
     };
 
-    if (data.pathname ==="/destination"|| data.pathname === "/") {
+    if (data.pathname === ROUTES_CONFIG.DESTINATION.path || data.pathname === ROUTES_CONFIG.HOMEPAGE.path) {
       navigate(ROUTES_CONFIG.TOURS.path, {
         state: {
           formattedData,
@@ -110,6 +110,7 @@ function SearchArea({
               fieldClassName="search-area-form-field"
               containerClass="single-Form-element-class"
               min=""
+              max=""
             />
 
             <FormElement
@@ -121,6 +122,7 @@ function SearchArea({
               fieldClassName="search-area-form-field"
               containerClass="single-Form-element-class"
               min=""
+              max=""
             />
 
             <div className="single-Form-element-class">
@@ -136,7 +138,12 @@ function SearchArea({
                 placeholderText="Select check-in & check-out"
                 className="search-area-form-field"
                 minDate={new Date()}
-                onKeyDown={(e) => e.preventDefault()} 
+                onKeyDown={(e) => e.preventDefault()}
+
+                showYearDropdown
+                showMonthDropdown
+                dropdownMode="select"
+                 
 
               />
               {touched.selectDate && errors.selectDate && (
@@ -153,6 +160,7 @@ function SearchArea({
               fieldClassName="search-area-form-field"
               containerClass="single-Form-element-class"
               min={1}
+              max={10}
             />
 
             <button type="submit" className="submit-search-query button-hovering-color">Submit</button>

@@ -74,10 +74,10 @@ function FavoritesPage() {
               cityName={tour.cityName}
               countryName={tour.countryName}
               tourName={tour.tourName}
-              tourImage={tour.tourImage || 'default-image.jpg'} 
-              tourRating={tour.tourRating || '4.5'} 
+              tourImage={tour.tourImage || ''} 
+              tourRating={tour.tourRating || '0'} 
               tourReview={tour.tourReview || '0'} 
-              tourPrice={tour.tourPrice || '0'} 
+              tourPrice={`${tour.tourPrice}` || '0'} 
               tourDuration={tour.tourDuration || 'N/A'} 
               slugValue={tour.tourSlug}
             />

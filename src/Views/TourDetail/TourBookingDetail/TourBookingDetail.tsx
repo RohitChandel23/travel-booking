@@ -98,7 +98,6 @@ function TourBookingDetail({
       toast.error(`Error in booking: ${error}`);
     }
   };
-
   
   function getDateTime(DateTimeData: any) {
     setSelectedDateTime(DateTimeData);
@@ -107,7 +106,7 @@ function TourBookingDetail({
   return (
     <>
       <h3 className="tour-booking-price-title">
-        {tourPrice} ETH<span>/ person</span>
+        {tourPrice!="NaN"?`${tourPrice} ETH`:'Loading... '} <span>/ person</span>
       </h3>
       <div className="tour-booking-input-details">
         <div className="">
@@ -212,6 +211,8 @@ function TourBookingDetail({
   );
 }
 export default TourBookingDetail;
+
+
 
 
 

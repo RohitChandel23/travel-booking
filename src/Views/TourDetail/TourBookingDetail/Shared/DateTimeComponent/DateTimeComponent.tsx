@@ -64,6 +64,11 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate }: DateTimeCompo
         minDate={new Date()}
         dateFormat="yyyy-MM-dd"
         placeholderText="Choose date"
+
+        showYearDropdown
+        showMonthDropdown
+        dropdownMode="select"
+  
       />
 
       <br />

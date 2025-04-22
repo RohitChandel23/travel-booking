@@ -58,7 +58,7 @@ function TourPackagePage() {
 
   const location = useLocation();
   const searchingData = location.state || "";
-  
+
   useEffect(() => {
     if (searchingData?.formattedData) {
       const { destinationName, selectDate } = searchingData.formattedData;

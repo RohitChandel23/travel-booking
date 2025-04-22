@@ -26,7 +26,10 @@ function Header() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setMenuOpen(false);
       }
     };
@@ -48,7 +51,9 @@ function Header() {
   const getUserInitial = () => {
     if (user?.displayName) {
       return user.displayName.charAt(0).toUpperCase();
-    } 
+    } else if (user?.email) {
+      return user.email.charAt(0).toUpperCase();
+    }
     return "?";
   };
 
@@ -76,39 +81,50 @@ function Header() {
         <div className="header-items">
           <NavLink
             to={ROUTES_CONFIG.HOMEPAGE.path}
-            className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}
+            className={({ isActive }) =>
+              `link-class ${isActive ? "active-link" : ""}`
+            }
           >
             <li>{ROUTES_CONFIG.HOMEPAGE.title}</li>
           </NavLink>
           <NavLink
             to={ROUTES_CONFIG.ABOUT.path}
-            className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}
+            className={({ isActive }) =>
+              `link-class ${isActive ? "active-link" : ""}`
+            }
           >
             <li>{ROUTES_CONFIG.ABOUT.title}</li>
           </NavLink>
 
-
           <NavLink
             to={ROUTES_CONFIG.TOURS.path}
-            className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}
+            className={({ isActive }) =>
+              `link-class ${isActive ? "active-link" : ""}`
+            }
           >
             <li>Tours</li>
           </NavLink>
           <NavLink
             to={ROUTES_CONFIG.DESTINATION.path}
-            className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}
+            className={({ isActive }) =>
+              `link-class ${isActive ? "active-link" : ""}`
+            }
           >
             <li>Destination</li>
           </NavLink>
           <NavLink
             to={ROUTES_CONFIG.BLOG.path}
-            className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}
+            className={({ isActive }) =>
+              `link-class ${isActive ? "active-link" : ""}`
+            }
           >
             <li>Blog</li>
           </NavLink>
           <NavLink
             to={ROUTES_CONFIG.CONTACT.path}
-            className={({ isActive }) => `link-class ${isActive ? "active-link" : ""}`}
+            className={({ isActive }) =>
+              `link-class ${isActive ? "active-link" : ""}`
+            }
           >
             <li>{ROUTES_CONFIG.CONTACT.title}</li>
           </NavLink>
@@ -118,14 +134,29 @@ function Header() {
       <div className="right-header">
         {user ? (
           <div className="user-info" ref={dropdownRef}>
-            <div className="user-initial" onClick={() => setMenuOpen((prev) => !prev)}>
+            <div
+              className="user-initial"
+              onClick={() => setMenuOpen((prev) => !prev)}
+            >
               {getUserInitial()}
             </div>
             {menuOpen && (
               <div className="user-dropdown">
                 {/* <Link to="/profile" className="dropdown-item" onClick={handleMenuLinkClick}>Profile</Link> */}
-                <Link to={ROUTES_CONFIG.BOOKED_TOURS.path} className="dropdown-item" onClick={handleMenuLinkClick}>Booked Tours</Link>
-                <Link to={ROUTES_CONFIG.FAVORITES_TOURS.path} className="dropdown-item" onClick={handleMenuLinkClick}>Favourite Tours</Link>
+                <Link
+                  to={ROUTES_CONFIG.BOOKED_TOURS.path}
+                  className="dropdown-item"
+                  onClick={handleMenuLinkClick}
+                >
+                  Booked Tours
+                </Link>
+                <Link
+                  to={ROUTES_CONFIG.FAVORITES_TOURS.path}
+                  className="dropdown-item"
+                  onClick={handleMenuLinkClick}
+                >
+                  Favourite Tours
+                </Link>
               </div>
             )}
             <button className="logout-btn" onClick={openLogoutPopup}>
@@ -136,14 +167,18 @@ function Header() {
           <div className="auth-links">
             <NavLink
               to={ROUTES_CONFIG.LOGIN.path}
-              className={({ isActive }) => `auth-link ${isActive ? "active-link" : ""}`}
+              className={({ isActive }) =>
+                `auth-link ${isActive ? "active-link" : ""}`
+              }
             >
               <i className="fa-regular fa-user" /> {ROUTES_CONFIG.LOGIN.title}
             </NavLink>
             <span className="divider">/</span>
             <NavLink
               to={ROUTES_CONFIG.REGISTER.path}
-              className={({ isActive }) => `auth-link ${isActive ? "active-link" : ""}`}
+              className={({ isActive }) =>
+                `auth-link ${isActive ? "active-link" : ""}`
+              }
             >
               {ROUTES_CONFIG.REGISTER.title}
             </NavLink>
@@ -156,8 +191,12 @@ function Header() {
           <div className="logout-popup" onClick={(e) => e.stopPropagation()}>
             <h3>Are you sure you want to log out?</h3>
             <div className="popup-actions">
-              <button className="confirm-btn" onClick={handleLogout}>Logout</button>
-              <button className="cancel-btn" onClick={closeLogoutPopup}>Cancel</button>
+              <button className="confirm-btn" onClick={handleLogout}>
+                Logout
+              </button>
+              <button className="cancel-btn" onClick={closeLogoutPopup}>
+                Cancel
+              </button>
             </div>
           </div>
         </div>

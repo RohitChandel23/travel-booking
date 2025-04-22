@@ -9,7 +9,7 @@ interface TourReviewProps {
 }
 
 function TourReview({ tourRating, tourId }: TourReviewProps) {
-  // Ensure the tourRating is always a string
+  
   const rating = typeof tourRating === 'number' ? tourRating.toString() : tourRating;
 
   function generateRatingCategory(rating: string | number) {
@@ -18,12 +18,12 @@ function TourReview({ tourRating, tourId }: TourReviewProps) {
       if (rating < 3) return "Bad";
       return "Good";
     }
-    return "N/A"; // Handle cases where it's not a valid number
+    return "N/A"; 
   }
 
   return (
     <div className="tour-review-section">
-      <div className="average-review-section">
+      {tourRating?<><div className="average-review-section">
         <div className="total-average-reviews">
           <h2 className="project-heading-font">{rating}</h2>
           <p>
@@ -41,7 +41,7 @@ function TourReview({ tourRating, tourId }: TourReviewProps) {
           <ReviewItem tourRating={rating} tourRatingName="Amenities" />
           <ReviewItem tourRating={rating} tourRatingName="Quality" />
         </div>
-      </div>
+      </div></>:""}
 
       <ShowingReview tourId = {tourId}/>
       <AddReview/>

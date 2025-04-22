@@ -68,8 +68,8 @@ function FilterByPrice({ handleSelectedPrice }: priceFilterProps) {
           allowCross={false}
         />
         <div className="slider-selected-price">
-          <span>{range[0]}ETH</span>
-          <span>{range[1]}ETH</span>
+          <span>{range[0]} ETH</span>
+          <span>{range[1]} ETH</span>
         </div>
       </div>
       <Button name="Submit" handleClick={() => handleSelectedPrice(range)} />

@@ -170,7 +170,7 @@ function TourSlider() {
         console.error("Failed to fetch Current Eth Price:", error);
       }
     };
-    fetchEthPrice();
+    fetchEthPrice();  
   }, []);
 
   return (

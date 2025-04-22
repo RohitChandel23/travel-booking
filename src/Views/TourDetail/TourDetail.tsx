@@ -12,8 +12,8 @@ import { toast } from "react-toastify";
 function TourDetail() {
   const [ethPrice, setEthPrice] = useState();
 
-  const { slugId } = useParams<{ slugId: string | undefined }>(); 
-  const slugValue = slugId || ""; 
+  const { slugId } = useParams<{ slugId: string | undefined }>();
+  const slugValue = slugId || "";
   const { data } = useGetTourDetailQuery(slugValue);
   const tourData = data?.data;
   const tourName = tourData?.name;
@@ -23,8 +23,8 @@ function TourDetail() {
   const tourReviewCount = tourData?.reviewsStats?.combinedNumericStats?.total;
   // const tourPrice = tourData?.representativePrice?.chargeAmount / ethPrice;
 
-  const usdPrice = tourData?.representativePrice?.chargeAmount || 'N/A';
-const tourPrice = ethPrice ? (usdPrice / ethPrice).toFixed(5) : null;
+  const usdPrice = tourData?.representativePrice?.chargeAmount || "N/A";
+  const tourPrice = ethPrice ? (usdPrice / ethPrice).toFixed(5) : null;
 
   const tourDescription = tourData?.description;
   const tourAllImages = tourData?.photos;
@@ -47,7 +47,7 @@ const tourPrice = ethPrice ? (usdPrice / ethPrice).toFixed(5) : null;
     setSelectedCalendarDate(date);
   }
 
-  function handleShare(){
+  function handleShare() {
     const currentUrl = window.location.href;
     navigator.clipboard.writeText(currentUrl);
     toast.success("Copied");
@@ -56,20 +56,19 @@ const tourPrice = ethPrice ? (usdPrice / ethPrice).toFixed(5) : null;
   useEffect(() => {
     window.scrollTo(0, 0);
 
-      const fetchEthPrice = async () => {
-        try {
-          const response = await fetch(
-            `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
-          );
-          const data = await response.json();
-          const ethPrice = data?.ethereum?.usd;
-          setEthPrice(ethPrice);
-        } catch (error) {
-          console.error("Failed to fetch Current Eth Price:", error);
-        }
-      };
-      fetchEthPrice();
-    
+    const fetchEthPrice = async () => {
+      try {
+        const response = await fetch(
+          `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
+        );
+        const data = await response.json();
+        const ethPrice = data?.ethereum?.usd;
+        setEthPrice(ethPrice);
+      } catch (error) {
+        console.error("Failed to fetch Current Eth Price:", error);
+      }
+    };
+    fetchEthPrice();
   });
 
   return (
@@ -77,7 +76,11 @@ const tourPrice = ethPrice ? (usdPrice / ethPrice).toFixed(5) : null;
       <section className="tour-detail-section">
         <div className="tour-detail-container">
           <div className="tour-detail-image-container">
-            <img className="tour-image" src={tourImage} />
+            {tourImage ? (
+              <img className="tour-image" src={tourImage} />
+            ) : (
+              <p></p>
+            )}
           </div>
 
           {/* <div className="tour-detail-video-gallery-div">
@@ -106,7 +109,10 @@ const tourPrice = ethPrice ? (usdPrice / ethPrice).toFixed(5) : null;
               </p>
             </div>
             <div className="tour-detail-share">
-              <i className="fa-solid fa-share-nodes share-icon" onClick={handleShare}/>
+              <i
+                className="fa-solid fa-share-nodes share-icon"
+                onClick={handleShare}
+              />
               {/* <i className="fa-regular fa-heart" /> */}
             </div>
           </div>
@@ -146,13 +152,15 @@ const tourPrice = ethPrice ? (usdPrice / ethPrice).toFixed(5) : null;
 
             <div className="tour-feature">
               <span className="tour-feature-heading">Reviews</span>
-              <span className="tour-feature-value project-normal-font">
+
+              {tourRating?<><span className="tour-feature-value project-normal-font">
                 <i className="fa-solid fa-star project-theme-color" />{" "}
                 {tourRating}{" "}
                 <span className="project-normal-font">
                   ({tourReviewCount} reviews){" "}
                 </span>
-              </span>
+              </span></>:<b>N/A</b>}
+
             </div>
           </div>
 
@@ -179,7 +187,11 @@ const tourPrice = ethPrice ? (usdPrice / ethPrice).toFixed(5) : null;
           </div>
 
           <div className="tour-detail-review">
-            <h5 className="project-heading-font">Average Reviews</h5>
+            {tourRating ? (
+              <h5 className="project-heading-font">Average Reviews</h5>
+            ) : (
+              ""
+            )}
             <TourReview tourRating={tourRating} tourId={tourId} />
           </div>
         </div>
@@ -192,10 +204,8 @@ const tourPrice = ethPrice ? (usdPrice / ethPrice).toFixed(5) : null;
             tourName={tourName}
             slugValue={slugValue}
           />
-        
         </div>
       </section>
-
     </>
   );
 }
