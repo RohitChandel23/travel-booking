@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 function TourDetail() {
+  const [ethPrice, setEthPrice] = useState();
+
   const { slugId } = useParams<{ slugId: string | undefined }>(); 
   const slugValue = slugId || ""; 
   const { data } = useGetTourDetailQuery(slugValue);
@@ -19,7 +21,11 @@ function TourDetail() {
   const tourCountry = tourData?.ufiDetails?.url?.country;
   const tourRating = tourData?.reviewsStats?.combinedNumericStats?.average;
   const tourReviewCount = tourData?.reviewsStats?.combinedNumericStats?.total;
-  const tourPrice = tourData?.representativePrice?.chargeAmount;
+  // const tourPrice = tourData?.representativePrice?.chargeAmount / ethPrice;
+
+  const usdPrice = tourData?.representativePrice?.chargeAmount || 'N/A';
+const tourPrice = ethPrice ? (usdPrice / ethPrice).toFixed(5) : null;
+
   const tourDescription = tourData?.description;
   const tourAllImages = tourData?.photos;
   const tourImageItem = tourAllImages?.find((item: any) => item?.isPrimary);
@@ -49,6 +55,21 @@ function TourDetail() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+      const fetchEthPrice = async () => {
+        try {
+          const response = await fetch(
+            `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
+          );
+          const data = await response.json();
+          const ethPrice = data?.ethereum?.usd;
+          setEthPrice(ethPrice);
+        } catch (error) {
+          console.error("Failed to fetch Current Eth Price:", error);
+        }
+      };
+      fetchEthPrice();
+    
   });
 
   return (
@@ -95,7 +116,7 @@ function TourDetail() {
             <div className="tour-feature">
               <span className="tour-feature-heading">From</span>
               <span className="tour-feature-value project-theme-color project-normal-font">
-                ${tourPrice}
+                {tourPrice} ETH
               </span>
             </div>
 
@@ -166,7 +187,7 @@ function TourDetail() {
         <div className="tour-booking-detail">
           {" "}
           <TourBookingDetail
-            tourPrice={tourPrice}
+            tourPrice={String(tourPrice)}
             selectedCalendarDate={selectedCalendarDate}
             tourName={tourName}
             slugValue={slugValue}

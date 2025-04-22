@@ -49,7 +49,7 @@ import { format } from 'date-fns';
 import "react-calendar/dist/Calendar.css";
 
 interface CalendarComponentProps {
-  tourPrice: string;
+  tourPrice: string | null;
   handleCalendarSelectedDate: (value: string) => void;
 }
 
@@ -63,7 +63,7 @@ const CalendarComponent = ({ tourPrice, handleCalendarSelectedDate }: CalendarCo
 
   const tileContent = () => (
     <div className="price-container">
-      <span className="price-tag">${tourPrice}</span>
+      <span className="price-tag">{tourPrice} ETH</span>
     </div>
   );
 

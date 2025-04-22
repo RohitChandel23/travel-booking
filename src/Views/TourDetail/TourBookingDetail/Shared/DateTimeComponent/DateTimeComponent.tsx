@@ -27,7 +27,7 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate }: DateTimeCompo
   );
 
   const availableTimes: string[] =
-    res?.data?.map((item: { start: string }) => item.start.slice(11, 16)) || [];
+    res?.data?.map((item: { start: string }) => item?.start?.slice(11, 16)) || [];
 
   useEffect(() => {
     setSelectedDate(selectedCalendarDate);
