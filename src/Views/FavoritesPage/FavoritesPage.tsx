@@ -14,7 +14,7 @@ interface FavoriteTour {
   tourImage?: string; 
   tourRating?: string; 
   tourReview?: string; 
-  tourPrice?: number; 
+  tourPrice?: string; 
   tourDuration?: string; 
   timestamp?: Date; 
 }
@@ -77,7 +77,7 @@ function FavoritesPage() {
               tourImage={tour.tourImage || 'default-image.jpg'} 
               tourRating={tour.tourRating || '4.5'} 
               tourReview={tour.tourReview || '0'} 
-              tourPrice={tour.tourPrice || 0} 
+              tourPrice={tour.tourPrice || '0'} 
               tourDuration={tour.tourDuration || 'N/A'} 
               slugValue={tour.tourSlug}
             />

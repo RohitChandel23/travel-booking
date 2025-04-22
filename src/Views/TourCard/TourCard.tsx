@@ -15,7 +15,7 @@ interface tourCardProps {
   tourImage: string;
   tourRating: string;
   tourReview: string;
-  tourPrice: number;
+  tourPrice: string;
   tourDuration: string;
   slugValue: string;
 }
@@ -130,7 +130,7 @@ function TourCard({
           <div className="tour-price">
             <p>Starting From</p>
             <span className="tour-price-text">
-              ${tourPrice}
+              {tourPrice}
             </span>
           </div>
         </div>

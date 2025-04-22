@@ -54,6 +54,7 @@ function TourPackagePage() {
   const [selectedRating, setSelectedRating] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState([]);
   const [selectedDate, setSelectedDate] = useState([]);
+  const [ethPrice, setEthPrice] = useState();
 
   const location = useLocation();
   const searchingData = location.state || "";
@@ -82,6 +83,22 @@ function TourPackagePage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);
+
+  useEffect(() => {
+    const fetchEthPrice = async () => {
+      try {
+        const response = await fetch(
+          `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
+        );
+        const data = await response.json();
+        const ethPrice = data?.ethereum?.usd;
+        setEthPrice(ethPrice);
+      } catch (error) {
+        console.error("Failed to fetch Current Eth Price:", error);
+      }
+    };
+    fetchEthPrice();
+  }, []);
 
 
   function handleSelectedPrice(value:any) {
@@ -159,13 +176,13 @@ function TourPackagePage() {
   }
 
   // Filtering based on price
-  if (selectedPrice?.length > 0) {
+  if (selectedPrice?.length > 0 && ethPrice !=undefined) {
     const minPrice = selectedPrice[0];
     const maxPrice = selectedPrice[1];
     displayedAttractions = displayedAttractions.filter(
       (item) =>
-        Math.ceil(item?.representativePrice?.chargeAmount) <= maxPrice &&
-        Math.ceil(item?.representativePrice?.chargeAmount) >= minPrice
+        Math.ceil(item?.representativePrice?.chargeAmount)/ethPrice <= maxPrice &&
+        Math.ceil(item?.representativePrice?.chargeAmount)/ethPrice >= minPrice
     );
   }
 
@@ -216,7 +233,10 @@ function TourPackagePage() {
             const tourRating =
               item?.reviewsStats?.combinedNumericStats?.average?.toString() || "N/A";
             const tourReview = item?.reviewsStats?.allReviewsCount?.toString() || "0";
-            const tourPrice = Math.ceil(item?.representativePrice?.chargeAmount || 0);
+            const usdPrice = item?.representativePrice?.chargeAmount;
+            const tourPrice = ethPrice ? `${(usdPrice / ethPrice).toFixed(5)} ETH` : "Loading...";
+
+            // const tourPrice = Math.ceil(item?.representativePrice?.chargeAmount || 0);
             const slugValue = item?.slug || item.id.toString();
 
             return (
