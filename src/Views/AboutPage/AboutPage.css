@@ -32,7 +32,7 @@ margin: 0% 0% 1% 0%;
   align-items: center;
   justify-content: center;
   background-color: #f7f8f9;
-  margin: 5% 0% 5% 0%;
+  margin: 3% 0% 5% 0%;
   padding: 5% 0% 5% 0%;
 }
 
@@ -62,4 +62,46 @@ margin: 0% 0% 1% 0%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+}
+
+
+
+.our-numbers-wrapper{
+width:100%;
+height:auto;
+margin-top: 2%;
+display: flex;
+justify-content: center;
+}
+
+
+.our-numbers-container{
+width:80%;
+display: flex;
+justify-content: space-between;
+gap:5%;
+padding: 2%;
+border-top: 1px solid rgba(5, 16, 54, 0.1);
+
+}
+
+
+.our-numbers-container div{
+  display: flex;
+  gap:7%;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.number-data h1{
+font-weight: 200;
+font-size: 60px;
+font-family: "Kaushan Script", cursive;
+
+}
+
+.number-data p{
+  color: #05103699;
+  font-weight: 500;
 }

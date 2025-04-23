@@ -7,6 +7,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { toast } from "react-toastify";
 
+
 function Footer() {
   const [email, setEmail] = useState<string>("");
   const destinationColOne = ["Las Vegas", "New York", "Hawaii", "Paris"];
@@ -77,7 +78,7 @@ function Footer() {
           <div className="top-destination">
             <ul>
               <li className="footer-cursive">
-                <br />
+                Trending Destination
               </li>
               {destinationColTwo.map((destinationName) => (
                 <Link

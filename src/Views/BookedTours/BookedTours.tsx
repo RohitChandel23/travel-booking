@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { db, auth } from '../../firebaseConfig';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-// import { orderBy } from "firebase/firestore"; 
 import { ROUTES_CONFIG } from "../../Shared/Constants";
 import { Link } from "react-router-dom";
 
@@ -15,7 +14,7 @@ interface Booking {
   tickets: number;
   date: string;
   time: string;
-  totalEthPrice: number;
+  totalPrice: number;
   tourBookedAt:string;
 }
 
@@ -27,13 +26,9 @@ function BookedTours() {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         try {
-          // const q = query(
-          //   collection(db, "bookings"),
-          //   where("userId", "==", currentUser.uid)
-          // );
           const q = query(
             collection(db, "bookings"),
-            where("userId", "==", currentUser.uid)          );
+            where("userId", "==", currentUser.uid));
           
           const querySnapshot = await getDocs(q);
           const bookingsData: Booking[] = querySnapshot.docs.map((doc) => ({
@@ -81,7 +76,7 @@ function BookedTours() {
               <div className="table-cell">{booking.date}</div>
               <div className="table-cell">{booking.time}</div>
               <div className="table-cell">
-                {Number(booking.totalEthPrice).toFixed(5)} ETH
+                {Number(booking.totalPrice)} ETH
               </div>
             </div>
           ))}

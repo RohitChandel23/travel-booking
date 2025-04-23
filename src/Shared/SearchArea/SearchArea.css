@@ -1,4 +1,4 @@
-.search-area-container{
+ .search-area-container{
     width: 1296px;
     height:121px;
     border-radius: 12px;
@@ -49,4 +49,8 @@
 .submit-search-query{
     height:40px;
     width:95px;
-}
+} 
+
+
+
+ 

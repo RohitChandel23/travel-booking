@@ -202,15 +202,20 @@ function TourBookingDetail({
       <br />
 
       <div className="wallet-btn">
-        <ConnectWalletButton onSuccess={handleBooking} totalEthPrice = {totalPrice}
+        <span><ConnectWalletButton onSuccess={handleBooking} totalEthPrice = {totalPrice}
         makePayment={Boolean(selectedDateTime[0] && selectedDateTime[1] && (kidsCount || adultsCount || childrenCount) )}
-        />   
-      
+        /></span>   
+        <span><appkit-button/></span>
       </div>
+
+
     </>
   );
 }
 export default TourBookingDetail;
+
+
+
 
 
 

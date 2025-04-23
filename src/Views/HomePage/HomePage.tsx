@@ -116,7 +116,7 @@ import "./HomePage.css";
 import TourSlider from "../../Shared/TourSlider";
 import { useEffect } from "react";
 import TourCategoryCard from "./Shared/TourCategoryCard/TourCategoryCard";
-import  {blogs}  from "../BlogPage/Blogs";
+// import  {blogs}  from "../BlogPage/Blogs";
 
 export default function Dashboard() {
   const TourCategoryData = [
@@ -210,7 +210,7 @@ export default function Dashboard() {
         <Testimonial />
       </div>
 
-      <div className="travel-guide-wrapper">
+      {/* <div className="travel-guide-wrapper">
         <div className="travel-guide-container">
             <h4 className="cursive-text">Updates</h4>
             <h2>Latest Travel Guide</h2>
@@ -229,7 +229,7 @@ export default function Dashboard() {
 
             </div>
             </div>
-      </div>
+      </div> */}
 
     </div>
   );

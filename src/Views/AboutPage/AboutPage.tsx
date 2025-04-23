@@ -6,8 +6,14 @@ import { ProjectImages } from "../../assets/ProjectImages";
 import FeatureBox from "./Shared/FeatureBox/FeatureBox";
 import { useEffect } from "react";
 
-
 function AboutPage() {
+  const numberData = [
+    {quantity: 120, quantityElement:"Total Destination"},
+    {quantity: 500, quantityElement:"Travel Packages"},
+    {quantity: "10K", quantityElement:"Total Travelers"},
+    {quantity: "7K", quantityElement:"Positive Reviews"},
+  ]
+
   useEffect(() => {
       window.scrollTo(0, 0);
     });
@@ -15,8 +21,18 @@ function AboutPage() {
     <>  
       <WhyUsComponent />
 
-      <appkit-button />
+      <div className="our-numbers-wrapper">
+        <div className="our-numbers-container">
+          {numberData.map((item)=>
+                          <div className="number-data">
+                          <h1>{item.quantity}+</h1>
+                          <p>{item.quantityElement}</p>
+                        </div>                        
+          )}
 
+        </div>
+      </div>
+      
       <div className="about-feature-wrapper">
         <h4 className='cursive-text'>Features</h4>
           <h2>Why Choose Us</h2>
@@ -38,7 +54,6 @@ function AboutPage() {
             textContent="Credibly target visionary portals rather than prospective human capital."
           />
           
-
           <FeatureBox
             image={ProjectImages.HAND_PICKED_TOUR}
             title="Hand-picked Tour"
