@@ -1,0 +1,13 @@
+.search-destination-wrapper{
+    display: flex;
+    flex-direction: column;
+background-color: aliceblue;
+padding: 5%;
+}
+
+
+.search-destination-wrapper input{
+    padding: 4%;
+    border-radius: 6px;
+    border: 1px solid rgba(5, 16, 54, 0.1) ;
+}

@@ -8,6 +8,7 @@
 
 .form-container {
     width: auto;
+    margin-bottom: 2%;
 }
 
 .auth-buttons {
@@ -87,3 +88,5 @@
     gap: 20px;
     margin-top: 30px;
 }
+
+

@@ -50,7 +50,7 @@ function ContactPage() {
             </div>
 
             <div className="map__wrapper">
-              <MapComponent cityName="Chandigarh" mapHeadingText="" />
+              <MapComponent cityName="Chandigarh" mapHeadingText="" zoomLevel={6}/>
             </div>
           </div>
         </div>

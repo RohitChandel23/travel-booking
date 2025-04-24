@@ -41,6 +41,7 @@ import CITY_TOURS from './icons/cityTours.png';
 import FOOD_TOURS from './icons/foodTours.png';
 import HIKING_TOURS from './icons/hikingTours.png';
 
+
 export const ProjectImages = {
   QUALITY_PACKAGES,
   BEST_TRAVEL_PLAN,

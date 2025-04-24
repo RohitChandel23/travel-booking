@@ -1,5 +1,6 @@
 import "./Signup.css";
 import { toast } from "react-toastify";
+import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -25,9 +26,11 @@ interface SignUpFormValues {
 }
 
 function Signup() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleSignup = async (values: SignUpFormValues) => {
+    setIsSubmitting(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -36,7 +39,6 @@ function Signup() {
       );
       const { user } = userCredential;
 
-      // email verification
       await sendEmailVerification(user);
 
       await setDoc(doc(db, "users", user.uid), {
@@ -44,8 +46,7 @@ function Signup() {
         phoneNumber: values.phoneNumber,
       });
 
-      // Sign out to prevent auto-login
-      await signOut(auth);
+      // await signOut(auth);
 
       toast.success("Signed up successfully! Please verify your email.");
 
@@ -58,19 +59,19 @@ function Signup() {
           : error.message || "Signup failed. Please try again.";
       toast.error(errorMessage);
     }
+    setIsSubmitting(false);
   };
 
   const handleGoogleSignUp = async () => {
+    setIsSubmitting(true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const { user } = result;
 
-      // Check if user already exists in Firestore
       const userRef = doc(db, "users", user.uid);
       const userSnap = await getDoc(userRef);
 
       if (!userSnap.exists()) {
-        // If new user save to Firestore
         await setDoc(userRef, {
           email: user.email,
           name: user.displayName,
@@ -78,7 +79,7 @@ function Signup() {
         });
       }
 
-      // Google account verification
+
       if (!user.emailVerified) {
         await sendEmailVerification(user);
         await signOut(auth);
@@ -91,6 +92,7 @@ function Signup() {
     } catch (error: any) {
       toast.error(error.message || "Google signup failed.");
     }
+    setIsSubmitting(false);
   };
 
   return (
@@ -202,7 +204,7 @@ function Signup() {
                   />
                 </div>
 
-                <button type="submit" className="submit-btn">
+                <button type="submit" className={isSubmitting?"submit-btn signUp-btn-disable":"submit-btn"} disabled={isSubmitting}>
                   Submit
                 </button>
               </Form>
@@ -210,7 +212,9 @@ function Signup() {
           </div>
 
           <div className="social-auth">
-            <SocialBtn name="Google" handleClick={handleGoogleSignUp} />
+            {/* <SocialBtn name="Google" handleClick={handleGoogleSignUp} /> */}
+            <button className="sign-up-btn social-btn" onClick={handleGoogleSignUp} disabled={isSubmitting}>Google</button>
+
             <SocialBtn
               name="Facebook"
               handleClick={() => console.log("Facebook")}

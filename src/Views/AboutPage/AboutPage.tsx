@@ -24,9 +24,9 @@ function AboutPage() {
       <div className="our-numbers-wrapper">
         <div className="our-numbers-container">
           {numberData.map((item)=>
-                          <div className="number-data">
-                          <h1>{item.quantity}+</h1>
-                          <p>{item.quantityElement}</p>
+            <div className="number-data">
+            <h1>{item.quantity}+</h1>
+            <p>{item.quantityElement}</p>
                         </div>                        
           )}
 
@@ -37,7 +37,6 @@ function AboutPage() {
         <h4 className='cursive-text'>Features</h4>
           <h2>Why Choose Us</h2>
         <div className="about-feature-container">
-          {/* First row of features */}
           <FeatureBox
             image={ProjectImages.QUALITY_PACKAGES}
             title="High Quality Travel Packages"

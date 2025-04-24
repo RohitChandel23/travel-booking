@@ -149,6 +149,8 @@
 
 
 
+
+
 import { toast } from "react-toastify";
 import "./ConnectWalletButton.css";
 import { useWriteContract } from "wagmi";
@@ -193,7 +195,9 @@ const ConnectWalletButton = ({
       onSuccess();
       
     } catch (err: any) {
-      toast.error("Error during transaction: " + (err.message || "Unknown error"));
+      console.log("checking........",err.message);
+      // alert(err.message)
+          toast.error("Error during transaction: " + (err.message));
     }
   };
 

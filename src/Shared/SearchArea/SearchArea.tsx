@@ -1,4 +1,4 @@
-  import "./SearchArea.css";
+import "./SearchArea.css";
 import "./Shared/constants";
 import FormElement from "../FormElement/FormElement";
 import { Formik, Form, FormikHelpers } from "formik";
@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useLocation, useNavigate, Location } from "react-router-dom";
 import { ROUTES_CONFIG } from "../Constants";
+import { useState } from "react";
 
 interface SearchAreaProps {
   searchAreaData?: (data: SearchFormFormattedValues) => void;
@@ -33,6 +34,7 @@ function SearchArea({
 }: SearchAreaProps) {
   const navigate = useNavigate();
   const data: Location = useLocation();
+  const [datePickerBlurred, setDatePickerBlurred] = useState(false);
 
   function handleSearch(
     values: SearchFormValues,
@@ -47,7 +49,10 @@ function SearchArea({
       selectDate: [formatDate(startDate), formatDate(endDate)],
     };
 
-    if (data.pathname === ROUTES_CONFIG.DESTINATION.path || data.pathname === ROUTES_CONFIG.HOMEPAGE.path) {
+    if (
+      data.pathname === ROUTES_CONFIG.DESTINATION.path ||
+      data.pathname === ROUTES_CONFIG.HOMEPAGE.path
+    ) {
       navigate(ROUTES_CONFIG.TOURS.path, {
         state: {
           formattedData,
@@ -99,7 +104,7 @@ function SearchArea({
         })}
         onSubmit={handleSearch}
       >
-        {({ values, setFieldValue, errors, touched }) => (
+        {({ values, setFieldValue, errors, touched, handleBlur }) => (
           <Form className="search-area-form-class">
             <FormElement
               labelText="Destination"
@@ -127,26 +132,33 @@ function SearchArea({
 
             <div className="single-Form-element-class">
               <label className="cursive-text search-area-form-label">When</label>
-              <DatePicker
-                selected={values.selectDate[0]}
-                onChange={(dates: [Date | null, Date | null]) =>
-                  setFieldValue("selectDate", dates)
-                }
-                startDate={values.selectDate[0]}
-                endDate={values.selectDate[1]}
-                selectsRange
-                placeholderText="Select check-in & check-out"
-                className="search-area-form-field"
-                minDate={new Date()}
-                onKeyDown={(e) => e.preventDefault()}
 
-                showYearDropdown
-                showMonthDropdown
-                dropdownMode="select"
-                 
 
-              />
-              {touched.selectDate && errors.selectDate && (
+<DatePicker
+  selected={values.selectDate[0]}
+  onChange={(dates: [Date | null, Date | null]) => {
+    setFieldValue("selectDate", dates);
+  }}
+  onBlur={() => {
+    setDatePickerBlurred(true);
+    handleBlur("selectDate");
+  }}
+  startDate={values.selectDate[0]}
+  endDate={values.selectDate[1]}
+  selectsRange
+  placeholderText="Select check-in & check-out"
+  className="search-area-form-field"
+  minDate={new Date()} 
+  maxDate={new Date(new Date().getFullYear() + 10, 11, 31)} 
+  onKeyDown={(e) => e.preventDefault()} 
+  
+  showMonthDropdown
+  showYearDropdown
+  dropdownMode="select" 
+  yearDropdownItemNumber={10} 
+  scrollableYearDropdown 
+/>
+              {(datePickerBlurred || touched.selectDate) && errors.selectDate && (
                 <div className="form-error">{errors.selectDate}</div>
               )}
             </div>
@@ -163,7 +175,9 @@ function SearchArea({
               max={10}
             />
 
-            <button type="submit" className="submit-search-query button-hovering-color">Submit</button>
+            <button type="submit" className="submit-search-query button-hovering-color">
+              Submit
+            </button>
           </Form>
         )}
       </Formik>
@@ -172,4 +186,3 @@ function SearchArea({
 }
 
 export default SearchArea;
-

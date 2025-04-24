@@ -194,7 +194,7 @@ function DestinationDetail() {
         </div>
 
         <div className="weather-map-container">
-          <MapComponent cityName={countryName} mapHeadingText="City Map" />
+          <MapComponent cityName={countryName} mapHeadingText="City Map" zoomLevel={4}/>
 
           <div className="weather-wrapper">
             <div className="weather-container">

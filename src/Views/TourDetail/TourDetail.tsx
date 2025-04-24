@@ -183,7 +183,7 @@ function TourDetail() {
           </div>
 
           <div className="tour-location-map">
-            <MapComponent cityName={tourCity} mapHeadingText="Map" />
+            <MapComponent cityName={tourCity} mapHeadingText="Map" zoomLevel={7}/>
           </div>
 
           <div className="tour-detail-review">

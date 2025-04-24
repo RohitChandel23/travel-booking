@@ -16,6 +16,7 @@ import {
 } from "../../Services/Api/module/demoApi";
 import { useLocation } from "react-router-dom";
 import { ProjectImages } from "../../assets/ProjectImages";
+import SearchDestination from "./Filter/SearchDestination/SearchDestination";
 
 interface AttractionType {
   id: string;
@@ -42,14 +43,18 @@ interface AttractionType {
   };
 }
 
-interface SearchAreaDataProps{
-  selectDate:any,
-  destinationName:string
+interface SearchAreaDataProps {
+  selectDate: any;
+  destinationName: string;
 }
 
 function TourPackagePage() {
-  const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
-  const [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>([]);
+  const [selectedDestination, setSelectedDestination] = useState<string | null>(
+    null
+  );
+  const [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>(
+    []
+  );
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedRating, setSelectedRating] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState([]);
@@ -65,14 +70,14 @@ function TourPackagePage() {
       setSelectedDestination(destinationName || null);
       setSelectedDate(selectDate || []);
     }
-    if(searchingData){
+    if (searchingData) {
       setSelectedDestination(searchingData);
     }
-  }, []); 
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  },[]);
+  }, []);
 
   // Handle searched data (destination name, dates)
   function searchAreaData(values: SearchAreaDataProps) {
@@ -100,8 +105,7 @@ function TourPackagePage() {
     fetchEthPrice();
   }, []);
 
-
-  function handleSelectedPrice(value:any) {
+  function handleSelectedPrice(value: any) {
     setSelectedPrice(value);
   }
 
@@ -139,7 +143,11 @@ function TourPackagePage() {
   });
 
   useEffect(() => {
-    if (selectedDestination && selectedDate.length === 2 && searchedTours?.data?.products) {
+    if (
+      selectedDestination &&
+      selectedDate.length === 2 &&
+      searchedTours?.data?.products
+    ) {
       setMergedAttractions(searchedTours.data.products);
       return;
     }
@@ -155,7 +163,13 @@ function TourPackagePage() {
     }
 
     setMergedAttractions([]);
-    }, [selectedDestination, selectedDate, attractionData, trendingDestination, searchedTours]);
+  }, [
+    selectedDestination,
+    selectedDate,
+    attractionData,
+    trendingDestination,
+    searchedTours,
+  ]);
 
   // Getting selected rating input
   function handleRatingData(value: any) {
@@ -176,13 +190,15 @@ function TourPackagePage() {
   }
 
   // Filtering based on price
-  if (selectedPrice?.length > 0 && ethPrice !=undefined) {
+  if (selectedPrice?.length > 0 && ethPrice != undefined) {
     const minPrice = selectedPrice[0];
     const maxPrice = selectedPrice[1];
     displayedAttractions = displayedAttractions.filter(
       (item) =>
-        Math.ceil(item?.representativePrice?.chargeAmount)/ethPrice <= maxPrice &&
-        Math.ceil(item?.representativePrice?.chargeAmount)/ethPrice >= minPrice
+        Math.ceil(item?.representativePrice?.chargeAmount) / ethPrice <=
+          maxPrice &&
+        Math.ceil(item?.representativePrice?.chargeAmount) / ethPrice >=
+          minPrice
     );
   }
 
@@ -193,9 +209,13 @@ function TourPackagePage() {
 
   const initialSearchValues = searchingData?.formattedData || {};
   const isLoading =
-  (selectedDestination && selectedDate.length === 2 && !searchedTours?.data) ||
-  (selectedDestination && selectedDate.length !== 2 && !attractionData?.data) ||
-  (!selectedDestination && !trendingDestination?.data);
+    (selectedDestination &&
+      selectedDate.length === 2 &&
+      !searchedTours?.data) ||
+    (selectedDestination &&
+      selectedDate.length !== 2 &&
+      !attractionData?.data) ||
+    (!selectedDestination && !trendingDestination?.data);
   return (
     <>
       <PageBanner
@@ -204,16 +224,25 @@ function TourPackagePage() {
         coloredText="Tour Package"
         bannerImage={ProjectImages.TOURPAGE_BANNER}
       />
-      <SearchArea searchAreaData={searchAreaData} initialSearchValues={initialSearchValues} />
+      <SearchArea
+        searchAreaData={searchAreaData}
+        initialSearchValues={initialSearchValues}
+      />
 
       <div className={CLASSNAMES.FILTER_DISPLAY}>
         <div className={CLASSNAMES.FILTER_CONTAINER}>
+          <div className="tour-filter-types">
+            <SearchDestination handleDestinationData={handleDestinationData} />
+          </div>
+
           <div className="tour-filter-types">
             <FilterByPrice handleSelectedPrice={handleSelectedPrice} />
           </div>
 
           <div className="tour-filter-types">
-            <FilterByDestination handleDestinationData={handleDestinationData} />
+            <FilterByDestination
+              handleDestinationData={handleDestinationData}
+            />
           </div>
 
           <div className="tour-filter-types">
@@ -222,39 +251,45 @@ function TourPackagePage() {
         </div>
 
         <div className={CLASSNAMES.TOURS_CONTAINER}>
-          {
-          isLoading ?
-           Array.from({ length: 9 }).map((_, i) => <TourCardSkeleton key={i} />)
-           :displayedAttractions.map((item: AttractionType) => {
-            const countryName = item?.ufiDetails?.url?.country?.toUpperCase() || "N/A";
-            const cityName = item?.ufiDetails?.bCityName || "N/A";
-            const tourName = item?.name || "N/A";
-            const tourImage = item?.primaryPhoto?.small || "";
-            const tourRating =
-              item?.reviewsStats?.combinedNumericStats?.average?.toString() || "N/A";
-            const tourReview = item?.reviewsStats?.allReviewsCount?.toString() || "0";
-            const usdPrice = item?.representativePrice?.chargeAmount;
-            const tourPrice = ethPrice ? `${(usdPrice / ethPrice).toFixed(5)} ETH` : "Loading...";
+          {isLoading
+            ? Array.from({ length: 9 }).map((_, i) => (
+                <TourCardSkeleton key={i} />
+              ))
+            : displayedAttractions.map((item: AttractionType) => {
+                const countryName =
+                  item?.ufiDetails?.url?.country?.toUpperCase() || "N/A";
+                const cityName = item?.ufiDetails?.bCityName || "N/A";
+                const tourName = item?.name || "N/A";
+                const tourImage = item?.primaryPhoto?.small || "";
+                const tourRating =
+                  item?.reviewsStats?.combinedNumericStats?.average?.toString() ||
+                  "N/A";
+                const tourReview =
+                  item?.reviewsStats?.allReviewsCount?.toString() || "0";
+                const usdPrice = item?.representativePrice?.chargeAmount;
+                const tourPrice = ethPrice
+                  ? `${(usdPrice / ethPrice).toFixed(5)} ETH`
+                  : "Loading...";
 
-            // const tourPrice = Math.ceil(item?.representativePrice?.chargeAmount || 0);
-            const slugValue = item?.slug || item.id.toString();
+                // const tourPrice = Math.ceil(item?.representativePrice?.chargeAmount || 0);
 
-            return (
-              <TourCard
-                key={`${item.destinationId}-${slugValue}`}
-                cityName={cityName}
-                countryName={countryName}
-                tourName={tourName}
-                tourImage={tourImage}
-                tourRating={tourRating}
-                tourReview={tourReview}
-                tourPrice={tourPrice}
-                tourDuration="2 days"
-                slugValue={slugValue}
-              />
-            );
-          })
-          }
+                const slugValue = item?.slug || item.id.toString();
+
+                return (
+                  <TourCard
+                    key={`${item.destinationId}-${slugValue}`}
+                    cityName={cityName}
+                    countryName={countryName}
+                    tourName={tourName}
+                    tourImage={tourImage}
+                    tourRating={tourRating}
+                    tourReview={tourReview}
+                    tourPrice={tourPrice}
+                    tourDuration="2 days"
+                    slugValue={slugValue}
+                  />
+                );
+              })}
         </div>
       </div>
 
@@ -268,14 +303,12 @@ function TourPackagePage() {
           >
             <i className="fa-solid fa-chevron-left" />
           </span>{" "}
-
           <span
             className="page-number-container colored-page-number"
-            onClick={() => setCurrentPage((prev) => prev + 1)}  
+            onClick={() => setCurrentPage((prev) => prev + 1)}
           >
             {currentPage}
           </span>
-
           <span
             className="page-number-container"
             onClick={() => {
@@ -291,5 +324,3 @@ function TourPackagePage() {
 }
 
 export default TourPackagePage;
-
-
