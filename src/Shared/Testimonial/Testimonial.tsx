@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import './Testimonial.css';
 import { ProjectImages } from '../../assets/ProjectImages';
@@ -26,6 +26,7 @@ function Testimonial() {
       prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
     );
   };
+
   const prevTestimonial = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
@@ -35,12 +36,21 @@ function Testimonial() {
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => nextTestimonial(),
     onSwipedRight: () => prevTestimonial(),
-    trackMouse: true, 
+    trackMouse: true,
   });
 
-  const goToTestimonial = (index:number) => {
+  const goToTestimonial = (index: number) => {
     setCurrentIndex(index);
   };
+
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextTestimonial();
+    }, 5000); 
+
+    return () => clearInterval(interval); 
+  }, []);
 
   return (
     <div className="testimonial-wrapper">
@@ -49,18 +59,16 @@ function Testimonial() {
           <div className="testimonial-img-one">
             <img src={ProjectImages.TESTIMONIAL_ONE} alt="Testimonial" />
           </div>
-
           <div className="testimonial-img-two">
             <img src={ProjectImages.TESTIMONIAL_TWO} alt="Testimonial" />
           </div>
-
           <div className="testimonial-img-three">
             <img src={ProjectImages.TESTIMONIAL_THREE} alt="Testimonial" />
           </div>
         </div>
 
         <div className="testimonial-content-container">
-          <h4 className='cursive-text'>Testimonials</h4>
+          <h4 className="cursive-text">Testimonials</h4>
           <h2>What Travelers Say</h2>
 
           <div className="testimonial-text" {...swipeHandlers}>

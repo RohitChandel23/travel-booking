@@ -37,7 +37,7 @@ function FormElement({
           min={min}
           max={max}
         />
-        <ErrorMessage name={name} />
+        <ErrorMessage name={name} className="form-error" component="div"/>
       </span>
     </>
   );

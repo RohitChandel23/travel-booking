@@ -147,7 +147,7 @@ function SearchArea({
 
               />
               {touched.selectDate && errors.selectDate && (
-                <div>{errors.selectDate}</div>
+                <div className="form-error">{errors.selectDate}</div>
               )}
             </div>
 

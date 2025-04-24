@@ -82,7 +82,7 @@ justify-content: space-between;
 gap:5%;
 padding: 2%;
 border-top: 1px solid rgba(5, 16, 54, 0.1);
-
+margin-top: 2%;
 }
 
 
@@ -95,8 +95,7 @@ border-top: 1px solid rgba(5, 16, 54, 0.1);
 }
 
 .number-data h1{
-font-weight: 200;
-font-size: 60px;
+font-size: 38px;
 font-family: "Kaushan Script", cursive;
 
 }
