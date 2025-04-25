@@ -1,4 +1,4 @@
- .search-area-container{
+ /* .search-area-container{
     width: 1296px;
     height:121px;
     border-radius: 12px;
@@ -58,4 +58,100 @@
     font-size: 12px;
     margin-top: 4px;
   }
- 
+  */
+
+
+
+.search-area-container {
+    width: 1296px;
+    height: 121px;
+    border-radius: 12px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 12px 0px rgba(5, 16, 54, 0.1);
+    background-color: white;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+  }
+  
+  .search-area-form-class {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .single-Form-element-class {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-with-icon {
+    position: relative;
+    width: 100%;
+  }
+  
+  .search-area-form-field {
+    padding: 10px 24px 10px 35px; 
+    border: 1px solid rgba(5, 16, 54, 0.1);
+    border-radius: 6px !important;
+    color: #051036;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 142.857%;
+    width: 100%;
+    box-sizing: border-box;
+    height: 40px; 
+  }
+  
+  .search-area-form-field.has-icon {
+    padding-left: 41px; 
+  }
+  
+  .search-area-form-field:not(.has-icon) {
+    padding-left: 24px; 
+  }
+  
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
+  
+  .react-datepicker__input-container input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .search-area-container button {
+    background-color: #fc5056;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    margin-top: 1.7%;
+  }
+  
+  .submit-search-query {
+    height: 40px;
+    width: 95px;
+  }
+  
+  .form-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  
+  .search-area-form-label {
+    font-size: 14px;
+    color: #051036;
+    margin-bottom: 4px;
+  } 
+
+
+
+
+
+
+  

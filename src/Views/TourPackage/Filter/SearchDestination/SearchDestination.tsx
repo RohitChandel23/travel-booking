@@ -1,29 +1,33 @@
-import './SearchDestination.css';
-import { useState } from 'react';
+import "./SearchDestination.css";
+import { useState } from "react";
 
-interface SearchDestinationProps{
-handleDestinationData: (value:string | null)=>void
+interface SearchDestinationProps {
+  handleDestinationData: (value: string | null) => void;
 }
 
-function SearchDestination({handleDestinationData}:SearchDestinationProps ){
-    const [searchDestination, setSearchDestination] = useState<string | null>(null);
+function SearchDestination({ handleDestinationData }: SearchDestinationProps) {
+  const [searchDestination, setSearchDestination] = useState<string | null>(
+    null
+  );
 
-    function handleChange(e:any){
-            setSearchDestination(e.target.value);
-            console.log(searchDestination)
-    }
+  function handleChange(e: any) {
+    setSearchDestination(e.target.value);
+    console.log(searchDestination);
+  }
 
-    function handleClick(){
-        handleDestinationData(searchDestination);
-    }
+  function handleClick() {
+    handleDestinationData(searchDestination);
+    setSearchDestination("");
+  }
 
-return(
-    <div className='search-destination-wrapper'>
-    <input type='text' onChange={(e)=>handleChange(e)}/>
-    <button onClick={handleClick}>Search</button>
+  return (
+    <div className="search-destination-wrapper">
+      <input type="text" onChange={(e) => handleChange(e)} />
+      <button onClick={handleClick}>Search</button>
     </div>
-)
+  );
 }
-
 
 export default SearchDestination;
+
+

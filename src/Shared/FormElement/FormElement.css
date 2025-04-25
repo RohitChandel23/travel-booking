@@ -1,0 +1,21 @@
+.input-with-icon {
+    position: relative;
+    width: 100%;
+  }
+  
+  .form-icon {
+    position: absolute; 
+    left: 14px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    font-size: 13px; 
+    color: grey;
+    z-index: 1; 
+
+  }
+  
+  .form-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+  }
