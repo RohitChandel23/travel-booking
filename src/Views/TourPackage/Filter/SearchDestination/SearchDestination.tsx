@@ -31,3 +31,8 @@ function SearchDestination({ handleDestinationData }: SearchDestinationProps) {
 export default SearchDestination;
 
 
+
+
+
+
+

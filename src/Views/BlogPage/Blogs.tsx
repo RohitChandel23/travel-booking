@@ -15,7 +15,7 @@ export const blogs: Blog[] = [
   {
     id: 1,
     title: 'Trekking the Trails of Patagonia',
-    date: 'Sep 26, 2025',
+    date: 'April 26, 2025',
     image: ProjectImages.TRAIL, 
     shortDescription:
       'Patagonia’s rugged trails offer breathtaking views and thrilling adventures. From glaciers to peaks, discover why this region is a hiker’s paradise.',
@@ -30,7 +30,7 @@ export const blogs: Blog[] = [
   {
     id: 2,
     title: 'Uncovering Marrakech’s Cultural Souks',
-    date: 'Oct 5, 2025',
+    date: 'March 5, 2025',
     image: ProjectImages.TOURPAGE_BANNER, 
     shortDescription:
       'Marrakech’s vibrant souks pulse with history and color. Dive into Morocco’s cultural heart for spices, crafts, and timeless tales.',
@@ -45,7 +45,7 @@ export const blogs: Blog[] = [
   {
     id: 3,
     title: 'Serenity Over Santorini’s Caldera',
-    date: 'Oct 12, 2025',
+    date: 'April 12, 2025',
     image: ProjectImages.SANTORINI, 
     shortDescription:
       'Santorini’s whitewashed cliffs and blue domes frame stunning sunsets. Explore Greece’s volcanic gem for peace and beauty.',
@@ -60,7 +60,7 @@ export const blogs: Blog[] = [
   {
     id: 4,
     title: 'Savoring Street Food in Bangkok',
-    date: 'Oct 20, 2025',
+    date: 'January 20, 2025',
     image: ProjectImages.TOURPAGE_BANNER, 
     shortDescription:
       'Bangkok’s street food is a flavor explosion. From spicy som tam to sweet mango sticky rice, taste Thailand’s soul.',
@@ -73,3 +73,4 @@ export const blogs: Blog[] = [
     tag: 'Cuisine',
   },
 ];
+

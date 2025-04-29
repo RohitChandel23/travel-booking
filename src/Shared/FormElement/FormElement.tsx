@@ -62,6 +62,7 @@ interface FormElementProps {
   min: number | string;
   max: number | string;
   icon?: string; 
+  value?:any;
 }
 
 function FormElement({

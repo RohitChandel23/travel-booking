@@ -37,10 +37,13 @@ background-color: #111;
 
 .left-footer h6 {
   font-size: 20px;
+  margin-top:0;
 }
 
 .left-footer li{
     list-style: none;
+    margin-left:0px;
+    margin-bottom:7%;
 
 }
 

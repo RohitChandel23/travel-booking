@@ -27,10 +27,8 @@ function TourBookingDetail({
   const [selectedDateTime, setSelectedDateTime] = useState<
     [string | null, string | null]
   >([null, null]);
-  // const [totalEthPrice, setTotalEthPrice] = useState<any>(0);
 
-  //https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd
-  //totalPrice
+  
 
   function handleDecrement(peopleType: string): void {
     if (peopleType == "Adults" && adultsCount) setAdults((count) => count - 1);

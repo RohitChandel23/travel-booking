@@ -7,10 +7,11 @@ import TourReview from "./TourBookingDetail/Shared/TourReview";
 import CalendarComponent from "./TourBookingDetail/Shared/CalendarComponent/index";
 import IncludeExclude from "./TourBookingDetail/Shared/IncludeExclude";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import SharePopup from "../../Shared/SharePopup/SharePopup";
 
 function TourDetail() {
-  const [ethPrice, setEthPrice] = useState();
+  const ethPrice =1765;
+  const [showShareOptions, setShowShareOptions] = useState(false);
 
   const { slugId } = useParams<{ slugId: string | undefined }>();
   const slugValue = slugId || "";
@@ -47,29 +48,10 @@ function TourDetail() {
     setSelectedCalendarDate(date);
   }
 
-  function handleShare() {
-    const currentUrl = window.location.href;
-    navigator.clipboard.writeText(currentUrl);
-    toast.success("Copied");
-  }
-
   useEffect(() => {
     window.scrollTo(0, 0);
+  },[]);
 
-    const fetchEthPrice = async () => {
-      try {
-        const response = await fetch(
-          `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
-        );
-        const data = await response.json();
-        const ethPrice = data?.ethereum?.usd;
-        setEthPrice(ethPrice);
-      } catch (error) {
-        console.error("Failed to fetch Current Eth Price:", error);
-      }
-    };
-    fetchEthPrice();
-  });
 
   return (
     <>
@@ -109,10 +91,19 @@ function TourDetail() {
               </p>
             </div>
             <div className="tour-detail-share">
-              <i
-                className="fa-solid fa-share-nodes share-icon"
-                onClick={handleShare}
-              />
+            <div className="share-button-wrapper">
+  <i
+    className="fa-solid fa-share-nodes share-icon"
+    onClick={() => setShowShareOptions(true)}
+  />
+  {showShareOptions && (
+    <SharePopup
+      url={window.location.href}
+      onClose={() => setShowShareOptions(false)}
+    />
+  )}
+</div>
+
               {/* <i className="fa-regular fa-heart" /> */}
             </div>
           </div>
@@ -122,7 +113,7 @@ function TourDetail() {
             <div className="tour-feature">
               <span className="tour-feature-heading">From</span>
               <span className="tour-feature-value project-theme-color project-normal-font">
-                {tourPrice} ETH
+                {tourPrice !=="NaN" ? `${tourPrice} ETH`: "Loading..."} 
               </span>
             </div>
 

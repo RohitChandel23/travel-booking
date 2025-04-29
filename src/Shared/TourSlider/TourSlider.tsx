@@ -1,20 +1,20 @@
 import './TourSlider.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { useGetAttractionQuery } from '../../Services/Api/module/demoApi';
+import { useGetTrendingAttractionQuery } from '../../Services/Api/module/demoApi';
 import TourCard from '../../Views/TourCard';
 import TourCardSkeleton from '../TourCardSkeleton/TourCardSkeleton';
 
 function TourSlider() {
   const destinationId = "eyJwaW5uZWRQcm9kdWN0IjoiUFJpSEhIVjB1TGJPIiwidWZpIjoyMDA4ODMyNX0=";
   const currentPage = 1;
-  const { data, isLoading } = useGetAttractionQuery({ destinationId, currentPage });
+  const { data, isLoading } = useGetTrendingAttractionQuery({ destinationId, currentPage });
 
   const attractions = data?.data?.products?.slice(1, 9) || [];
   const cardsPerSlide = 4;
   const totalSlides = attractions.length - cardsPerSlide + 1;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [ethPrice, setEthPrice] = useState<number | null>(null);
+  const ethPrice = 1765;
 
   const handleSwipeLeft = () => {
     setCurrentIndex((prev) =>
@@ -47,21 +47,21 @@ function TourSlider() {
     return visible;
   };
 
-  useEffect(() => {
-    const fetchEthPrice = async () => {
-      try {
-        const response = await fetch(
-          `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
-        );
-        const data = await response.json();
-        const ethPrice = data?.ethereum?.usd;
-        setEthPrice(ethPrice);
-      } catch (error) {
-        console.error("Failed to fetch Current Eth Price:", error);
-      }
-    };
-    fetchEthPrice();  
-  }, []);
+  // useEffect(() => {
+  //   const fetchEthPrice = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
+  //       );
+  //       const data = await response.json();
+  //       const ethPrice = data?.ethereum?.usd;
+  //       setEthPrice(ethPrice);
+  //     } catch (error) {
+  //       console.error("Failed to fetch Current Eth Price:", error);
+  //     }
+  //   };
+  //   fetchEthPrice();  
+  // }, []);
 
   return (
     <div className="tour-slider-container" {...handlers}>

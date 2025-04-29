@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { auth, db } from '../../firebaseConfig'; 
-import TourCard from '../TourCard'; 
-import './FavoritesPage.css'; 
+import { auth, db } from '../../firebaseConfig';
+import TourCard from '../TourCard';
+import './FavoritesPage.css';
+import { onAuthStateChanged, User } from 'firebase/auth';
 
 interface FavoriteTour {
   id: string;
@@ -11,18 +12,28 @@ interface FavoriteTour {
   tourName: string;
   cityName: string;
   countryName: string;
-  tourImage?: string; 
-  tourRating?: string; 
-  tourReview?: string; 
-  tourPrice?: string; 
-  tourDuration?: string; 
-  timestamp?: Date; 
+  tourImage?: string;
+  tourRating?: string;
+  tourReview?: string;
+  tourPrice?: string;
+  tourDuration?: string;
+  timestamp?: Date;
 }
 
 function FavoritesPage() {
   const [favorites, setFavorites] = useState<FavoriteTour[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const user = auth.currentUser;
+  const [user, setUser] = useState<User | null>(null); 
+  const [authLoading, setAuthLoading] = useState<boolean>(true); 
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setAuthLoading(false); 
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -50,8 +61,20 @@ function FavoritesPage() {
       }
     };
 
-    fetchFavorites();
-  }, [user]);
+    if (!authLoading) {
+      fetchFavorites();
+    }
+  }, [user, authLoading]);
+
+  const handleRemoveFavorite = (tourId: string) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.filter((tour) => tour.id !== tourId)
+    );
+  };
+
+  if (authLoading) {
+    return <div>Loading...</div>;
+  }
 
   if (!user) {
     return <div>Please log in to view your favorite tours.</div>;
@@ -74,12 +97,13 @@ function FavoritesPage() {
               cityName={tour.cityName}
               countryName={tour.countryName}
               tourName={tour.tourName}
-              tourImage={tour.tourImage || ''} 
-              tourRating={tour.tourRating || '0'} 
-              tourReview={tour.tourReview || '0'} 
-              tourPrice={`${tour.tourPrice}` || '0'} 
-              tourDuration={tour.tourDuration || 'N/A'} 
+              tourImage={tour.tourImage || ''}
+              tourRating={tour.tourRating || '0'}
+              tourReview={tour.tourReview || '0'}
+              tourPrice={`${tour.tourPrice}` || '0'}
+              tourDuration={tour.tourDuration || 'N/A'}
               slugValue={tour.tourSlug}
+              onRemoveFavorite={() => handleRemoveFavorite(tour.id)}
             />
           ))}
         </div>

@@ -33,15 +33,15 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate }: DateTimeCompo
     setSelectedDate(selectedCalendarDate);
   }, [selectedCalendarDate]);
 
-  useEffect(() => {
-    if (selectedDate && availableTimes.length > 0) {
-      const firstTime = availableTimes[0];
-      setSelectedTime(firstTime);
-      sendDateTime([selectedDate, firstTime]);
-    } else if (selectedDate && availableTimes.length === 0) {
-      sendDateTime([selectedDate, ""]);
-    }
-  }, [availableTimes, selectedDate]);
+  // useEffect(() => {
+  //   if (selectedDate && availableTimes.length > 0) {
+  //     const firstTime = availableTimes[0];
+  //     setSelectedTime(firstTime);
+  //     sendDateTime([selectedDate, firstTime]);
+  //   } else if (selectedDate && availableTimes.length === 0) {
+  //     sendDateTime([selectedDate, ""]);
+  //   }
+  // }, [availableTimes, selectedDate]);
 
   function handleDateChange(date: any) {
     const formattedDate = date ? format(date, 'yyyy-MM-dd') : null;

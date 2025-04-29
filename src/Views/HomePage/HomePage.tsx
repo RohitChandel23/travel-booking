@@ -116,7 +116,8 @@ import "./HomePage.css";
 import TourSlider from "../../Shared/TourSlider";
 import { useEffect } from "react";
 import TourCategoryCard from "./Shared/TourCategoryCard/TourCategoryCard";
-// import  {blogs}  from "../BlogPage/Blogs";
+import  {blogs}  from "../BlogPage/Blogs";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   const TourCategoryData = [
@@ -230,6 +231,31 @@ export default function Dashboard() {
             </div>
             </div>
       </div> */}
+
+<div className="travel-guide-wrapper">
+  <div className="travel-guide-container">
+    <h4 className="cursive-text">Updates</h4>
+    <h2>Latest Travel Guide</h2>
+    <div className="travel-guide">
+      {blogs.slice(0, 4).map((blog) => (
+              <Link to={`/blog/${blog.id}`} className='link-class'>
+        <div className="travel-guide-card" key={blog.id}>
+          <div className="travel-guide-image-container">
+            <img src={blog.image} alt={blog.title} />
+          </div>
+          <div className="travel-guide-info">
+            <p>{blog.date} Admin</p>
+            <h6>{blog.title}</h6>
+          </div>
+        </div>
+        </Link>
+      ))}
+    </div>
+  </div>
+</div>
+
+
+
 
     </div>
   );
