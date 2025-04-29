@@ -14,7 +14,6 @@ import AuthBannerImg from '../Shared/AuthBannerImg';
 import { updateAuthTokenRedux } from '../../../Store/Common/index';
 import { useDispatch } from 'react-redux';
 
-// import { useLocation } from 'react-router-dom';
 
 interface SignInFormValues {
   email: string;
@@ -47,13 +46,10 @@ function SignIn() {
 
     } catch (error: any) {
       let errorMessage = 'An error occurred. Please try again.';
-      switch (error.code) {
+      switch (error.message) {
         case 'auth/user-not-found':
-        case 'auth/wrong-password':
+        case 'auth/invalid-credential':
           errorMessage = 'Invalid email or password.';
-          break;
-        case 'auth/too-many-requests':
-          errorMessage = 'Too many attempts. Please try again later.';
           break;
         default:
           errorMessage = error.message || errorMessage;
@@ -100,7 +96,7 @@ function SignIn() {
           />
         </div>
 
-        <div className="signIn-form">
+        <div className="signIn-form signIn-form-shadow">
           <Formik
             initialValues={{
               email: '',
@@ -135,7 +131,7 @@ function SignIn() {
                 <ErrorMessage name="password" component="div" className="error" />
               </div>
 
-              <button type="submit" className="submit-btn">
+              <button type="submit" className="submit-btn button-hovering-color">
                 Submit
               </button>
             </Form>

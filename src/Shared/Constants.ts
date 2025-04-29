@@ -1,5 +1,3 @@
-
-
 const STRING: string = 'Test';
 export { STRING };
 

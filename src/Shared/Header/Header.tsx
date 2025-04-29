@@ -34,8 +34,22 @@ function Header() {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (showLogoutPopup) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [showLogoutPopup]);
+  
 
   const handleLogout = async () => {
     try {
@@ -189,7 +203,7 @@ function Header() {
       {showLogoutPopup && (
         <div className="logout-popup-wrapper" onClick={closeLogoutPopup}>
           <div className="logout-popup" onClick={(e) => e.stopPropagation()}>
-            <h3>Are you sure you want to log out?</h3>
+            <h3>Are you sure you want to log out ?</h3>
             <div className="popup-actions">
               <button className="confirm-btn" onClick={handleLogout}>
                 Logout

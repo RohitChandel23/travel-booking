@@ -110,7 +110,7 @@
 }
 
 .testimonial-section {
-  margin-top: 8%;
+  margin-top: 5%;
 }
 
 .browse-by-category-wrapper{
@@ -132,7 +132,6 @@ justify-content: space-between;
 gap:2%;
 }
 
-
 .browse-by-category-wrapper h4{
 font-size: 26px;
 margin:0% 0% 0.4% 0%;
@@ -142,10 +141,6 @@ margin:0% 0% 0.4% 0%;
   font-size: 40px;
   margin:0% 0% 2.8% 0%;
 }
-
-
-
-
 
 .travel-guide-wrapper {
   display: flex;
@@ -161,8 +156,6 @@ margin:0% 0% 0.4% 0%;
   justify-content: center;
   width: 80%;
 }
-
-
 
 .travel-guide-container h2 {
   font-size: 40px;
@@ -196,16 +189,13 @@ margin:0 0 8px 0;
   transform: translateY(-5px);
 }
 
-
-
 .travel-guide-card h6:hover{
 color:#fc5056;
 }
 
-
 .travel-guide-image-container {
   width: 40%;
-  height: auto;
+  height: 140px;
   overflow: hidden;
 }
 
@@ -216,8 +206,10 @@ color:#fc5056;
 }
 
 .travel-guide-info {
-  padding: 15px;
-  width: 60%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .travel-guide-info p {
@@ -232,4 +224,14 @@ color:#fc5056;
   font-weight: 600;
   color: #051036;
   line-height: 1.4;
+}
+
+.homepage-number-wrapper{
+width:100%;
+display: flex;
+justify-content: center;
+}
+
+.homepage-number-container{
+width:82%;
 }

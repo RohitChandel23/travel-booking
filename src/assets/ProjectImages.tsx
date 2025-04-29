@@ -1,30 +1,30 @@
-import HomePageBanner from './icons/HomePageBanner4.jpeg';
-import WHY_US_IMGONE from './icons/whyUs.png';
-import WHY_US_IMGTWO from './icons/whyUs2.png';
+import HomePageBanner from './icons/HomePageBanner4.webp';
+import WHY_US_IMGONE from './icons/whyUs.webp';
+import WHY_US_IMGTWO from './icons/whyUs2.webp';
 import TRISOG_LOGO from './icons/Trisog-logo.svg';
 import TRISOG_HEADER_LOGO from './icons/Trisog-header-logo.svg';
 import AUTH_BANNER from './icons/auth-banner.jpg';
 import BLANK_PROFILE from './icons/blank-profile.png';
-import TOURPAGE_BANNER from './icons/TourPageBanner.jpg';
-import DESTINATION_BANNER from './icons/destinationPageBanner2.jpeg';
+import TOURPAGE_BANNER from './icons/TourPageBanner.webp';
+import DESTINATION_BANNER from './icons/destinationPageBanner2.webp';
 import CONTACTPAGE_BANNER from './icons/ContactPage-banner.jpg';
 import PHONE_ICON from './icons/phoneIcon.png';
 import LOCATION_ICON from './icons/locationIcon.png';
-import JAPAN from './icons/japan.jpg';
-import THAILAND from './icons/thailand.jpg'
-import UNITED_KINGDOM from './icons/UnitedKingdom.jpg';
-import AUSTRALIA from './icons/australia.jpg';
-import CANADA from './icons/canada.jpg';
-import EGYPT from './icons/egypt.jpg';
-import FRANCE from './icons/france.jpg';
-import INDIA from './icons/india.jpg';
-import ITALY from './icons/italy.jpg';
-import NEWZEALAND from './icons/newzealand.jpg';
-import NORWAY from './icons/norway.jpg';
-import SWITZERLAND from './icons/switzerland.jpg';
-import TESTIMONIAL_ONE from './icons/testimonial1.jpg'
-import TESTIMONIAL_TWO from './icons/testimonial2.jpg'
-import TESTIMONIAL_THREE from './icons/testimonial3.jpg'
+import JAPAN from './icons/japan.webp';
+import THAILAND from './icons/thailand.webp'
+import UNITED_KINGDOM from './icons/UnitedKingdom.webp';
+import AUSTRALIA from './icons/australia.webp';
+import CANADA from './icons/canada.webp';
+import EGYPT from './icons/egypt.webp';
+import FRANCE from './icons/france.webp';
+import INDIA from './icons/india.webp';
+import ITALY from './icons/italy.webp';
+import NEWZEALAND from './icons/newzealand.webp';
+import NORWAY from './icons/norway.webp';
+import SWITZERLAND from './icons/switzerland.webp';
+import TESTIMONIAL_ONE from './icons/testimonial1.webp'
+import TESTIMONIAL_TWO from './icons/testimonial2.webp'
+import TESTIMONIAL_THREE from './icons/testimonial3.webp'
 import QUALITY_PACKAGES from './icons/QualityPackages.png';
 import BEST_TRAVEL_PLAN from './icons/best-travel-plan.png';
 import CUSTOMER_CARE from './icons/CustomerCare.png';
@@ -40,6 +40,8 @@ import BOAT_TOURS from './icons/boatTours.png';
 import CITY_TOURS from './icons/cityTours.png';
 import FOOD_TOURS from './icons/foodTours.png';
 import HIKING_TOURS from './icons/hikingTours.png';
+import MOROCCO from './icons/Morocco.webp';
+import BANGOK_FOOD from './icons/bangokFood.webp';
 
 
 export const ProjectImages = {
@@ -84,5 +86,7 @@ export const ProjectImages = {
   HIKING_TOURS,
   BOAT_TOURS,
   FOOD_TOURS,
-  CITY_TOURS
+  CITY_TOURS,
+  MOROCCO,
+  BANGOK_FOOD
 };

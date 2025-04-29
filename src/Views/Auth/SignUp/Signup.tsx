@@ -50,7 +50,7 @@ function Signup() {
 
       toast.success("Signed up successfully! Please verify your email.");
 
-      // Navigate to login page
+      // to login page
       navigate(ROUTES_CONFIG.LOGIN.path);
     } catch (error: any) {
       const errorMessage =
@@ -78,7 +78,6 @@ function Signup() {
           createdAt: new Date(),
         });
       }
-
 
       if (!user.emailVerified) {
         await sendEmailVerification(user);
@@ -204,7 +203,15 @@ function Signup() {
                   />
                 </div>
 
-                <button type="submit" className={isSubmitting?"submit-btn signUp-btn-disable":"submit-btn"} disabled={isSubmitting}>
+                <button
+                  type="submit"
+                  className={
+                    isSubmitting
+                      ? "submit-btn signUp-btn-disable button-hovering-color"
+                      : "submit-btn button-hovering-color"
+                  }
+                  disabled={isSubmitting}
+                >
                   Submit
                 </button>
               </Form>
@@ -213,7 +220,13 @@ function Signup() {
 
           <div className="social-auth">
             {/* <SocialBtn name="Google" handleClick={handleGoogleSignUp} /> */}
-            <button className="sign-up-btn social-btn" onClick={handleGoogleSignUp} disabled={isSubmitting}>Google</button>
+            <button
+              className="sign-up-btn social-btn"
+              onClick={handleGoogleSignUp}
+              disabled={isSubmitting}
+            >
+              Google
+            </button>
 
             <SocialBtn
               name="Facebook"

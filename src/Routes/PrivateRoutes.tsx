@@ -2,7 +2,6 @@ import { Navigate } from "react-router-dom";
 import { ROUTES_CONFIG, WILDCARD_ROUTES } from "../Shared/Constants";
 import { CustomRouter } from "./RootRoutes";
 import Dashboard from "../Views/HomePage";
-import Logout from "../Views/Auth/Logout/logout";
 import TourDetail from "../Views/TourDetail";
 import TourPackagePage from "../Views/TourPackage/TourPackage";
 import DestinationPage from "../Views/DestinationPage/DestinationPage";
@@ -19,11 +18,6 @@ export const PRIVATE_ROUTES: Array<CustomRouter> = [
   {
     path: ROUTES_CONFIG.HOMEPAGE.path,
     element: <Dashboard />,
-    title: ROUTES_CONFIG.HOMEPAGE.title,
-  },
-  {
-    path: ROUTES_CONFIG.LOGIN.path,
-    element: <Logout />,
     title: ROUTES_CONFIG.HOMEPAGE.title,
   },
   {

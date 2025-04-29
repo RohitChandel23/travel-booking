@@ -47,22 +47,6 @@ function TourSlider() {
     return visible;
   };
 
-  // useEffect(() => {
-  //   const fetchEthPrice = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
-  //       );
-  //       const data = await response.json();
-  //       const ethPrice = data?.ethereum?.usd;
-  //       setEthPrice(ethPrice);
-  //     } catch (error) {
-  //       console.error("Failed to fetch Current Eth Price:", error);
-  //     }
-  //   };
-  //   fetchEthPrice();  
-  // }, []);
-
   return (
     <div className="tour-slider-container" {...handlers}>
       <div className="tour-slider-content">
@@ -92,7 +76,7 @@ function TourSlider() {
                 tourRating={tourRating}
                 tourReview={tourReview}
                 tourPrice={tourPrice}
-                tourDuration="2 days"
+                tourDuration="1 days"
                 slugValue={slugValue}
               />
             );

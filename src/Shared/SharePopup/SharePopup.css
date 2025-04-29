@@ -1,7 +1,7 @@
 .share-popup {
     position: absolute;
-    top: 82%;
-    right: 36%;
+    top: 70%;
+    right: 39%;
     /* background-color: #ffffff; */
     background-color: #e8e8e8;
     border-radius: 10px;
@@ -12,9 +12,9 @@
     animation: fadeIn 0.2s ease-in-out;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 14px;  
   }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;

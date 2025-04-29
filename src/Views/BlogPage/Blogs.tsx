@@ -31,7 +31,7 @@ export const blogs: Blog[] = [
     id: 2,
     title: 'Uncovering Marrakech’s Cultural Souks',
     date: 'March 5, 2025',
-    image: ProjectImages.TOURPAGE_BANNER, 
+    image: ProjectImages.MOROCCO, 
     shortDescription:
       'Marrakech’s vibrant souks pulse with history and color. Dive into Morocco’s cultural heart for spices, crafts, and timeless tales.',
     content: [
@@ -61,7 +61,7 @@ export const blogs: Blog[] = [
     id: 4,
     title: 'Savoring Street Food in Bangkok',
     date: 'January 20, 2025',
-    image: ProjectImages.TOURPAGE_BANNER, 
+    image: ProjectImages.BANGOK_FOOD, 
     shortDescription:
       'Bangkok’s street food is a flavor explosion. From spicy som tam to sweet mango sticky rice, taste Thailand’s soul.',
     content: [

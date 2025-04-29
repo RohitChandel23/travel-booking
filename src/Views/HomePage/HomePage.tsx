@@ -7,6 +7,8 @@
 // import TourSlider from "../../Shared/TourSlider";
 // import { useEffect } from "react";
 // import TourCategoryCard from "./Shared/TourCategoryCard/TourCategoryCard";
+// import  {blogs}  from "../BlogPage/Blogs";
+// import { Link } from "react-router-dom";
 
 // export default function Dashboard() {
 //   const TourCategoryData = [
@@ -99,9 +101,34 @@
 //       <div className="testimonial-section">
 //         <Testimonial />
 //       </div>
+
+
+// <div className="travel-guide-wrapper">
+//   <div className="travel-guide-container">
+//     <h4 className="cursive-text">Updates</h4>
+//     <h2>Latest Travel Guide</h2>
+//     <div className="travel-guide">
+//       {blogs.slice(0, 4).map((blog) => (
+//               <Link to={`/blog/${blog.id}`} className='link-class'>
+//         <div className="travel-guide-card" key={blog.id}>
+//           <div className="travel-guide-image-container">
+//             <img src={blog.image} alt={blog.title} />
+//           </div>
+//           <div className="travel-guide-info">
+//             <p>{blog.date} Admin</p>
+//             <h6>{blog.title}</h6>
+//           </div>
+//         </div>
+//         </Link>
+//       ))}
+//     </div>
+//   </div>
+// </div>
 //     </div>
 //   );
 // }
+
+
 
 
 
@@ -120,6 +147,12 @@ import  {blogs}  from "../BlogPage/Blogs";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
+  const numberData = [
+    {quantity: 120, quantityElement:"Total Destination"},
+    {quantity: 500, quantityElement:"Travel Packages"},
+    {quantity: "10K", quantityElement:"Total Travelers"},
+    {quantity: "7K", quantityElement:"Positive Reviews"},
+  ]
   const TourCategoryData = [
     { categoryIcon: ProjectImages.ADVENTURE, tourType: "Adventure", numberOfTours: 10, startingPrice: 250, },
     {
@@ -187,6 +220,21 @@ export default function Dashboard() {
         </div>
       </div>
 
+      <div className="homepage-number-wrapper">
+      <div className="homepage-number-container">
+      <div className="our-numbers-wrapper">
+        <div className="our-numbers-container">
+          {numberData.map((item)=>
+            <div className="number-data">
+            <h1>{item.quantity}+</h1>
+            <p>{item.quantityElement}</p>
+                        </div>                        
+          )}
+        </div>
+      </div>
+      </div>
+      </div>
+
       <HomepageDestination />
 
       {/* why us section */}
@@ -211,26 +259,6 @@ export default function Dashboard() {
         <Testimonial />
       </div>
 
-      {/* <div className="travel-guide-wrapper">
-        <div className="travel-guide-container">
-            <h4 className="cursive-text">Updates</h4>
-            <h2>Latest Travel Guide</h2>
-            <div className="travel-guide">
-
-              <div className="travel-guide-card">
-                <div className="travel-guide-image-container">
-                <img src={ProjectImages.AUSTRALIA} />
-                </div>
-                <div className="travel-guide-info">
-                  <p>July 20 2025 Admin</p>
-                  <h6>Impact of covi 19</h6>
-                </div>
-              </div>
-
-
-            </div>
-            </div>
-      </div> */}
 
 <div className="travel-guide-wrapper">
   <div className="travel-guide-container">
@@ -253,10 +281,7 @@ export default function Dashboard() {
     </div>
   </div>
 </div>
-
-
-
-
     </div>
   );
 }
+

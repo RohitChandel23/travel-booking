@@ -11,6 +11,14 @@
     align-items: center;
     margin-top: 6%;
     font-family: 'Inter', sans-serif;
+
+}
+
+.signIn-form-shadow{
+    padding: 30px;
+    border-radius:12px;
+    border: 1px solid rgba(5, 16, 54, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
 .signin-div .auth-buttons {

@@ -19,12 +19,6 @@ import {
   const SharePopup = ({ url, onClose }: SharePopupProps) => {
     const popupRef = useRef<HTMLDivElement>(null);
   
-    // Automatically copy URL on open
-    // useEffect(() => {
-    //   navigator.clipboard.writeText(url);
-    //   toast.success("Link copied!");
-    // }, [url]);
-  
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (popupRef.current && !popupRef.current.contains(event.target as Node)) {

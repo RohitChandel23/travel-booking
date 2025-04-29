@@ -6,3 +6,9 @@
         color:white;
         margin: 5px;
     }
+
+
+
+.social-btn:hover{
+    background-color: #e04e4e;
+}
