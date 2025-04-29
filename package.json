@@ -40,6 +40,7 @@
     "react-loading-skeleton": "^3.5.0",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.30.0",
+    "react-share": "^5.2.2",
     "react-swipeable": "^7.0.2",
     "react-time-picker": "^7.0.0",
     "react-toastify": "^11.0.5",

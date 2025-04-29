@@ -45,7 +45,7 @@ function ContactPage() {
               <h2>Get in Touch</h2>
 
               <div className="asking-question-wrapper">
-                <AddingComment />
+                <AddingComment collectionType="queries" />
               </div>
             </div>
 

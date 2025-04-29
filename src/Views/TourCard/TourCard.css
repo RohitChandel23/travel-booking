@@ -1,13 +1,19 @@
-.tour-card-container{
+ .tour-card-container{
     width: 301px;
     text-align: left;
-    padding-top: 40px;
+    /* padding-top: 40px; */
     transition: all 0.3s ease-in-out;
     overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 7.5%;
 }
 
 .tour-card-container:hover{
-    transform: scale(1.03); 
+    /* transform: scale(1.03);  */
+
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+
 }
 
 .tour-image-container{
@@ -142,3 +148,8 @@ h6{
     height: 245px;
     overflow: hidden;
   }
+
+
+
+
+ 

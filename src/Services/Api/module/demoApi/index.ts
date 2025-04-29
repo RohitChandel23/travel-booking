@@ -3,6 +3,10 @@ import api from "../../api";
 export const userApi = api.injectEndpoints({
   endpoints: (build) => ({
     getAttraction: build.query({
+      query: ({destinationId, currentPage, sortBy}) =>  
+        `attraction/searchAttractions?id=${destinationId}&sortBy=${sortBy}&page=${currentPage}&currency_code=USD&languagecode=en-us`,
+    }),
+    getTrendingAttraction: build.query({
       query: ({destinationId, currentPage}) =>  
         `attraction/searchAttractions?id=${destinationId}&sortBy=trending&page=${currentPage}&currency_code=USD&languagecode=en-us`,
     }),
@@ -21,8 +25,8 @@ export const userApi = api.injectEndpoints({
     }),
 
     getTrendingTours: build.query({
-      query: (currentPage) =>    
-        `attraction/searchAttractions?id=eyJwaW5uZWRQcm9kdWN0IjoiUFJqa0FWUUt4V1hwIiwidWZpIjoyMDA1MDI2NH0%3D&sortBy=trending&page=${currentPage}&currency_code=USD&languagecode=en-us`,
+      query: ({currentPage, sortBy}) =>    
+        `attraction/searchAttractions?id=eyJwaW5uZWRQcm9kdWN0IjoiUFJqa0FWUUt4V1hwIiwidWZpIjoyMDA1MDI2NH0%3D&sortBy=${sortBy}&page=${currentPage}&currency_code=USD&languagecode=en-us`,
     }),
 
     getFilteredDestinationTours: build.query({
@@ -31,8 +35,8 @@ export const userApi = api.injectEndpoints({
     }),
 
     getSearchedTours: build.query({
-      query: ({destinationId, selectedDate, currentPage}) =>   //pagination
-        `attraction/searchAttractions?id=${destinationId}%3D%3D&startDate=${selectedDate[0]}&endDate=${selectedDate[1]}&sortBy=trending&page=${currentPage}&currency_code=USD&languagecode=en-us`,
+      query: ({destinationId, selectedDate, currentPage, sortBy}) =>   //pagination
+        `attraction/searchAttractions?id=${destinationId}%3D%3D&startDate=${selectedDate[0]}&endDate=${selectedDate[1]}&sortBy=${sortBy}&page=${currentPage}&currency_code=USD&languagecode=en-us`,
     }),
   }),
   overrideExisting: false,
@@ -49,5 +53,6 @@ export const {
   useGetTrendingToursQuery,
   useGetFilteredDestinationToursQuery,
   useGetSearchedToursQuery,
+  useGetTrendingAttractionQuery,
 } = userApi;
  

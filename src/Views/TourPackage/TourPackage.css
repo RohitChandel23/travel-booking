@@ -1,40 +1,39 @@
-.tours-filter-and-display{
+.tours-filter-and-display {
     margin-top: 11%;
-    width:100%;
+    width: 100%;
     padding: 8px;
-    height:auto;
+    height: auto;
     display: flex;
     justify-content: center;
-    gap:1%;
-
+    gap: 1%;
 }
 
-.tours-filter-container{
+.tours-filter-container {
     width: 306px;
     height: auto;
 }
 
-.tours-display-container{
+.tours-display-container {
     width: 990px;
-    height:auto;
+    height: auto;
     margin-bottom: 10%;
     display: flex;
     justify-content: left;
-    gap:2%;
-    flex-wrap:wrap ;
+    gap: 2%;
+    flex-wrap: wrap;
 }
 
-.tour-filter-types{
+.tour-filter-types {
     margin-top: 10%;
 }
 
 
-.pages-navigation{
+.pages-navigation {
     padding-left: 50%;
     display: flex;
 }
 
-.page-number-container{
+.page-number-container {
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
@@ -42,11 +41,74 @@
     text-align: center;
     margin: 0.8%;
     padding: 1.4% 2.3%;
-    border: 1px  solid rgba(5, 16, 54, 0.1);
-    color:  rgba(5, 16, 54, 0.6);
+    border: 1px solid rgba(5, 16, 54, 0.1);
+    color: rgba(5, 16, 54, 0.6);
 }
 
-.colored-page-number{
+.colored-page-number {
     background-color: #ff5555;
-    color:white;
+    color: white;
+}
+
+
+.search-destination-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    padding: 8% 3%;
+    background-color: #f7f8f9;
+    margin-top: 13%;
+}
+
+.search-destination-wrapper h3 {
+margin: 0% 0% 4% 3%; 
+}
+
+
+.search-input-with-icon {
+    position: relative;
+    width: 100%;
+    max-width: 400px; 
+}
+
+.search-input-with-icon input {
+    width: 64%;
+    padding: 6% 6% 6% 6%; 
+    border: 1px solid rgba(5, 16, 54, 0.1);
+    border-radius: 6px;
+    color: #051036;
+    font-size: 16px;
+    margin: 2% -12% 2% 12%;
+}
+
+
+.search-input-with-icon i{
+    position: absolute;
+    /* right: 12px; */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #051036;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+
+
+.sorting-container{
+display: flex;
+justify-content: right;
+align-items: center;
+margin: -2.5% 5% 3% 5%;
+}
+
+.sorting-container label{
+    color:#051036;
+}
+
+.sort-select{
+    padding:1%;
+    border-radius: 4px;
+    border: 1px solid rgba(5, 16, 54, 0.1);
+    color: #051036;
 }
