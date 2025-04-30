@@ -43,12 +43,28 @@ function SearchArea({
     values: SearchFormValues,
     actions: FormikHelpers<SearchFormValues>
   ) {
+    const trimmedDestinationName = values.destinationName.trim();
+    const trimmedActivity = values.activity.trim();
+    
+    if (!trimmedDestinationName || !trimmedActivity) {
+      if (!trimmedDestinationName) {
+        actions.setFieldError("destinationName", "Destination cannot be empty");
+      }
+      if (!trimmedActivity) {
+        actions.setFieldError("activity", "Activity cannot be empty");
+      }
+      actions.setSubmitting(false);
+      return;
+    }
+    
     const [startDate, endDate] = values.selectDate;
     const formatDate = (date: Date | null): string | null =>
       date ? date.toISOString().split("T")[0] : null;
 
     const formattedData: SearchFormFormattedValues = {
       ...values,
+      destinationName: trimmedDestinationName, 
+      activity: trimmedActivity, 
       selectDate: [formatDate(startDate), formatDate(endDate)],
     };
 
@@ -74,6 +90,7 @@ function SearchArea({
     "guest-numbers": "",
   };
 
+
   const formInitialValues: SearchFormValues = {
     ...defaultInitialValues,
     ...initialSearchValues,
@@ -89,18 +106,37 @@ function SearchArea({
       : [null, null],
   };
 
+  const handleDateClear = (setFieldValue: any) => {
+    setFieldValue("selectDate", [null, null]);
+  };
+
   return (
     <div className="search-area-container">
       <Formik
         initialValues={formInitialValues}
+        enableReinitialize={true}
         validationSchema={Yup.object({
-          destinationName: Yup.string().required("Required"),
-          activity: Yup.string().required("Required"),
+          destinationName: Yup.string()
+            .trim() 
+            .required("Required")
+            .test(
+              'not-just-whitespace',
+              'Destination cannot be empty',
+              value => !!value.trim() 
+            ),
+          activity: Yup.string()
+            .trim() 
+            .required("Required")
+            .test(
+              'not-just-whitespace',
+              'Activity cannot be empty',
+              value => !!value.trim() 
+            ),
           selectDate: Yup.array()
             .of(Yup.date().nullable())
             .test(
               "both-dates",
-              "Please select both start-date and end-date",
+              "Required",
               (value) => !!(value && value[0] && value[1])
             ),
           "guest-numbers": Yup.string().required("Required"),
@@ -110,7 +146,7 @@ function SearchArea({
         {({ values, setFieldValue, resetForm, errors, touched, handleBlur }) => {
           
           useEffect(() => {
-            if (!isSearchArea) {
+            if (isSearchArea === false) {
               resetForm();
             }
           }, [isSearchArea, resetForm]);
@@ -147,7 +183,8 @@ function SearchArea({
                 <label className="cursive-text search-area-form-label">When</label>
                 <div className="input-with-icon">
                   <i className="form-icon fa-solid fa-calendar-days"></i>
-                  {/* <DatePicker
+
+                  <DatePicker
                     selected={values.selectDate[0]}
                     onChange={(dates: [Date | null, Date | null]) => {
                       setFieldValue("selectDate", dates);
@@ -163,46 +200,27 @@ function SearchArea({
                     className="search-area-form-field has-icon"
                     minDate={new Date()}
                     maxDate={new Date(new Date().getFullYear() + 10, 11, 31)}
-                    onKeyDown={(e) => e.preventDefault()}
+                    onKeyDown={(e) => {
+                      if (e.key !== 'Backspace' && e.key !== 'Delete') {
+                        e.preventDefault();
+                      } else if ((e.key === 'Backspace' || e.key === 'Delete') && 
+                                (values.selectDate[0] || values.selectDate[1])) {
+                        handleDateClear(setFieldValue);
+                      }
+                    }}
                     showMonthDropdown
                     showYearDropdown
                     dropdownMode="select"
                     yearDropdownItemNumber={10}
                     scrollableYearDropdown
-                  /> */}
 
-
-<DatePicker
-  selected={values.selectDate[0]}
-  onChange={(dates: [Date | null, Date | null]) => {
-    setFieldValue("selectDate", dates);
-  }}
-  onBlur={() => {
-    setDatePickerBlurred(true);
-    handleBlur("selectDate");
-  }}
-  startDate={values.selectDate[0]}
-  endDate={values.selectDate[1]}
-  selectsRange
-  placeholderText="Check-in & Check-out"
-  className="search-area-form-field has-icon"
-  minDate={new Date()}
-  maxDate={new Date(new Date().getFullYear() + 10, 11, 31)}
-  onKeyDown={(e) => e.preventDefault()}
-  showMonthDropdown
-  showYearDropdown
-  dropdownMode="select"
-  yearDropdownItemNumber={10}
-  scrollableYearDropdown
-  dayClassName={(date) => {
-    const [start, end] = values.selectDate;
-    if (!start || !end) return ''; // Don't apply any special class if range not selected
-    if (date >= start && date <= end) return 'custom-highlight';
-    return '';
-  }}
-/>
-
-
+                    dayClassName={(date) => {
+                      const [start, end] = values.selectDate;
+                      if (!start || !end) return ''; 
+                      if (date >= start && date <= end) return 'custom-highlight';
+                      return '';
+                    }}
+                  />
                 </div>
                 {(datePickerBlurred || touched.selectDate) && errors.selectDate && (
                   <div className="form-error">{errors.selectDate}</div>
@@ -237,4 +255,3 @@ function SearchArea({
 }
 
 export default SearchArea;
-

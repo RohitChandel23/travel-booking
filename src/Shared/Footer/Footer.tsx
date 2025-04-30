@@ -66,10 +66,11 @@ function Footer() {
               {destinationColOne.map((destinationName) => (
                 <Link
                   to={ROUTES_CONFIG.TOURS.path}
-                  state={destinationName}
+                  state={{ footerDestination: destinationName }}
                   className="link-class"
+                  key={`col1-${destinationName}`}
                 >
-                  <li key={destinationName}>{destinationName}</li>{" "}
+                  <li>{destinationName}</li>
                 </Link>
               ))}
             </ul>
@@ -83,11 +84,11 @@ function Footer() {
               {destinationColTwo.map((destinationName) => (
                 <Link
                   to={ROUTES_CONFIG.TOURS.path}
-                  state={destinationName}
+                  state={{ footerDestination: destinationName }}
                   className="link-class"
+                  key={`col2-${destinationName}`}
                 >
-                  {" "}
-                  <li key={destinationName}>{destinationName}</li>{" "}
+                  <li>{destinationName}</li>
                 </Link>
               ))}
             </ul>

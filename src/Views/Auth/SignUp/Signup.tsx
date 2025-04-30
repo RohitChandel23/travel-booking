@@ -17,6 +17,10 @@ import SocialBtn from "../button/SocialButtons/SocialBtn";
 import AuthBannerImg from "../Shared/AuthBannerImg";
 import { ROUTES_CONFIG } from "../../../Shared/Constants";
 import { auth, db, googleProvider } from "../../../firebaseConfig";
+import { useDispatch } from 'react-redux';
+import { updateAuthTokenRedux } from '../../../Store/Common/index';
+
+
 
 interface SignUpFormValues {
   email: string;
@@ -28,6 +32,8 @@ interface SignUpFormValues {
 function Signup() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   const handleSignup = async (values: SignUpFormValues) => {
     setIsSubmitting(true);
@@ -46,7 +52,7 @@ function Signup() {
         phoneNumber: values.phoneNumber,
       });
 
-      // await signOut(auth);
+      await signOut(auth);
 
       toast.success("Signed up successfully! Please verify your email.");
 
@@ -85,6 +91,9 @@ function Signup() {
         toast.success("Google signup successful! Please verify your email.");
         navigate(ROUTES_CONFIG.LOGIN.path);
       } else {
+        const token = await user.getIdToken();
+        dispatch(updateAuthTokenRedux({ token }));
+  
         toast.success("Google signup successful!");
         navigate(ROUTES_CONFIG.HOMEPAGE.path);
       }
