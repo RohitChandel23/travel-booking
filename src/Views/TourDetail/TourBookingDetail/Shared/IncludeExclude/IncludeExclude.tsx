@@ -6,9 +6,6 @@ function IncludeExclude(includedExcludedObj:any){
     const excludedClassName= includedExcludedObj?.itemsObj?.excludedItemsObj?.excludedClassName;
 
     console.log(includedExcludedObj)
-    console.log("yoyo",includedItems, includedClassName)
-    console.log("gogo",excludedItems, excludedClassName)
-
 return(
     <div className='include-exclude'>
         <div className='included-items-container'>

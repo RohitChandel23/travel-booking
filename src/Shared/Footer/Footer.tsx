@@ -55,11 +55,11 @@ function Footer() {
               <Link to={ROUTES_CONFIG.CONTACT.path} className="link-class">
                 <li>Contact us</li>
               </Link>
-              <li>Travel Guide</li>
-              <li>Data Policy</li>
+              {/* <li>Travel Guide</li>
+              <li>Data Policy</li> */}
             </ul>
           </div>
-
+                
           <div className="top-destination">
             <ul>
               <li className="footer-cursive">Top Destination</li>

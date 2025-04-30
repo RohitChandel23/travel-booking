@@ -76,7 +76,6 @@ const generatePageNumbers = (currentPage: number, totalPages: number): (number |
   return pages;
 };
 
-
 function TourPackagePage() {
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null)
   const [searchedDestination, setSearchedDestination] = useState<string>("")
@@ -95,7 +94,6 @@ function TourPackagePage() {
   const searchingData = location.state as { formattedData?: SearchAreaDataProps, footerDestination?: string } | string | null || null;
 
   const totalPages = totalTours > 0 ? Math.ceil(totalTours / TOURS_PER_PAGE) : 1;
-
   const pageNumbersToDisplay = generatePageNumbers(currentPage, totalPages);
 
   useEffect(() => {
@@ -232,7 +230,7 @@ function TourPackagePage() {
     { skip: !destinationId || !isSuccessDestination || selectedDate.length > 0 },
   );
 
-  //  Trending Tours
+  // Trending Tours
   const {
     data: trendingDestination,
     isLoading: isLoadingTrending,
@@ -290,7 +288,7 @@ function TourPackagePage() {
     });
   }
 
-  // Price filter
+  // price filter
   if (selectedPrice?.length === 2 && ethPrice != undefined && ethPrice > 0) {
     const minPrice = selectedPrice[0];
     const maxPrice = selectedPrice[1];
@@ -430,8 +428,9 @@ function TourPackagePage() {
               })
             ) : (
               <div className="no-tours-found" style={{textAlign: 'center', padding: '40px', gridColumn: '1 / -1'}}>
-                <p>No tours found matching your criteria.</p>
-                {failedToFindDestinationId && <p>(We couldn't find the specified destination)</p>}
+                <div className="not-foung-image"><img src={ProjectImages.NOT_FOUND} /></div>
+                <p>Sorry, No Tours Found.</p>
+                {failedToFindDestinationId && <p>We couldn't find this destination</p>}
                 {!failedToFindDestinationId && selectedRating.length > 0 && <p>Try adjusting your rating filter.</p>}
                 {!failedToFindDestinationId && selectedPrice.length === 2 && <p>Try adjusting your price range.</p>}
               </div>

@@ -244,7 +244,7 @@ function SearchArea({
                 type="submit"
                 className="submit-search-query button-hovering-color"
               >
-                Submit
+                Search
               </button>
             </Form>
           );

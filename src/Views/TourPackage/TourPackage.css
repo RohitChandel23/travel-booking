@@ -204,3 +204,25 @@ margin: -2.5% 5% 3% 5%;
     font-size: 0.8rem; 
     line-height: 1; 
   }
+
+
+
+  .no-tours-found{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    gap:2%
+  }
+
+  .not-foung-image{
+width:30%;
+height: 50%;
+margin-bottom: 3%;
+  }
+
+  .not-foung-image img{
+width: 100%;
+height: 100%;
+object-fit: cover;
+  }

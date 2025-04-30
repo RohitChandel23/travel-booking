@@ -42,6 +42,7 @@ import FOOD_TOURS from './icons/foodTours.png';
 import HIKING_TOURS from './icons/hikingTours.png';
 import MOROCCO from './icons/Morocco.webp';
 import BANGOK_FOOD from './icons/bangokFood.webp';
+import NOT_FOUND from './icons/NOT_FOUND.jpg';
 
 
 export const ProjectImages = {
@@ -88,5 +89,6 @@ export const ProjectImages = {
   FOOD_TOURS,
   CITY_TOURS,
   MOROCCO,
-  BANGOK_FOOD
+  BANGOK_FOOD,
+  NOT_FOUND
 };

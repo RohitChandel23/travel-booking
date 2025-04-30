@@ -7,6 +7,13 @@ import { toast } from "react-toastify";
 import { getAuth } from "firebase/auth";
 import ConnectWalletButton from "./Shared/BookNow/ConnectWalletButton";
 
+import { useAppKitAccount } from "@reown/appkit/react";
+
+
+
+
+
+
 interface tourBookingDetailProps {
   tourPrice: string;
   selectedCalendarDate: string;
@@ -29,6 +36,12 @@ function TourBookingDetail({
   >([null, null]);
 
   
+  const {isConnected } = useAppKitAccount();
+  // console.log("working...........", isConnected);
+  
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },[selectedCalendarDate]);
 
   function handleDecrement(peopleType: string): void {
     if (peopleType == "Adults" && adultsCount) setAdults((count) => count - 1);
@@ -199,13 +212,21 @@ function TourBookingDetail({
       </div>
       <br />
 
-      <div className="wallet-btn">
+
+      {/* <div className="wallet-btn">
         <span><ConnectWalletButton onSuccess={handleBooking} totalEthPrice = {totalPrice}
         makePayment={Boolean(selectedDateTime[0] && selectedDateTime[1] && (kidsCount || adultsCount || childrenCount) )}
         /></span>   
         <span><appkit-button/></span>
-      </div>
+      </div> */}
 
+
+      <div className="wallet-btn">
+        { isConnected ? <span><ConnectWalletButton onSuccess={handleBooking} totalEthPrice = {totalPrice}
+        makePayment={Boolean(selectedDateTime[0] && selectedDateTime[1] && (kidsCount || adultsCount || childrenCount) ) }
+        /></span>:   
+        <span><appkit-button/></span> }
+      </div>
 
     </>
   );

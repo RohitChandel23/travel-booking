@@ -3,7 +3,7 @@
 }
 
 .book-now-date-time{   
-    width: 100%;
+    width: 95%;
     padding: .375rem .75rem;
     font-size: 1rem;
     font-weight: 400;
@@ -31,11 +31,6 @@ color: #051036;
 
 
 
-/* .react-datepicker__day--today {
-    background-color: transparent !important;
-    color: #555;
-    border: 2px dotted #aaa; 
-  } */
 
   
 

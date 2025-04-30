@@ -63,7 +63,6 @@ function DestinationPage() {
 
       <div className="destination-grid-wrapper">
         <div className="destination-grid-container">
-          {/* First Grid Section - Single card on right */}
           <div className="grid-section">
             <div className="grouped-destinations-grid">
               <div className="first-grouped-destinations">
@@ -95,7 +94,6 @@ function DestinationPage() {
             </div>
           </div>
 
-          {/* Second Grid Section */}
           <div className="grid-section reversed">
             <div className="single-destinations-grid">
               <DestinationCard

@@ -9,7 +9,7 @@ interface priceFilterProps {
 }
 
 function FilterByPrice({ handleSelectedPrice }: priceFilterProps) {
-  const [range, setRange] = useState<[number, number]>([0, 3]);
+  const [range, setRange] = useState<[number, number]>([0, 1]);
 
   return (
     <div className="filter-by-price-container">
@@ -18,7 +18,7 @@ function FilterByPrice({ handleSelectedPrice }: priceFilterProps) {
         <Slider
           range
           min={0}
-          max={3}
+          max={1}
           step={0.00001}
           value={range}
           onChange={(value: number | number[]) => {
