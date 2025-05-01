@@ -18,6 +18,13 @@ padding: 0px;
 margin-left: 0px;
 }
 
+.filter-by-review-container input{
+    cursor:pointer;
+}
+.filter-by-review-container label{
+    cursor:pointer;
+}
+
 
 .filter-by-review-container{
     background-color: #f7f8f9;

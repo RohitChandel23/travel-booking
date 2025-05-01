@@ -17,5 +17,12 @@ line-height: 150%;
 .filter-by-destination-container li{
     margin-left:0;
     color: #05103699;
+}
 
+.filter-by-destination-container input{
+    cursor: pointer;
+}
+
+.filter-by-destination-container label{
+    cursor: pointer;
 }

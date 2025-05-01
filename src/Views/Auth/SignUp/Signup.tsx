@@ -14,11 +14,13 @@ import {
 } from "firebase/auth";
 import ToggleBtn from "../button/ToggleBtn/ToggleBtn";
 import SocialBtn from "../button/SocialButtons/SocialBtn";
-import AuthBannerImg from "../Shared/AuthBannerImg";
+// import AuthBannerImg from "../Shared/AuthBannerImg";
 import { ROUTES_CONFIG } from "../../../Shared/Constants";
 import { auth, db, googleProvider } from "../../../firebaseConfig";
 import { useDispatch } from 'react-redux';
 import { updateAuthTokenRedux } from '../../../Store/Common/index';
+import PageBanner from "../../../Shared/PageBanner";
+import { ProjectImages } from "../../../assets/ProjectImages";
 
 
 
@@ -105,7 +107,14 @@ function Signup() {
 
   return (
     <>
-      <AuthBannerImg />
+      {/* <AuthBannerImg /> */}
+            <PageBanner
+              headingText="Authentication"
+              normalText="Home /"
+              coloredText="Sign-up"
+              bannerImage={ProjectImages.AUTH_BANNER}
+            />
+
       <div className="signup-div">
         <div className="form-container">
           <div className="auth-buttons">
@@ -221,7 +230,7 @@ function Signup() {
                   }
                   disabled={isSubmitting}
                 >
-                  Submit
+                  Sign Up
                 </button>
               </Form>
             </Formik>

@@ -1,46 +1,3 @@
-// import "./FilterByPrice.css";
-// import { useState } from "react";
-// import Slider from "rc-slider";
-// import "rc-slider/assets/index.css";
-// import Button from "../../../../Components/Buttons/Button";
-
-// interface priceFilterProps {
-//   handleSelectedPrice: (value: [number, number]) => void;
-// }
-
-// function FilterByPrice({ handleSelectedPrice }: priceFilterProps) {
-//   const [range, setRange] = useState<[number, number]>([0, 1]);
-
-//   return (
-//     <div className="filter-by-price-container">
-//       <h3>Filter By</h3>
-//       <div style={{ width: 250, margin: "2rem auto" }}>
-//         <Slider
-//           range
-//           min={0}
-//           max={1}
-//           step={0.00001}
-//           value={range}
-//           onChange={(value: number | number[]) => {
-//             if (Array.isArray(value)) setRange(value as [number, number]);
-//           }}
-//           allowCross={false}
-//         />
-//         <div className="slider-selected-price">
-//           <span>{range[0]} ETH</span>
-//           <span>{range[1]} ETH</span>
-//         </div>
-//       </div>
-//       <Button name="Submit" handleClick={() => handleSelectedPrice(range)} />
-//     </div>
-//   );
-// }
-
-// export default FilterByPrice;
-
-
-
-
 import "./FilterByPrice.css";
 import { useState, useEffect } from "react";
 import Slider from "rc-slider";
@@ -83,7 +40,7 @@ function FilterByPrice({ handleSelectedPrice, currentPriceRange }: priceFilterPr
 
   return (
     <div className="filter-by-price-container">
-      <h3>Filter By Price (ETH)</h3>
+      <h3>Filter By Price</h3>
       <div style={{ width: 250, margin: "2rem auto" }}>
         <Slider
           range
@@ -93,13 +50,10 @@ function FilterByPrice({ handleSelectedPrice, currentPriceRange }: priceFilterPr
           value={range}
           onChange={handleSliderChange}
           allowCross={false}
-          //  trackStyle={[{ backgroundColor: '#007bff' }]} // Example Style
-          //  handleStyle={[{ borderColor: '#007bff', borderWidth: 2 }, { borderColor: '#007bff', borderWidth: 2 }]} // Example Style
-          //  railStyle={{ backgroundColor: '#dee2e6' }} // Example Style
         />
         <div className="slider-selected-price">
-          <span>{range[0].toFixed(5)} ETH</span>
-          <span>{range[1].toFixed(5)} ETH</span>
+          <span>{range[0].toFixed(3)} ETH</span>
+          <span>{range[1].toFixed(3)} ETH</span>
         </div>
       </div>
       <Button name="Apply Price" handleClick={handleSubmit} />

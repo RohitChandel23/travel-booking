@@ -88,13 +88,44 @@
 
 
 
-
+/* 
   .react-datepicker__day.custom-highlight {
     background-color: #fc5056;
     color: white !important;
     border-radius: 50%;
-  }
+  } */
   
+
+
+
+  /* new changes */
+  .react-datepicker__header {
+    padding: 13px 24px !important;
+}
+
+h2.react-datepicker__current-month {
+margin-bottom: 5% !important;
+}
+
+.react-datepicker__month-dropdown-container, .react-datepicker__month-dropdown-container--select{
+  margin: 1% 12% 2% 7% !important ;
+}
+
+.react-datepicker__input-container input {
+width: 115%;
+}
+
+.react-datepicker__day--keyboard-selected{
+  background-color: white !important;
+  border-radius: 3px !important;
+}
+
+
+.react-datepicker__day--today{
+  background-color:rgb(214, 233, 249) !important;
+  color: black !important;
+}
+
 
 
 

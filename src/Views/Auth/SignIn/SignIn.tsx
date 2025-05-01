@@ -10,10 +10,11 @@ import SocialBtn from '../button/SocialButtons/SocialBtn';
 import { auth, googleProvider } from '../../../firebaseConfig';
 import { ROUTES_CONFIG } from '../../../Shared/Constants';
 import 'react-toastify/dist/ReactToastify.css';
-import AuthBannerImg from '../Shared/AuthBannerImg';
+// import AuthBannerImg from '../Shared/AuthBannerImg';
 import { updateAuthTokenRedux } from '../../../Store/Common/index';
 import { useDispatch } from 'react-redux';
-
+import PageBanner from '../../../Shared/PageBanner';
+import { ProjectImages } from '../../../assets/ProjectImages';
 
 interface SignInFormValues {
   email: string;
@@ -82,7 +83,15 @@ function SignIn() {
 
   return (
     <>
-      <AuthBannerImg />
+      {/* <AuthBannerImg /> */}
+
+      <PageBanner
+              headingText="Authentication"
+              normalText="Home /"
+              coloredText="Sign-up"
+              bannerImage={ProjectImages.AUTH_BANNER}
+            />
+
       <div className='signIn-wrapper'>
       <div className="signIn-div">
         <div className="auth-buttons">
@@ -132,7 +141,7 @@ function SignIn() {
               </div>
 
               <button type="submit" className="submit-btn button-hovering-color">
-                Submit
+                Sign In
               </button>
             </Form>
           </Formik>

@@ -1,6 +1,6 @@
 import { createAppKit } from '@reown/appkit/react';
 import { WagmiProvider } from 'wagmi';
-import {holesky } from '@reown/appkit/networks';
+import { holesky, mainnet, } from '@reown/appkit/networks';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import React from 'react';
@@ -18,7 +18,7 @@ const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/179229932'],
 };
 
-const networks: any = [holesky];
+const networks: any = [holesky, mainnet];
 
 const wagmiAdapter = new WagmiAdapter({
   networks,

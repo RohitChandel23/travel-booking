@@ -11,7 +11,7 @@ function FilterCheckBox
 ({type, id, labelText, value, checked, onChange}:FilterCheckBoxProps){   
     return(
     <li>
-        <input type={type} id={id} value={value} checked={checked} onChange={()=>onChange(value)}></input>
+        <input type={type} id={id} value={value} checked={checked} onChange={()=>onChange(value)}></input>{" "}
         <label htmlFor={id}>{labelText}</label>
     </li>
 

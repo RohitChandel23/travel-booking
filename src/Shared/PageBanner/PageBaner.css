@@ -37,4 +37,23 @@ margin-top: 1%;
 }
 
 
+
+
+.page-banner-text{
+  text-decoration: none !important;
+}
+
+
+.page-banner-normal{
+  text-decoration: none !important;
+  color: white;
+}
+
+
+.page-banner-color{
+  text-decoration: none !important;
+ color: #fc5056;
+ font-weight: 600;
+}
+
   
