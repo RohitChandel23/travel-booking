@@ -1,86 +1,167 @@
-import {useEffect, useState} from 'react';
-import "./FilterByDestination.css";
-import FilterCheckBox from "../FilterByReviews/Shared/FilterCheckBox";
+// import {useEffect, useState} from 'react';
+// import "./FilterByDestination.css";
+// import FilterCheckBox from "../FilterByReviews/Shared/FilterCheckBox";
 
-interface Props{
-    handleDestinationData: (value:string | null)=>void
+// interface Props{
+//     handleDestinationData: (value:string | null)=>void
+// }
+
+// function FilterByDestination({handleDestinationData}:Props) {        
+//     const [selectedDestination, setSelectedDestination] = useState<string | null>(null);    
+    
+//     function handleChange(destination:string){
+//         setSelectedDestination(prev => 
+//             prev === destination ? null : destination
+//         );  
+//     }
+//     console.log(selectedDestination)
+
+//     useEffect(()=>{
+//         handleDestinationData(selectedDestination ? selectedDestination: null ); 
+//     },[selectedDestination]);
+
+    
+    
+//   const asianLocations = ["Tokyo", "Nepal", "Mumbai", "China"];
+//   const europenLocations = ["Paris", "Italy", "Greece"];
+//   const americanLocations = ["Brazil", "Canada", "New York"];
+   
+//   return (
+//     <div className="filter-by-review-container">
+//       <h6>Destinations</h6>
+
+//       <div className="destination-continent-divs">
+//         <h6>Asia</h6>
+//         <ul>
+//           {asianLocations?.map((locationName) => (
+//             <FilterCheckBox
+//               type="checkbox"
+//               id={locationName}
+//               value={locationName}
+//               labelText={locationName}
+//               checked={selectedDestination === locationName }
+//               onChange= {handleChange}
+//             />
+//           ))}
+//         </ul>
+//       </div>
+
+//       <div className="destination-continent-divs">
+//         <h6>Europe</h6>
+//         <ul>
+//           {europenLocations?.map((locationName) => (
+//             <FilterCheckBox
+//             type="checkbox"
+//             id={locationName}
+//             value={locationName}
+//             labelText={locationName}
+//             checked={selectedDestination === locationName}
+//             onChange= {handleChange}
+//             />
+//           ))}
+//         </ul>
+//       </div>
+
+//       <div className="destination-continent-divs">
+//         <h6>America</h6>
+//         <ul>
+//           {americanLocations?.map((locationName) => (
+//             <FilterCheckBox
+//             type="checkbox"
+//             id={locationName}
+//             value={locationName}
+//             labelText={locationName}
+//             checked={selectedDestination === locationName}
+//             onChange= {handleChange}
+//             />
+//           ))}
+//         </ul>
+//       </div>
+
+//     </div>
+//   );
+// }
+// export default FilterByDestination;
+
+
+
+
+
+
+import FilterCheckBox from "../FilterByReviews/Shared/FilterCheckBox"; 
+import "./FilterByDestination.css";
+
+interface Props {
+  handleDestinationData: (value: string | null) => void;
+  currentDestination: string | null; 
 }
 
-function FilterByDestination({handleDestinationData}:Props) {        
-    const [selectedDestination, setSelectedDestination] = useState<string | null>(null);    
-    
-    function handleChange(destination:string){
-        setSelectedDestination(prev => 
-            prev === destination ? null : destination
-        );  
-    }
-    console.log(selectedDestination)
+function FilterByDestination({ handleDestinationData, currentDestination }: Props) {
 
-    useEffect(()=>{
-        handleDestinationData(selectedDestination ? selectedDestination: null ); 
-    },[selectedDestination]);
+  function handleChange(destination: string) {
+    const nextDestination = currentDestination === destination ? null : destination;
+    handleDestinationData(nextDestination);
+  }
 
-    
-    
   const asianLocations = ["Tokyo", "Nepal", "Mumbai", "China"];
   const europenLocations = ["Paris", "Italy", "Greece"];
   const americanLocations = ["Brazil", "Canada", "New York"];
-   
+
   return (
-    <div className="filter-by-review-container">
-      <h6>Destinations</h6>
+    <div className="filter-by-destination-container"> 
+      <h3>Destinations</h3>
 
       <div className="destination-continent-divs">
-        <h6>Asia</h6>
+        <h4>Asia</h4> 
         <ul>
-          {asianLocations?.map((locationName) => (
+          {asianLocations.map((locationName) => (
             <FilterCheckBox
+              key={`dest-asia-${locationName}`} 
               type="checkbox"
-              id={locationName}
+              id={`dest-${locationName}`} 
+              value={locationName} 
+              labelText={locationName}
+              checked={currentDestination === locationName} 
+              onChange={() => handleChange(locationName)} 
+            />
+          ))}
+        </ul>
+      </div>
+
+      <div className="destination-continent-divs">
+        <h4>Europe</h4>
+        <ul>
+          {europenLocations.map((locationName) => (
+            <FilterCheckBox
+              key={`dest-europe-${locationName}`}
+              type="checkbox"
+              id={`dest-${locationName}`}
               value={locationName}
               labelText={locationName}
-              checked={selectedDestination === locationName }
-              onChange= {handleChange}
+              checked={currentDestination === locationName}
+              onChange={() => handleChange(locationName)}
             />
           ))}
         </ul>
       </div>
 
       <div className="destination-continent-divs">
-        <h6>Europe</h6>
+        <h4>America</h4>
         <ul>
-          {europenLocations?.map((locationName) => (
+          {americanLocations.map((locationName) => (
             <FilterCheckBox
-            type="checkbox"
-            id={locationName}
-            value={locationName}
-            labelText={locationName}
-            checked={selectedDestination === locationName}
-            onChange= {handleChange}
+              key={`dest-america-${locationName}`}
+              type="checkbox"
+              id={`dest-${locationName}`}
+              value={locationName}
+              labelText={locationName}
+              checked={currentDestination === locationName}
+              onChange={() => handleChange(locationName)}
             />
           ))}
         </ul>
       </div>
-
-      <div className="destination-continent-divs">
-        <h6>America</h6>
-        <ul>
-          {americanLocations?.map((locationName) => (
-            <FilterCheckBox
-            type="checkbox"
-            id={locationName}
-            value={locationName}
-            labelText={locationName}
-            checked={selectedDestination === locationName}
-            onChange= {handleChange}
-            />
-          ))}
-        </ul>
-      </div>
-
     </div>
   );
 }
 export default FilterByDestination;
-
-

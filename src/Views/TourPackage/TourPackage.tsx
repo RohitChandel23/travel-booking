@@ -1,57 +1,558 @@
-import "./TourPackage.css"
-import { useState, useEffect } from "react"
-import { CLASSNAMES } from "./Shared/Constants"
-import PageBanner from "../../Shared/PageBanner"
-import SearchArea from "../../Shared/SearchArea"
-import FilterByDestination from "./Filter/FilterByDestination"
-import FilterByReviews from "./Filter/FilterByReviews/index"
-import FilterByPrice from "./Filter/FilterByPrice/index"
-import TourCardSkeleton from "../../Shared/TourCardSkeleton/TourCardSkeleton"
-import TourCard from "../TourCard"
+// import "./TourPackage.css"
+// import { useState, useEffect } from "react"
+// import { CLASSNAMES } from "./Shared/Constants"
+// import PageBanner from "../../Shared/PageBanner"
+// import SearchArea from "../../Shared/SearchArea"
+// import FilterByDestination from "./Filter/FilterByDestination"
+// import FilterByReviews from "./Filter/FilterByReviews/index"
+// import FilterByPrice from "./Filter/FilterByPrice/index"
+// import TourCardSkeleton from "../../Shared/TourCardSkeleton/TourCardSkeleton"
+// import TourCard from "../TourCard"
+// import {
+//   useGetTrendingToursQuery,
+//   useGetFilteredDestinationToursQuery,
+//   useGetAttractionQuery,
+//   useGetSearchedToursQuery,
+// } from "../../Services/Api/module/demoApi"
+// import { useLocation } from "react-router-dom"
+// import { ProjectImages } from "../../assets/ProjectImages"
+
+// interface AttractionType {
+//   id: string
+//   name: string
+//   slug: string
+//   destinationId: string
+//   ufiDetails: {
+//     url: {
+//       country: string
+//     }
+//     bCityName: string
+//   }
+//   primaryPhoto: {
+//     small: string
+//   }
+//   reviewsStats: {
+//     combinedNumericStats: {
+//       average: number
+//     }
+//     allReviewsCount: number
+//   }
+//   representativePrice: {
+//     chargeAmount: number
+//   }
+// }
+
+// interface SearchAreaDataProps {
+//   selectDate: any
+//   destinationName: string
+//   activity: string
+//   "guest-numbers": string
+// }
+
+// const TOURS_PER_PAGE = 21;
+// const PAGINATION_DISPLAY_LIMIT = 10; 
+// const SIBLING_COUNT = 2; 
+
+// const generatePageNumbers = (currentPage: number, totalPages: number): (number | string)[] => {
+//   if (totalPages <= PAGINATION_DISPLAY_LIMIT) {
+//     return Array.from({ length: totalPages }, (_, i) => i + 1);
+//   }
+//   const pages: (number | string)[] = [];
+//   pages.push(1);
+//   const leftSiblingIndex = Math.max(currentPage - SIBLING_COUNT, 2); 
+//   const rightSiblingIndex = Math.min(currentPage + SIBLING_COUNT, totalPages - 1); 
+//   const shouldShowLeftDots = leftSiblingIndex > 2; 
+//   const shouldShowRightDots = rightSiblingIndex < totalPages - 1; 
+//   if (shouldShowLeftDots) {
+//     pages.push('...');
+//   }
+//   for (let i = leftSiblingIndex; i <= rightSiblingIndex; i++) {
+//     pages.push(i);
+//   }
+//   if (shouldShowRightDots) {
+//     pages.push('...');
+//   }
+//   pages.push(totalPages);
+//   return pages;
+// };
+
+// function TourPackagePage() {
+//   const [selectedDestination, setSelectedDestination] = useState<string | null>(null)
+//   const [searchedDestination, setSearchedDestination] = useState<string>("")
+//   const [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>([])
+//   const [currentPage, setCurrentPage] = useState<number>(1)
+//   const [selectedRating, setSelectedRating] = useState<number[]>([])
+//   const [selectedPrice, setSelectedPrice] = useState<number[]>([])
+//   const [selectedDate, setSelectedDate] = useState<any[]>([])
+//   const [isSearchArea, setSearchArea] = useState(false);
+//   const [sortBy, setSortBy] = useState<string>("trending")
+//   const [totalTours, setTotalTours] = useState<number>(0)
+//   const [searchSource, setSearchSource] = useState<"searchArea" | "filterSearch" | null>(null)
+//   const ethPrice = 1765; 
+
+//   const location = useLocation()
+//   const searchingData = location.state as { formattedData?: SearchAreaDataProps, footerDestination?: string } | string | null || null;
+
+//   const totalPages = totalTours > 0 ? Math.ceil(totalTours / TOURS_PER_PAGE) : 1;
+//   const pageNumbersToDisplay = generatePageNumbers(currentPage, totalPages);
+
+//   useEffect(() => {
+//     let initialDest: string | null = null;
+//     let initialDate: any[] = [];
+
+//     if (typeof searchingData === 'string') {
+//       initialDest = searchingData;
+//       setSearchSource("filterSearch");
+//     }
+//     else if (searchingData?.formattedData) {
+//       initialDest = searchingData.formattedData.destinationName || null;
+//       initialDate = searchingData.formattedData.selectDate || [];
+//       setSearchSource("searchArea");
+//     }
+//     else if (searchingData?.footerDestination) {
+//       initialDest = searchingData.footerDestination;
+//       setSearchSource("filterSearch");
+//     }
+
+//     setSelectedDestination(initialDest);
+//     setSelectedDate(initialDate);
+//     setCurrentPage(1); 
+
+//     if (typeof searchingData === 'string' || searchingData?.footerDestination) {
+//       setSearchedDestination(initialDest || "");
+//       setSearchArea(false);
+//     } else if (searchingData?.formattedData) {
+//       setSearchedDestination("");
+//       setSearchArea(true);
+//     }
+
+//   }, [searchingData]);
+
+//   function handleSortChange(value: string) {
+//     setSortBy(value);
+//     setCurrentPage(1); 
+//   }
+
+//   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+//     setSearchedDestination(e.target.value)
+//   }
+
+//   function searchAreaData(values: SearchAreaDataProps) {
+//     setSearchSource("searchArea");
+//     setSearchArea(true);
+//     setSelectedDate(values.selectDate || []);
+
+//     const trimmedDest = values.destinationName.trim();
+//     if(trimmedDest !== "") {
+//         setSelectedDestination(trimmedDest);
+//         setSearchedDestination("");
+//     } else {
+//         setSelectedDestination(null);
+//         setSearchedDestination("");
+//     }
+
+//     setCurrentPage(1);
+//     setMergedAttractions([]);
+//     setTotalTours(0);
+//   }
+
+//   function handleSelectedPrice(value: number[]) {
+//     setSelectedPrice(value);
+//     setCurrentPage(1);
+//   }
+
+//   function handleDestinationData(data: string | null) {
+//     setSearchSource("filterSearch");
+//     const trimmedData = data?.trim() || null;
+//     setSelectedDestination(trimmedData);
+//     setSearchedDestination(trimmedData || "");
+//     setCurrentPage(1);
+//     setSearchArea(false);
+//     setSelectedDate([]);
+//     setMergedAttractions([]);
+//     setTotalTours(0);
+//   }
+
+
+
+//   function handleRatingData(value: number[]) {
+//     setSelectedRating(value);
+//     setCurrentPage(1);
+//   }
+
+//    function handlePageChange(value: number) {
+//     const newPage = currentPage + value;
+//     if (newPage >= 1 && newPage <= totalPages) {
+//         setCurrentPage(newPage);
+//         window.scrollTo({ top: 0, behavior: "smooth" });
+//     }
+//    }
+
+//    function goToPage(pageNumber: number) {
+//        if(pageNumber >= 1 && pageNumber <= totalPages && pageNumber !== currentPage) {
+//            setCurrentPage(pageNumber);
+//            window.scrollTo({ top: 0, behavior: 'smooth'});
+//        }
+//    }
+
+
+//   const {
+//     data: filteredDestination,
+//     isLoading: isLoadingDestination,
+//     isFetching: isFetchingDestination,
+//     isSuccess: isSuccessDestination,
+//     isError: isErrorDestination
+//   } = useGetFilteredDestinationToursQuery(selectedDestination || "", {
+//     skip: !selectedDestination,
+//   });
+//   const destinationId = filteredDestination?.data?.products?.[0]?.id;
+//   const failedToFindDestinationId = selectedDestination !== null && isSuccessDestination && !destinationId;
+
+//   const {
+//     data: searchedTours,
+//     isLoading: isLoadingSearched,
+//     isFetching: isFetchingSearched,
+//     isSuccess: isSuccessSearched,
+//     isError: isErrorSearched
+//   } = useGetSearchedToursQuery(
+//     { destinationId, selectedDate, currentPage, sortBy, limit: TOURS_PER_PAGE },
+//     { skip: !destinationId || !isSuccessDestination || selectedDate.length !== 2 },
+//   );
+
+//   const {
+//     data: attractionData,
+//     isLoading: isLoadingAttraction,
+//     isFetching: isFetchingAttraction,
+//     isSuccess: isSuccessAttraction,
+//     isError: isErrorAttraction
+//   } = useGetAttractionQuery(
+//     { destinationId, currentPage, sortBy, limit: TOURS_PER_PAGE },
+//     { skip: !destinationId || !isSuccessDestination || selectedDate.length > 0 },
+//   );
+
+//   // Trending Tours
+//   const {
+//     data: trendingDestination,
+//     isLoading: isLoadingTrending,
+//     isFetching: isFetchingTrending,
+//     isSuccess: isSuccessTrending,
+//     isError: isErrorTrending
+//   } = useGetTrendingToursQuery(
+//     { currentPage, sortBy, limit: TOURS_PER_PAGE },
+//     { skip: !!selectedDestination || selectedDate.length === 2 },
+//   );
+
+
+//   useEffect(() => {
+//     if (selectedDestination && destinationId && selectedDate.length === 2 && isSuccessSearched && searchedTours?.data?.products) {
+//       setMergedAttractions(searchedTours.data.products);
+//       setTotalTours(searchedTours.data.filterStats.filteredProductCount);
+//       return;
+//     }
+//     if (selectedDestination && destinationId && selectedDate.length === 0 && isSuccessAttraction && attractionData?.data?.products) {
+//       setMergedAttractions(attractionData.data.products);
+//       setTotalTours(attractionData.data.filterStats.filteredProductCount);
+//       return;
+//     }
+//     if (!selectedDestination && selectedDate.length !== 2 && isSuccessTrending && trendingDestination?.data?.products) {
+//       setMergedAttractions(trendingDestination.data.products);
+//       setTotalTours(trendingDestination.data.filterStats.filteredProductCount);
+//       return;
+//     }
+
+//     if(!isFetchingDestination && !isFetchingAttraction && !isFetchingSearched && !isFetchingTrending){
+//         setMergedAttractions([]);
+//         setTotalTours(0);
+//     }
+
+//   }, [
+//       selectedDestination, selectedDate, destinationId,
+//       searchedTours, isSuccessSearched, isFetchingSearched,
+//       attractionData, isSuccessAttraction, isFetchingAttraction,
+//       trendingDestination, isSuccessTrending, isFetchingTrending,
+//       isSuccessDestination, isFetchingDestination
+//     ]);
+
+
+//   let displayedAttractions = [...mergedAttractions];
+
+//   // Rating filter
+//   if (selectedRating.length > 0) {
+//     displayedAttractions = displayedAttractions.filter((item) => {
+//       const averageRating = item?.reviewsStats?.combinedNumericStats?.average;
+//       if (typeof averageRating !== 'number') return false;
+//       return selectedRating.some((selected) => {
+//         if (selected === 5) return averageRating === 5;
+//         return averageRating >= selected && averageRating < selected + 1;
+//       });
+//     });
+//   }
+
+//   // price filter
+//   if (selectedPrice?.length === 2 && ethPrice != undefined && ethPrice > 0) {
+//     const minPrice = selectedPrice[0];
+//     const maxPrice = selectedPrice[1];
+//     displayedAttractions = displayedAttractions.filter((item) => {
+//         const usdPrice = item?.representativePrice?.chargeAmount;
+//         if (typeof usdPrice !== 'number') return false;
+//         const itemEthPrice = usdPrice / ethPrice;
+//         return itemEthPrice >= minPrice && itemEthPrice <= maxPrice;
+//       }
+//     );
+//   }
+
+
+//   // loading
+//   const isOverallLoading =
+//     (selectedDestination && (isLoadingDestination || isFetchingDestination)) ||
+//     (selectedDestination && destinationId && selectedDate.length === 2 && (isLoadingSearched || isFetchingSearched)) ||
+//     (selectedDestination && destinationId && selectedDate.length === 0 && (isLoadingAttraction || isFetchingAttraction)) ||
+//     (!selectedDestination && selectedDate.length !== 2 && (isLoadingTrending || isFetchingTrending));
+
+//     //error
+//   const hasError =
+//     (selectedDestination && isErrorDestination) ||
+//     (selectedDestination && destinationId && selectedDate.length === 2 && isErrorSearched) ||
+//     (selectedDestination && destinationId && selectedDate.length === 0 && isErrorAttraction) ||
+//     (!selectedDestination && selectedDate.length !== 2 && isErrorTrending);
+
+//   const showShimmer = isOverallLoading;
+//   const showError = !isOverallLoading && hasError;
+//   const showNoResults = !isOverallLoading && !hasError && (failedToFindDestinationId || mergedAttractions.length === 0);
+//   const showResults = !isOverallLoading && !hasError && !showNoResults;
+
+//   const showPagination = !isOverallLoading && !hasError && totalPages > 1;
+
+//   const initialSearchValues = searchSource === "searchArea" ? {
+//     destinationName: (typeof searchingData === 'object' && searchingData?.formattedData?.destinationName) || "",
+//     selectDate: (typeof searchingData === 'object' && searchingData?.formattedData?.selectDate) || null,
+//     activity: (typeof searchingData === 'object' && searchingData?.formattedData?.activity) || "",
+//     "guest-numbers": (typeof searchingData === 'object' && searchingData?.formattedData?.["guest-numbers"]) || "",
+//   } : {
+//     destinationName: "",
+//     selectDate: null,
+//     activity: "",
+//     "guest-numbers": "",
+//   };
+
+//   return (
+//     <>
+//       <PageBanner
+//         headingText="Tour Package"
+//         normalText="Home /"
+//         coloredText="Tour Package"
+//         bannerImage={ProjectImages.TOURPAGE_BANNER}
+//       />
+//       <SearchArea
+//         searchAreaData={searchAreaData}
+//         initialSearchValues={initialSearchValues}
+//         isSearchArea={isSearchArea}
+//       />
+
+//       <div className={CLASSNAMES.FILTER_DISPLAY}>
+//         <div className={CLASSNAMES.FILTER_CONTAINER}>
+//           <div className="tour-filter-types">
+//               <div className="search-destination-wrapper">
+//                 <h3>Search</h3>
+//                 <div className="search-input-with-icon">
+//                   <input
+//                     type="text"
+//                     value={searchedDestination}
+//                     onChange={handleChange}
+//                     onKeyDown={(e) => { if (e.key === 'Enter') handleDestinationData(searchedDestination); }}
+//                     placeholder="Search Destination..."
+//                   />
+//                   <i className="fa fa-search search-icon" onClick={() => handleDestinationData(searchedDestination)} />
+//                 </div>
+//               </div>
+//           </div>
+//           <div className="tour-filter-types">
+//             <FilterByPrice handleSelectedPrice={handleSelectedPrice} />
+//           </div>
+//           <div className="tour-filter-types">
+//             <FilterByDestination handleDestinationData={handleDestinationData} />
+//           </div>
+//           <div className="tour-filter-types">
+//             <FilterByReviews handleRatingData={handleRatingData} />
+//           </div>
+//         </div>
+
+//         <div className={CLASSNAMES.TOURS_WRAPPER}>
+//           <div className="sorting-container">
+//             <label htmlFor="tour-sort">Sort by: </label>
+//             <select
+//               id="tour-sort"
+//               value={sortBy}
+//               onChange={(e) => handleSortChange(e.target.value)}
+//               className="sort-select"
+//             >
+//               <option value="trending">Trending</option>
+//               <option value="lowest_price">Lowest Price</option>
+//             </select>
+//           </div>
+
+//           <div className={CLASSNAMES.TOURS_CONTAINER}>
+//             {showShimmer ? (
+//               Array.from({ length: TOURS_PER_PAGE }).map((_, i) => <TourCardSkeleton key={`skeleton-${i}`} />)
+//             ) : showError ? (
+//               <div className="error-message" style={{textAlign: 'center', padding: '40px', gridColumn: '1 / -1'}}>
+//                   <p>Sorry, an error occurred while fetching tours. Please try again later.</p>
+//               </div>
+//             ) : showResults && displayedAttractions.length > 0 ? (
+//               displayedAttractions.map((item: AttractionType) => {
+//                 const countryName = item?.ufiDetails?.url?.country?.toUpperCase() || "N/A"
+//                 const cityName = item?.ufiDetails?.bCityName || "N/A"
+//                 const tourName = item?.name || "Unnamed Tour"
+//                 const tourImage = item?.primaryPhoto?.small
+//                 const tourRating = item?.reviewsStats?.combinedNumericStats?.average?.toString() || "N/A"
+//                 const tourReview = item?.reviewsStats?.allReviewsCount?.toString() || "0"
+//                 const usdPrice = item?.representativePrice?.chargeAmount
+//                 const tourPrice = (ethPrice && typeof usdPrice === 'number' && ethPrice > 0) ? `${(usdPrice / ethPrice).toFixed(5)} ETH` : "N/A"
+//                 const slugValue = item?.slug || item.id?.toString() || `tour-${Math.random()}`
+//                 const uniqueKey = `${item.destinationId || 'dest'}-${item.id || slugValue}`;
+
+//                 return (
+//                   <TourCard
+//                     key={uniqueKey}
+//                     cityName={cityName}
+//                     countryName={countryName}
+//                     tourName={tourName}
+//                     tourImage={tourImage}
+//                     tourRating={tourRating}
+//                     tourReview={tourReview}
+//                     tourPrice={tourPrice}
+//                     tourDuration="1 day"
+//                     slugValue={slugValue}
+//                   />
+//                 )
+//               })
+//             ) : (
+//               <div className="no-tours-found" style={{textAlign: 'center', padding: '40px', gridColumn: '1 / -1'}}>
+//                 <div className="not-foung-image"><img src={ProjectImages.NOT_FOUND} /></div>
+//                 <p>Sorry, No Tours Found.</p>
+//                 {failedToFindDestinationId && <p>We couldn't find this destination</p>}
+//                 {!failedToFindDestinationId && selectedRating.length > 0 && <p>Try adjusting your rating filter.</p>}
+//                 {!failedToFindDestinationId && selectedPrice.length === 2 && <p>Try adjusting your price range.</p>}
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+
+//       {showPagination && (
+//           <div className="page-navigation-container">
+//               <div className="pages-navigation">
+//               <span
+//                   className={`page-number-container ${currentPage === 1 ? 'disabled' : ''}`}
+//                   onClick={() => handlePageChange(-1)} 
+//                   style={{ cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
+//                   aria-disabled={currentPage === 1} 
+//                   role="button" 
+//                   aria-label="Previous Page" 
+//               >
+//                   <i className="fa-solid fa-chevron-left" />
+//               </span>
+
+//               {pageNumbersToDisplay.map((page, index) => {
+//                   if (typeof page === 'string') {
+//                       return (
+//                           <span key={`ellipsis-${index}`} className="page-number-container ellipsis">
+//                               {page}
+//                           </span>
+//                       );
+//                   } else {
+//                       return (
+//                           <span
+//                               key={`page-${page}`}
+//                               className={`page-number-container ${currentPage === page ? 'colored-page-number' : ''}`}
+//                               onClick={() => goToPage(page)} 
+//                               style={{ cursor: currentPage === page ? 'default' : 'pointer' }}
+//                               role="button" 
+//                               aria-current={currentPage === page ? 'page' : undefined} 
+//                               aria-label={`Go to page ${page}`} 
+//                           >
+//                               {page}
+//                           </span>
+//                       );
+//                   }
+//               })}
+
+//               <span
+//                   className={`page-number-container ${currentPage === totalPages ? 'disabled' : ''}`}
+//                   onClick={() => handlePageChange(1)} 
+//                   style={{ cursor: currentPage === totalPages ? 'not-allowed' : 'pointer' }}
+//                   aria-disabled={currentPage === totalPages} 
+//                   role="button" 
+//                   aria-label="Next Page" 
+//               >
+//                   <i className="fa-solid fa-chevron-right" />
+//               </span>
+//               </div>
+//           </div>
+//        )}
+//     </>
+//   )
+// }
+
+// export default TourPackagePage;
+
+
+
+
+import "./TourPackage.css";
+import { useState, useEffect, useCallback } from "react";
+import { CLASSNAMES } from "./Shared/Constants";
+import PageBanner from "../../Shared/PageBanner";
+import SearchArea from "../../Shared/SearchArea";
+import FilterByDestination from "./Filter/FilterByDestination";
+import FilterByReviews from "./Filter/FilterByReviews/index";
+import FilterByPrice from "./Filter/FilterByPrice/index";
+import TourCardSkeleton from "../../Shared/TourCardSkeleton/TourCardSkeleton";
+import TourCard from "../TourCard";
 import {
   useGetTrendingToursQuery,
   useGetFilteredDestinationToursQuery,
   useGetAttractionQuery,
   useGetSearchedToursQuery,
-} from "../../Services/Api/module/demoApi"
-import { useLocation } from "react-router-dom"
-import { ProjectImages } from "../../assets/ProjectImages"
+} from "../../Services/Api/module/demoApi";
+import { useLocation } from "react-router-dom";
+import { ProjectImages } from "../../assets/ProjectImages";
 
 interface AttractionType {
-  id: string
-  name: string
-  slug: string
-  destinationId: string
+  id: string;
+  name: string;
+  slug: string;
+  destinationId: string;
   ufiDetails: {
     url: {
-      country: string
-    }
-    bCityName: string
-  }
+      country: string;
+    };
+    bCityName: string;
+  };
   primaryPhoto: {
-    small: string
-  }
+    small: string;
+  };
   reviewsStats: {
     combinedNumericStats: {
-      average: number
-    }
-    allReviewsCount: number
-  }
+      average: number;
+    };
+    allReviewsCount: number;
+  };
   representativePrice: {
-    chargeAmount: number
-  }
+    chargeAmount: number;
+  };
 }
 
 interface SearchAreaDataProps {
-  selectDate: any
-  destinationName: string
-  activity: string
-  "guest-numbers": string
+  selectDate: [string | null, string | null]; 
+  destinationName: string;
+  activity: string;
+  "guest-numbers": string;
 }
 
 const TOURS_PER_PAGE = 21;
-const PAGINATION_DISPLAY_LIMIT = 10; 
-const SIBLING_COUNT = 2; 
+const PAGINATION_DISPLAY_LIMIT = 10;
+const SIBLING_COUNT = 2;
 
 const generatePageNumbers = (currentPage: number, totalPages: number): (number | string)[] => {
   if (totalPages <= PAGINATION_DISPLAY_LIMIT) {
@@ -59,10 +560,10 @@ const generatePageNumbers = (currentPage: number, totalPages: number): (number |
   }
   const pages: (number | string)[] = [];
   pages.push(1);
-  const leftSiblingIndex = Math.max(currentPage - SIBLING_COUNT, 2); 
-  const rightSiblingIndex = Math.min(currentPage + SIBLING_COUNT, totalPages - 1); 
-  const shouldShowLeftDots = leftSiblingIndex > 2; 
-  const shouldShowRightDots = rightSiblingIndex < totalPages - 1; 
+  const leftSiblingIndex = Math.max(currentPage - SIBLING_COUNT, 2);
+  const rightSiblingIndex = Math.min(currentPage + SIBLING_COUNT, totalPages - 1);
+  const shouldShowLeftDots = leftSiblingIndex > 2;
+  const shouldShowRightDots = rightSiblingIndex < totalPages - 1;
   if (shouldShowLeftDots) {
     pages.push('...');
   }
@@ -77,107 +578,118 @@ const generatePageNumbers = (currentPage: number, totalPages: number): (number |
 };
 
 function TourPackagePage() {
-  const [selectedDestination, setSelectedDestination] = useState<string | null>(null)
-  const [searchedDestination, setSearchedDestination] = useState<string>("")
-  const [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>([])
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [selectedRating, setSelectedRating] = useState<number[]>([])
-  const [selectedPrice, setSelectedPrice] = useState<number[]>([])
-  const [selectedDate, setSelectedDate] = useState<any[]>([])
+  const [selectedDestination, setSelectedDestination] = useState<string | null>(null);
+  const [searchedDestination, setSearchedDestination] = useState<string>(""); 
+  const [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedRating, setSelectedRating] = useState<number[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState<number[]>([]);
+  const [selectedDate, setSelectedDate] = useState<[string | null, string | null]>([null, null]); 
   const [isSearchArea, setSearchArea] = useState(false);
-  const [sortBy, setSortBy] = useState<string>("trending")
-  const [totalTours, setTotalTours] = useState<number>(0)
-  const [searchSource, setSearchSource] = useState<"searchArea" | "filterSearch" | null>(null)
+  const [sortBy, setSortBy] = useState<string>("trending");
+  const [totalTours, setTotalTours] = useState<number>(0);
+  const [searchSource, setSearchSource] = useState<"searchArea" | "filterSearch" | null>(null);
   const ethPrice = 1765; 
 
-  const location = useLocation()
+  const location = useLocation();
   const searchingData = location.state as { formattedData?: SearchAreaDataProps, footerDestination?: string } | string | null || null;
 
   const totalPages = totalTours > 0 ? Math.ceil(totalTours / TOURS_PER_PAGE) : 1;
   const pageNumbersToDisplay = generatePageNumbers(currentPage, totalPages);
 
   useEffect(() => {
-    let initialDest: string | null = null;
-    let initialDate: any[] = [];
+    let initialDest: string | null = null; 
+    let initialSearchInput: string = ""; 
+    let initialDate: [string | null, string | null] = [null, null];
+    let cameFromSearchArea = false;
 
     if (typeof searchingData === 'string') {
-      initialDest = searchingData;
+      initialDest = searchingData; 
+      initialSearchInput = searchingData; 
       setSearchSource("filterSearch");
+      setSearchArea(false); 
     }
     else if (searchingData?.formattedData) {
-      initialDest = searchingData.formattedData.destinationName || null;
-      initialDate = searchingData.formattedData.selectDate || [];
+      initialDest = searchingData.formattedData.destinationName || null; 
+      initialDate = searchingData.formattedData.selectDate || [null, null];
       setSearchSource("searchArea");
+      cameFromSearchArea = true;
+      setSearchArea(true); 
     }
     else if (searchingData?.footerDestination) {
-      initialDest = searchingData.footerDestination;
+      initialDest = searchingData.footerDestination; 
+      initialSearchInput = searchingData.footerDestination;
       setSearchSource("filterSearch");
+      setSearchArea(false);
     }
 
-    setSelectedDestination(initialDest);
-    setSelectedDate(initialDate);
+    setSelectedDestination(initialDest); 
+    setSearchedDestination(initialSearchInput); 
+    setSelectedDate(initialDate); 
     setCurrentPage(1); 
 
-    if (typeof searchingData === 'string' || searchingData?.footerDestination) {
-      setSearchedDestination(initialDest || "");
-      setSearchArea(false);
-    } else if (searchingData?.formattedData) {
-      setSearchedDestination("");
-      setSearchArea(true);
+    if (cameFromSearchArea) {
+        setSelectedRating([]);
+        setSelectedPrice([]);
+    } else {
+       setSearchArea(false);
     }
 
-  }, [searchingData]);
+  }, [searchingData]); 
 
   function handleSortChange(value: string) {
     setSortBy(value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   }
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setSearchedDestination(e.target.value)
+  function handleSidebarSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchedDestination(e.target.value);
+  }
+
+  function handleSidebarSearchSubmit() {
+    setSearchSource("filterSearch");
+    const trimmedData = searchedDestination.trim() || null;
+    setSelectedDestination(trimmedData); 
+    setCurrentPage(1);
+    setSearchArea(false); 
+    setSelectedDate([null, null]); 
   }
 
   function searchAreaData(values: SearchAreaDataProps) {
     setSearchSource("searchArea");
-    setSearchArea(true);
-    setSelectedDate(values.selectDate || []);
+    setSearchArea(true); 
+    setSelectedDate(values.selectDate || [null, null]);
 
     const trimmedDest = values.destinationName.trim();
-    if(trimmedDest !== "") {
-        setSelectedDestination(trimmedDest);
-        setSearchedDestination("");
-    } else {
-        setSelectedDestination(null);
-        setSearchedDestination("");
-    }
+    setSelectedDestination(trimmedDest || null); 
+    setSearchedDestination(""); 
+
+    setSelectedRating([]);
+    setSelectedPrice([]);
 
     setCurrentPage(1);
-    setMergedAttractions([]);
-    setTotalTours(0);
+
   }
 
   function handleSelectedPrice(value: number[]) {
     setSelectedPrice(value);
-    setCurrentPage(1);
+    // setCurrentPage(1);
   }
 
   function handleDestinationData(data: string | null) {
-    setSearchSource("filterSearch");
-    const trimmedData = data?.trim() || null;
-    setSelectedDestination(trimmedData);
-    setSearchedDestination(trimmedData || "");
+    setSearchSource("filterSearch"); 
+    setSelectedDestination(data); 
+    setSearchedDestination(data || ""); 
     setCurrentPage(1);
-    setSearchArea(false);
-    setSelectedDate([]);
-    setMergedAttractions([]);
-    setTotalTours(0);
+    setSearchArea(false); 
+    setSelectedDate([null, null]); 
+    // setMergedAttractions([]); 
+    // setTotalTours(0);
   }
-
-
 
   function handleRatingData(value: number[]) {
     setSelectedRating(value);
-    setCurrentPage(1);
+    // setCurrentPage(1);
   }
 
    function handlePageChange(value: number) {
@@ -195,6 +707,14 @@ function TourPackagePage() {
        }
    }
 
+   const resetSidebarFilters = useCallback(() => {
+        if (selectedRating.length > 0 || selectedPrice.length > 0) {
+             setSelectedRating([]);
+             setSelectedPrice([]);
+             // setCurrentPage(1); 
+        }
+   }, [selectedRating, selectedPrice]);
+
 
   const {
     data: filteredDestination,
@@ -203,10 +723,13 @@ function TourPackagePage() {
     isSuccess: isSuccessDestination,
     isError: isErrorDestination
   } = useGetFilteredDestinationToursQuery(selectedDestination || "", {
-    skip: !selectedDestination,
+    skip: !selectedDestination, 
   });
+
   const destinationId = filteredDestination?.data?.products?.[0]?.id;
   const failedToFindDestinationId = selectedDestination !== null && isSuccessDestination && !destinationId;
+
+  const isDateFilterActive = selectedDate[0] !== null && selectedDate[1] !== null;
 
   const {
     data: searchedTours,
@@ -216,124 +739,132 @@ function TourPackagePage() {
     isError: isErrorSearched
   } = useGetSearchedToursQuery(
     { destinationId, selectedDate, currentPage, sortBy, limit: TOURS_PER_PAGE },
-    { skip: !destinationId || !isSuccessDestination || selectedDate.length !== 2 },
+    { skip: !destinationId || !isSuccessDestination || !isDateFilterActive }, 
   );
 
   const {
-    data: attractionData,
+    data: attractionData, 
     isLoading: isLoadingAttraction,
     isFetching: isFetchingAttraction,
     isSuccess: isSuccessAttraction,
     isError: isErrorAttraction
   } = useGetAttractionQuery(
     { destinationId, currentPage, sortBy, limit: TOURS_PER_PAGE },
-    { skip: !destinationId || !isSuccessDestination || selectedDate.length > 0 },
+    { skip: !destinationId || !isSuccessDestination || isDateFilterActive }, 
   );
 
-  // Trending Tours
   const {
-    data: trendingDestination,
+    data: trendingDestination, 
     isLoading: isLoadingTrending,
     isFetching: isFetchingTrending,
     isSuccess: isSuccessTrending,
     isError: isErrorTrending
   } = useGetTrendingToursQuery(
     { currentPage, sortBy, limit: TOURS_PER_PAGE },
-    { skip: !!selectedDestination || selectedDate.length === 2 },
+    { skip: !!selectedDestination || isDateFilterActive }, 
   );
 
 
   useEffect(() => {
-    if (selectedDestination && destinationId && selectedDate.length === 2 && isSuccessSearched && searchedTours?.data?.products) {
-      setMergedAttractions(searchedTours.data.products);
-      setTotalTours(searchedTours.data.filterStats.filteredProductCount);
-      return;
-    }
-    if (selectedDestination && destinationId && selectedDate.length === 0 && isSuccessAttraction && attractionData?.data?.products) {
-      setMergedAttractions(attractionData.data.products);
-      setTotalTours(attractionData.data.filterStats.filteredProductCount);
-      return;
-    }
-    if (!selectedDestination && selectedDate.length !== 2 && isSuccessTrending && trendingDestination?.data?.products) {
-      setMergedAttractions(trendingDestination.data.products);
-      setTotalTours(trendingDestination.data.filterStats.filteredProductCount);
-      return;
+    let activeData = null;
+    let activeSuccess = false;
+    let activeFetching = true; 
+
+    if (selectedDestination && destinationId && isDateFilterActive) {
+        activeData = searchedTours;
+        activeSuccess = isSuccessSearched;
+        activeFetching = isFetchingSearched || isFetchingDestination;
+    } else if (selectedDestination && destinationId && !isDateFilterActive) {
+        activeData = attractionData;
+        activeSuccess = isSuccessAttraction;
+        activeFetching = isFetchingAttraction || isFetchingDestination;
+    } else if (!selectedDestination && !isDateFilterActive) {
+        activeData = trendingDestination;
+        activeSuccess = isSuccessTrending;
+        activeFetching = isFetchingTrending;
+    } else {
+        activeFetching = isFetchingDestination || isFetchingSearched || isFetchingAttraction || isFetchingTrending; // Consider fetching if any relevant query is running
     }
 
-    if(!isFetchingDestination && !isFetchingAttraction && !isFetchingSearched && !isFetchingTrending){
+    if (activeSuccess && activeData?.data?.products) {
+        setMergedAttractions(activeData.data.products);
+        setTotalTours(activeData.data.filterStats.filteredProductCount);
+    } else if (!activeFetching) {
         setMergedAttractions([]);
         setTotalTours(0);
     }
 
   }, [
-      selectedDestination, selectedDate, destinationId,
-      searchedTours, isSuccessSearched, isFetchingSearched,
-      attractionData, isSuccessAttraction, isFetchingAttraction,
-      trendingDestination, isSuccessTrending, isFetchingTrending,
-      isSuccessDestination, isFetchingDestination
+      selectedDestination, selectedDate, destinationId, isDateFilterActive, 
+      searchedTours, isSuccessSearched, isFetchingSearched,           
+      attractionData, isSuccessAttraction, isFetchingAttraction,      
+      trendingDestination, isSuccessTrending, isFetchingTrending,     
+      isSuccessDestination, isFetchingDestination                     
     ]);
 
 
   let displayedAttractions = [...mergedAttractions];
 
-  // Rating filter
+  //rating filter
   if (selectedRating.length > 0) {
     displayedAttractions = displayedAttractions.filter((item) => {
       const averageRating = item?.reviewsStats?.combinedNumericStats?.average;
       if (typeof averageRating !== 'number') return false;
       return selectedRating.some((selected) => {
-        if (selected === 5) return averageRating === 5;
+        if (selected === 5) return averageRating >= 4.5; 
         return averageRating >= selected && averageRating < selected + 1;
       });
     });
   }
 
-  // price filter
   if (selectedPrice?.length === 2 && ethPrice != undefined && ethPrice > 0) {
     const minPrice = selectedPrice[0];
     const maxPrice = selectedPrice[1];
-    displayedAttractions = displayedAttractions.filter((item) => {
-        const usdPrice = item?.representativePrice?.chargeAmount;
-        if (typeof usdPrice !== 'number') return false;
-        const itemEthPrice = usdPrice / ethPrice;
-        return itemEthPrice >= minPrice && itemEthPrice <= maxPrice;
-      }
-    );
+    if (minPrice <= maxPrice) {
+        displayedAttractions = displayedAttractions.filter((item) => {
+            const usdPrice = item?.representativePrice?.chargeAmount;
+            if (typeof usdPrice !== 'number') return false;
+            const itemEthPrice = usdPrice / ethPrice;
+            return itemEthPrice >= minPrice && itemEthPrice <= maxPrice;
+        });
+    }
   }
 
-
-  // loading
-  const isOverallLoading =
+   const isOverallLoading =
     (selectedDestination && (isLoadingDestination || isFetchingDestination)) ||
-    (selectedDestination && destinationId && selectedDate.length === 2 && (isLoadingSearched || isFetchingSearched)) ||
-    (selectedDestination && destinationId && selectedDate.length === 0 && (isLoadingAttraction || isFetchingAttraction)) ||
-    (!selectedDestination && selectedDate.length !== 2 && (isLoadingTrending || isFetchingTrending));
+    (selectedDestination && destinationId && isDateFilterActive && (isLoadingSearched || isFetchingSearched)) ||
+    (selectedDestination && destinationId && !isDateFilterActive && (isLoadingAttraction || isFetchingAttraction)) ||
+    (!selectedDestination && !isDateFilterActive && (isLoadingTrending || isFetchingTrending));
 
-    //error
   const hasError =
-    (selectedDestination && isErrorDestination) ||
-    (selectedDestination && destinationId && selectedDate.length === 2 && isErrorSearched) ||
-    (selectedDestination && destinationId && selectedDate.length === 0 && isErrorAttraction) ||
-    (!selectedDestination && selectedDate.length !== 2 && isErrorTrending);
+    (selectedDestination && !destinationId && isErrorDestination) || 
+    (selectedDestination && destinationId && isDateFilterActive && isErrorSearched) ||
+    (selectedDestination && destinationId && !isDateFilterActive && isErrorAttraction) ||
+    (!selectedDestination && !isDateFilterActive && isErrorTrending);
 
   const showShimmer = isOverallLoading;
   const showError = !isOverallLoading && hasError;
-  const showNoResults = !isOverallLoading && !hasError && (failedToFindDestinationId || mergedAttractions.length === 0);
-  const showResults = !isOverallLoading && !hasError && !showNoResults;
+  //no result
+  const showNoResults = !isOverallLoading && !hasError &&
+                        (failedToFindDestinationId || displayedAttractions.length === 0);
+  const showResults = !isOverallLoading && !hasError && !showNoResults && displayedAttractions.length > 0;
 
-  const showPagination = !isOverallLoading && !hasError && totalPages > 1;
+  const showPagination = !isOverallLoading && !hasError && totalPages > 1 && displayedAttractions.length > 0;
 
-  const initialSearchValues = searchSource === "searchArea" ? {
-    destinationName: (typeof searchingData === 'object' && searchingData?.formattedData?.destinationName) || "",
-    selectDate: (typeof searchingData === 'object' && searchingData?.formattedData?.selectDate) || null,
-    activity: (typeof searchingData === 'object' && searchingData?.formattedData?.activity) || "",
-    "guest-numbers": (typeof searchingData === 'object' && searchingData?.formattedData?.["guest-numbers"]) || "",
-  } : {
-    destinationName: "",
-    selectDate: null,
-    activity: "",
-    "guest-numbers": "",
-  };
+   const initialSearchValuesForForm = searchSource === "searchArea" && searchingData && typeof searchingData === 'object' && searchingData.formattedData ? {
+     destinationName: searchingData.formattedData.destinationName || "",
+     selectDate: [
+        searchingData.formattedData.selectDate?.[0] ? new Date(searchingData.formattedData.selectDate[0]) : null,
+        searchingData.formattedData.selectDate?.[1] ? new Date(searchingData.formattedData.selectDate[1]) : null
+     ] as [Date | null, Date | null],
+     activity: searchingData.formattedData.activity || "",
+     "guest-numbers": searchingData.formattedData["guest-numbers"],
+   } : { 
+     destinationName: "",
+     selectDate: [null, null] as [Date | null, Date | null],
+     activity: "",
+     "guest-numbers": "", 
+   };
 
   return (
     <>
@@ -345,51 +876,61 @@ function TourPackagePage() {
       />
       <SearchArea
         searchAreaData={searchAreaData}
-        initialSearchValues={initialSearchValues}
-        isSearchArea={isSearchArea}
+        initialSearchValues={initialSearchValuesForForm}
+        isSearchArea={isSearchArea} 
+        onFocusResetSidebarFilters={resetSidebarFilters}
       />
 
       <div className={CLASSNAMES.FILTER_DISPLAY}>
         <div className={CLASSNAMES.FILTER_CONTAINER}>
           <div className="tour-filter-types">
               <div className="search-destination-wrapper">
-                <h3>Search</h3>
+                <h3>Search Destination</h3>
                 <div className="search-input-with-icon">
                   <input
                     type="text"
-                    value={searchedDestination}
-                    onChange={handleChange}
-                    onKeyDown={(e) => { if (e.key === 'Enter') handleDestinationData(searchedDestination); }}
+                    value={searchedDestination} 
+                    onChange={handleSidebarSearchChange}
+                    onKeyDown={(e) => { if (e.key === 'Enter') handleSidebarSearchSubmit(); }}
                     placeholder="Search Destination..."
                   />
-                  <i className="fa fa-search search-icon" onClick={() => handleDestinationData(searchedDestination)} />
+                  <i className="fa fa-search search-icon" onClick={handleSidebarSearchSubmit} />
                 </div>
               </div>
           </div>
           <div className="tour-filter-types">
-            <FilterByPrice handleSelectedPrice={handleSelectedPrice} />
+            <FilterByPrice
+                handleSelectedPrice={handleSelectedPrice}
+                currentPriceRange={selectedPrice} 
+            />
           </div>
           <div className="tour-filter-types">
-            <FilterByDestination handleDestinationData={handleDestinationData} />
+            <FilterByDestination
+                handleDestinationData={handleDestinationData}
+                currentDestination={selectedDestination} 
+            />
           </div>
           <div className="tour-filter-types">
-            <FilterByReviews handleRatingData={handleRatingData} />
+            <FilterByReviews
+                handleRatingData={handleRatingData}
+                currentRatings={selectedRating} 
+            />
           </div>
         </div>
 
         <div className={CLASSNAMES.TOURS_WRAPPER}>
-          <div className="sorting-container">
-            <label htmlFor="tour-sort">Sort by: </label>
-            <select
-              id="tour-sort"
-              value={sortBy}
-              onChange={(e) => handleSortChange(e.target.value)}
-              className="sort-select"
-            >
-              <option value="trending">Trending</option>
-              <option value="lowest_price">Lowest Price</option>
-            </select>
-          </div>
+            <div className="sorting-container">
+              <label htmlFor="tour-sort">Sort by: </label>
+              <select
+               id="tour-sort"
+               value={sortBy}
+               onChange={(e) => handleSortChange(e.target.value)}
+               className="sort-select"
+              >
+                <option value="trending">Trending</option>
+                <option value="lowest_price">Lowest Price</option>
+              </select>
+            </div>
 
           <div className={CLASSNAMES.TOURS_CONTAINER}>
             {showShimmer ? (
@@ -398,18 +939,18 @@ function TourPackagePage() {
               <div className="error-message" style={{textAlign: 'center', padding: '40px', gridColumn: '1 / -1'}}>
                   <p>Sorry, an error occurred while fetching tours. Please try again later.</p>
               </div>
-            ) : showResults && displayedAttractions.length > 0 ? (
+            ) : showResults ? (
               displayedAttractions.map((item: AttractionType) => {
-                const countryName = item?.ufiDetails?.url?.country?.toUpperCase() || "N/A"
-                const cityName = item?.ufiDetails?.bCityName || "N/A"
-                const tourName = item?.name || "Unnamed Tour"
-                const tourImage = item?.primaryPhoto?.small
-                const tourRating = item?.reviewsStats?.combinedNumericStats?.average?.toString() || "N/A"
-                const tourReview = item?.reviewsStats?.allReviewsCount?.toString() || "0"
-                const usdPrice = item?.representativePrice?.chargeAmount
-                const tourPrice = (ethPrice && typeof usdPrice === 'number' && ethPrice > 0) ? `${(usdPrice / ethPrice).toFixed(5)} ETH` : "N/A"
-                const slugValue = item?.slug || item.id?.toString() || `tour-${Math.random()}`
-                const uniqueKey = `${item.destinationId || 'dest'}-${item.id || slugValue}`;
+                const countryName = item?.ufiDetails?.url?.country?.toUpperCase() || "N/A";
+                const cityName = item?.ufiDetails?.bCityName || "N/A";
+                const tourName = item?.name || "Unnamed Tour";
+                const tourImage = item?.primaryPhoto?.small;
+                const tourRating = item?.reviewsStats?.combinedNumericStats?.average?.toFixed(1) || "N/A";
+                const tourReview = item?.reviewsStats?.allReviewsCount?.toString() || "0";
+                const usdPrice = item?.representativePrice?.chargeAmount;
+                const tourPrice = (ethPrice && typeof usdPrice === 'number' && ethPrice > 0) ? `${(usdPrice / ethPrice).toFixed(5)} ETH` : "N/A";
+                const slugValue = item?.slug || item.id?.toString() || `tour-${Math.random()}`;
+                const uniqueKey = `${item.destinationId || 'dest'}-${item.id || slugValue}-${currentPage}`; // Add page to key if needed
 
                 return (
                   <TourCard
@@ -421,18 +962,17 @@ function TourPackagePage() {
                     tourRating={tourRating}
                     tourReview={tourReview}
                     tourPrice={tourPrice}
-                    tourDuration="1 day"
+                    tourDuration="2 days"
                     slugValue={slugValue}
                   />
-                )
+                );
               })
-            ) : (
+            ) : ( 
               <div className="no-tours-found" style={{textAlign: 'center', padding: '40px', gridColumn: '1 / -1'}}>
-                <div className="not-foung-image"><img src={ProjectImages.NOT_FOUND} /></div>
-                <p>Sorry, No Tours Found.</p>
-                {failedToFindDestinationId && <p>We couldn't find this destination</p>}
-                {!failedToFindDestinationId && selectedRating.length > 0 && <p>Try adjusting your rating filter.</p>}
-                {!failedToFindDestinationId && selectedPrice.length === 2 && <p>Try adjusting your price range.</p>}
+                <div className="not-foung-image"><img src={ProjectImages.NOT_FOUND} alt="Not Found"/></div>
+                 <p>Sorry, No Tours Found Matching Your Criteria.</p>
+                 {failedToFindDestinationId && <p>We couldn't find tours for the specified destination.</p>}
+                 {!failedToFindDestinationId && mergedAttractions.length > 0 && (selectedRating.length > 0 || selectedPrice.length > 0) && <p>Try adjusting your filters.</p>}
               </div>
             )}
           </div>
@@ -440,58 +980,61 @@ function TourPackagePage() {
       </div>
 
       {showPagination && (
-          <div className="page-navigation-container">
-              <div className="pages-navigation">
-              <span
-                  className={`page-number-container ${currentPage === 1 ? 'disabled' : ''}`}
-                  onClick={() => handlePageChange(-1)} 
-                  style={{ cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
-                  aria-disabled={currentPage === 1} 
-                  role="button" 
-                  aria-label="Previous Page" 
-              >
-                  <i className="fa-solid fa-chevron-left" />
-              </span>
+         <div className="page-navigation-container">
+             <div className="pages-navigation">
+             <span
+                 className={`page-number-container ${currentPage === 1 ? 'disabled' : ''}`}
+                 onClick={() => handlePageChange(-1)}
+                 style={{ cursor: currentPage === 1 ? 'not-allowed' : 'pointer' }}
+                 aria-disabled={currentPage === 1}
+                 role="button"
+                 tabIndex={currentPage === 1 ? -1 : 0} 
+                 aria-label="Previous Page"
+             >
+                 <i className="fa-solid fa-chevron-left" />
+             </span>
 
-              {pageNumbersToDisplay.map((page, index) => {
-                  if (typeof page === 'string') {
-                      return (
-                          <span key={`ellipsis-${index}`} className="page-number-container ellipsis">
-                              {page}
-                          </span>
-                      );
-                  } else {
-                      return (
-                          <span
-                              key={`page-${page}`}
-                              className={`page-number-container ${currentPage === page ? 'colored-page-number' : ''}`}
-                              onClick={() => goToPage(page)} 
-                              style={{ cursor: currentPage === page ? 'default' : 'pointer' }}
-                              role="button" 
-                              aria-current={currentPage === page ? 'page' : undefined} 
-                              aria-label={`Go to page ${page}`} 
-                          >
-                              {page}
-                          </span>
-                      );
-                  }
-              })}
+             {pageNumbersToDisplay.map((page, index) => {
+                 if (typeof page === 'string') {
+                     return (
+                         <span key={`ellipsis-${index}`} className="page-number-container ellipsis" aria-hidden="true">
+                             {page}
+                         </span>
+                     );
+                 } else {
+                     return (
+                         <span
+                             key={`page-${page}`}
+                             className={`page-number-container ${currentPage === page ? 'colored-page-number' : ''}`}
+                             onClick={() => goToPage(page)}
+                             style={{ cursor: currentPage === page ? 'default' : 'pointer' }}
+                             role="button"
+                             tabIndex={0} // Add tabIndex
+                             aria-current={currentPage === page ? 'page' : undefined}
+                             aria-label={`Go to page ${page}`}
+                         >
+                             {page}
+                         </span>
+                     );
+                 }
+             })}
 
-              <span
-                  className={`page-number-container ${currentPage === totalPages ? 'disabled' : ''}`}
-                  onClick={() => handlePageChange(1)} 
-                  style={{ cursor: currentPage === totalPages ? 'not-allowed' : 'pointer' }}
-                  aria-disabled={currentPage === totalPages} 
-                  role="button" 
-                  aria-label="Next Page" 
-              >
-                  <i className="fa-solid fa-chevron-right" />
-              </span>
-              </div>
-          </div>
+             <span
+                 className={`page-number-container ${currentPage === totalPages ? 'disabled' : ''}`}
+                 onClick={() => handlePageChange(1)}
+                 style={{ cursor: currentPage === totalPages ? 'not-allowed' : 'pointer' }}
+                 aria-disabled={currentPage === totalPages}
+                 role="button"
+                 tabIndex={currentPage === totalPages ? -1 : 0} 
+                 aria-label="Next Page"
+             >
+                 <i className="fa-solid fa-chevron-right" />
+             </span>
+             </div>
+         </div>
        )}
     </>
-  )
+  );
 }
 
 export default TourPackagePage;
