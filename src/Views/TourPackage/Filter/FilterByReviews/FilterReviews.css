@@ -5,6 +5,11 @@
     font-size: 20px;
 }
 
+.filter-by-review-container h3{
+    color: #051036;
+
+}
+
 .filter-by-review-container ul{
 padding: 0px;
 }

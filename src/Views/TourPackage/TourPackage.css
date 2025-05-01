@@ -25,6 +25,8 @@
 
 .tour-filter-types {
     margin-top: 10%;
+    background-color: #f6f7f8;
+    padding: 5%;
 }
 
 
@@ -225,4 +227,12 @@ margin-bottom: 3%;
 width: 100%;
 height: 100%;
 object-fit: cover;
+  }
+
+
+
+
+
+  .tours-filter-container h3  h4{
+color: #051036 !important;
   }

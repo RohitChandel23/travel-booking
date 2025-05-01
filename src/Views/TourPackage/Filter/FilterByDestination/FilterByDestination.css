@@ -2,5 +2,20 @@
 color: #051036;
 font-weight: 500;
 line-height: 150%;
+}
+
+.filter-by-destination-container{
+    /* padding: 13px; */
+    padding: 0px 13px 0px 13px;
+}
+
+.filter-by-destination-container ul{
+    padding:0;
+}
+
+
+.filter-by-destination-container li{
+    margin-left:0;
+    color: #05103699;
 
 }

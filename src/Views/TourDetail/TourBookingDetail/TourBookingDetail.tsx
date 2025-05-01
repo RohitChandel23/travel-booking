@@ -9,11 +9,6 @@ import ConnectWalletButton from "./Shared/BookNow/ConnectWalletButton";
 
 import { useAppKitAccount } from "@reown/appkit/react";
 
-
-
-
-
-
 interface tourBookingDetailProps {
   tourPrice: string;
   selectedCalendarDate: string;
@@ -103,6 +98,17 @@ function TourBookingDetail({
     try {
       const docRef = await addDoc(collection(db, 'bookings'), bookingDetail);
       toast.success('Booked successfully!');
+      //here the booking is sucessfull and 
+      //here reset the ticket count,
+
+
+      setAdults(0);
+      setKidsCount(0);
+      setChildrenCount(0);
+
+
+      //ending
+      
       console.log("Booked...", bookingDetail);
       console.log(docRef);
     } catch (error) {
