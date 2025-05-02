@@ -108,7 +108,8 @@ function DestinationDetail() {
     <>
       <PageBanner
         headingText="Destination Details"
-        normalText="Home / Destination / "
+        normalText="Home / "
+        middleText="Destination/"
         coloredText={countryName?.toUpperCase()}
         bannerImage={ProjectImages.DESTINATION_BANNER}
       />

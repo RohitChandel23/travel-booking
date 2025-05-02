@@ -3,15 +3,15 @@ export { STRING };
 
 const ROUTES = {
   HOMEPAGE: '/',
-  LOGIN: '/login',
-  REGISTER: '/register',
+  LOGIN: '/log-in',
+  REGISTER: '/sign-up',
   ABOUT: '/about',
   RESET_PASSWORD: '/reset-password',
   TOURS: '/tours',
   CONTACT: '/contact',
   TOURS_DETAIL: '/tours-detail/:slugId',
   DESTINATION:'/destination',
-  DESTINATION_DETAIL:'/destination-detail/:countryName',
+  DESTINATION_DETAIL:'/destination/:countryName',
   BLOG:'/blog',
   BLOG_DETAIL:'/blog/:id',
   BOOKED_TOURS:'/booked-tours',
@@ -30,11 +30,11 @@ const ROUTES_CONFIG = {
   },
   LOGIN: {
     path: ROUTES.LOGIN,
-    title: 'Login',
+    title: 'Log In',
   },
   REGISTER: {
     path: ROUTES.REGISTER,
-    title: 'Register',
+    title: 'Sign Up',
   },
   LOGOUT: {
     path: ROUTES.LOGIN,
