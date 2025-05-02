@@ -88,7 +88,7 @@ function SignIn() {
       <PageBanner
               headingText="Authentication"
               normalText="Home /"
-              coloredText="Sign-up"
+              coloredText="login-in"
               bannerImage={ProjectImages.AUTH_BANNER}
             />
 
@@ -100,7 +100,7 @@ function SignIn() {
             handleClick={() => navigate(`${ROUTES_CONFIG.REGISTER.path}`)}
           />
           <ToggleBtn
-            name="Sign In"
+            name="Log In"
             handleClick={() => navigate(`${ROUTES_CONFIG.LOGIN.path}`)}
           />
         </div>

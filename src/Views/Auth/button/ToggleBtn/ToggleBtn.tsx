@@ -10,7 +10,7 @@ function ToggleBtn({ name, handleClick }: ToggleBtnProps) {
   const location = useLocation();
 
   function assignClassName() {
-    if (location.pathname == ROUTES_CONFIG.LOGIN.path && name == 'Sign In')
+    if (location.pathname == ROUTES_CONFIG.LOGIN.path && name == 'Log In')
       return 'toggle-btn toggle-btn-color';
     if (location.pathname == ROUTES_CONFIG.REGISTER.path && name == 'Sign Up')
       return 'toggle-btn toggle-btn-color';

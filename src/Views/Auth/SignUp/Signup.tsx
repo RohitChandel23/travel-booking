@@ -111,7 +111,7 @@ function Signup() {
             <PageBanner
               headingText="Authentication"
               normalText="Home /"
-              coloredText="Sign-up"
+              coloredText="sign-up"
               bannerImage={ProjectImages.AUTH_BANNER}
             />
 
