@@ -1,6 +1,6 @@
 import "./SearchArea.css";
-import "./Shared/constants"; 
-import FormElement from "../FormElement/FormElement"; 
+import "./Shared/constants";
+import FormElement from "../FormElement/FormElement";
 import { Formik, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
@@ -13,7 +13,7 @@ interface SearchAreaProps {
   searchAreaData?: (data: SearchFormFormattedValues) => void;
   initialSearchValues?: Partial<SearchFormValues>;
   isSearchArea?: boolean;
-  onFocusResetSidebarFilters?: () => void; 
+  onFocusResetSidebarFilters?: () => void;
 }
 
 interface SearchFormValues {
@@ -30,12 +30,11 @@ interface SearchFormFormattedValues {
   "guest-numbers": string;
 }
 
-
 function SearchArea({
   searchAreaData = () => {},
   initialSearchValues = {},
   isSearchArea,
-  onFocusResetSidebarFilters, 
+  onFocusResetSidebarFilters,
 }: SearchAreaProps) {
   const navigate = useNavigate();
   const data: Location = useLocation();
@@ -85,13 +84,42 @@ function SearchArea({
     actions.setSubmitting(false);
   };
 
+  const handleGuestKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const input = e.target as HTMLInputElement;
+
+    if (
+      [
+        "Backspace",
+        "Delete",
+        "Tab",
+        "Escape",
+        "Enter",
+        "ArrowLeft",
+        "ArrowRight",
+      ].includes(e.key)
+    ) {
+      return;
+    }
+
+    if (
+      input.value.length >= 2 &&
+      e.key !== "Backspace" &&
+      e.key !== "Delete"
+    ) {
+      e.preventDefault();
+    }
+
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
+
   const defaultInitialValues: SearchFormValues = {
     destinationName: "",
     activity: "",
     selectDate: [null, null],
     "guest-numbers": "",
   };
-
 
   const formInitialValues: SearchFormValues = {
     ...defaultInitialValues,
@@ -118,7 +146,6 @@ function SearchArea({
     }
   }, [onFocusResetSidebarFilters]);
 
-
   return (
     <div className="search-area-container">
       <Formik
@@ -128,19 +155,29 @@ function SearchArea({
           destinationName: Yup.string()
             .trim()
             .required("Required")
+            .matches(
+              /^[A-Za-z0-9\s]+$/,
+              "Destination cannot contain special characters"
+            )
             .test(
-              'not-just-whitespace',
-              'Destination cannot be empty',
-              value => !!value?.trim() 
+              "not-just-whitespace",
+              "Destination cannot be empty",
+              (value) => !!value?.trim()
             ),
+
           activity: Yup.string()
             .trim()
             .required("Required")
+            .matches(
+              /^[A-Za-z0-9\s]+$/,
+              "Activity cannot contain special characters"
+            )
             .test(
-              'not-just-whitespace',
-              'Activity cannot be empty',
-              value => !!value?.trim() 
+              "not-just-whitespace",
+              "Activity cannot be empty",
+              (value) => !!value?.trim()
             ),
+
           selectDate: Yup.array()
             .of(Yup.date().nullable())
             .test(
@@ -148,19 +185,26 @@ function SearchArea({
               "Required",
               (value) => !!(value && value[0] && value[1])
             ),
-          "guest-numbers": Yup.string()
-          .required("Required")
-          .min(0, 'must be greater than 0')
-          .max(20, 'must be greater than 0'),
 
+          "guest-numbers": Yup.number()
+            .required("Required")
+            .min(1, "Must be at least 1 guest")
+            .max(20, "Cannot exceed 20 guests")
+            .integer("Must be a whole number"),
         })}
         onSubmit={handleSearch}
       >
-        {({ values, setFieldValue, resetForm, errors, touched, handleBlur }) => {
-
+        {({
+          values,
+          setFieldValue,
+          resetForm,
+          errors,
+          touched,
+          handleBlur,
+        }) => {
           useEffect(() => {
             if (isSearchArea === false) {
-              resetForm({values: defaultInitialValues}); 
+              resetForm({ values: defaultInitialValues });
             }
           }, [isSearchArea, resetForm]);
 
@@ -193,7 +237,9 @@ function SearchArea({
               />
 
               <div className="single-Form-element-class">
-                <label className="cursive-text search-area-form-label">When</label>
+                <label className="cursive-text search-area-form-label">
+                  When
+                </label>
                 <div className="input-with-icon">
                   <i className="form-icon fa-solid fa-calendar-days"></i>
 
@@ -204,7 +250,7 @@ function SearchArea({
                     }}
                     onBlur={() => {
                       setDatePickerBlurred(true);
-                      handleBlur("selectDate"); 
+                      handleBlur("selectDate");
                     }}
                     startDate={values.selectDate[0]}
                     endDate={values.selectDate[1]}
@@ -214,33 +260,26 @@ function SearchArea({
                     minDate={new Date()}
                     maxDate={new Date(new Date().getFullYear() + 10, 11, 31)}
                     onKeyDown={(e) => {
-                      if (e.key !== 'Backspace' && e.key !== 'Delete') {
+                      if (e.key !== "Backspace" && e.key !== "Delete") {
                         e.preventDefault();
-                      } else if ((e.key === 'Backspace' || e.key === 'Delete') &&
-                                 (values.selectDate[0] || values.selectDate[1])) {
+                      } else if (
+                        (e.key === "Backspace" || e.key === "Delete") &&
+                        (values.selectDate[0] || values.selectDate[1])
+                      ) {
                         handleDateClear(setFieldValue);
                       }
                     }}
                     showMonthDropdown
-                    showYearDropdown
+                    // showYearDropdown
                     dropdownMode="select"
-                    yearDropdownItemNumber={10}
-                    scrollableYearDropdown
-
-                    // dayClassName={(date) => {
-                    //   const [start, end] = values.selectDate;
-                    //   if (!start || !end) return '';
-                    //   const normDate = new Date(date.setHours(0,0,0,0));
-                    //   const normStart = new Date(start.setHours(0,0,0,0));
-                    //   const normEnd = new Date(end.setHours(0,0,0,0));
-                    //   if (normDate >= normStart && normDate <= normEnd) return 'custom-highlight';
-                    //   return '';
-                    // }}
+                    // yearDropdownItemNumber={10}
+                    // scrollableYearDropdown
                   />
                 </div>
-                {(datePickerBlurred || touched.selectDate) && errors.selectDate && (
-                  <div className="form-error">{errors.selectDate}</div>
-                )}
+                {(datePickerBlurred || touched.selectDate) &&
+                  errors.selectDate && (
+                    <div className="form-error">{errors.selectDate}</div>
+                  )}
               </div>
 
               <FormElement
@@ -249,11 +288,13 @@ function SearchArea({
                 name="guest-numbers"
                 type="number"
                 placeholder="0"
-                fieldClassName="search-area-form-field"
+                fieldClassName="search-area-form-field guest-field"
                 containerClass="single-Form-element-class"
                 min={1}
                 max={20}
+                maxLength={2}
                 icon="fa-solid fa-users"
+                onKeyDown={handleGuestKeyDown}
               />
 
               <button

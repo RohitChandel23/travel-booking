@@ -98,9 +98,7 @@ function TourBookingDetail({
     try {
       const docRef = await addDoc(collection(db, 'bookings'), bookingDetail);
       toast.success('Booked successfully!');
-      //here the booking is sucessfull and 
-      //here reset the ticket count,
-
+      //here the booking is sucessfull
 
       setAdults(0);
       setKidsCount(0);
@@ -128,6 +126,7 @@ function TourBookingDetail({
       <div className="tour-booking-input-details">
         <div className="">
           <label className="book-now-minor-heading">Date</label>
+          
           <DateTimeComponent
             sendDateTime={getDateTime}
             selectedCalendarDate={selectedCalendarDate}
@@ -213,7 +212,10 @@ function TourBookingDetail({
       <div className="booking-detail-total">
         <span className="ticket-label">Total</span>
         <span className="project-theme-color book-now-total-price">
-          {totalPrice.toFixed(5)} ETH
+          
+          {/* {totalPrice.toFixed(5)} ETH */}
+          {totalPrice == 0?0:totalPrice.toFixed(5)} ETH
+
         </span>
       </div>
       <br />
@@ -238,3 +240,4 @@ function TourBookingDetail({
   );
 }
 export default TourBookingDetail;
+

@@ -76,7 +76,7 @@ function TourSlider() {
                 tourRating={tourRating}
                 tourReview={tourReview}
                 tourPrice={tourPrice}
-                tourDuration="1 days"
+                tourDuration="1 day"
                 slugValue={slugValue}
               />
             );

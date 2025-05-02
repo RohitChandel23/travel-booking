@@ -1,53 +1,3 @@
-// import { Field, ErrorMessage } from "formik";
-
-// interface FormElementProps {
-//   labelText: string;
-//   labelClassName: string;
-//   name: string;
-//   type: string;
-//   placeholder: string;
-//   fieldClassName: string;
-//   containerClass: string;
-//   min:number | string;
-//   max: number | string;
-// }
-
-// function FormElement({
-//   labelText,
-//   labelClassName,
-//   name,
-//   type,
-//   placeholder,
-//   fieldClassName,
-//   containerClass,
-//   min,
-//   max
-// }: FormElementProps) {
-//   return (
-//     <>
-//       <span className={containerClass}>
-//         <label htmlFor={name} className={labelClassName}>
-//           {labelText}
-//         </label>{" "}   
-//         <Field
-//           name={name}
-//           type={type}
-//           placeholder={placeholder}
-//           className={fieldClassName}
-//           min={min}
-//           max={max}
-//         />
-//         <ErrorMessage name={name} className="form-error" component="div"/>
-//       </span>
-//     </>
-//   );
-// }
-// export default FormElement;
-
-
-
-
-
 import { Field, ErrorMessage } from "formik";
 import "./FormElement.css";
 
@@ -63,6 +13,10 @@ interface FormElementProps {
   max: number | string;
   icon?: string; 
   value?:any;
+  maxLength?:number;
+
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+
 }
 
 function FormElement({
@@ -76,7 +30,10 @@ function FormElement({
   min,
   max,
   icon,
+  maxLength,
+  onKeyDown
 }: FormElementProps) {
+
   return (
     <span className={containerClass}>
       <label htmlFor={name} className={labelClassName}>
@@ -91,6 +48,9 @@ function FormElement({
           className={`${fieldClassName} ${icon ? "has-icon" : ""}`}
           min={min}
           max={max}
+          maxLength={maxLength}
+
+          onKeyDown={onKeyDown} 
         />
       </div>
       <ErrorMessage name={name} className="form-error" component="div" />
