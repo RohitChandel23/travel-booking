@@ -21,7 +21,7 @@ export const userApi = api.injectEndpoints({
     }),
 
     getTourReview: build.query({
-      query: (tourId) => `attraction/getAttractionReviews?id=${tourId}&page=1`,
+      query: ({tourId,page}) => `attraction/getAttractionReviews?id=${tourId}&page=${page}`,
     }),
 
     getTrendingTours: build.query({

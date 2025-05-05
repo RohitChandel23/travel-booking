@@ -1,15 +1,159 @@
+// import { Formik, Form, Field } from "formik";
+// import * as Yup from "yup";
+// import "./AddingComment.css";
+// import { db } from "../../firebaseConfig";
+// import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+// import { toast } from "react-toastify";
+// import { useParams } from "react-router-dom";
+
+// interface AddingCommentProps {
+//   ratings?: { [key: string]: number };
+//   onReset?: () => void;
+//   collectionType: string;
+//   onReviewSubmit?: () => void;
+// }
+
+// interface FormValues {
+//   userName: string;
+//   emailAddress: string;
+//   textContent: string;
+// }
+
+// function AddingComment({ ratings, onReset, collectionType, onReviewSubmit }: AddingCommentProps) {
+//   const { slugId } = useParams();
+
+//   const calculateAverageRating = (ratings: { [key: string]: number } | undefined): number => {
+//     if (!ratings) return 0; 
+
+//     const ratingValues = Object.values(ratings);
+//     const validRatings = ratingValues.filter((rating) => rating > 0); 
+//     if (validRatings.length === 0) return 0; 
+
+//     const sum = validRatings.reduce((acc, curr) => acc + curr, 0);
+//     return sum / validRatings.length; 
+//   };
+
+//   async function handleSubmission(values: FormValues, { resetForm }: { resetForm: () => void }) {
+//     const averageRating = calculateAverageRating(ratings); 
+
+//     const data = {
+//       name: values.userName,
+//       email: values.emailAddress,
+//       slugId: slugId || null,
+//       textContent: values.textContent,
+//       createdAt: serverTimestamp(),
+//       averageRating, 
+//     };
+
+//     console.log("data is.......", data);
+
+//     try {
+//       await addDoc(collection(db, collectionType), data);
+//       toast.success("Submitted successfully!");
+//       console.log(data);
+//       resetForm();
+//       if (onReset) {
+//         onReset();
+//       }
+//       if (onReviewSubmit) {
+//         onReviewSubmit();
+//       }
+//     } catch (error) {
+//       toast.error(`Error: ${error}`);
+//     }
+//   }
+
+//   return (
+//     <div className="adding-comment-wrapper">
+//       <Formik
+//         initialValues={{
+//           userName: "",
+//           emailAddress: "",
+//           textContent: "",
+//         }}
+//         validationSchema={Yup.object({
+//           userName: Yup.string().required("Required"),
+//           emailAddress: Yup.string().email("Invalid email").required("Required"),
+//           textContent: Yup.string()
+//             .required("Required")
+//             .trim()
+//             .min(1, "Cannot be just empty spaces"),
+//         })}
+//         onSubmit={handleSubmission}
+//       >
+//         {({ errors, touched }) => (
+//           <Form>
+//             <div className="name-email-container">
+//               <div>
+//                 <Field
+//                   name="userName"
+//                   type="text"
+//                   placeholder="Your name"
+//                   className="name-email-field"
+//                 />
+//                 {errors.userName && touched.userName ? (
+//                   <div className="error">{errors.userName}</div>
+//                 ) : null}
+//               </div>
+
+//               <div>
+//                 <Field
+//                   name="emailAddress"
+//                   type="email"
+//                   placeholder="Email address"
+//                   className="name-email-field"
+//                 />
+//                 {errors.emailAddress && touched.emailAddress ? (
+//                   <div className="error">{errors.emailAddress}</div>
+//                 ) : null}
+//               </div>
+//             </div>
+
+//             <div>
+//               <Field
+//                 as="textarea"
+//                 name="textContent"
+//                 placeholder="Write something"
+//                 className="comment-field"
+//                 rows={5}
+//               />
+//               {errors.textContent && touched.textContent ? (
+//                 <div className="error">{errors.textContent}</div>
+//                 ) : null}
+//             </div>
+
+//             <br />
+//             <button type="submit" className="button-hovering-color">
+//               Submit
+//             </button>
+//           </Form>
+//         )}
+//       </Formik>
+//     </div>
+//   );
+// }
+
+// export default AddingComment;
+
+
+
+
+
+
+
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import "./AddingComment.css";
 import { db } from "../../firebaseConfig";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 interface AddingCommentProps {
-  ratings?: { [key: string]: number }; 
-  onReset?: () => void; 
-  collectionType:string;
-
+  ratings?: { [key: string]: number };
+  onReset?: () => void;
+  collectionType: string;
+  onReviewSubmit?: () => void;
 }
 
 interface FormValues {
@@ -18,22 +162,54 @@ interface FormValues {
   textContent: string;
 }
 
-function AddingComment({ ratings, onReset, collectionType }: AddingCommentProps) {
+function AddingComment({ ratings, onReset, collectionType, onReviewSubmit }: AddingCommentProps) {
+  const { slugId } = useParams();
+
+  const calculateAverageRating = (ratingsObj: { [key: string]: number } | undefined): number => {
+    if (!ratingsObj) return 0;
+
+    const ratingValues = Object.values(ratingsObj);
+    const validRatings = ratingValues.filter((rating) => rating > 0);
+    if (validRatings.length === 0) return 0;
+
+    const sum = validRatings.reduce((acc, curr) => acc + curr, 0);
+    return sum / validRatings.length;
+  };
+
   async function handleSubmission(values: FormValues, { resetForm }: { resetForm: () => void }) {
+    const allRatingsProvided = ratings &&
+                               Object.keys(ratings).length === 5 && 
+                               Object.values(ratings).every(rating => rating > 0); 
+
+    if (!allRatingsProvided && collectionType == 'tour-review') {
+      toast.error("Please rate all categories before submitting your response.");
+      return; 
+    }
+
+    const averageRating = calculateAverageRating(ratings); 
+
     const data = {
       name: values.userName,
       email: values.emailAddress,
+      slugId: slugId || null,
       textContent: values.textContent,
-      ...(ratings && { ratings }), 
+      createdAt: serverTimestamp(),
+      averageRating, 
+      individualRatings: ratings 
     };
+
+    console.log("data is.......", data); 
 
     try {
       await addDoc(collection(db, collectionType), data);
       toast.success("Submitted successfully!");
       console.log(data);
-      resetForm(); 
+      resetForm();
       if (onReset) {
-        onReset(); 
+        onReset();
+      }
+      if (onReviewSubmit) {
+        onReviewSubmit();
       }
     } catch (error) {
       toast.error(`Error: ${error}`);
@@ -52,12 +228,10 @@ function AddingComment({ ratings, onReset, collectionType }: AddingCommentProps)
           userName: Yup.string().required("Required"),
           emailAddress: Yup.string().email("Invalid email").required("Required"),
           textContent: Yup.string()
-          .required("Required")
-          .trim() 
-          .min(1, "Cannot be just empty spaces"),
-           
-
-          })}
+            .required("Required")
+            .trim()
+            .min(1, "Cannot be just empty spaces"),
+        })}
         onSubmit={handleSubmission}
       >
         {({ errors, touched }) => (
@@ -100,7 +274,7 @@ function AddingComment({ ratings, onReset, collectionType }: AddingCommentProps)
                 <div className="error">{errors.textContent}</div>
               ) : null}
             </div>
-            
+
             <br />
             <button type="submit" className="button-hovering-color">
               Submit

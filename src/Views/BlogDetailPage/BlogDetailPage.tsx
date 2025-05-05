@@ -1,7 +1,8 @@
 import './BlogDetailPage.css';
 import { useParams } from 'react-router-dom';
 import { ProjectImages } from '../../assets/ProjectImages';
-import AddingComment from '../../Shared/AddingComment/AddingComment';
+// import AddingComment from '../../Shared/AddingComment/AddingComment';
+import Comment from './../../Shared/AddingComment/ForBlog/Comment';
 import { blogs, Blog } from '../BlogPage/Blogs';
 import { useEffect } from 'react';
 import {
@@ -15,14 +16,18 @@ import {
   WhatsappIcon,
   LinkedinIcon,
 } from 'react-share';
-import { ROUTES_CONFIG } from '../../Shared/Constants';
+// import { ROUTES_CONFIG } from '../../Shared/Constants';
 
 function BlogDetailPage() {
   const { id } = useParams<{ id: string }>();
   const blog: Blog | undefined = blogs.find((b) => b.id === parseInt(id || ''));
 
-  const shareUrl = `${ROUTES_CONFIG.BLOG.path}/${id}`; 
-  const shareTitle = `${ROUTES_CONFIG.BLOG.path}/${id}`;
+  // const shareUrl = `${ROUTES_CONFIG.BLOG.path}/${id}`; 
+  // const shareTitle = `${ROUTES_CONFIG.BLOG.path}/${id}`;
+
+  const shareUrl = window.location.href;
+const shareTitle = "";
+
 
   if (!blog) {
     return <div className="blog-detail-page-wrapper">Blog not found</div>;
@@ -101,7 +106,9 @@ function BlogDetailPage() {
         </div>
 
         <div className="blog-reply-container">
-          <AddingComment collectionType="blog-comments" />
+          {/* <AddingComment collectionType="blog-comments" /> */}
+          <Comment collectionType="blog-comments" />
+
         </div>
       </div>
     </div>
@@ -109,3 +116,6 @@ function BlogDetailPage() {
 }
 
 export default BlogDetailPage;
+
+
+
