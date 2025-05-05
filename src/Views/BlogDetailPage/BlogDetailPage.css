@@ -1,174 +1,237 @@
-.blog-detail-page-wrapper{
-width: 100%;
-height: auto;
-
-display:flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-
-margin-bottom:2%;
-}
-
-
-.blog-detail-page-container{
-    width:1296px;
+.blog-detail-page-wrapper {
+    width: 100%;
     height: auto;
-    display:flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2%;
+  }
+  
+  .blog-detail-page-container {
+    width: 1296px;
+    height: auto;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    margin-top:2%;
-}
-
-.blog-detail-image-container{
-    width:1296px;
-    height:604px;
-}
-
-.blog-detail-image{
-    height:100%;
-    width:100%;
+    margin-top: 2%;
+  }
+  
+  .blog-detail-image-container {
+    width: 1296px;
+    height: 604px;
+  }
+  
+  .blog-detail-image {
+    height: 100%;
+    width: 100%;
     object-fit: cover;
-}
-
-.blog-detail-content-wrapper{
-width:80%;
-
-}
-
-
-.blog-details-tag-share-wrapper{
-    height:100px;
-    width:80%;
-}
-
-.blog-share-tag-container{
-    height:100%;
-    display: flex;  
+  }
+  
+  .blog-detail-content-wrapper {
+    width: 80%;
+  }
+  
+  .blog-details-tag-share-wrapper {
+    height: 100px;
+    width: 80%;
+  }
+  
+  .blog-share-tag-container {
+    height: 100%;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.blog-share-container{
-    width:20%;
+  }
+  
+  .blog-share-container {
+    width: 20%;
     display: flex;
     justify-content: space-between;
     font-size: 100%;
-}
-
-.blog-share-container span{
-font-weight: 500;
-line-height: 106%;
-color: #111013;
-}
-
-.social-share-icons{
-font-weight: 400;
-font-size: 120%;
-}
-
-.social-share-icons{
-    width:62%;
+  }
+  
+  .blog-share-container span {
+    font-weight: 500;
+    line-height: 106%;
+    color: #111013;
+  }
+  
+  .social-share-icons {
+    font-weight: 400;
+    font-size: 120%;
+    width: 62%;
     display: flex;
     justify-content: space-between;
-}
-
-.blog-detail-page-tags{
-    width:30%;
+  }
+  
+  .blog-detail-page-tags {
+    width: 30%;
     display: flex;
     justify-content: space-between;
-}
-
-.blog-detail-page-tags span{
+  }
+  
+  .blog-detail-page-tags span {
     padding: 10px;
     border-radius: 6px;
     border: 1px solid rgba(5, 16, 54, 0.1);
-}
-
-.blog-detail-date{
-margin-top:3%;
-color:rgba(5, 16, 54, 0.6);
-font-weight:600;
-}
-
-.blog-detail-title{
+  }
+  
+  .blog-detail-date {
+    margin-top: 3%;
+    color: rgba(5, 16, 54, 0.6);
+    font-weight: 600;
+  }
+  
+  .blog-detail-title {
     font-size: 32px;
     line-height: 125%;
     font-weight: 700;
-    margin:0;
+    margin: 0;
     margin-top: 2%;
     margin-bottom: 2%;
-}
-
-.blog__description{
-color: rgba(5, 16, 54, 0.6);
-line-height: 162.5%;
-font-weight: 400;
-font-size: 16px;
-}
-
-.author-section{
-    width:80%;
-    height:10%;
-}
-
-.author-section{
+  }
+  
+  .blog__description {
+    color: rgba(5, 16, 54, 0.6);
+    line-height: 162.5%;
+    font-weight: 400;
+    font-size: 16px;
+  }
+  
+  .author-section {
+    width: 80%;
+    height: 10%;
     display: flex;
     justify-content: space-between;
-}
-
-.author-image-wrapper{
-    width:20%;
+  }
+  
+  .author-image-wrapper {
+    width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:#f7f8f9;
-}
-
-.author-image-wrapper img{
-width:100%;
-height:100%;
-object-fit: cover;
-}
-
-
-.author-image-container{
-width:70%;
-height:auto;
-border-radius: 50%;
-overflow: hidden;
-}
-
-.author-information-container{
+    background-color: #f7f8f9;
+  }
+  
+  .author-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .author-image-container {
+    width: 70%;
+    height: auto;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .author-information-container {
     padding: 30px;
-    padding-left:0px;
-    background-color:#f7f8f9;
-}
-
-.author-information-container h6{
-margin:0;
-}
-
-.author-information-container span{
-    color:rgba(5, 16, 54, 0.6);
+    padding-left: 0px;
+    background-color: #f7f8f9;
+  }
+  
+  .author-information-container h6 {
+    margin: 0;
+  }
+  
+  .author-information-container span {
+    color: rgba(5, 16, 54, 0.6);
     font-size: 14px;
     font-weight: 400;
-    line-height:142.857%;
-}
-
-.author-information-container p{
+    line-height: 142.857%;
+  }
+  
+  .author-information-container p {
     margin-top: 2%;
     font-size: 16px;
-    color:rgba(5, 16, 54, 0.6);
-}
-
-.blog-reply-container{
-    height:100%;
-    width:72%;
+    color: rgba(5, 16, 54, 0.6);
+  }
+  
+  .blog-reply-container {
+    height: 100%;
+    width: 72%;
     margin-top: 4%;
     padding: 4%;
-
     background-color: #f7f8f9;
-}
+  }
+  
+  .showing-review-container {
+    width: 100%;
+    height: auto;
+    margin-top: 8%;
+    background-color: #f7f8f9;
+    padding: 3% 0% 3% 1%;
+  }
+  
+  .showing-review-header {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #051036;
+  }
+  
+  .reviews-scroll-area {
+    max-height: 500px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding-right: 10px; /* Space for scrollbar */
+  }
+  
+  .showing-one-review {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border: 1px solid rgba(5, 16, 54, 0.1);
+    padding: 30px;
+    margin-bottom: 20px;
+    background-color: white;
+  }
+  
+  .showing-review-text-info {
+    width: 85%;
+  }
+  
+  .review-date {
+    color: rgba(5, 16, 54, 0.6);
+    font-size: 14px;
+  }
+  
+  .reviewer-name {
+    margin-bottom: 1.5%;
+    margin-top: 1.5%;
+    font-size: 20px;
+    line-height: 133.33%;
+  }
+  
+  .review-description {
+    color: rgba(5, 16, 54, 0.6);
+    margin-top: 3%;
+    line-height: 1.6;
+  }
+  
+  .showing-reviewer-image {
+    width: 15%;
+    height: auto;
+    margin-right: 3%;
+  }
+  
+  .reviewer-image {
+    width: 100%;
+    max-width: 80px;
+    height: auto;
+    aspect-ratio: 1/1;
+    border-radius: 100px;
+    object-fit: cover;
+  }
+  
+  .reviews-loading,
+  .reviews-error,
+  .no-reviews {
+    text-align: center;
+    padding: 20px;
+    color: rgba(5, 16, 54, 0.7);
+  }

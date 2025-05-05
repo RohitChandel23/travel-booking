@@ -87,3 +87,5 @@ export const PRIVATE_ROUTES: Array<CustomRouter> = [
     title: "Rendering wildcard",
   },
 ];
+
+

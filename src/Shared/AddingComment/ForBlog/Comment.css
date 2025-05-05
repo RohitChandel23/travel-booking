@@ -1,3 +1,4 @@
+
 .adding-comment-wrapper {
     height: 100%;
     width: 100%;
@@ -44,7 +45,6 @@
     border-radius: 6px;
 }
 
-/* Consistent placeholder styling across browsers */
 ::placeholder,
 ::-webkit-input-placeholder,
 ::-moz-placeholder,
@@ -60,3 +60,8 @@
     font-size: 12px;
     margin-top: 5px;
 }
+
+
+
+
+

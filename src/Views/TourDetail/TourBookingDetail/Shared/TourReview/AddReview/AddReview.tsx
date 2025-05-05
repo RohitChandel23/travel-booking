@@ -3,7 +3,11 @@ import StarRating from "./Shared/StarRating/StarRating";
 import AddingComment from "../../../../../../Shared/AddingComment/AddingComment";
 import { useState } from "react";
 
-function AddReview() {
+interface AddReviewProps {
+  onReviewSubmit: () => void; 
+}
+
+function AddReview({ onReviewSubmit }: AddReviewProps) {
   const [ratings, setRatings] = useState<{ [key: string]: number }>({
     Services: 0,
     "Value for money": 0,
@@ -11,7 +15,7 @@ function AddReview() {
     Facilities: 0,
     Staff: 0,
   });
-  const [resetSignal, setResetSignal] = useState(0); 
+  const [resetSignal, setResetSignal] = useState(0);
 
   const handleRatingChange = (ratingName: string, rating: number) => {
     setRatings((prev) => ({ ...prev, [ratingName]: rating }));
@@ -25,7 +29,7 @@ function AddReview() {
       Facilities: 0,
       Staff: 0,
     });
-    setResetSignal((prev) => prev + 1); 
+    setResetSignal((prev) => prev + 1);
   };
 
   return (
@@ -61,7 +65,12 @@ function AddReview() {
       </div>
 
       <div className="adding-tour-review">
-        <AddingComment ratings={ratings} onReset={handleReset} collectionType="tour-review"/>
+        <AddingComment
+          ratings={ratings}
+          onReset={handleReset}
+          collectionType="tour-review"
+          onReviewSubmit={onReviewSubmit} 
+        />
       </div>
     </div>
   );

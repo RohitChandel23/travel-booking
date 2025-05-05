@@ -183,7 +183,8 @@ function TourDetail() {
             ) : (
               ""
             )}
-            <TourReview tourRating={tourRating} tourId={tourId} />
+            {/* <TourReview tourRating={tourRating} tourId={tourId} /> */}
+            <TourReview tourRating={tourRating} tourId={tourId} slugValue={slugValue} />
           </div>
         </div>
 
