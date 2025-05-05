@@ -1,41 +1,95 @@
 import './BlogDetailPage.css';
 import { useParams } from 'react-router-dom';
 import { ProjectImages } from '../../assets/ProjectImages';
-// import AddingComment from '../../Shared/AddingComment/AddingComment';
-import Comment from './../../Shared/AddingComment/ForBlog/Comment';
+import Comment from '../../Shared/AddingComment/ForBlog/Comment';
 import { blogs, Blog } from '../BlogPage/Blogs';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   FacebookShareButton,
   TwitterShareButton,
   WhatsappShareButton,
   LinkedinShareButton,
-  
   FacebookIcon,
   TwitterIcon,
   WhatsappIcon,
   LinkedinIcon,
 } from 'react-share';
-// import { ROUTES_CONFIG } from '../../Shared/Constants';
+import { db } from '../../firebaseConfig';
+import { collection, query, where, getDocs, DocumentData } from 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore';
+import { toast } from 'react-toastify';
+
+interface CommentData {
+  id: string;
+  name: string;
+  textContent: string;
+  timestamp: Timestamp;
+  blogId: string;
+}
 
 function BlogDetailPage() {
   const { id } = useParams<{ id: string }>();
   const blog: Blog | undefined = blogs.find((b) => b.id === parseInt(id || ''));
-
-  // const shareUrl = `${ROUTES_CONFIG.BLOG.path}/${id}`; 
-  // const shareTitle = `${ROUTES_CONFIG.BLOG.path}/${id}`;
+  const [comments, setComments] = useState<CommentData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const shareUrl = window.location.href;
-const shareTitle = "";
+  const shareTitle = '';
 
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (!id) {
+        setError('Invalid blog ID');
+        setLoading(false);
+        return;
+      }
+      try {
+        const q = query(collection(db, 'blog-comments'), where('blogId', '==', id));
+        const querySnapshot = await getDocs(q);
+        const fetchedComments: CommentData[] = querySnapshot.docs
+          .map((doc): CommentData | null => {
+            const data = doc.data() as DocumentData;
+            if (
+              typeof data.name === 'string' &&
+              typeof data.textContent === 'string' &&
+              data.timestamp instanceof Timestamp &&
+              typeof data.blogId === 'string'
+            ) {
+              return {
+                id: doc.id,
+                name: data.name,
+                textContent: data.textContent,
+                timestamp: data.timestamp,
+                blogId: data.blogId,
+              };
+            }
+            console.warn(`Invalid comment data for doc ${doc.id}:`, data);
+            return null;
+          })
+          .filter((comment): comment is CommentData => comment !== null)
+          .sort((a, b) => b.timestamp.toDate().getTime() - a.timestamp.toDate().getTime());
+        setComments(fetchedComments);
+        setError(null);
+        setLoading(false);
+      } catch (error: unknown) {
+        console.error('Error fetching comments:', error);
+        setError('Failed to load comments. Please try again.');
+        toast.error('Error loading comments.');
+        setLoading(false);
+      }
+    };
 
-  if (!blog) {
-    return <div className="blog-detail-page-wrapper">Blog not found</div>;
-  }
+    fetchComments();
+  }, [id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  if (!blog) {
+    return <div className="blog-detail-page-wrapper">Blog not found</div>;
+  }
 
   return (
     <div className="blog-detail-page-wrapper">
@@ -106,16 +160,97 @@ const shareTitle = "";
         </div>
 
         <div className="blog-reply-container">
-          {/* <AddingComment collectionType="blog-comments" /> */}
-          <Comment collectionType="blog-comments" />
-
+          <Comment
+            collectionType="blog-comments"
+            onReset={() => {
+              setError(null);
+              setLoading(true);
+              fetchComments();
+            }}
+          />
+          <div className="showing-review-container">
+            <div className="showing-review-header">
+              Showing comment{comments.length !== 1 ? 's' : ''} ({comments.length})
+            </div>
+            {loading ? (
+              <div className="reviews-loading">Loading comments...</div>
+            ) : error ? (
+              <div className="reviews-error">{error}</div>
+            ) : comments.length === 0 ? (
+              <div className="no-reviews">No comments yet.</div>
+            ) : (
+              <div className="reviews-scroll-area">
+                {comments.map((comment) => (
+                  <div key={comment.id} className="showing-one-review">
+                    <div className="showing-reviewer-image">
+                      <img
+                        src={ProjectImages.BLANK_PROFILE}
+                        alt={comment.name}
+                        className="reviewer-image"
+                      />
+                    </div>
+                    <div className="showing-review-text-info">
+                      <div className="review-date">
+                        {comment.timestamp.toDate().toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })}
+                      </div>
+                      <h4 className="reviewer-name">{comment.name || 'Anonymous User'}</h4>
+                      <p className="review-description">{comment.textContent}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
+
+  async function fetchComments() {
+    if (!id) {
+      setError('Invalid blog ID');
+      setLoading(false);
+      return;
+    }
+    try {
+      const q = query(collection(db, 'blog-comments'), where('blogId', '==', id));
+      const querySnapshot = await getDocs(q);
+      const fetchedComments: CommentData[] = querySnapshot.docs
+        .map((doc): CommentData | null => {
+          const data = doc.data() as DocumentData;
+          if (
+            typeof data.name === 'string' &&
+            typeof data.textContent === 'string' &&
+            data.timestamp instanceof Timestamp &&
+            typeof data.blogId === 'string'
+          ) {
+            return {
+              id: doc.id,
+              name: data.name,
+              textContent: data.textContent,
+              timestamp: data.timestamp,
+              blogId: data.blogId,
+            };
+          }
+          console.warn(`Invalid comment data for doc ${doc.id}:`, data);
+          return null;
+        })
+        .filter((comment): comment is CommentData => comment !== null)
+        .sort((a, b) => b.timestamp.toDate().getTime() - a.timestamp.toDate().getTime());
+      setComments(fetchedComments);
+      setError(null);
+      setLoading(false);
+    } catch (error: unknown) {
+      console.error('Error fetching comments:', error);
+      setError('Failed to load comments. Please try again.');
+      toast.error('Error loading comments.');
+      setLoading(false);
+    }
+  }
 }
 
 export default BlogDetailPage;
-
-
-

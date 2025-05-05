@@ -83,8 +83,10 @@ const ROUTES_CONFIG = {
   FAVORITES_TOURS:{
     path:ROUTES.FAVORITE_TOURS,
     title:'Favorite Tours',
-  }
-  
+  },
+
 };
 
 export { ROUTES, WILDCARD_ROUTES, ROUTES_CONFIG };
+
+

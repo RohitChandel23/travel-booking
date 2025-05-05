@@ -1,14 +1,14 @@
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import "./Comment.css";
-import { db } from "../../../firebaseConfig";
-import { addDoc, collection } from "firebase/firestore";
-import { toast } from "react-toastify";
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import './Comment.css';
+import { db } from '../../../firebaseConfig';
+import { addDoc, collection } from 'firebase/firestore';
+import { toast } from 'react-toastify';
+import { Timestamp } from 'firebase/firestore';
 
 interface AddingCommentProps {
-  onReset?: () => void; 
-  collectionType:string;
-
+  onReset?: () => void;
+  collectionType: string;
 }
 
 interface FormValues {
@@ -18,20 +18,25 @@ interface FormValues {
 }
 
 function AddingComment({ onReset, collectionType }: AddingCommentProps) {
-  async function handleSubmission(values: FormValues, { resetForm }: { resetForm: () => void }) {
+  async function handleSubmission(
+    values: FormValues,
+    { resetForm }: { resetForm: () => void }
+  ) {
     const data = {
       name: values.userName,
       email: values.emailAddress,
       textContent: values.textContent,
+      timestamp: Timestamp.fromDate(new Date()), 
+      blogId: window.location.pathname.split('/').pop(), 
     };
 
     try {
       await addDoc(collection(db, collectionType), data);
-      toast.success("Submitted successfully!");
+      toast.success('Submitted successfully!');
       console.log(data);
-      resetForm(); 
+      resetForm();
       if (onReset) {
-        onReset(); 
+        onReset();
       }
     } catch (error) {
       toast.error(`Error: ${error}`);
@@ -42,20 +47,18 @@ function AddingComment({ onReset, collectionType }: AddingCommentProps) {
     <div className="adding-comment-wrapper">
       <Formik
         initialValues={{
-          userName: "",
-          emailAddress: "",
-          textContent: "",
+          userName: '',
+          emailAddress: '',
+          textContent: '',
         }}
         validationSchema={Yup.object({
-          userName: Yup.string().required("Required"),
-          emailAddress: Yup.string().email("Invalid email").required("Required"),
+          userName: Yup.string().required('Required'),
+          emailAddress: Yup.string().email('Invalid email').required('Required'),
           textContent: Yup.string()
-          .required("Required")
-          .trim() 
-          .min(1, "Cannot be just empty spaces"),
-           
-
-          })}
+            .required('Required')
+            .trim()
+            .min(1, 'Cannot be just empty spaces'),
+        })}
         onSubmit={handleSubmission}
       >
         {({ errors, touched }) => (
@@ -98,7 +101,7 @@ function AddingComment({ onReset, collectionType }: AddingCommentProps) {
                 <div className="error">{errors.textContent}</div>
               ) : null}
             </div>
-            
+
             <br />
             <button type="submit" className="button-hovering-color">
               Submit
