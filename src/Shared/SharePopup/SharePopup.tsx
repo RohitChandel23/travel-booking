@@ -11,8 +11,8 @@ import {
   import "./SharePopup.css";
   
   interface SharePopupProps {
-    url: string;
-    onClose: () => void;
+    readonly url: string;
+    readonly onClose: () => void;
   }
   
 

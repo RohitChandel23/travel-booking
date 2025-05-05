@@ -3,11 +3,9 @@ import "./Contact.css";
 import PageBanner from "../../Shared/PageBanner";
 import ContactElement from "./Shared/ContactElements";
 import MapComponent from "../../Shared/MapComponent";
-// import AddingComment from "../../Shared/AddingComment/AddingComment";
 import { useEffect } from "react";
 import Comment from './../../Shared/AddingComment/ForBlog/Comment'
 
-// import DfireBase from "../../Shared/Dfirebase";
 
 function ContactPage() {
   useEffect(() => {
@@ -50,8 +48,6 @@ function ContactPage() {
               <div className="asking-question-wrapper">
                 <Comment collectionType="queries" />
               </div>
-
-              {/* <DfireBase /> */}
             </div>
 
             <div className="map__wrapper">

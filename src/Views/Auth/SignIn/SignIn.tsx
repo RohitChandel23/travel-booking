@@ -10,7 +10,6 @@ import SocialBtn from '../button/SocialButtons/SocialBtn';
 import { auth, googleProvider } from '../../../firebaseConfig';
 import { ROUTES_CONFIG } from '../../../Shared/Constants';
 import 'react-toastify/dist/ReactToastify.css';
-// import AuthBannerImg from '../Shared/AuthBannerImg';
 import { updateAuthTokenRedux } from '../../../Store/Common/index';
 import { useDispatch } from 'react-redux';
 import PageBanner from '../../../Shared/PageBanner';
@@ -64,7 +63,7 @@ function SignIn() {
       const result = await signInWithPopup(auth, googleProvider);
       const { user } = result;
 
-      // Google accounts verification
+
       if (!user.emailVerified) {
         await auth.signOut();
         toast.error('Please verify your email first.');
@@ -83,7 +82,6 @@ function SignIn() {
 
   return (
     <>
-      {/* <AuthBannerImg /> */}
 
       <PageBanner
               headingText="Authentication"

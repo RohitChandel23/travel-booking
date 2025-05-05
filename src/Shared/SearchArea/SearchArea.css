@@ -116,3 +116,8 @@ h2.react-datepicker__current-month {
   background-color: rgb(214, 233, 249) !important;
   color: black !important;
 }
+
+
+.date-label{
+margin-bottom: 4px;
+}

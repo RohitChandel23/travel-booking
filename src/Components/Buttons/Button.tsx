@@ -1,11 +1,11 @@
 import './Button.css';
 
-interface buttonProps {
-  name: string;
-  handleClick: () => void;
+interface ButtonProps {
+  readonly name: string;
+  readonly handleClick: () => void;
 }
 
-function Button({ name, handleClick }: buttonProps) {
+function Button({ name, handleClick }: ButtonProps) {
   return (
     <button className="btn button-hovering-color" onClick={handleClick}>
       {' '}
@@ -15,9 +15,4 @@ function Button({ name, handleClick }: buttonProps) {
 }
 export default Button;
 
-// const Button: React.FC<buttonProps> = ({name, handleClick})=>{
-// return(
-//     <button onClick={handleClick}> {name}</button>
-// )
-// }
-// export default Button;
+

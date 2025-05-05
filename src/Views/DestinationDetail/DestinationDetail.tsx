@@ -117,14 +117,15 @@ function DestinationDetail() {
       <div className="destination-detail-wrapper">
         <div className="destination-detail-container">
           <div className="destinaton-main-image">
-            <img src={images[imageIndex]?.src?.large2x} />
+            <img src={images[imageIndex]?.src?.large2x} alt ={images[imageIndex]?.src?.large2x} />
           </div>
 
           <div className="destination-other-images">
             {[...Array(5)].map((_, idx) => (
-              <span key={idx} onClick={() => setImageIndex(idx)} className="minor-images-container">
-                <img src={images[idx]?.src?.large2x} className="minor-image" />
-              </span>
+
+<button key={images[idx]?.src?.large2x} onClick={() => setImageIndex(idx)} className="minor-images-container btn-as-container">
+<img src={images[idx]?.src?.large2x} alt={countryName} className="minor-image" />
+</button>
             ))}
           </div>
 

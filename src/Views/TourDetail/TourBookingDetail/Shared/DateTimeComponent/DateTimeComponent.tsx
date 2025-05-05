@@ -7,11 +7,12 @@ import { useGetDateAndTimeQuery } from '../../../../../Services/Api/module/demoA
 import './DateTimeBooking.css';
 
 interface DateTimeComponentProps {
-  sendDateTime: (dateTime: [string, string]) => void;
-  selectedCalendarDate: string;
+  readonly sendDateTime: (dateTime: [string, string]) => void;
+  readonly selectedCalendarDate: string;
+  readonly id: string;
 }
 
-function DateTimeComponent({ sendDateTime, selectedCalendarDate }: DateTimeComponentProps) {
+function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeComponentProps) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const { slugId } = useParams();
@@ -33,15 +34,6 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate }: DateTimeCompo
     setSelectedDate(selectedCalendarDate);
   }, [selectedCalendarDate]);
 
-  // useEffect(() => {
-  //   if (selectedDate && availableTimes.length > 0) {
-  //     const firstTime = availableTimes[0];
-  //     setSelectedTime(firstTime);
-  //     sendDateTime([selectedDate, firstTime]);
-  //   } else if (selectedDate && availableTimes.length === 0) {
-  //     sendDateTime([selectedDate, ""]);
-  //   }
-  // }, [availableTimes, selectedDate]);
 
   function handleDateChange(date: any) {
     const formattedDate = date ? format(date, 'yyyy-MM-dd') : null;
@@ -58,6 +50,7 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate }: DateTimeCompo
   return (
     <div className="bookNow-date-time-container">
       <DatePicker
+      id={id}
         className="book-now-date-time"
         selected={selectedDate ? new Date(selectedDate) : null}
         onChange={handleDateChange}

@@ -10,5 +10,13 @@
     transition: transform 0.4s ease;
     flex-wrap: nowrap;
   }
-  
+
+
+
+  .slider-btn{
+    border: none;
+
+  }
+
+
   

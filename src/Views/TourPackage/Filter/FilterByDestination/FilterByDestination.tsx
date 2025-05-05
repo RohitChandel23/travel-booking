@@ -2,8 +2,8 @@ import FilterCheckBox from "../FilterByReviews/Shared/FilterCheckBox";
 import "./FilterByDestination.css";
 
 interface Props {
-  handleDestinationData: (value: string | null) => void;
-  currentDestination: string | null; 
+  readonly handleDestinationData: (value: string | null) => void;
+  readonly currentDestination: string | null; 
 }
 
 function FilterByDestination({ handleDestinationData, currentDestination }: Props) {

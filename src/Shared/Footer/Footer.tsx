@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 function Footer() {
   const [email, setEmail] = useState<string>("");
   const destinationColOne = ["Las Vegas", "New York", "Hawaii", "Paris"];
-  const destinationColTwo = ["Barcelona", "Milan", "Tokyo", "Milan"];
+  const destinationColTwo = ["Barcelona", "Milan", "Tokyo", "Sydney"];
 
   async function handleSubmission(e: React.FormEvent) {
     e.preventDefault();

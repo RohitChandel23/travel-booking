@@ -9,16 +9,16 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 
 interface TourCardProps {
-  cityName: string;
-  countryName: string;
-  tourName: string;
-  tourImage: string;
-  tourRating: string;
-  tourReview: string;
-  tourPrice: string;
-  tourDuration: string;
-  slugValue: string;
-  onRemoveFavorite?: () => void; 
+  readonly cityName: string;
+  readonly countryName: string;
+  readonly tourName: string;
+  readonly tourImage: string;
+  readonly tourRating: string;
+  readonly tourReview: string;
+  readonly tourPrice: string;
+  readonly tourDuration: string;
+  readonly slugValue: string;
+  readonly onRemoveFavorite?: () => void; 
 }
 
 function TourCard({
@@ -62,7 +62,6 @@ function TourCard({
         if (onRemoveFavorite) {
           onRemoveFavorite(); 
         }
-        // toast.success('Removed from favorites');
       } else {
         await setDoc(favoriteRef, {
           userId: user.uid,
@@ -78,7 +77,6 @@ function TourCard({
           timestamp: new Date(),
         });
         setIsFavorite(true);
-        // toast.success('Added to favorites');
       }
     } catch (error) {
       console.error('Error updating favorite:', error);

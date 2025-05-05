@@ -1,10 +1,10 @@
 import "./TourCategoryCard.css";
 
 interface TourCategoryCardProps {
-  tourType: string;
-  numberOfTours: number;
-  startingPrice: number;
-  categoryIcon: string;
+  readonly tourType: string;
+  readonly numberOfTours: number;
+  readonly startingPrice: number;
+  readonly categoryIcon: string;
 }
 
 function TourCategoryCard({
@@ -15,7 +15,7 @@ function TourCategoryCard({
 }: TourCategoryCardProps) {
   return (
     <div className="tour-category-card">
-      <img src={categoryIcon} />
+      <img src={categoryIcon} alt='category icon'/>
       <h6>{tourType}</h6>
       <p>{numberOfTours} Tours+</p>
       <div className="category-card-price">

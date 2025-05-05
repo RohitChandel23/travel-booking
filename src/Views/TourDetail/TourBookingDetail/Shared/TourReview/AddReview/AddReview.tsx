@@ -4,7 +4,7 @@ import AddingComment from "../../../../../../Shared/AddingComment/AddingComment"
 import { useState } from "react";
 
 interface AddReviewProps {
-  onReviewSubmit: () => void; 
+  readonly onReviewSubmit: () => void; 
 }
 
 function AddReview({ onReviewSubmit }: AddReviewProps) {

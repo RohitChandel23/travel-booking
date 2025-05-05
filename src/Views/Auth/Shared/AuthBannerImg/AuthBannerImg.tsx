@@ -2,7 +2,6 @@ import { ProjectImages } from "../../../../assets/ProjectImages";
 import "./AuthBannerImg.css";
 function AuthBannerImg() {
   return (
-    <>
       <div className="auth-page-banner">
         <img src={ProjectImages.AUTH_BANNER} className="auth-banner-image" alt="auth-banner-image"/>
 
@@ -11,9 +10,6 @@ function AuthBannerImg() {
           <p>Home / <span className="project-theme-color">Authentication </span></p>
       </div>
       </div>
-
-     
-    </>
   );
 }
 export default AuthBannerImg;

@@ -14,7 +14,6 @@ import {
 } from "firebase/auth";
 import ToggleBtn from "../button/ToggleBtn/ToggleBtn";
 import SocialBtn from "../button/SocialButtons/SocialBtn";
-// import AuthBannerImg from "../Shared/AuthBannerImg";
 import { ROUTES_CONFIG } from "../../../Shared/Constants";
 import { auth, db, googleProvider } from "../../../firebaseConfig";
 import { useDispatch } from 'react-redux';
@@ -58,7 +57,6 @@ function Signup() {
 
       toast.success("Signed up successfully! Please verify your email.");
 
-      // to login page
       navigate(ROUTES_CONFIG.LOGIN.path);
     } catch (error: any) {
       const errorMessage =
@@ -107,7 +105,6 @@ function Signup() {
 
   return (
     <>
-      {/* <AuthBannerImg /> */}
             <PageBanner
               headingText="Authentication"
               normalText="Home /"

@@ -74,9 +74,10 @@ function BlogPage() {
               <h4>Categories</h4>
               <ul className="category-list">
                 {categories.map((category) => (
-                  <li
+                
+                  <button 
                     key={category.name}
-                    className={`category-item ${
+                    className={`btn-as-container category-item ${
                       selectedCategory === category.name ? "active" : ""
                     }`}
                     onClick={() => handleCategoryClick(category.name)}
@@ -84,7 +85,9 @@ function BlogPage() {
                     <span className="project-normal-font">
                       {category.name} ({category.count})
                     </span>
-                  </li>
+                  </button>
+
+
                 ))}
               </ul>
             </div>
@@ -109,15 +112,20 @@ function BlogPage() {
               <h4>Tags</h4>
               <div className="tags-list">
                 {tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className={`tag-item ${
-                      selectedTag === tag ? "active" : ""
-                    }`}
-                    onClick={() => handleTagClick(tag)}
-                  >
-                    {tag}
-                  </span>
+
+
+<button
+key={tag}
+className={`btn-as-container tag-item ${
+  selectedTag === tag ? "active" : ""
+}`}
+onClick={() => handleTagClick(tag)}
+>
+{tag}
+</button>
+
+
+
                 ))}
               </div>
             </div>

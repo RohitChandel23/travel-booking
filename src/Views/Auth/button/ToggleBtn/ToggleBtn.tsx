@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { ROUTES_CONFIG } from '../../../../Shared/Constants';
 
 interface ToggleBtnProps {
-  name: string;
-  handleClick: () => void;
+  readonly name: string;
+  readonly handleClick: () => void;
 }
 function ToggleBtn({ name, handleClick }: ToggleBtnProps) {
   const location = useLocation();

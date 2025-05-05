@@ -28,8 +28,8 @@ interface UnifiedReview {
 }
 
 interface ShowingReviewProps {
-  tourId: string;
-  reviewSubmitted: boolean;
+  readonly tourId: string;
+  readonly reviewSubmitted: boolean;
 }
 
 function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {

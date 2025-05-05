@@ -2,20 +2,21 @@ import { Field, ErrorMessage } from "formik";
 import "./FormElement.css";
 
 interface FormElementProps {
-  labelText: string;
-  labelClassName: string;
-  name: string;
-  type: string;
-  placeholder: string;
-  fieldClassName: string;
-  containerClass: string;
-  min: number | string;
-  max: number | string;
-  icon?: string; 
-  value?:any;
-  maxLength?:number;
+  readonly labelText: string;
+  readonly labelClassName: string;
+  readonly name: string;
+  readonly type: string;
+  readonly placeholder: string;
+  readonly fieldClassName: string;
+  readonly containerClass: string;
+  readonly min: number | string;
+  readonly max: number | string;
+  readonly icon?: string; 
+  readonly value?:any;
+  readonly maxLength?:number;
 
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onWheel?: (e: React.WheelEvent<HTMLInputElement>) => void;
 
 }
 
@@ -31,7 +32,8 @@ function FormElement({
   max,
   icon,
   maxLength,
-  onKeyDown
+  onKeyDown,
+  onWheel
 }: FormElementProps) {
 
   return (
@@ -51,6 +53,9 @@ function FormElement({
           maxLength={maxLength}
 
           onKeyDown={onKeyDown} 
+          onWheel={onWheel} 
+
+
         />
       </div>
       <ErrorMessage name={name} className="form-error" component="div" />

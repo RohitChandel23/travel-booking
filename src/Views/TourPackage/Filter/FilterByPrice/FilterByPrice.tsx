@@ -5,8 +5,8 @@ import "rc-slider/assets/index.css";
 import Button from "../../../../Components/Buttons/Button"; 
 
 interface priceFilterProps {
-  handleSelectedPrice: (value: number[]) => void;
-  currentPriceRange: number[];
+  readonly handleSelectedPrice: (value: number[]) => void;
+  readonly currentPriceRange: number[];
 }
 
 const DEFAULT_PRICE_RANGE: [number, number] = [0, 1];
@@ -14,7 +14,6 @@ const DEFAULT_PRICE_RANGE: [number, number] = [0, 1];
 function FilterByPrice({ handleSelectedPrice, currentPriceRange }: priceFilterProps) {
   const [range, setRange] = useState<[number, number]>(DEFAULT_PRICE_RANGE);
 
-//resetting
   useEffect(() => {
     if (currentPriceRange.length === 0) {
         if (range[0] !== DEFAULT_PRICE_RANGE[0] || range[1] !== DEFAULT_PRICE_RANGE[1]) {

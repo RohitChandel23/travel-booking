@@ -2,12 +2,16 @@ import "./StarRating.css";
 import { useState, useEffect } from "react";
 
 interface StarRatingProps {
-  ratingName?: string;
-  onRatingChange: (ratingName: string, rating: number) => void;
-  resetSignal: number; 
+  readonly ratingName?: string;
+  readonly onRatingChange: (ratingName: string, rating: number) => void;
+  readonly resetSignal: number;
 }
 
-function StarRating({ ratingName = "", onRatingChange, resetSignal }: StarRatingProps) {
+function StarRating({
+  ratingName = "",
+  onRatingChange,
+  resetSignal,
+}: StarRatingProps) {
   const [coloredStar, setColoredStar] = useState(0);
   const [hoverStar, setHoverStar] = useState(0);
 
@@ -36,13 +40,15 @@ function StarRating({ ratingName = "", onRatingChange, resetSignal }: StarRating
           }
 
           return (
-            <i
-              key={i}
-              className={`fa-solid fa-star ${starClass}`}
-              onClick={() => handleClick(i)}
-              onMouseEnter={() => setHoverStar(i + 1)}
-              onMouseLeave={() => setHoverStar(0)}
-            />
+
+            <button
+            key={i}
+            className={`btn-as-container fa-solid fa-star ${starClass}`}
+            onClick={() => handleClick(i)}
+            onMouseEnter={() => setHoverStar(i + 1)}
+            onMouseLeave={() => setHoverStar(0)}
+          />
+
           );
         })}
       </span>

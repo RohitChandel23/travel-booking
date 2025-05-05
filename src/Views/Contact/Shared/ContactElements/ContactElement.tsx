@@ -1,9 +1,9 @@
 import './ContactElement.css';
 
 interface contactElementProps{
-contactIcon:string,
-contactType:string,
-contactInfo:string,
+    readonly contactIcon:string,
+    readonly contactType:string,
+    readonly contactInfo:string,
 }
 
 function ContactElement({contactIcon, contactType, contactInfo}: contactElementProps){      //contactm icon, contactType, contactIno

@@ -79,11 +79,13 @@ function Testimonial() {
 
           <div className="navigation-dots">
             {testimonials.map((_, index) => (
-              <span
+              
+              <button
                 key={index}
-                className={`dot ${currentIndex === index ? 'active' : ''}`}
+                className={`btn-dot dot ${currentIndex === index ? 'active' : ''}`}
                 onClick={() => goToTestimonial(index)}
               />
+
             ))}
           </div>
         </div>

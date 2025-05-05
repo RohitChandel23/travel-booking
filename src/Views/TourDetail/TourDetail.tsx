@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import SharePopup from "../../Shared/SharePopup/SharePopup";
 
 function TourDetail() {
-  const ethPrice =1765;
+  const ethPrice = 1765;
   const [showShareOptions, setShowShareOptions] = useState(false);
 
   const { slugId } = useParams<{ slugId: string | undefined }>();
@@ -22,7 +22,6 @@ function TourDetail() {
   const tourCountry = tourData?.ufiDetails?.url?.country;
   const tourRating = tourData?.reviewsStats?.combinedNumericStats?.average;
   const tourReviewCount = tourData?.reviewsStats?.combinedNumericStats?.total;
-  // const tourPrice = tourData?.representativePrice?.chargeAmount / ethPrice;
 
   const usdPrice = tourData?.representativePrice?.chargeAmount || "N/A";
   const tourPrice = ethPrice ? (usdPrice / ethPrice).toFixed(5) : null;
@@ -43,23 +42,20 @@ function TourDetail() {
 
   const [selectedCalendarDate, setSelectedCalendarDate] = useState("");
 
-  //handling calendar selected date
   function handleCalendarSelectedDate(date: string) {
     setSelectedCalendarDate(date);
   }
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  },[]);
-
+  }, []);
 
   return (
-    <>
       <section className="tour-detail-section">
         <div className="tour-detail-container">
           <div className="tour-detail-image-container">
             {tourImage ? (
-              <img className="tour-image" src={tourImage} />
+              <img className="tour-image" src={tourImage} alt ={tourImage} />
             ) : (
               <p></p>
             )}
@@ -91,18 +87,24 @@ function TourDetail() {
               </p>
             </div>
             <div className="tour-detail-share">
-            <div className="share-button-wrapper">
-  <i
-    className="fa-solid fa-share-nodes share-icon"
-    onClick={() => setShowShareOptions(true)}
-  />
-  {showShareOptions && (
-    <SharePopup
-      url={window.location.href}
-      onClose={() => setShowShareOptions(false)}
-    />
-  )}
-</div>
+              <div className="share-button-wrapper">
+                
+                <button
+  onClick={() => setShowShareOptions(true)}
+  className="share-button btn-as-container"
+  aria-label="Share"
+>
+  <i className="fa-solid fa-share-nodes share-icon" />
+</button>
+
+
+                {showShareOptions && (
+                  <SharePopup
+                    url={window.location.href}
+                    onClose={() => setShowShareOptions(false)}
+                  />
+                )}
+              </div>
 
               {/* <i className="fa-regular fa-heart" /> */}
             </div>
@@ -113,7 +115,7 @@ function TourDetail() {
             <div className="tour-feature">
               <span className="tour-feature-heading">From</span>
               <span className="tour-feature-value project-theme-color project-normal-font">
-                {tourPrice !=="NaN" ? `${tourPrice} ETH`: "Loading..."} 
+                {tourPrice !== "NaN" ? `${tourPrice} ETH` : "Loading..."}
               </span>
             </div>
 
@@ -144,14 +146,19 @@ function TourDetail() {
             <div className="tour-feature">
               <span className="tour-feature-heading">Reviews</span>
 
-              {tourRating?<><span className="tour-feature-value project-normal-font">
-                <i className="fa-solid fa-star project-theme-color" />{" "}
-                {tourRating}{" "}
-                <span className="project-normal-font">
-                  ({tourReviewCount} reviews){" "}
-                </span>
-              </span></>:<b>N/A</b>}
-
+              {tourRating ? (
+                <>
+                  <span className="tour-feature-value project-normal-font">
+                    <i className="fa-solid fa-star project-theme-color" />{" "}
+                    {tourRating}{" "}
+                    <span className="project-normal-font">
+                      ({tourReviewCount} reviews){" "}
+                    </span>
+                  </span>
+                </>
+              ) : (
+                <b>N/A</b>
+              )}
             </div>
           </div>
 
@@ -174,7 +181,11 @@ function TourDetail() {
           </div>
 
           <div className="tour-location-map">
-            <MapComponent cityName={tourCity} mapHeadingText="Map" zoomLevel={7}/>
+            <MapComponent
+              cityName={tourCity}
+              mapHeadingText="Map"
+              zoomLevel={7}
+            />
           </div>
 
           <div className="tour-detail-review">
@@ -184,7 +195,11 @@ function TourDetail() {
               ""
             )}
             {/* <TourReview tourRating={tourRating} tourId={tourId} /> */}
-            <TourReview tourRating={tourRating} tourId={tourId} slugValue={slugValue} />
+            <TourReview
+              tourRating={tourRating}
+              tourId={tourId}
+              slugValue={slugValue}
+            />
           </div>
         </div>
 
@@ -198,7 +213,6 @@ function TourDetail() {
           />
         </div>
       </section>
-    </>
   );
 }
 

@@ -1,10 +1,8 @@
 .share-popup {
     position: absolute;
-    /* top: 70%;
-    right: 39%; */
+
     top: 67vh;
     right: 39vw;
-    /* background-color: #ffffff; */
     background-color: #e8e8e8;
     border-radius: 10px;
     box-shadow: 0px 8px 20px rgba(102, 102, 102, 0.1);

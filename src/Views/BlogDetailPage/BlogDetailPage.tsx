@@ -15,8 +15,7 @@ import {
   LinkedinIcon,
 } from 'react-share';
 import { db } from '../../firebaseConfig';
-import { collection, query, where, getDocs, DocumentData } from 'firebase/firestore';
-import { Timestamp } from 'firebase/firestore';
+import { collection, query, where, getDocs, DocumentData, Timestamp } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 
 interface CommentData {

@@ -2,7 +2,7 @@ import './BlogCard.css';
 import { Link } from 'react-router-dom';
 import { Blog } from '../Blogs';
 interface BlogCardProps {
-  blog: Blog;
+  readonly blog: Blog;
 }
 
 function BlogCard({ blog }: BlogCardProps) {

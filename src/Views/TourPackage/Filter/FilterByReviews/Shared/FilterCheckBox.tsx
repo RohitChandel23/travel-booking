@@ -1,10 +1,10 @@
 interface FilterCheckBoxProps{
-    type: string,
-    id: any,
-    labelText: string,
-    value: any,
-    checked:boolean,
-    onChange: (value:string)=>void,
+    readonly type: string,
+    readonly id: any,
+    readonly labelText: string,
+    readonly value: any,
+    readonly checked:boolean,
+    readonly onChange: (value:string)=>void,
 }
 
 function FilterCheckBox

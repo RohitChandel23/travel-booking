@@ -16,8 +16,6 @@
     align-items: center;
     background-color:#f7f8f9;
     padding: 60px;
-    /* border-radius: 20px; */
-    /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); */
   }
   
   .testimonial-image-container {
@@ -52,7 +50,7 @@
   .testimonial-img-three {
     width: 48%;
     height: 31%;
-    bottom: -2px; /* was 40px, moved down */
+    bottom: -2px; 
     left: 50%;
     transform: translateX(-50%) rotate(8deg);
     z-index: 2;
@@ -166,6 +164,16 @@
   .dot.active {
     background-color: #ff5d5d;
     transform: scale(1.2);
+  }
+
+  .btn-dot{
+    width: 10px;
+    height: 10px;
+    background-color: #ddd; 
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none !important ;
   }
   
   @media (max-width: 1024px) {

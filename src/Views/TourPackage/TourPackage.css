@@ -240,3 +240,13 @@ color: #051036 !important;
   .search-icon-filter{
 margin-right: 2% !important;
   }
+
+
+
+
+  .side-bar-search-button{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }

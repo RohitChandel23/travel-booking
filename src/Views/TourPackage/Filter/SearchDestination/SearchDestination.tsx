@@ -2,7 +2,7 @@ import "./SearchDestination.css";
 import { useState } from "react";
 
 interface SearchDestinationProps {
-  handleDestinationData: (value: string | null) => void;
+  readonly handleDestinationData: (value: string | null) => void;
 }
 
 function SearchDestination({ handleDestinationData }: SearchDestinationProps) {

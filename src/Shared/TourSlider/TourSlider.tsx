@@ -86,9 +86,9 @@ function TourSlider() {
 
       <div className="navigation-dots">
         {Array.from({ length: totalSlides }).map((_, index) => (
-          <div
+          <button
             key={index}
-            className={`dot ${currentIndex === index ? 'active' : ''}`}
+            className={`slider-btn dot ${currentIndex === index ? 'active' : ''}`}
             onClick={() => handleDotClick(index)}
           />
         ))}

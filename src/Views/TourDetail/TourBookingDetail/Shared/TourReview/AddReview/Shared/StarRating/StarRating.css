@@ -1,28 +1,3 @@
-/* .star-rating-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.star-container i { 
-    cursor: pointer;
-    transition: color 0.1s;
-}
-
-.grey-star{
-    color: #c9c9c9
-}
-
-.grey-star:hover{
-    color:#fc5056;
-}
-
-.red-star {
-    color: #fc5056;
-} */
-
-
-
-
 .star-rating-container {
     display: flex;
     flex-direction: column;
@@ -38,9 +13,9 @@
 }
 
 .hover-star {
-    color: #fd8c90; /* lighter red */
+    color: #fd8c90; 
 }
 
 .red-star {
-    color: #fc5056; /* strong red */
+    color: #fc5056; 
 }

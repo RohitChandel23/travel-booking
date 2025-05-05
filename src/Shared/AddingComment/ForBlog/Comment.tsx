@@ -2,13 +2,12 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import './Comment.css';
 import { db } from '../../../firebaseConfig';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, Timestamp} from 'firebase/firestore';
 import { toast } from 'react-toastify';
-import { Timestamp } from 'firebase/firestore';
 
 interface AddingCommentProps {
-  onReset?: () => void;
-  collectionType: string;
+  readonly onReset?: () => void;
+  readonly collectionType: string;
 }
 
 interface FormValues {

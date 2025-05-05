@@ -1,8 +1,8 @@
 import "./ReviewItem.css";
 
 interface ReviewItemProps {
-  tourRating: string;
-  tourRatingName: string;
+  readonly tourRating: string;
+  readonly tourRatingName: string;
 }
 
 function ReviewItem({ tourRating, tourRatingName }:ReviewItemProps) {

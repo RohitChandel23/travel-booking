@@ -11,9 +11,9 @@ import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 interface PropsType {
-  cityName: string | '' | undefined;
-  mapHeadingText: string | '';
-  zoomLevel: number;
+  readonly cityName: string | '' | undefined;
+  readonly mapHeadingText: string | '';
+  readonly zoomLevel: number;
 }
 
 const DefaultIcon = L.icon({

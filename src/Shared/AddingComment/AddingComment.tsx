@@ -7,10 +7,10 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
 interface AddingCommentProps {
-  ratings?: { [key: string]: number };
-  onReset?: () => void;
-  collectionType: string;
-  onReviewSubmit?: () => void;
+  readonly ratings?: { [key: string]: number };
+  readonly onReset?: () => void;
+  readonly collectionType: string;
+  readonly onReviewSubmit?: () => void;
 }
 
 interface FormValues {
@@ -19,7 +19,7 @@ interface FormValues {
   textContent: string;
 }
 
-function AddingComment({ ratings, onReset, collectionType, onReviewSubmit }: AddingCommentProps) {
+  function AddingComment({ ratings, onReset, collectionType, onReviewSubmit }: AddingCommentProps) {
   const { slugId } = useParams();
 
   const calculateAverageRating = (ratingsObj: { [key: string]: number } | undefined): number => {

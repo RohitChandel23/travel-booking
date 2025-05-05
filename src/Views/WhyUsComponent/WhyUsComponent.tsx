@@ -8,12 +8,12 @@ function WhyUsComponent() {
       <div className="main-div-container">
         <div className="whyUs-image-div">
           <div className="image-container">
-            <img className="second-image" src={ProjectImages.WHY_US_IMGTWO} />{' '}
-            <img className="first-image" src={ProjectImages.WHY_US_IMGONE} />
+            <img className="second-image" src={ProjectImages.WHY_US_IMGTWO} alt='why us one' />{' '}
+            <img className="first-image" src={ProjectImages.WHY_US_IMGONE} alt='why us two' />
           </div>
         </div>
 
-        <div className="whyUs-content-div">
+        <div className="whyUs-content-div"> 
           {/* for about apge */}
           <ForHomePage />
           {/* upto here */}

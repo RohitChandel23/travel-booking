@@ -44,12 +44,11 @@ function Header() {
     } else {
       document.body.classList.remove("no-scroll");
     }
-  
+
     return () => {
       document.body.classList.remove("no-scroll");
     };
   }, [showLogoutPopup]);
-  
 
   const handleLogout = async () => {
     try {
@@ -148,19 +147,27 @@ function Header() {
       <div className="right-header">
         {user ? (
           <div className="user-info" ref={dropdownRef}>
-            <div
+            <button
               className="user-initial"
+              aria-expanded={menuOpen}
+              aria-haspopup="menu"
+              aria-controls="user-dropdown-menu"
               onClick={() => setMenuOpen((prev) => !prev)}
             >
               {getUserInitial()}
-            </div>
+            </button>
+
             {menuOpen && (
-              <div className="user-dropdown">
-                {/* <Link to="/profile" className="dropdown-item" onClick={handleMenuLinkClick}>Profile</Link> */}
+              <div
+                id="user-dropdown-menu"
+                className="user-dropdown"
+                role="menu"
+              >
                 <Link
                   to={ROUTES_CONFIG.BOOKED_TOURS.path}
                   className="dropdown-item"
                   onClick={handleMenuLinkClick}
+                  role="menuitem"
                 >
                   Booked Tours
                 </Link>
@@ -168,13 +175,16 @@ function Header() {
                   to={ROUTES_CONFIG.FAVORITES_TOURS.path}
                   className="dropdown-item"
                   onClick={handleMenuLinkClick}
+                  role="menuitem"
                 >
                   Favourite Tours
                 </Link>
               </div>
             )}
+
             <button className="logout-btn" onClick={openLogoutPopup}>
-              <i className="fa-solid fa-sign-out-alt" /> Logout
+              <i className="fa-solid fa-sign-out-alt" aria-hidden="true" />
+              <span>Logout</span>
             </button>
           </div>
         ) : (
@@ -185,9 +195,12 @@ function Header() {
                 `auth-link ${isActive ? "active-link" : ""}`
               }
             >
-              <i className="fa-regular fa-user" /> {ROUTES_CONFIG.LOGIN.title}
+              <i className="fa-regular fa-user" aria-hidden="true" />
+              <span>{ROUTES_CONFIG.LOGIN.title}</span>
             </NavLink>
-            <span className="divider">/</span>
+            <span className="divider" aria-hidden="true">
+              /
+            </span>
             <NavLink
               to={ROUTES_CONFIG.REGISTER.path}
               className={({ isActive }) =>
@@ -201,8 +214,8 @@ function Header() {
       </div>
 
       {showLogoutPopup && (
-        <div className="logout-popup-wrapper" onClick={closeLogoutPopup}>
-          <div className="logout-popup" onClick={(e) => e.stopPropagation()}>
+        <button className="logout-popup-wrapper btn-as-container" onClick={closeLogoutPopup}>
+          <button className="logout-popup btn-as-container" onClick={(e) => e.stopPropagation()}>
             <h3>Are you sure you want to log out ?</h3>
             <div className="popup-actions">
               <button className="confirm-btn" onClick={handleLogout}>
@@ -212,9 +225,10 @@ function Header() {
                 Cancel
               </button>
             </div>
-          </div>
-        </div>
+          </button>
+        </button>
       )}
+
     </div>
   );
 }
