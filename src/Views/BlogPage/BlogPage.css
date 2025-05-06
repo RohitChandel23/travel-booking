@@ -75,7 +75,7 @@
 
 .category-item {
   cursor: pointer;
-  padding: 5px 10px;
+  padding: 2% 4% 2% 4% !important;
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
 
@@ -89,6 +89,7 @@
 .category-item.active {
   background-color: #fc5056; 
   color: white;
+  padding: 4% 6% 4% 5%;
 }
 
 .category-item span {
@@ -139,7 +140,7 @@
   background-color: #e0e0e0;
   color: #666;
   font-size: 13px;
-  padding: 5px 12px;
+  padding: 2% 4% 2% 4% !important;
   border-radius: 15px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
@@ -148,11 +149,13 @@
 .tag-item:hover {
   background-color: #d0d0d0;
   color: #fc5056; 
+  
 }
 
 .tag-item.active {
   background-color: #fc5056; 
   color: white;
+  padding: 2%;;
 }
 
 .no-blogs-message {

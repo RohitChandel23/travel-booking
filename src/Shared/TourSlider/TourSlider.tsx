@@ -2,7 +2,8 @@ import './TourSlider.css';
 import { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { useGetTrendingAttractionQuery } from '../../Services/Api/module/demoApi';
-import TourCard from '../../Views/TourCard';
+// import TourCard from '../../Views/TourCard';
+import TourCard from '../TourCard/index';
 import TourCardSkeleton from '../TourCardSkeleton/TourCardSkeleton';
 
 function TourSlider() {

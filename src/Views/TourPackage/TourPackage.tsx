@@ -7,7 +7,9 @@ import FilterByDestination from "./Filter/FilterByDestination";
 import FilterByReviews from "./Filter/FilterByReviews/index";
 import FilterByPrice from "./Filter/FilterByPrice/index";
 import TourCardSkeleton from "../../Shared/TourCardSkeleton/TourCardSkeleton";
-import TourCard from "../TourCard";
+import TourCard from '../../Shared/TourCard/index';
+
+
 import {
   useGetTrendingToursQuery,
   useGetFilteredDestinationToursQuery,

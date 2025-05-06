@@ -1,6 +1,6 @@
 import { ProjectImages } from "../../assets/ProjectImages";
 import HomepageDestination from "./Shared/HomepageDestination/HomepageDestination";
-import WhyUsComponent from "../WhyUsComponent/index";
+import WhyUsComponent from "../../Shared/WhyUsComponent";
 import SearchArea from "../../Shared/SearchArea";
 import Testimonial from "../../Shared/Testimonial";
 import "./HomePage.css";

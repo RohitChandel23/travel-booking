@@ -1,4 +1,5 @@
-import '../../Views/TourCard/TourCard.css';
+// import '../../Views/TourCard/TourCard.css';
+import '../TourCard/TourCard.css';
 import './TourCardSkeleton.css';
 
 function TourCardSkeleton() {
