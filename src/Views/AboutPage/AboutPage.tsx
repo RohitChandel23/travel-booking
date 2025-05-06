@@ -1,6 +1,6 @@
 import "./AboutPage.css";
 import Testimonial from "../../Shared/Testimonial";
-import WhyUsComponent from "../WhyUsComponent";
+import WhyUsComponent from "../../Shared/WhyUsComponent";
 import TeamCard from "./Shared/TeamCard";
 import { ProjectImages } from "../../assets/ProjectImages";
 import FeatureBox from "./Shared/FeatureBox/FeatureBox";

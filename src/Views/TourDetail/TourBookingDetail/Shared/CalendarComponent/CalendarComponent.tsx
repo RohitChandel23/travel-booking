@@ -23,6 +23,8 @@ const CalendarComponent = ({ tourPrice, handleCalendarSelectedDate }: CalendarCo
     </div>
   );
 
+  const maxDate = new Date(new Date().getFullYear(), 11, 31);
+
   return (
     <div className="calendar-container">
       <Calendar
@@ -31,6 +33,12 @@ const CalendarComponent = ({ tourPrice, handleCalendarSelectedDate }: CalendarCo
         className="full-size-calendar"
         tileContent={tileContent}
         minDate={new Date()} 
+        maxDate={maxDate}
+        showNavigation={true}
+        view="month"         
+        defaultView="month"
+        prev2Label={null}    
+        next2Label={null}
       />
     </div>
   );

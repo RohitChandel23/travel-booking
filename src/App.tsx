@@ -11,7 +11,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./Store";
 import RootRouter from "./Routes/RootRouter";
 import "./App.css";
-import { AppKitProvider } from "./Views/AppkitProvider/AppkitFile";
+import { AppKitProvider } from './Shared/AppkitProvider/AppkitFile';
 
 const baseName = import.meta.env.VITE_BASE_NAME;
 const router = createBrowserRouter(

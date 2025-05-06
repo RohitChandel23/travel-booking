@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { auth, db } from '../../firebaseConfig';
-import TourCard from '../TourCard';
+import TourCard from '../../Shared/TourCard/index';
 import './FavoritesPage.css';
 import { onAuthStateChanged, User } from 'firebase/auth';
 

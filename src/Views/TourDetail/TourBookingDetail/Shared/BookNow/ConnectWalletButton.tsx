@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import "./ConnectWalletButton.css";
 import { useWriteContract } from "wagmi";
-import nftAbi from "../../../../AppkitProvider/NFTAbi.json";
+import nftAbi from "../../../../../Shared/AppkitProvider/NFTAbi.json";
 import { parseEther } from "viem";
 
 const contractAddress = "0xE32383aB1dbea75Fa416CB7cA200b0e1c89735AC";
