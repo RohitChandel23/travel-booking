@@ -39,8 +39,8 @@ createAppKit({
 
 
 interface AppKitProviderProps {
-  children: React.ReactNode;
-}
+  readonly children: React.ReactNode;
+} 
 
 export function AppKitProvider({ children }: AppKitProviderProps) {
   return (

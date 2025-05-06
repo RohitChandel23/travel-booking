@@ -15,6 +15,15 @@ function StarRating({
   const [coloredStar, setColoredStar] = useState(0);
   const [hoverStar, setHoverStar] = useState(0);
 
+  const stars = [
+    { id: 's1' },
+    { id: 's2' },
+    { id: 's3' },
+    { id: 's4' },
+    { id: 's5' },
+  ];
+  
+
   useEffect(() => {
     setColoredStar(0);
     setHoverStar(0);
@@ -30,7 +39,7 @@ function StarRating({
     <div className="star-rating-container">
       {ratingName && <span className="project-normal-font">{ratingName}</span>}
       <span className="star-container">
-        {[...Array(5)].map((_, i) => {
+      {stars.map((star, i) => {
           let starClass = "grey-star";
 
           if (coloredStar > 0) {
@@ -42,7 +51,7 @@ function StarRating({
           return (
 
             <button
-            key={i}
+            key={star.id}
             className={`btn-as-container fa-solid fa-star ${starClass}`}
             onClick={() => handleClick(i)}
             onMouseEnter={() => setHoverStar(i + 1)}

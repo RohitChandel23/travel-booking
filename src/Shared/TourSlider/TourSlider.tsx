@@ -1,8 +1,7 @@
 import './TourSlider.css';
-import { useState } from 'react';
+import { useState , useMemo} from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { useGetTrendingAttractionQuery } from '../../Services/Api/module/demoApi';
-// import TourCard from '../../Views/TourCard';
 import TourCard from '../TourCard/index';
 import TourCardSkeleton from '../TourCardSkeleton/TourCardSkeleton';
 
@@ -16,6 +15,8 @@ function TourSlider() {
   const totalSlides = attractions.length - cardsPerSlide + 1;
   const [currentIndex, setCurrentIndex] = useState(0);
   const ethPrice = 1765;
+  const skeletonKeys = ['skeleton-1', 'skeleton-2', 'skeleton-3', 'skeleton-4'];
+
 
   const handleSwipeLeft = () => {
     setCurrentIndex((prev) =>
@@ -28,6 +29,12 @@ function TourSlider() {
       prev - 1 >= 0 ? prev - 1 : attractions.length - cardsPerSlide
     );
   };
+
+  const dotKeys = useMemo(
+    () => Array.from({ length: totalSlides }, (_) => crypto.randomUUID()),
+    [totalSlides]
+  );
+  
 
   const handlers = useSwipeable({
     onSwipedLeft: handleSwipeLeft,
@@ -52,7 +59,7 @@ function TourSlider() {
     <div className="tour-slider-container" {...handlers}>
       <div className="tour-slider-content">
         {isLoading ? (
-          Array.from({ length: 4 }).map((_, i) => <TourCardSkeleton key={i} />)
+          Array.from({ length: 4 }).map((_, i) => <TourCardSkeleton key={skeletonKeys[i]} />)
         ) : (
           getVisibleCards().map((item: any, i: number) => {
             const countryName = item?.ufiDetails?.url?.country?.toUpperCase();
@@ -60,7 +67,6 @@ function TourSlider() {
             const tourName = item?.name;
             const tourImage = item?.primaryPhoto?.small;
             const tourRating = item?.reviewsStats?.combinedNumericStats?.average;
-            // const tourReview = item?.reviewsStats?.allReviewsCount;
             const tourReview = item?.reviewsStats?.combinedNumericStats.total;
 
             const usdPrice = item?.representativePrice?.chargeAmount;
@@ -86,13 +92,14 @@ function TourSlider() {
       </div>
 
       <div className="navigation-dots">
-        {Array.from({ length: totalSlides }).map((_, index) => (
-          <button
-            key={index}
-            className={`slider-btn dot ${currentIndex === index ? 'active' : ''}`}
-            onClick={() => handleDotClick(index)}
-          />
-        ))}
+
+      {dotKeys.map((key, index) => (
+  <button
+    key={key}
+    className={`slider-btn dot ${currentIndex === index ? 'active' : ''}`}
+    onClick={() => handleDotClick(index)}
+  />
+))}
       </div>
     </div>
   );

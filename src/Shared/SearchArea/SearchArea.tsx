@@ -39,6 +39,13 @@ function SearchArea({
   const navigate = useNavigate();
   const data: Location = useLocation();
   const [datePickerBlurred, setDatePickerBlurred] = useState(false);
+  const [shouldResetForm, setShouldResetForm] = useState(false);
+
+  useEffect(() => {
+    if (isSearchArea === false) {
+      setShouldResetForm(true);
+    }
+  }, [isSearchArea]);
 
   const handleSearch = (
     values: SearchFormValues,
@@ -109,7 +116,7 @@ function SearchArea({
       e.preventDefault();
     }
 
-    if (!/[0-9]/.test(e.key)) {
+    if (!/\d/.test(e.key)) {
       e.preventDefault();
     }
   };
@@ -164,7 +171,6 @@ function SearchArea({
               "Destination cannot be empty",
               (value) => !!value?.trim()
             ),
-
           activity: Yup.string()
             .trim()
             .required("Required")
@@ -177,15 +183,13 @@ function SearchArea({
               "Activity cannot be empty",
               (value) => !!value?.trim()
             ),
-
           selectDate: Yup.array()
             .of(Yup.date().nullable())
             .test(
               "both-dates",
               "Required",
-              (value) => !!(value && value[0] && value[1])
+              (value) => !!(value?.[0] && value?.[1])
             ),
-
           "guest-numbers": Yup.number()
             .required("Required")
             .min(1, "Must be at least 1 guest")
@@ -202,11 +206,10 @@ function SearchArea({
           touched,
           handleBlur,
         }) => {
-          useEffect(() => {
-            if (isSearchArea === false) {
-              resetForm({ values: defaultInitialValues });
-            }
-          }, [isSearchArea, resetForm]);
+          if (shouldResetForm) {
+            resetForm({ values: defaultInitialValues });
+            setShouldResetForm(false);
+          }
 
           return (
             <Form className="search-area-form-class" onFocus={handleFocus}>
@@ -236,55 +239,50 @@ function SearchArea({
                 icon="fa-solid fa-person-hiking"
               />
 
-
-
-<div className="single-Form-element-class">
-  <label htmlFor="datePickerInput" className="cursive-text search-area-form-label">
-    When
-  </label>
-  <div className="input-with-icon">
-    <i className="form-icon fa-solid fa-calendar-days" aria-hidden="true"></i>
-    <DatePicker
-      id="datePickerInput"
-      selected={values.selectDate[0]}
-      onChange={(dates: [Date | null, Date | null]) => {
-        setFieldValue("selectDate", dates);
-      }}
-      onBlur={() => {
-        setDatePickerBlurred(true);
-        handleBlur("selectDate");
-      }}
-      startDate={values.selectDate[0]}
-      endDate={values.selectDate[1]}
-      selectsRange
-      placeholderText="Check-in & Check-out"
-      className="search-area-form-field has-icon"
-      minDate={new Date()}
-      maxDate={new Date(new Date().getFullYear() + 10, 11, 31)}
-      onKeyDown={(e) => {
-        if (e.key !== "Backspace" && e.key !== "Delete") {
-          e.preventDefault();
-        } else if (
-          (e.key === "Backspace" || e.key === "Delete") &&
-          (values.selectDate[0] || values.selectDate[1])
-        ) {
-          handleDateClear(setFieldValue);
-        }
-      }}
-      showMonthDropdown
-      dropdownMode="select"
-      aria-label="Select check-in and check-out dates"
-    />
-  </div>
-  {(datePickerBlurred || touched.selectDate) && errors.selectDate && (
-    <div className="form-error" role="alert">
-      {errors.selectDate}
-    </div>
-  )}
-</div>
-
-
-
+              <div className="single-Form-element-class">
+                <label htmlFor="datePickerInput" className="cursive-text search-area-form-label">
+                  When
+                </label>
+                <div className="input-with-icon">
+                  <i className="form-icon fa-solid fa-calendar-days" aria-hidden="true"></i>
+                  <DatePicker
+                    id="datePickerInput"
+                    selected={values.selectDate[0]}
+                    onChange={(dates: [Date | null, Date | null]) => {
+                      setFieldValue("selectDate", dates);
+                    }}
+                    onBlur={() => {
+                      setDatePickerBlurred(true);
+                      handleBlur("selectDate");
+                    }}
+                    startDate={values.selectDate[0]}
+                    endDate={values.selectDate[1]}
+                    selectsRange
+                    placeholderText="Check-in & Check-out"
+                    className="search-area-form-field has-icon"
+                    minDate={new Date()}
+                    maxDate={new Date(new Date().getFullYear() + 10, 11, 31)}
+                    onKeyDown={(e) => {
+                      if (e.key !== "Backspace" && e.key !== "Delete") {
+                        e.preventDefault();
+                      } else if (
+                        (e.key === "Backspace" || e.key === "Delete") &&
+                        (values.selectDate[0] || values.selectDate[1])
+                      ) {
+                        handleDateClear(setFieldValue);
+                      }
+                    }}
+                    showMonthDropdown
+                    dropdownMode="select"
+                    aria-label="Select check-in and check-out dates"
+                  />
+                </div>
+                {(datePickerBlurred || touched.selectDate) && errors.selectDate && (
+                  <div className="form-error" role="alert">
+                    {errors.selectDate}
+                  </div>
+                )}
+              </div>
 
               <FormElement
                 labelText="Guests"
@@ -299,8 +297,7 @@ function SearchArea({
                 maxLength={2}
                 icon="fa-solid fa-users"
                 onKeyDown={handleGuestKeyDown}
-                onWheel={(e) => e.currentTarget.blur()} 
-
+                onWheel={(e) => e.currentTarget.blur()}
               />
 
               <button

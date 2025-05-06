@@ -97,11 +97,11 @@ function FavoritesPage() {
               cityName={tour.cityName}
               countryName={tour.countryName}
               tourName={tour.tourName}
-              tourImage={tour.tourImage || ''}
-              tourRating={tour.tourRating || '0'}
-              tourReview={tour.tourReview || '0'}
-              tourPrice={`${tour.tourPrice}` || '0'}
-              tourDuration={tour.tourDuration || 'N/A'}
+              tourImage={tour.tourImage ?? ''}
+              tourRating={tour.tourRating ?? '0'}
+              tourReview={tour.tourReview ?? '0'}
+              tourPrice={`${tour.tourPrice ?? '0'}`}
+              tourDuration={tour.tourDuration ?? 'N/A'}
               slugValue={tour.tourSlug}
               onRemoveFavorite={() => handleRemoveFavorite(tour.id)}
             />

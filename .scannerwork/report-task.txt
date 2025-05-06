@@ -2,5 +2,5 @@ projectKey=travelbooking
 serverUrl=http://localhost:9000
 serverVersion=25.3.0.104237
 dashboardUrl=http://localhost:9000/dashboard?id=travelbooking
-ceTaskId=a3d74d71-6d5f-48e0-89a8-3d40526b0a14
-ceTaskUrl=http://localhost:9000/api/ce/task?id=a3d74d71-6d5f-48e0-89a8-3d40526b0a14
+ceTaskId=97a0b454-9147-43cb-9208-c146752aeb67
+ceTaskUrl=http://localhost:9000/api/ce/task?id=97a0b454-9147-43cb-9208-c146752aeb67

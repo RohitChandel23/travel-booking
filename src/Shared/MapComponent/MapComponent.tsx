@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import { LatLngExpression } from 'leaflet';
-import L from 'leaflet';
+import L, { LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './MapComponent.css';
 
@@ -11,8 +10,8 @@ import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 interface PropsType {
-  readonly cityName: string | '' | undefined;
-  readonly mapHeadingText: string | '';
+  readonly cityName: string | undefined;
+  readonly mapHeadingText?: string;
   readonly zoomLevel: number;
 }
 

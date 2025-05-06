@@ -8,14 +8,17 @@ function Testimonial() {
     {
       text: "The UI designs he crafted are top-notch, and the design system he integrated allows for straightforward fixes and bulk updates almost every area the app.",
       author: "Molie Rosa, Photographer",
+      id:1
     },
     {
       text: "Their travel itineraries are perfectly planned, making every trip seamless and enjoyable. I've never had such a stress-free vacation!",
       author: "John Doe, Traveler",
+      id:2
     },
     {
       text: "The app's features are a true game-changer for travelers. Booking and exploring destinations has never been easier or more intuitive",
       author: "Sarah Lee, Blogger",
+      id:3
     },
   ];
 
@@ -78,10 +81,10 @@ function Testimonial() {
           </div>
 
           <div className="navigation-dots">
-            {testimonials.map((_, index) => (
+            {testimonials.map((item, index) => (
               
               <button
-                key={index}
+                key={item.id}
                 className={`btn-dot dot ${currentIndex === index ? 'active' : ''}`}
                 onClick={() => goToTestimonial(index)}
               />

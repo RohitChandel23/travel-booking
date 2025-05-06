@@ -1,7 +1,7 @@
 import './BlogDetailPage.css';
 import { useParams } from 'react-router-dom';
 import { ProjectImages } from '../../assets/ProjectImages';
-import Comment from '../../Shared/AddingComment/ForBlog/Comment';
+import AddingComment from '../../Shared/AddingComment/AddingComment';
 import { blogs, Blog } from '../BlogPage/Blogs';
 import { useEffect, useState } from 'react';
 import {
@@ -15,7 +15,7 @@ import {
   LinkedinIcon,
 } from 'react-share';
 import { db } from '../../firebaseConfig';
-import { collection, query, where, getDocs, DocumentData, Timestamp } from 'firebase/firestore';
+import { collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 
 interface CommentData {
@@ -28,7 +28,7 @@ interface CommentData {
 
 function BlogDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const blog: Blog | undefined = blogs.find((b) => b.id === parseInt(id || ''));
+  const blog: Blog | undefined = blogs.find((b) => b.id === parseInt(id ?? ''));
   const [comments, setComments] = useState<CommentData[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -36,49 +36,49 @@ function BlogDetailPage() {
   const shareUrl = window.location.href;
   const shareTitle = '';
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      if (!id) {
-        setError('Invalid blog ID');
-        setLoading(false);
-        return;
-      }
-      try {
-        const q = query(collection(db, 'blog-comments'), where('blogId', '==', id));
-        const querySnapshot = await getDocs(q);
-        const fetchedComments: CommentData[] = querySnapshot.docs
-          .map((doc): CommentData | null => {
-            const data = doc.data() as DocumentData;
-            if (
-              typeof data.name === 'string' &&
-              typeof data.textContent === 'string' &&
-              data.timestamp instanceof Timestamp &&
-              typeof data.blogId === 'string'
-            ) {
-              return {
-                id: doc.id,
-                name: data.name,
-                textContent: data.textContent,
-                timestamp: data.timestamp,
-                blogId: data.blogId,
-              };
-            }
-            console.warn(`Invalid comment data for doc ${doc.id}:`, data);
-            return null;
-          })
-          .filter((comment): comment is CommentData => comment !== null)
-          .sort((a, b) => b.timestamp.toDate().getTime() - a.timestamp.toDate().getTime());
-        setComments(fetchedComments);
-        setError(null);
-        setLoading(false);
-      } catch (error: unknown) {
-        console.error('Error fetching comments:', error);
-        setError('Failed to load comments. Please try again.');
-        toast.error('Error loading comments.');
-        setLoading(false);
-      }
-    };
+  const fetchComments = async () => {
+    if (!id) {
+      setError('Invalid blog ID');
+      setLoading(false);
+      return;
+    }
+    try {
+      const q = query(collection(db, 'blog-comments'), where('blogId', '==', id));
+      const querySnapshot = await getDocs(q);
+      const fetchedComments: CommentData[] = querySnapshot.docs
+        .map((doc): CommentData | null => {
+          const data = doc.data();
+          if (
+            typeof data.name === 'string' &&
+            typeof data.textContent === 'string' &&
+            data.timestamp instanceof Timestamp &&
+            typeof data.blogId === 'string'
+          ) {
+            return {
+              id: doc.id,
+              name: data.name,
+              textContent: data.textContent,
+              timestamp: data.timestamp,
+              blogId: data.blogId,
+            };
+          }
+          console.warn(`Invalid comment data for doc ${doc.id}:`, data);
+          return null;
+        })
+        .filter((comment): comment is CommentData => comment !== null)
+        .sort((a, b) => b.timestamp.toDate().getTime() - a.timestamp.toDate().getTime());
+      setComments(fetchedComments);
+      setError(null);
+      setLoading(false);
+    } catch (error: unknown) {
+      console.error('Error fetching comments:', error);
+      setError('Failed to load comments. Please try again.');
+      toast.error('Error loading comments.');
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchComments();
   }, [id]);
 
@@ -89,6 +89,44 @@ function BlogDetailPage() {
   if (!blog) {
     return <div className="blog-detail-page-wrapper">Blog not found</div>;
   }
+
+  const renderComments = () => {
+    if (loading) {
+      return <div className="reviews-loading">Loading comments...</div>;
+    }
+    if (error) {
+      return <div className="reviews-error">{error}</div>;
+    }
+    if (comments.length === 0) {
+      return <div className="no-reviews">No comments yet.</div>;
+    }
+    return (
+      <div className="reviews-scroll-area">
+        {comments.map((comment) => (
+          <div key={comment.id} className="showing-one-review">
+            <div className="showing-reviewer-image">
+              <img
+                src={ProjectImages.BLANK_PROFILE}
+                alt={comment.name}
+                className="reviewer-image"
+              />
+            </div>
+            <div className="showing-review-text-info">
+              <div className="review-date">
+                {comment.timestamp.toDate().toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </div>
+              <h4 className="reviewer-name">{comment.name || 'Anonymous User'}</h4>
+              <p className="review-description">{comment.textContent}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="blog-detail-page-wrapper">
@@ -104,8 +142,8 @@ function BlogDetailPage() {
 
           <h3 className="blog-detail-title">{blog.title}</h3>
           <p className="blog__description project-normal-font">
-            {blog.content.map((paragraph, index) => (
-              <span key={index}>
+            {blog.content.map((paragraph) => (
+              <span key={blog.id}>
                 {paragraph}
                 <br />
                 <br />
@@ -138,7 +176,6 @@ function BlogDetailPage() {
               <span>{blog.tag}</span>
             </div>
           </div>
-          <div className="blog-tags"></div>
         </div>
 
         <div className="author-section">
@@ -159,97 +196,24 @@ function BlogDetailPage() {
         </div>
 
         <div className="blog-reply-container">
-          <Comment
+          <AddingComment
             collectionType="blog-comments"
             onReset={() => {
               setError(null);
               setLoading(true);
-              fetchComments();
+              fetchComments(); 
             }}
           />
           <div className="showing-review-container">
             <div className="showing-review-header">
               Showing comment{comments.length !== 1 ? 's' : ''} ({comments.length})
             </div>
-            {loading ? (
-              <div className="reviews-loading">Loading comments...</div>
-            ) : error ? (
-              <div className="reviews-error">{error}</div>
-            ) : comments.length === 0 ? (
-              <div className="no-reviews">No comments yet.</div>
-            ) : (
-              <div className="reviews-scroll-area">
-                {comments.map((comment) => (
-                  <div key={comment.id} className="showing-one-review">
-                    <div className="showing-reviewer-image">
-                      <img
-                        src={ProjectImages.BLANK_PROFILE}
-                        alt={comment.name}
-                        className="reviewer-image"
-                      />
-                    </div>
-                    <div className="showing-review-text-info">
-                      <div className="review-date">
-                        {comment.timestamp.toDate().toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        })}
-                      </div>
-                      <h4 className="reviewer-name">{comment.name || 'Anonymous User'}</h4>
-                      <p className="review-description">{comment.textContent}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+            {renderComments()}
           </div>
         </div>
       </div>
     </div>
   );
-
-  async function fetchComments() {
-    if (!id) {
-      setError('Invalid blog ID');
-      setLoading(false);
-      return;
-    }
-    try {
-      const q = query(collection(db, 'blog-comments'), where('blogId', '==', id));
-      const querySnapshot = await getDocs(q);
-      const fetchedComments: CommentData[] = querySnapshot.docs
-        .map((doc): CommentData | null => {
-          const data = doc.data() as DocumentData;
-          if (
-            typeof data.name === 'string' &&
-            typeof data.textContent === 'string' &&
-            data.timestamp instanceof Timestamp &&
-            typeof data.blogId === 'string'
-          ) {
-            return {
-              id: doc.id,
-              name: data.name,
-              textContent: data.textContent,
-              timestamp: data.timestamp,
-              blogId: data.blogId,
-            };
-          }
-          console.warn(`Invalid comment data for doc ${doc.id}:`, data);
-          return null;
-        })
-        .filter((comment): comment is CommentData => comment !== null)
-        .sort((a, b) => b.timestamp.toDate().getTime() - a.timestamp.toDate().getTime());
-      setComments(fetchedComments);
-      setError(null);
-      setLoading(false);
-    } catch (error: unknown) {
-      console.error('Error fetching comments:', error);
-      setError('Failed to load comments. Please try again.');
-      toast.error('Error loading comments.');
-      setLoading(false);
-    }
-  }
 }
 
 export default BlogDetailPage;

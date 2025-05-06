@@ -24,26 +24,25 @@ function Prompt({ when, message }: PromptProps) {
   // Block page reload or close
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (when) {
-        const confirmationMessage = message;
-        // eslint-disable-next-line no-param-reassign
-        event.returnValue = confirmationMessage; // Set the custom message
-        return confirmationMessage;
-      }
-      return undefined; // Add a return statement at the end of the arrow function
+      if (!when) return;
+  
+      // Required for modern browsers to trigger confirmation
+      event.preventDefault();
+  
+      // Required for older browsers (e.g., Chrome) — still works despite being deprecated
+      // eslint-disable-next-line deprecation/deprecation
+      event.returnValue = message;
+      
+      return message; // Optional — some environments respect return value
     };
-
-    if (when) {
-      window.addEventListener('beforeunload', handleBeforeUnload);
-    } else {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    }
-
-    // Cleanup on component unmount
+  
+    window.addEventListener('beforeunload', handleBeforeUnload);
+  
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [when, message]);
+  
 
   return null;
 }

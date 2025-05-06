@@ -12,11 +12,10 @@ interface FormElementProps {
   readonly min: number | string;
   readonly max: number | string;
   readonly icon?: string; 
-  readonly value?:any;
   readonly maxLength?:number;
 
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  onWheel?: (e: React.WheelEvent<HTMLInputElement>) => void;
+  readonly onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  readonly onWheel?: (e: React.WheelEvent<HTMLInputElement>) => void;
 
 }
 

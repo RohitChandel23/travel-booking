@@ -1,4 +1,3 @@
-// import '../../Views/TourCard/TourCard.css';
 import '../TourCard/TourCard.css';
 import './TourCardSkeleton.css';
 

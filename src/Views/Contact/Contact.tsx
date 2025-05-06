@@ -4,7 +4,7 @@ import PageBanner from "../../Shared/PageBanner";
 import ContactElement from "./Shared/ContactElements";
 import MapComponent from "../../Shared/MapComponent";
 import { useEffect } from "react";
-import Comment from './../../Shared/AddingComment/ForBlog/Comment'
+import AddingComment from "../../Shared/AddingComment/AddingComment";
 
 
 function ContactPage() {
@@ -46,7 +46,8 @@ function ContactPage() {
               <h2>Get in Touch</h2>
 
               <div className="asking-question-wrapper">
-                <Comment collectionType="queries" />
+                <AddingComment collectionType="queries" />
+
               </div>
             </div>
 

@@ -2,20 +2,19 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '../../../firebaseConfig';
+import { auth, db } from '../../../firebaseConfig';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../../../firebaseConfig'; 
 import './forgotPassword.css';
 import { useState } from 'react';
 
-interface emailValue {
+interface EmailValueProps {
   email: string;
 }
 
 function ForgotPassword() {
   const [isClick, setIsClick] = useState<boolean>(false);
 
-  async function handleResetPassword(values: emailValue) {
+  async function handleResetPassword(values: EmailValueProps) {
     setIsClick(true);
     try {
       const usersRef = collection(db, 'users');

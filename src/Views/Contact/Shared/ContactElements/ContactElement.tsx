@@ -1,12 +1,12 @@
 import './ContactElement.css';
 
-interface contactElementProps{
+interface ContactElementProps{
     readonly contactIcon:string,
     readonly contactType:string,
     readonly contactInfo:string,
 }
 
-function ContactElement({contactIcon, contactType, contactInfo}: contactElementProps){      //contactm icon, contactType, contactIno
+function ContactElement({contactIcon, contactType, contactInfo}: ContactElementProps){      
 return(
     <div className="contact-element-wrapper">
     <div className='contact-element-container'>

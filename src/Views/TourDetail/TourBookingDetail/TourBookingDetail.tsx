@@ -9,7 +9,7 @@ import ConnectWalletButton from "./Shared/BookNow/ConnectWalletButton";
 
 import { useAppKitAccount } from "@reown/appkit/react";
 
-interface tourBookingDetailProps {
+interface TourBookingDetailProps {
   readonly tourPrice: string;
   readonly selectedCalendarDate: string;
   readonly tourName: string;
@@ -21,8 +21,8 @@ function TourBookingDetail({
   selectedCalendarDate,
   tourName,
   slugValue
-}: tourBookingDetailProps) {
-  const [adultsCount, setAdults] = useState(0);
+}: TourBookingDetailProps) {
+  const [adultsCount, setAdultsCount] = useState(0);
   const [kidsCount, setKidsCount] = useState(0);
   const [childrenCount, setChildrenCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -37,7 +37,7 @@ function TourBookingDetail({
   }, [selectedCalendarDate]);
 
   function handleDecrement(peopleType: string): void {
-    if (peopleType == "Adults" && adultsCount) setAdults((count) => count - 1);
+    if (peopleType == "Adults" && adultsCount) setAdultsCount((count) => count - 1);
     else if (peopleType == "Kids" && kidsCount)
       setKidsCount((count) => count - 1);
     else if (peopleType == "Children" && childrenCount)
@@ -45,7 +45,7 @@ function TourBookingDetail({
   }
 
   function handleIncrement(peopleType: string): void {
-    if (peopleType == "Adults") setAdults((count) => count + 1);
+    if (peopleType == "Adults") setAdultsCount((count) => count + 1);
     else if (peopleType == "Kids") setKidsCount((count) => count + 1);
     else if (peopleType == "Children") setChildrenCount((count) => count + 1);
   }
@@ -90,7 +90,7 @@ function TourBookingDetail({
       const docRef = await addDoc(collection(db, 'bookings'), bookingDetail);
       toast.success('Booked successfully!');
       
-      setAdults(0);
+      setAdultsCount(0);
       setKidsCount(0);
       setChildrenCount(0);
       
@@ -133,11 +133,14 @@ function TourBookingDetail({
             >
               -
             </button>
+
             <input
-              className="increment-decrement-btn"
+              className="increment-decrement-btn no-caret"
               type="text"
               value={adultsCount}
+              readOnly
             />
+
             <button
               className="increment-decrement-btn"
               onClick={() => handleIncrement("Adults")}
@@ -159,9 +162,10 @@ function TourBookingDetail({
               -
             </button>
             <input
-              className="increment-decrement-btn"
+              className="increment-decrement-btn no-caret"
               type="text"
               value={kidsCount}
+              readOnly
             />
             <button
               className="increment-decrement-btn"
@@ -184,9 +188,10 @@ function TourBookingDetail({
               -
             </button>
             <input
-              className="increment-decrement-btn"
+              className="increment-decrement-btn no-caret"
               type="text"
               value={childrenCount}
+              readOnly
             />
             <button
               className="increment-decrement-btn"

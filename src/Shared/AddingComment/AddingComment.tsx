@@ -2,7 +2,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import "./AddingComment.css";
 import { db } from "../../firebaseConfig";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, Timestamp } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
@@ -19,10 +19,17 @@ interface FormValues {
   textContent: string;
 }
 
-  function AddingComment({ ratings, onReset, collectionType, onReviewSubmit }: AddingCommentProps) {
-  const { slugId } = useParams();
+function AddingComment({
+  ratings,
+  onReset,
+  collectionType,
+  onReviewSubmit,
+}: AddingCommentProps) {
+  const { slugId: routeSlugIdParam } = useParams<{ slugId?: string }>();
 
-  const calculateAverageRating = (ratingsObj: { [key: string]: number } | undefined): number => {
+  const calculateAverageRating = (
+    ratingsObj: { [key: string]: number } | undefined
+  ): number => {
     if (!ratingsObj) return 0;
 
     const ratingValues = Object.values(ratingsObj);
@@ -33,43 +40,85 @@ interface FormValues {
     return sum / validRatings.length;
   };
 
-  async function handleSubmission(values: FormValues, { resetForm }: { resetForm: () => void }) {
-    const allRatingsProvided = ratings &&
-                               Object.keys(ratings).length === 5 && 
-                               Object.values(ratings).every(rating => rating > 0); 
+  async function handleSubmission(
+    values: FormValues,
+    { resetForm }: { resetForm: () => void }
+  ) {
+    type FirestoreDataType =
+      | {
+          name: string;
+          email: string;
+          slugId: string | null;
+          textContent: string;
+          createdAt: any;
+          averageRating: number;
+          individualRatings: { [key: string]: number } | undefined;
+          blogId?: never;
+          timestamp?: never;
+        }
+      | {
+          name: string;
+          email: string;
+          textContent: string;
+          timestamp: any;
+          blogId: string | null;
+          slugId?: never;
+          createdAt?: never;
+          averageRating?: never;
+          individualRatings?: never;
+        };
 
-    if (!allRatingsProvided && collectionType == 'tour-review') {
-      toast.error("Please rate all categories before submitting your response.");
-      return; 
+    let data: FirestoreDataType;
+
+    const isReviewType = collectionType === 'tour-review';
+
+    if (isReviewType) {
+      const allRatingsProvided =
+        ratings &&
+        Object.keys(ratings).length === 5 &&
+        Object.values(ratings).every((rating) => rating > 0);
+
+      if (!allRatingsProvided) {
+        toast.error("Please rate all categories before submitting your response.");
+        return;
+      }
+
+      const averageRating = calculateAverageRating(ratings);
+      data = {
+        name: values.userName,
+        email: values.emailAddress,
+        slugId: routeSlugIdParam ?? null,
+        textContent: values.textContent,
+        createdAt: serverTimestamp(),
+        averageRating,
+        individualRatings: ratings,
+      };
+    } else {
+      data = {
+        name: values.userName,
+        email: values.emailAddress,
+        textContent: values.textContent,
+        timestamp: Timestamp.fromDate(new Date()),
+        blogId: window.location.pathname.split('/').pop() ?? null,
+      };
     }
 
-    const averageRating = calculateAverageRating(ratings); 
-
-    const data = {
-      name: values.userName,
-      email: values.emailAddress,
-      slugId: slugId || null,
-      textContent: values.textContent,
-      createdAt: serverTimestamp(),
-      averageRating, 
-      individualRatings: ratings 
-    };
-
-    console.log("data is.......", data); 
+    console.log("Data being submitted:", data);
 
     try {
       await addDoc(collection(db, collectionType), data);
       toast.success("Submitted successfully!");
-      console.log(data);
+      console.log("Submitted data:", data);
       resetForm();
       if (onReset) {
         onReset();
       }
-      if (onReviewSubmit) {
+      if (isReviewType && onReviewSubmit) {
         onReviewSubmit();
       }
-    } catch (error) {
-      toast.error(`Error: ${error}`);
+    } catch (error: any) {
+      console.error("Submission error:", error);
+      toast.error(`Error: ${error.message || "An unexpected error occurred."}`);
     }
   }
 
@@ -83,15 +132,16 @@ interface FormValues {
         }}
         validationSchema={Yup.object({
           userName: Yup.string().required("Required"),
-          emailAddress: Yup.string().email("Invalid email").required("Required"),
+          emailAddress: Yup.string().email("Invalid email address").required("Required"),
           textContent: Yup.string()
             .required("Required")
-            .trim()
+            .trim("Cannot be just empty spaces")
             .min(1, "Cannot be just empty spaces"),
         })}
         onSubmit={handleSubmission}
+        enableReinitialize
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, isSubmitting }) => (
           <Form>
             <div className="name-email-container">
               <div>
@@ -100,6 +150,7 @@ interface FormValues {
                   type="text"
                   placeholder="Your name"
                   className="name-email-field"
+                  disabled={isSubmitting}
                 />
                 {errors.userName && touched.userName ? (
                   <div className="error">{errors.userName}</div>
@@ -112,6 +163,7 @@ interface FormValues {
                   type="email"
                   placeholder="Email address"
                   className="name-email-field"
+                  disabled={isSubmitting}
                 />
                 {errors.emailAddress && touched.emailAddress ? (
                   <div className="error">{errors.emailAddress}</div>
@@ -126,6 +178,7 @@ interface FormValues {
                 placeholder="Write something"
                 className="comment-field"
                 rows={5}
+                disabled={isSubmitting}
               />
               {errors.textContent && touched.textContent ? (
                 <div className="error">{errors.textContent}</div>
@@ -133,8 +186,8 @@ interface FormValues {
             </div>
 
             <br />
-            <button type="submit" className="button-hovering-color">
-              Submit
+            <button type="submit" className="button-hovering-color" disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : "Submit"}
             </button>
           </Form>
         )}

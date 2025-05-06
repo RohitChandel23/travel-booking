@@ -88,8 +88,8 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
 
   useEffect(() => {
     const allRatings = [
-      ...firebaseComments.map((comment) => comment.averageRating || 0),
-      ...apiReviews.map((review) => review.numericRating || 0),
+      ...firebaseComments.map((comment) => comment.averageRating ?? 0),
+      ...apiReviews.map((review) => review.numericRating ?? 0),
     ];
 
     if (allRatings.length > 0) {
@@ -109,16 +109,16 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
 
   const allReviews: UnifiedReview[] = [
     ...firebaseComments.map((comment) => ({
-      name: comment.name || "Anonymous User",
-      content: comment.textContent || "",
+      name: comment.name ?? "Anonymous User",
+      content: comment.textContent ?? "",
       createdAt: comment.createdAt instanceof Date ? comment.createdAt : new Date(),
-      rating: comment.averageRating || 0,
+      rating: comment.averageRating ?? 0,
     })),
     ...apiReviews.map((review) => ({
-      name: review.user?.name || "Anonymous User",
-      content: review.content || "",
+      name: review.user?.name ?? "Anonymous User",
+      content: review.content ?? "",
       createdAt: review.epochMs ? new Date(review.epochMs) : new Date(),
-      rating: review.numericRating || 0,
+      rating: review.numericRating ?? 0,
     })),
   ].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
@@ -138,17 +138,11 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
     <div className="showing-review-container">
       <div className="showing-review-header">
         Showing review{allReviews.length !== 1 ? "s" : ""}
-        {/* {averageRating !== null && (
-          <span className="average-rating">
-            {" "}
-            (Average: {averageRating} <i className="fa-solid fa-star star-icon"></i>)
-          </span>
-        )} */}
       </div>
 
       <div className="reviews-scroll-area">
-        {allReviews.map((review, index) => (
-          <div key={index} className="showing-one-review">
+        {allReviews.map((review) => (
+          <div key={`${review.name}-${review.createdAt}-${review.content.slice(0, 1)}`} className="showing-one-review">
             <div className="showing-reviewer-image">
               <img
                 src={ProjectImages.BLANK_PROFILE}

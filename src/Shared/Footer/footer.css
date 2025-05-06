@@ -72,16 +72,13 @@ li {
   margin: 20px;
 }
 
-.right-footer input{
-  padding:3%;
-}
-
 .right-footer p {
   margin-top: 40px;
 }
 
 .right-footer input{
     margin-bottom: 8px;
+    padding:3%;
 }
 
 .right-footer button{

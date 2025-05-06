@@ -1,7 +1,9 @@
 import { AppLayoutProps } from '../AppLayout.d';
 import Header from '../../../Shared/Header';
 import Footer from '../../../Shared/Footer';
-function PrivateLayout({ children }: AppLayoutProps): JSX.Element {
+
+
+function PrivateLayout({ children }: Readonly <AppLayoutProps>): JSX.Element {
   return (
     <>
       <Header />

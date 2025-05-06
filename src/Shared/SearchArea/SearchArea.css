@@ -103,9 +103,7 @@ h2.react-datepicker__current-month {
   margin: 1% 12% 2% 7% !important ;
 }
 
-.react-datepicker__input-container input {
-  width: 115%;
-}
+
 
 .react-datepicker__day--keyboard-selected {
   background-color: white !important;

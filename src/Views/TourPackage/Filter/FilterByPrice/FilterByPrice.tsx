@@ -4,14 +4,14 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import Button from "../../../../Components/Buttons/Button"; 
 
-interface priceFilterProps {
+interface PriceFilterProps {
   readonly handleSelectedPrice: (value: number[]) => void;
   readonly currentPriceRange: number[];
 }
 
 const DEFAULT_PRICE_RANGE: [number, number] = [0, 1];
 
-function FilterByPrice({ handleSelectedPrice, currentPriceRange }: priceFilterProps) {
+function FilterByPrice({ handleSelectedPrice, currentPriceRange }: PriceFilterProps) {
   const [range, setRange] = useState<[number, number]>(DEFAULT_PRICE_RANGE);
 
   useEffect(() => {

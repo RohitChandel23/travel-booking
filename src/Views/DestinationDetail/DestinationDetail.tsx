@@ -146,7 +146,7 @@ function DestinationDetail() {
                 <li>
                   <p>Capital</p>
                   {capitals?.map((item, i) => (
-                    <span key={i}>
+                    <span key={item}>
                       {item}
                       {i === capitals.length - 1 ? "" : ", "}
                     </span>
@@ -156,7 +156,7 @@ function DestinationDetail() {
                 <li>
                   <p>Language</p>
                   {languages?.map((item, i) => (
-                    <span key={i}>
+                    <span key={item}>
                       {item}
                       {i === languages.length - 1 ? "" : ", "}
                     </span>
@@ -184,7 +184,7 @@ function DestinationDetail() {
                 <li>
                   <p>Timezone</p>
                   {timezone?.slice(0, 4).map((item, i) => (
-                    <span key={i}>
+                    <span key={item}>
                       {item}
                       {i === timezone.length - 1 ? "" : ", "}
                     </span>
@@ -204,8 +204,8 @@ function DestinationDetail() {
 
               <div className="destination-baisc-info-container weather-report">
                 <ul>
-                  {monthNames.map((item, i) => (
-                    <li key={i}>
+                  {monthNames.map((item ) => (
+                    <li key={item}>
                       <p>{item}</p>
                       <span>22°C - 32°C</span>
                       <div className="create-line"></div>

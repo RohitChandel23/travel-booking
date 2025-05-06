@@ -34,7 +34,6 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
     setSelectedDate(selectedCalendarDate);
   }, [selectedCalendarDate]);
 
-
   function handleDateChange(date: any) {
     const formattedDate = date ? format(date, 'yyyy-MM-dd') : null;
     setSelectedDate(formattedDate);
@@ -47,54 +46,53 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
     if (selectedDate) sendDateTime([selectedDate, newTime]);
   }
 
+  let timeContent;
+
+  if (isLoading || isFetching) {
+    timeContent = <p className="available-time-loading">Loading available time slots...</p>;
+  } else if (availableTimes.length === 0) {
+    timeContent = <p className="available-time-loading no-time-available">No time slots available for this date.</p>;
+  } else {
+    timeContent = (
+      <select
+        className="book-now-date-time"
+        value={selectedTime ?? 'choose time'}
+        onChange={handleTimeChange}
+      >
+        <option value="choose time" disabled>
+          choose time
+        </option>
+        {availableTimes.map((timeSlot: string) => (
+          <option key={timeSlot} value={timeSlot}>
+            {timeSlot}
+          </option>
+        ))}
+      </select>
+    );
+  }
+
   return (
     <div className="bookNow-date-time-container">
       <DatePicker
-      id={id}
+        id={id}
         className="book-now-date-time"
         selected={selectedDate ? new Date(selectedDate) : null}
         onChange={handleDateChange}
         minDate={new Date()}
         dateFormat="yyyy-MM-dd"
         placeholderText="Choose date"
-
         showYearDropdown
         showMonthDropdown
         dropdownMode="select"
-        
       />
 
       <br />
       <br />
       <span className="book-now-minor-heading">Time</span>
       <br />
-
-      {isLoading || isFetching ? (
-        <p className='available-time-loading'>Loading available time slots...</p>
-      ) : availableTimes.length === 0 ? (
-        <p className='available-time-loading no-time-available'>No time slots available for this date.</p>
-      ) : (
-        <select
-          className="book-now-date-time"
-          value={selectedTime || 'choose time'}
-          onChange={handleTimeChange}
-        >
-          <option value="choose time" disabled>
-            choose time
-          </option>
-          {availableTimes.map((timeSlot: string, index: number) => (
-            <option key={index} value={timeSlot}>
-              {timeSlot}
-            </option>
-          ))}
-        </select>
-      )}
+      {timeContent}
     </div>
   );
 }
 
-export default DateTimeComponent; 
-
-
-
-
+export default DateTimeComponent;

@@ -89,7 +89,7 @@ export default function Dashboard() {
       <div className="our-numbers-wrapper">
         <div className="our-numbers-container">
           {numberData.map((item)=>
-            <div className="number-data">
+            <div className="number-data" key={item.quantity}>
             <h1>{item.quantity}+</h1>
             <p>{item.quantityElement}</p>
                         </div>                        
@@ -110,6 +110,7 @@ export default function Dashboard() {
         <div className="browse-by-category">
           {TourCategoryData.map((value) => (
             <TourCategoryCard
+            key={value.categoryIcon}
               categoryIcon={value.categoryIcon}
               tourType={value.tourType}
               numberOfTours={value.numberOfTours}
@@ -130,7 +131,7 @@ export default function Dashboard() {
     <h2>Latest Travel Guide</h2>
     <div className="travel-guide">
       {blogs.slice(0, 4).map((blog) => (
-              <Link to={`/blog/${blog.id}`} className='link-class'>
+              <Link to={`/blog/${blog.id}`} className='link-class' key={blog.id}>
         <div className="travel-guide-card" key={blog.id}>
           <div className="travel-guide-image-container">
             <img src={blog.image} alt={blog.title} />

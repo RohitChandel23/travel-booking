@@ -138,9 +138,9 @@ function Signup() {
                 phoneNumber: Yup.string()
                   .required("Required")
                   .matches(
-                    /^[0-9]{10}$/,
+                    /^\d{10}$/,
                     "Phone number must be exactly 10 digits"
-                  ),
+                  ),  
                 password: Yup.string()
                   .required("Required")
                   .min(8, "Password must be at least 8 characters")
@@ -150,7 +150,8 @@ function Signup() {
                     /[!@#$%^&*()<>?:"{}]/,
                     "Must contain at least one special character"
                   )
-                  .matches(/[0-9]/, "Must contain at least one number"),
+                  .matches(/\d/, "Must contain at least one number"),
+                  
                 "confirm-password": Yup.string()
                   .required("Required")
                   .oneOf([Yup.ref("password")], "Passwords must match"),

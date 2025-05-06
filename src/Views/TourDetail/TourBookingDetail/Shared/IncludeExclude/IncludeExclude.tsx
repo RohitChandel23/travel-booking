@@ -12,7 +12,7 @@ return(
         <ul>
               {
             includedItems?.map((item:any)=>
-            <li><i className={includedClassName}/> <span>{item}</span></li>
+            <li key={item}><i className={includedClassName}/> <span>{item}</span></li>
             )
             }  
         </ul>
@@ -22,7 +22,7 @@ return(
         <ul>
               {
             excludedItems?.map((item:any)=>
-            <li><i className={excludedClassName}/> <span>{item}</span></li>
+            <li key={item}><i className={excludedClassName}/> <span>{item}</span></li>
             )
             }  
         </ul>

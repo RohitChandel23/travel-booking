@@ -14,7 +14,7 @@ function TourDetail() {
   const [showShareOptions, setShowShareOptions] = useState(false);
 
   const { slugId } = useParams<{ slugId: string | undefined }>();
-  const slugValue = slugId || "";
+  const slugValue = slugId ?? "";
   const { data } = useGetTourDetailQuery(slugValue);
   const tourData = data?.data;
   const tourName = tourData?.name;
@@ -147,7 +147,6 @@ function TourDetail() {
               <span className="tour-feature-heading">Reviews</span>
 
               {tourRating ? (
-                <>
                   <span className="tour-feature-value project-normal-font">
                     <i className="fa-solid fa-star project-theme-color" />{" "}
                     {tourRating}{" "}
@@ -155,7 +154,6 @@ function TourDetail() {
                       ({tourReviewCount} reviews){" "}
                     </span>
                   </span>
-                </>
               ) : (
                 <b>N/A</b>
               )}
