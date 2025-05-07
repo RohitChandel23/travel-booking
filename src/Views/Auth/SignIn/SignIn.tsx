@@ -14,6 +14,7 @@ import { updateAuthTokenRedux } from '../../../Store/Common/index';
 import { useDispatch } from 'react-redux';
 import PageBanner from '../../../Shared/PageBanner';
 import { ProjectImages } from '../../../assets/ProjectImages';
+import {useState} from 'react';
 
 interface SignInFormValues {
   email: string;
@@ -23,8 +24,10 @@ interface SignInFormValues {
 function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   
   const handleSignIn = async (values: SignInFormValues) => {
+    setIsSubmitting(true);
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -44,21 +47,19 @@ function SignIn() {
       toast.success('Login successful!');
       navigate(ROUTES_CONFIG.HOMEPAGE.path);
 
-    } catch (error: any) {
-      let errorMessage = 'An error occurred. Please try again.';
-      switch (error.message) {
-        case 'auth/user-not-found':
-        case 'auth/invalid-credential':
-          errorMessage = 'Invalid email or password.';
-          break;
-        default:
-          errorMessage = error.message || errorMessage;
-      }
+    } catch{
+      let errorMessage = 'Invalid email or username'
       toast.error(errorMessage);
-    }
+      }
+  
+    finally{
+    setIsSubmitting(false);
+  }
+
   };
 
   const handleGoogleLogin = async () => {
+    setIsSubmitting(true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const { user } = result;
@@ -78,11 +79,13 @@ function SignIn() {
     } catch (error: any) {
       toast.error(error.message || 'Google login failed.');
     }
+    finally{
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <>
-
       <PageBanner
               headingText="Authentication"
               normalText="Home /"
@@ -138,7 +141,7 @@ function SignIn() {
                 <ErrorMessage name="password" component="div" className="error" />
               </div>
 
-              <button type="submit" className="submit-btn button-hovering-color">
+              <button type="submit" className="submit-btn button-hovering-color" disabled={isSubmitting}>
                 Sign In
               </button>
             </Form>
@@ -148,10 +151,11 @@ function SignIn() {
             <div className='forgot-text'>
         <Link to="/reset-password">Forgot Your Password?</Link>
         </div>
+
         <div className="social-auth">
-          <SocialBtn name="Google" handleClick={handleGoogleLogin} />
-          <SocialBtn name="Facebook" handleClick={() => console.log('Facebook')} />
-          <SocialBtn name="Twitter" handleClick={() => console.log('Twitter')} />
+          <button onClick={handleGoogleLogin} disabled={isSubmitting}>Google</button>
+          <SocialBtn name="Facebook" handleClick={() => console.log('Facebook')}/>
+          <SocialBtn name="Twitter" handleClick={() => console.log('Twitter')}/>
         </div>
       </div>
       </div>

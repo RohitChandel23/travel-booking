@@ -195,7 +195,7 @@ function Header() {
                 `auth-link ${isActive ? "active-link" : ""}`
               }
             >
-              <i className="fa-regular fa-user" aria-hidden="true" />
+              <i className="fa-regular fa-user" aria-hidden="true" />{" "}
               <span>{ROUTES_CONFIG.LOGIN.title}</span>
             </NavLink>
             <span className="divider" aria-hidden="true">

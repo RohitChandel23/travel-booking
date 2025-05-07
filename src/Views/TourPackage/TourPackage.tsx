@@ -1,4 +1,3 @@
-
 import "./TourPackage.css";
 import { useState, useEffect, useCallback } from "react";
 import { CLASSNAMES } from "./Shared/Constants";

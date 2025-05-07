@@ -57,6 +57,7 @@ function TourBookingDetail({
 
   const hasDate = selectedDateTime[0] !== null;
   const hasTime = selectedDateTime[1] !== null;
+
   const hasTickets = adultsCount > 0 || kidsCount > 0 || childrenCount > 0;
 
   const handleBooking = async () => {
@@ -144,6 +145,7 @@ function TourBookingDetail({
             <button
               className="increment-decrement-btn"
               onClick={() => handleIncrement("Adults")}
+              disabled={adultsCount+kidsCount+childrenCount == 20}
             >
               +
             </button>
@@ -170,6 +172,7 @@ function TourBookingDetail({
             <button
               className="increment-decrement-btn"
               onClick={() => handleIncrement("Kids")}
+              disabled={adultsCount+kidsCount+childrenCount == 20}
             >
               +
             </button>
@@ -196,6 +199,7 @@ function TourBookingDetail({
             <button
               className="increment-decrement-btn"
               onClick={() => handleIncrement("Children")}
+              disabled={adultsCount+kidsCount+childrenCount == 20}
             >
               +
             </button>

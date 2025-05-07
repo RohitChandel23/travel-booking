@@ -43,7 +43,8 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
   function handleTimeChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const newTime = e.target.value;
     setSelectedTime(newTime);
-    if (selectedDate) sendDateTime([selectedDate, newTime]);
+    if (selectedDate)
+      sendDateTime([selectedDate, newTime]);
   }
 
   let timeContent;
@@ -54,6 +55,7 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
     timeContent = <p className="available-time-loading no-time-available">No time slots available for this date.</p>;
   } else {
     timeContent = (
+
       <select
         className="book-now-date-time"
         value={selectedTime ?? 'choose time'}
@@ -68,6 +70,7 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
           </option>
         ))}
       </select>
+
     );
   }
 

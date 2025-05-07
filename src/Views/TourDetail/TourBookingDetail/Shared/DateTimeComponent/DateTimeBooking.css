@@ -10,6 +10,7 @@
     line-height: 1.5;
     border: none;
     border-radius: 8px;
+    color: #05103699;
 }
 
 .ticket-label{
@@ -28,6 +29,7 @@ color: #051036;
 .no-time-available{
     color:red;
 }
+
 
 
 

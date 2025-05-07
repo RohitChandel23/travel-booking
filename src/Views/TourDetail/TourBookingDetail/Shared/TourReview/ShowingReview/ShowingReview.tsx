@@ -41,7 +41,7 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
   const [errorFirebase, setErrorFirebase] = useState<Error | null>(null);
   const [averageRating, setAverageRating] = useState<number | null>(null);
 
-  const { data: apiData, isLoading: isApiLoading, isError: isApiError } = useGetTourReviewQuery({
+  const { data: apiData,isLoading, isError: isApiError } = useGetTourReviewQuery({
     tourId,
     page: currentPage,
   });
@@ -102,7 +102,7 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
   }, [firebaseComments, apiReviews]);
 
   const handleLoadMore = () => {
-    if (!isApiLoading) {
+    if (!isLoading) {
       setCurrentPage((prev) => prev + 1);
     }
   };
@@ -122,7 +122,7 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
     })),
   ].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
-  if ((isApiLoading && currentPage === 1) || loadingFirebase) {
+  if ((isLoading && currentPage === 1) || loadingFirebase) {
     return <div className="reviews-loading">Loading reviews...</div>;
   }
 
@@ -133,6 +133,8 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
   if (allReviews.length === 0) {
     return <div className="no-reviews">No reviews yet.</div>;
   }
+
+
 
   return (
     <div className="showing-review-container">
@@ -176,9 +178,9 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
             <button
               onClick={handleLoadMore}
               className="load-more-button"
-              disabled={isApiLoading}
+              disabled={isLoading}
             >
-              {isApiLoading ? "Loading..." : "Load More Reviews"}
+              {isLoading ? "Loading..." : "Load More Reviews"}
             </button>
           </div>
         )}

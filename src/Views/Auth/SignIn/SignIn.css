@@ -90,3 +90,18 @@
     text-align: center;
     margin-top: 5%;
 }
+
+
+.social-auth button{
+    border: 1px solid #fc5056;
+    padding: 8px 45px;
+    background-color: #fc5056;
+    font-weight: 600;
+    color:white;
+    margin: 5px;
+    border-radius: 4px;
+}
+
+.social-auth button:hover{
+    background-color: #e04e4e;
+}

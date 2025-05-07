@@ -112,7 +112,7 @@ function TourReview({ tourRating, tourId, slugValue }: TourReviewProps) {
 
   return (
     <div className="tour-review-section">
-      {tourRating ? (
+      {tourRating!=0.0 ? (
         <div className="average-review-section">
           <div className="total-average-reviews">
             <h2 className="project-heading-font">{rating}</h2>
