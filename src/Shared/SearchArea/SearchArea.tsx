@@ -14,6 +14,7 @@ interface SearchAreaProps {
   readonly initialSearchValues?: Partial<SearchFormValues>;
   readonly isSearchArea?: boolean;
   readonly onFocusResetSidebarFilters?: () => void;
+  readonly formKey?: number;
 }
 
 interface SearchFormValues {
@@ -35,6 +36,7 @@ function SearchArea({
   initialSearchValues = {},
   isSearchArea,
   onFocusResetSidebarFilters,
+  formKey = 0,
 }: SearchAreaProps) {
   const navigate = useNavigate();
   const data: Location = useLocation();
@@ -131,7 +133,7 @@ function SearchArea({
   const formInitialValues: SearchFormValues = {
     ...defaultInitialValues,
     ...initialSearchValues,
-    selectDate: initialSearchValues.selectDate
+    selectDate: initialSearchValues?.selectDate
       ? [
           initialSearchValues.selectDate[0]
             ? new Date(initialSearchValues.selectDate[0])
@@ -156,6 +158,7 @@ function SearchArea({
   return (
     <div className="search-area-container">
       <Formik
+        key={formKey}
         initialValues={formInitialValues}
         enableReinitialize={true}
         validationSchema={Yup.object({
