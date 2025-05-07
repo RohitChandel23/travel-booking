@@ -1,3 +1,4 @@
+
 import "./TourPackage.css";
 import { useState, useEffect, useCallback } from "react";
 import { CLASSNAMES } from "./Shared/Constants";
@@ -174,7 +175,7 @@ function TourPackagePage() {
 
   const destinationId = filteredDestination?.data?.products?.[0]?.id;
 
-  const isDateFilterActive = selectedDate[0] !== null && selectedDate[1] !== null;
+  const isDateFilterActive = selectedDate[1] !== null;
 
   const {
     data: searchedTours,
@@ -203,7 +204,7 @@ function TourPackagePage() {
     isLoading: isLoadingTrending,
     isFetching: isFetchingTrending,
     isSuccess: isSuccessTrending,
-    isError: isErrorTrending,
+    // isError: isErrorTrending,
   } = useGetTrendingToursQuery(
     { currentPage, sortBy, limit: TOURS_PER_PAGE },
     { skip: !!selectedDestination || isDateFilterActive }
@@ -381,18 +382,18 @@ function TourPackagePage() {
   }, [selectedRating, selectedPrice]);
 
   const isOverallLoading =
-    (selectedDestination && (isLoadingDestination || isFetchingDestination)) ||
-    (selectedDestination && destinationId && isDateFilterActive && (isLoadingSearched || isFetchingSearched)) ||
-    (selectedDestination && destinationId && !isDateFilterActive && (isLoadingAttraction || isFetchingAttraction)) ||
-    (!selectedDestination && !isDateFilterActive && (isLoadingTrending || isFetchingTrending)) ||
+    (isLoadingDestination || isFetchingDestination) ||
+    (isLoadingSearched || isFetchingSearched) ||
+    (isLoadingAttraction || isFetchingAttraction) ||
+    (isLoadingTrending || isFetchingTrending) ||
     !initialLoadComplete;
 
   const hasError =
     initialLoadComplete &&
     ((selectedDestination && !destinationId && isErrorDestination) ||
-      (selectedDestination && destinationId && isDateFilterActive && isErrorSearched) ||
-      (selectedDestination && destinationId && !isDateFilterActive && isErrorAttraction) ||
-      (!selectedDestination && !isDateFilterActive && isErrorTrending));
+      (destinationId && isDateFilterActive && isErrorSearched) ||
+      (destinationId && !isDateFilterActive && isErrorAttraction))
+      // (!selectedDestination && !isDateFilterActive && isErrorTrending));
 
   const failedToFindDestinationId =
     initialLoadComplete &&
@@ -403,7 +404,7 @@ function TourPackagePage() {
   const showShimmer = isOverallLoading;
   const showError = !isOverallLoading && hasError;
   const showNoResults =
-    initialLoadComplete &&
+    // initialLoadComplete &&
     !isOverallLoading &&
     !hasError &&
     (failedToFindDestinationId || displayedAttractions.length === 0);
@@ -466,11 +467,11 @@ function TourPackagePage() {
         </div>
         <p>Sorry, No Tours Found Matching Your Criteria.</p>
         {failedToFindDestinationId && <p>We couldn't find tours for the specified destination.</p>}
-        {!failedToFindDestinationId && mergedAttractions.length > 0 && (selectedRating.length > 0 || selectedPrice.length > 0) && (
+        {mergedAttractions.length > 0 && (selectedRating.length > 0 || selectedPrice.length > 0) && (
           <p>Try adjusting your filters.</p>
         )}
         {!failedToFindDestinationId && mergedAttractions.length === 0 && totalTours === 0 && (
-          <p>No tours available for this destination/date combination.</p>
+          <p>No tours available for this destination.</p>
         )}
       </div>
     );

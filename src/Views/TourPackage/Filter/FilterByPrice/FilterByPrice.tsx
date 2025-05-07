@@ -9,7 +9,7 @@ interface PriceFilterProps {
   readonly currentPriceRange: number[];
 }
 
-const DEFAULT_PRICE_RANGE: [number, number] = [0, 1];
+const DEFAULT_PRICE_RANGE: [number, number] = [0.0001, 1];
 
 function FilterByPrice({ handleSelectedPrice, currentPriceRange }: PriceFilterProps) {
   const [range, setRange] = useState<[number, number]>(DEFAULT_PRICE_RANGE);
@@ -43,7 +43,7 @@ function FilterByPrice({ handleSelectedPrice, currentPriceRange }: PriceFilterPr
       <div style={{ width: 250, margin: "2rem auto" }}>
         <Slider
           range
-          min={0}
+          min={0.0001}
           max={1}
           step={0.00001}
           value={range}
@@ -51,8 +51,8 @@ function FilterByPrice({ handleSelectedPrice, currentPriceRange }: PriceFilterPr
           allowCross={false}
         />
         <div className="slider-selected-price">
-          <span>{range[0].toFixed(3)} ETH</span>
-          <span>{range[1].toFixed(3)} ETH</span>
+          <span>{range[0].toFixed(4)} ETH</span>
+          <span>{range[1].toFixed(4)} ETH</span>
         </div>
       </div>
       <Button name="Apply Price" handleClick={handleSubmit} />

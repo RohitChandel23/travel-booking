@@ -33,6 +33,7 @@ function ForgotPassword() {
       toast.error('User does not exist');
     }
     finally{
+      values.email=""
       setIsClick(false);
     }
   }  
