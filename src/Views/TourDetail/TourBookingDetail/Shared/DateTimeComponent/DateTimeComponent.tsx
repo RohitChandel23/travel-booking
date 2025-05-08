@@ -7,7 +7,7 @@ import { useGetDateAndTimeQuery } from '../../../../../Services/Api/module/demoA
 import './DateTimeBooking.css';
 
 interface DateTimeComponentProps {
-  readonly sendDateTime: (dateTime: [string, string]) => void;
+  readonly sendDateTime: (dateTime: [string | null, string | null]) => void;
   readonly selectedCalendarDate: string;
   readonly id: string;
 }
@@ -38,6 +38,7 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
     const formattedDate = date ? format(date, 'yyyy-MM-dd') : null;
     setSelectedDate(formattedDate);
     setSelectedTime(null);
+    sendDateTime([formattedDate, null]);
   }
 
   function handleTimeChange(e: React.ChangeEvent<HTMLSelectElement>) {
@@ -76,18 +77,27 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
 
   return (
     <div className="bookNow-date-time-container">
+      
       <DatePicker
-        id={id}
-        className="book-now-date-time"
-        selected={selectedDate ? new Date(selectedDate) : null}
-        onChange={handleDateChange}
-        minDate={new Date()}
-        dateFormat="yyyy-MM-dd"
-        placeholderText="Choose date"
-        showYearDropdown
-        showMonthDropdown
-        dropdownMode="select"
-      />
+  id={id}
+  className="book-now-date-time"
+  selected={selectedDate ? new Date(selectedDate) : null}
+  onChange={handleDateChange}
+  minDate={new Date()} 
+  maxDate={new Date(new Date().getFullYear(), 11, 31)} 
+  dateFormat="yyyy-MM-dd"
+  placeholderText="Choose date"
+  showMonthDropdown
+  dropdownMode="select"
+  showYearDropdown={false}
+  onKeyDown={(e) => {
+    const allowedKeys = ['Tab', 'Enter', 'Escape'];
+    if (!allowedKeys.includes(e.key)) {
+      e.preventDefault();
+    }
+  }}
+/>
+
 
       <br />
       <br />

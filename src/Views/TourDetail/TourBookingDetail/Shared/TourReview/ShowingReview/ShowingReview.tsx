@@ -39,9 +39,9 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
   const [showLoadMore, setShowLoadMore] = useState(true);
   const [loadingFirebase, setLoadingFirebase] = useState(true);
   const [errorFirebase, setErrorFirebase] = useState<Error | null>(null);
-  const [averageRating, setAverageRating] = useState<number | null>(null);
+  const [loadingMore, setLoadingMore] = useState(false);
 
-  const { data: apiData,isLoading, isError: isApiError } = useGetTourReviewQuery({
+  const { data: apiData, isLoading, isError: isApiError } = useGetTourReviewQuery({
     tourId,
     page: currentPage,
   });
@@ -83,26 +83,15 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
     if (apiData?.data) {
       setApiReviews((prev) => [...prev, ...apiData.data]);
       setShowLoadMore(apiData.data.length > 0);
+      setLoadingMore(false);
     }
   }, [apiData]);
 
-  useEffect(() => {
-    const allRatings = [
-      ...firebaseComments.map((comment) => comment.averageRating ?? 0),
-      ...apiReviews.map((review) => review.numericRating ?? 0),
-    ];
 
-    if (allRatings.length > 0) {
-      const avg = allRatings.reduce((sum, rating) => sum + rating, 0) / allRatings.length;
-      setAverageRating(Number(avg.toFixed(1)));
-    } else {
-      setAverageRating(null);
-    }
-    console.log("Average rating:", averageRating);
-  }, [firebaseComments, apiReviews]);
 
   const handleLoadMore = () => {
-    if (!isLoading) {
+    if (!isLoading && !loadingMore) {
+      setLoadingMore(true);
       setCurrentPage((prev) => prev + 1);
     }
   };
@@ -133,8 +122,6 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
   if (allReviews.length === 0) {
     return <div className="no-reviews">No reviews yet.</div>;
   }
-
-
 
   return (
     <div className="showing-review-container">
@@ -178,9 +165,9 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
             <button
               onClick={handleLoadMore}
               className="load-more-button"
-              disabled={isLoading}
+              disabled={isLoading || loadingMore}
             >
-              {isLoading ? "Loading..." : "Load More Reviews"}
+              {isLoading || loadingMore ? "Loading..." : "Load More Reviews"}
             </button>
           </div>
         )}

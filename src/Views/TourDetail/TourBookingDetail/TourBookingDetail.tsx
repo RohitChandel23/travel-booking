@@ -131,6 +131,7 @@ function TourBookingDetail({
             <button
               className="increment-decrement-btn"
               onClick={() => handleDecrement("Adults")}
+              disabled={adultsCount == 0}
             >
               -
             </button>
@@ -160,6 +161,7 @@ function TourBookingDetail({
             <button
               className="increment-decrement-btn"
               onClick={() => handleDecrement("Kids")}
+              disabled={kidsCount == 0}
             >
               -
             </button>
@@ -187,6 +189,7 @@ function TourBookingDetail({
             <button
               className="increment-decrement-btn"
               onClick={() => handleDecrement("Children")}
+              disabled={childrenCount == 0}
             >
               -
             </button>

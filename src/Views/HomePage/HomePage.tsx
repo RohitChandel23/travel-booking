@@ -64,7 +64,7 @@ export default function Dashboard() {
             <h3 className="kaushan-text">Save 15% off in Worldwide</h3>
             <h1 className="">Travel & Adventures</h1>
             <p className="project-normal-font">
-              Find awesome hotel, tour, car and activities
+              Find awesome tours and activities
             </p>
           </div>
         </div>

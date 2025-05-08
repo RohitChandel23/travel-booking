@@ -235,7 +235,7 @@ function TourDetail() {
           ) : (
             ""
           )}
-          {/* <TourReview tourRating={tourRating} tourId={tourId} /> */}
+
           <TourReview
             tourRating={finalCombinedAverage.toFixed(1)}
             tourId={tourId}
