@@ -105,3 +105,12 @@
 .social-auth button:hover{
     background-color: #e04e4e;
 }
+
+
+.login-btn-disable{
+    background-color: #9e2b37 !important;
+}
+
+.login-btn-disable:hover{
+    cursor: not-allowed;    
+}

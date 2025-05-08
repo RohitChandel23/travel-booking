@@ -7,7 +7,6 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { toast } from "react-toastify";
 
-
 function Footer() {
   const [email, setEmail] = useState<string>("");
   const destinationColOne = ["Las Vegas", "New York", "Hawaii", "Paris"];
@@ -56,7 +55,7 @@ function Footer() {
                 <li>Contact us</li>
               </Link>
               {/* <li>Travel Guide</li>
-              <li>Data Policy</li> */}
+              <li>Data Policy</li> */}  
             </ul>
           </div>
                 
@@ -97,6 +96,7 @@ function Footer() {
 
         <div className="right-footer">
           <li className="footer-cursive">Sign up Newsletter</li>
+
           <form onSubmit={handleSubmission}>
             <input
               type="email"
@@ -110,6 +110,7 @@ function Footer() {
               Submit
             </button>
           </form>
+          
           <br />
           <p>© 2025 Trisog All Rights Reserved</p>
         </div>

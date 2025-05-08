@@ -8,6 +8,8 @@ import { getAuth } from "firebase/auth";
 import ConnectWalletButton from "./Shared/BookNow/ConnectWalletButton";
 
 import { useAppKitAccount } from "@reown/appkit/react";
+import { useNavigate } from "react-router-dom";
+import { ROUTES_CONFIG } from "../../../Shared/Constants";
 
 interface TourBookingDetailProps {
   readonly tourPrice: string;
@@ -31,6 +33,7 @@ function TourBookingDetail({
   >([null, null]);
 
   const { isConnected } = useAppKitAccount();
+  const navigate = useNavigate();
   
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -97,6 +100,8 @@ function TourBookingDetail({
       
       console.log("Booked...", bookingDetail);
       console.log(docRef);
+      navigate(ROUTES_CONFIG.BOOKED_TOURS.path);  
+
     } catch (error) {
       toast.error(`Error in booking: ${error}`);
     }
@@ -219,7 +224,7 @@ function TourBookingDetail({
 
       <div className="wallet-btn">
         {isConnected ? (
-          <span>
+          <span className='booking-btn-container'>
             <ConnectWalletButton 
               onSuccess={handleBooking} 
               totalEthPrice={totalPrice}
@@ -227,6 +232,8 @@ function TourBookingDetail({
               hasTime={hasTime}
               hasTickets={hasTickets}
             />
+              <appkit-button/>
+
           </span>
         ) : (
           <span><appkit-button/></span>

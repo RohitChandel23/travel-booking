@@ -131,12 +131,24 @@ function AddingComment({
           textContent: "",
         }}
         validationSchema={Yup.object({
-          userName: Yup.string().required("Required"),
-          emailAddress: Yup.string().email("Invalid email address").required("Required"),
+          userName: Yup.string()
+          .required("Required")
+          .trim("Can't be just empty spaces")
+          .matches(
+            /^[A-Za-z\s]+$/,
+            "Name can't contain speical characters"
+          ),
+          emailAddress: Yup.string()
+          .email("Invalid email address")
+          .required("Required")
+          .matches(/^[a-zA-Z0-9.]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,"Invalid email address"),
+
           textContent: Yup.string()
             .required("Required")
-            .trim("Cannot be just empty spaces")
-            .min(1, "Cannot be just empty spaces"),
+            .trim("Can't be just empty spaces")
+            .min(1, "Can't be just empty spaces")
+            .matches(/^(?=.*[a-zA-Z0-9]).{1,500}$/, "Invalid"),
+
         })}
         onSubmit={handleSubmission}
         enableReinitialize

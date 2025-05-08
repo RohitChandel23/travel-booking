@@ -7,6 +7,7 @@ import { default as Register } from '../Views/Auth/SignUp/index';
 import ForgotPassword from '../Views/Auth/forgot-password';
 import ContactPage from '../Views/Contact/Contact';
 import AboutPage from '../Views/AboutPage';
+import EmailVerification from '../Views/Auth/EmailVerification/EmailVerification';
 
 // eslint-disable-next-line import/prefer-default-export
 export const PUBLIC_ROUTES: Array<CustomRouter> = [
@@ -44,6 +45,11 @@ export const PUBLIC_ROUTES: Array<CustomRouter> = [
     path: ROUTES_CONFIG.CONTACT.path,
     title: ROUTES_CONFIG.CONTACT.title,
     element: <ContactPage />,
+  },
+  {
+    path:ROUTES_CONFIG.EMAIL_VERIFICATION.path,
+    title: ROUTES_CONFIG.EMAIL_VERIFICATION.title,
+    element:<EmailVerification/>
   },
 
   {

@@ -16,6 +16,7 @@ const ROUTES = {
   BLOG_DETAIL:'/blog/:id',
   BOOKED_TOURS:'/booked-tours',
   FAVORITE_TOURS:'/favorite-tours',
+  EMAIL_VERIFICATION:'/email-verification'
 };
 
 const WILDCARD_ROUTES = {
@@ -84,6 +85,11 @@ const ROUTES_CONFIG = {
     path:ROUTES.FAVORITE_TOURS,
     title:'Favorite Tours',
   },
+
+  EMAIL_VERIFICATION:{
+    path:ROUTES.EMAIL_VERIFICATION,
+    title:'Email Verification',
+  }
 
 };
 

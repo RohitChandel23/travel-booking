@@ -147,6 +147,15 @@ border-radius: 6px;
     border: 1px solid #bbb;
     opacity: 0.6;
   }
+
+  .booking-btn-container{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 17px;
+  }
   
 
 

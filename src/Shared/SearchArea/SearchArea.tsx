@@ -58,10 +58,10 @@ function SearchArea({
 
     if (!trimmedDestinationName || !trimmedActivity) {
       if (!trimmedDestinationName) {
-        actions.setFieldError("destinationName", "Destination cannot be empty");
+        actions.setFieldError("destinationName", "Destination can't be empty");
       }
       if (!trimmedActivity) {
-        actions.setFieldError("activity", "Activity cannot be empty");
+        actions.setFieldError("activity", "Activity can't be empty");
       }
       actions.setSubmitting(false);
       return;
@@ -166,24 +166,24 @@ function SearchArea({
             .trim()
             .required("Required")
             .matches(
-              /^[A-Za-z0-9\s]+$/,
-              "Destination cannot contain special characters"
+              /^[A-Za-z\s]+$/,
+              "Destination can't contain numbers"
             )
             .test(
               "not-just-whitespace",
-              "Destination cannot be empty",
+              "Destination can't be empty",
               (value) => !!value?.trim()
             ),
           activity: Yup.string()
             .trim()
             .required("Required")
             .matches(
-              /^[A-Za-z0-9\s]+$/,
-              "Activity cannot contain special characters"
+              /^[A-Za-z\s]+$/,
+              "Activity can't contain numbers"
             )
             .test(
               "not-just-whitespace",
-              "Activity cannot be empty",
+              "Activity can't be empty",
               (value) => !!value?.trim()
             ),
           selectDate: Yup.array()
@@ -196,7 +196,7 @@ function SearchArea({
           "guest-numbers": Yup.number()
             .required("Required")
             .min(1, "Must be at least 1 guest")
-            .max(20, "Cannot exceed 20 guests")
+            .max(20, "Can't exceed 20 guests")
             .integer("Must be a whole number"),
         })}
         onSubmit={handleSearch}
@@ -264,9 +264,9 @@ function SearchArea({
                     placeholderText="Check-in & Check-out"
                     className="search-area-form-field has-icon"
                     minDate={new Date()}
-                    maxDate={new Date(new Date().getFullYear() + 10, 11, 31)}
+                    maxDate={new Date(new Date().setMonth(new Date().getMonth() + 4))}
                     onKeyDown={(e) => {
-                      if (e.key !== "Backspace" && e.key !== "Delete") {
+                      if (e.key !== "Backspace" && e.key !== "Delete") {  
                         e.preventDefault();
                       } else if (
                         (e.key === "Backspace" || e.key === "Delete") &&

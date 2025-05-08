@@ -88,4 +88,8 @@
     margin-top: 30px;
 }
 
+.signUp-btn-disable{
+ background-color: #9e2b37 !important;
+ cursor:not-allowed;
+}
 

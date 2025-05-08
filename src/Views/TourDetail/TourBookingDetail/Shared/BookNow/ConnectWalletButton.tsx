@@ -34,10 +34,6 @@ const ConnectWalletButton = ({
       return;
     }
     
-    if (!hasDate) {
-      toast.error("Please select a date.");
-      return;
-    }
     
     if (!hasTime) {
       toast.error("Please select a time.");

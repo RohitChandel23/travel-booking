@@ -56,7 +56,7 @@ function AddingComment({ onReset, collectionType }: AddingCommentProps) {
           textContent: Yup.string()
             .required('Required')
             .trim()
-            .min(1, 'Cannot be just empty spaces'),
+            .min(1, "Can't be just empty spaces"),
         })}
         onSubmit={handleSubmission}
       >

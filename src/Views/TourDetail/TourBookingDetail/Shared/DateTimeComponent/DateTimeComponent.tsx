@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useParams } from 'react-router-dom';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { useGetDateAndTimeQuery } from '../../../../../Services/Api/module/demoApi';
 import './DateTimeBooking.css';
 
@@ -28,7 +28,11 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
   );
 
   const availableTimes: string[] =
-    res?.data?.map((item: { start: string }) => item?.start?.slice(11, 16)) || [];
+    res?.data?.map((item: { start: string }) => {
+      const time24 = item?.start?.slice(11, 16); 
+      const parsedTime = parse(time24, 'HH:mm', new Date());
+      return format(parsedTime, 'hh:mm a');
+    }) || [];
 
   useEffect(() => {
     setSelectedDate(selectedCalendarDate);
@@ -56,7 +60,6 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
     timeContent = <p className="available-time-loading no-time-available">No time slots available for this date.</p>;
   } else {
     timeContent = (
-
       <select
         className="book-now-date-time"
         value={selectedTime ?? 'choose time'}
@@ -71,34 +74,30 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
           </option>
         ))}
       </select>
-
     );
   }
 
   return (
     <div className="bookNow-date-time-container">
-      
       <DatePicker
-  id={id}
-  className="book-now-date-time"
-  selected={selectedDate ? new Date(selectedDate) : null}
-  onChange={handleDateChange}
-  minDate={new Date()} 
-  maxDate={new Date(new Date().getFullYear(), 11, 31)} 
-  dateFormat="yyyy-MM-dd"
-  placeholderText="Choose date"
-  showMonthDropdown
-  dropdownMode="select"
-  showYearDropdown={false}
-  onKeyDown={(e) => {
-    const allowedKeys = ['Tab', 'Enter', 'Escape'];
-    if (!allowedKeys.includes(e.key)) {
-      e.preventDefault();
-    }
-  }}
-/>
-
-
+        id={id}
+        className="book-now-date-time"
+        selected={selectedDate ? new Date(selectedDate) : null}
+        onChange={handleDateChange}
+        minDate={new Date()}
+        maxDate={new Date(new Date().getFullYear(), 11, 31)}
+        dateFormat="yyyy-MM-dd"
+        placeholderText="Choose date"
+        showMonthDropdown
+        dropdownMode="select"
+        showYearDropdown={false}
+        onKeyDown={(e) => {
+          const allowedKeys = ['Tab', 'Enter', 'Escape'];
+          if (!allowedKeys.includes(e.key)) {
+            e.preventDefault();
+          }
+        }}
+      />
       <br />
       <br />
       <span className="book-now-minor-heading">Time</span>

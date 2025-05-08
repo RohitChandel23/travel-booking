@@ -126,7 +126,7 @@ function ShowingReview({ tourId, reviewSubmitted }: ShowingReviewProps) {
   return (
     <div className="showing-review-container">
       <div className="showing-review-header">
-        Showing review{allReviews.length !== 1 ? "s" : ""}
+        Showing review{allReviews.length !== 1 ? "s" : ""}{" "}({allReviews.length})
       </div>
 
       <div className="reviews-scroll-area">

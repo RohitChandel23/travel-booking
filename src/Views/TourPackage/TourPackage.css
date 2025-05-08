@@ -214,20 +214,15 @@ height: 100%;
 object-fit: cover;
   }
 
-
-
-
-
   .tours-filter-container h3  h4{
 color: #051036 !important;
   }
 
   .search-icon-filter{
 margin-right: 2% !important;
+padding:5% 2% 5% 2%;
+background-color: #f6f7f8;
   }
-
-
-
 
   .side-bar-search-button{
     background: none;

@@ -16,12 +16,10 @@ import ToggleBtn from "../button/ToggleBtn/ToggleBtn";
 import SocialBtn from "../button/SocialButtons/SocialBtn";
 import { ROUTES_CONFIG } from "../../../Shared/Constants";
 import { auth, db, googleProvider } from "../../../firebaseConfig";
-import { useDispatch } from 'react-redux';
-import { updateAuthTokenRedux } from '../../../Store/Common/index';
+import { useDispatch } from "react-redux";
+import { updateAuthTokenRedux } from "../../../Store/Common/index";
 import PageBanner from "../../../Shared/PageBanner";
 import { ProjectImages } from "../../../assets/ProjectImages";
-
-
 
 interface SignUpFormValues {
   email: string;
@@ -32,9 +30,9 @@ interface SignUpFormValues {
 
 function Signup() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGoogleSignUp, setIsGoogleSignUp] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
 
   const handleSignup = async (values: SignUpFormValues) => {
     setIsSubmitting(true);
@@ -69,7 +67,7 @@ function Signup() {
   };
 
   const handleGoogleSignUp = async () => {
-    setIsSubmitting(true);
+    setIsGoogleSignUp(true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const { user } = result;
@@ -93,28 +91,29 @@ function Signup() {
       } else {
         const token = await user.getIdToken();
         dispatch(updateAuthTokenRedux({ token }));
-  
+
         toast.success("Google signup successful!");
         navigate(ROUTES_CONFIG.HOMEPAGE.path);
       }
     } catch (error: any) {
-      console.log(error.code)
+      console.log(error.code);
       let errorMessage;
-      if(error.code=="auth/popup-closed-by-user")
-        errorMessage="User rejected the request"
+      if (error.code == "auth/popup-closed-by-user")
+        errorMessage = "User rejected the request";
       toast.error(errorMessage || "Google signup failed.");
+    } finally {
+      setIsGoogleSignUp(false);
     }
-    setIsSubmitting(false);
   };
 
   return (
     <>
-            <PageBanner
-              headingText="Authentication"
-              normalText="Home /"
-              coloredText="sign-up"
-              bannerImage={ProjectImages.AUTH_BANNER}
-            />
+      <PageBanner
+        headingText="Authentication"
+        normalText="Home /"
+        coloredText="sign-up"
+        bannerImage={ProjectImages.AUTH_BANNER}
+      />
 
       <div className="signup-div">
         <div className="form-container">
@@ -124,7 +123,7 @@ function Signup() {
               handleClick={() => navigate(`${ROUTES_CONFIG.REGISTER.path}`)}
             />
             <ToggleBtn
-              name="Sign In"
+              name="Log In"
               handleClick={() => navigate(`${ROUTES_CONFIG.LOGIN.path}`)}
             />
           </div>
@@ -138,13 +137,19 @@ function Signup() {
                 "confirm-password": "",
               }}
               validationSchema={Yup.object({
-                email: Yup.string().required("Required"),
+                email: Yup.string()
+                  .required("Required")
+                  .matches(
+                    /^[a-zA-Z0-9.]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    "Invalid email address"
+                  ),
+
                 phoneNumber: Yup.string()
                   .required("Required")
                   .matches(
                     /^\d{10}$/,
                     "Phone number must be exactly 10 digits"
-                  ),  
+                  ),
                 password: Yup.string()
                   .required("Required")
                   .min(8, "Password must be at least 8 characters")
@@ -155,7 +160,7 @@ function Signup() {
                     "Must contain at least one special character"
                   )
                   .matches(/\d/, "Must contain at least one number"),
-                  
+
                 "confirm-password": Yup.string()
                   .required("Required")
                   .oneOf([Yup.ref("password")], "Passwords must match"),
@@ -181,16 +186,18 @@ function Signup() {
                 <div className="input-group">
                   <label htmlFor="phoneNumber">Phone Number</label>
                   <Field
-                  name="phoneNumber"
-                  type="text" 
-                  placeholder="Enter your phone number"
-                  className="txt-box"
-                  maxLength={10}
-                  onKeyPress={(event:React.KeyboardEvent<HTMLInputElement>) => {
-                  if (!/[0-9]/.test(event.key)) {
-                  event.preventDefault();
-                  }
-                  }}
+                    name="phoneNumber"
+                    type="text"
+                    placeholder="Enter your phone number"
+                    className="txt-box"
+                    maxLength={10}
+                    onKeyPress={(
+                      event: React.KeyboardEvent<HTMLInputElement>
+                    ) => {
+                      if (!/[0-9]/.test(event.key)) {
+                        event.preventDefault();
+                      }
+                    }}
                   />
                   <ErrorMessage
                     name="phoneNumber"
@@ -233,12 +240,16 @@ function Signup() {
                   type="submit"
                   className={
                     isSubmitting
-                      ? "submit-btn signUp-btn-disable button-hovering-color"
+                      ? "submit-btn signUp-btn-disable"
                       : "submit-btn button-hovering-color"
                   }
                   disabled={isSubmitting}
                 >
-                  Sign Up
+                  {isSubmitting ? (
+                    <span>Signing Up...</span>
+                  ) : (
+                    <span> Sign Up</span>
+                  )}
                 </button>
               </Form>
             </Formik>
@@ -249,11 +260,10 @@ function Signup() {
             <button
               className="sign-up-btn social-btn"
               onClick={handleGoogleSignUp}
-              disabled={isSubmitting}
+              disabled={isGoogleSignUp}
             >
               Google
             </button>
-
             <SocialBtn
               name="Facebook"
               handleClick={() => console.log("Facebook")}
