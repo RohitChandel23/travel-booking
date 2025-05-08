@@ -47,7 +47,7 @@ function SignIn() {
       toast.success('Login successful!');
       navigate(ROUTES_CONFIG.HOMEPAGE.path);
 
-    } catch{
+    } catch{  
       let errorMessage = 'Invalid email or username'
       toast.error(errorMessage);
       }
@@ -77,7 +77,10 @@ function SignIn() {
       navigate(ROUTES_CONFIG.HOMEPAGE.path);
 
     } catch (error: any) {
-      toast.error(error.message || 'Google login failed.');
+      let errorMessage;
+      if(error.code == "auth/popup-closed-by-user")
+        errorMessage="User rejected the request"
+      toast.error(errorMessage || 'Google login failed.');
     }
     finally{
       setIsSubmitting(false);
@@ -92,7 +95,7 @@ function SignIn() {
               coloredText="login-in"
               bannerImage={ProjectImages.AUTH_BANNER}
             />
-
+  
       <div className='signIn-wrapper'>
       <div className="signIn-div">
         <div className="auth-buttons">

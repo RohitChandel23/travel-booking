@@ -98,7 +98,11 @@ function Signup() {
         navigate(ROUTES_CONFIG.HOMEPAGE.path);
       }
     } catch (error: any) {
-      toast.error(error.message || "Google signup failed.");
+      console.log(error.code)
+      let errorMessage;
+      if(error.code=="auth/popup-closed-by-user")
+        errorMessage="User rejected the request"
+      toast.error(errorMessage || "Google signup failed.");
     }
     setIsSubmitting(false);
   };
@@ -177,10 +181,16 @@ function Signup() {
                 <div className="input-group">
                   <label htmlFor="phoneNumber">Phone Number</label>
                   <Field
-                    name="phoneNumber"
-                    type="text"
-                    placeholder="Enter your phone number"
-                    className="txt-box"
+                  name="phoneNumber"
+                  type="text" 
+                  placeholder="Enter your phone number"
+                  className="txt-box"
+                  maxLength={10}
+                  onKeyPress={(event:React.KeyboardEvent<HTMLInputElement>) => {
+                  if (!/[0-9]/.test(event.key)) {
+                  event.preventDefault();
+                  }
+                  }}
                   />
                   <ErrorMessage
                     name="phoneNumber"
