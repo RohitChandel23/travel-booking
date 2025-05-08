@@ -30,7 +30,7 @@ const ConnectWalletButton = ({
     }
 
     if (!hasDate && !hasTime && !hasTickets) {
-      toast.error("Please select date, time and at least one ticket.");
+      toast.error("Please select time and at least one ticket.");
       return;
     }
     
