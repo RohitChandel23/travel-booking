@@ -1,6 +1,6 @@
 import "./Signup.css";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -31,8 +31,22 @@ interface SignUpFormValues {
 function Signup() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGoogleSignUp, setIsGoogleSignUp] = useState(false);
+  const [showVerificationPopup, setShowVerificationPopup] = useState(false);
+  const [verificationEmail, setVerificationEmail] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (showVerificationPopup) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [showVerificationPopup]);
 
   const handleSignup = async (values: SignUpFormValues) => {
     setIsSubmitting(true);
@@ -53,9 +67,8 @@ function Signup() {
 
       await signOut(auth);
 
-      toast.success("Signed up successfully! Please verify your email.");
-
-      navigate(ROUTES_CONFIG.LOGIN.path);
+      setVerificationEmail(values.email);
+      setShowVerificationPopup(true);
     } catch (error: any) {
       const errorMessage =
         error.code === "auth/email-already-in-use"
@@ -86,8 +99,9 @@ function Signup() {
       if (!user.emailVerified) {
         await sendEmailVerification(user);
         await signOut(auth);
-        toast.success("Google signup successful! Please verify your email.");
-        navigate(ROUTES_CONFIG.LOGIN.path);
+        
+        setVerificationEmail(user.email || "");
+        setShowVerificationPopup(true);
       } else {
         const token = await user.getIdToken();
         dispatch(updateAuthTokenRedux({ token }));
@@ -106,6 +120,11 @@ function Signup() {
     }
   };
 
+  const closeVerificationPopup = () => {
+    setShowVerificationPopup(false);
+    navigate(ROUTES_CONFIG.LOGIN.path);
+  };
+
   return (
     <>
       <PageBanner
@@ -114,6 +133,20 @@ function Signup() {
         coloredText="sign-up"
         bannerImage={ProjectImages.AUTH_BANNER}
       />
+
+      {showVerificationPopup && (
+        <div className="verification-popup-overlay">
+          <div className="verification-popup">
+            <h3>Verify Your Email</h3>
+            <p>A verification email has been sent to:</p>
+            <p className="email-address">{verificationEmail}</p>
+            <p>Please check your inbox and verify your email to complete signup.</p>
+            <button onClick={closeVerificationPopup} className="button-hovering-color">
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="signup-div">
         <div className="form-container">
