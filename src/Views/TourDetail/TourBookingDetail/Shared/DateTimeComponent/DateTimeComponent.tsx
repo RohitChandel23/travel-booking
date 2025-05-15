@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useParams } from 'react-router-dom';
 import { format, parse } from 'date-fns';
 import { useGetDateAndTimeQuery } from '../../../../../Services/Api/module/demoApi';
+import Select from 'react-select';
 import './DateTimeBooking.css';
 
 interface DateTimeComponentProps {
@@ -29,7 +30,7 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
 
   const availableTimes: string[] =
     res?.data?.map((item: { start: string }) => {
-      const time24 = item?.start?.slice(11, 16); 
+      const time24 = item?.start?.slice(11, 16);
       const parsedTime = parse(time24, 'HH:mm', new Date());
       return format(parsedTime, 'hh:mm a');
     }) || [];
@@ -45,11 +46,12 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
     sendDateTime([formattedDate, null]);
   }
 
-  function handleTimeChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const newTime = e.target.value;
+  function handleTimeChange(selectedOption: { value: string; label: string } | null) {
+    const newTime = selectedOption ? selectedOption.value : null;
     setSelectedTime(newTime);
-    if (selectedDate)
+    if (selectedDate && newTime) {
       sendDateTime([selectedDate, newTime]);
+    }
   }
 
   let timeContent;
@@ -59,21 +61,21 @@ function DateTimeComponent({ sendDateTime, selectedCalendarDate, id }: DateTimeC
   } else if (availableTimes.length === 0) {
     timeContent = <p className="available-time-loading no-time-available">No time slots available for this date.</p>;
   } else {
+    const timeOptions = availableTimes.map((timeSlot) => ({
+      value: timeSlot,
+      label: timeSlot,
+    }));
+
     timeContent = (
-      <select
-        className="book-now-date-time"
-        value={selectedTime ?? 'choose time'}
+      <Select
+        classNamePrefix="react-select"
+        className="react-select-container"
+        placeholder="choose time"
+        value={selectedTime ? { value: selectedTime, label: selectedTime } : null}
         onChange={handleTimeChange}
-      >
-        <option value="choose time" disabled>
-          choose time
-        </option>
-        {availableTimes.map((timeSlot: string) => (
-          <option key={timeSlot} value={timeSlot}>
-            {timeSlot}
-          </option>
-        ))}
-      </select>
+        options={timeOptions}
+        isSearchable={false}
+      />
     );
   }
 
