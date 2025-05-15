@@ -88,3 +88,13 @@ padding: 4% 7% 4% 7%;
 border-radius: 4px;
 border: none;
 }
+
+.error-input {
+  border: 1px solid red;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}

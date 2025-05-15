@@ -57,6 +57,7 @@
 .react-datepicker__input-container input {
   width: 105%;
   box-sizing: border-box;
+  caret-color: transparent;
 }
 
 .search-area-container button {

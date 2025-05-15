@@ -263,6 +263,7 @@ function SearchArea({
                     selectsRange
                     placeholderText="Check-in & Check-out"
                     className="search-area-form-field has-icon"
+                    autoComplete="off"
                     minDate={new Date()}
                     maxDate={new Date(new Date().setMonth(new Date().getMonth() + 4))}
                     onKeyDown={(e) => {

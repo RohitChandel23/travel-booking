@@ -1,38 +1,62 @@
-.react-datepicker-wrapper{
-    width:91.5%; 
-}
-
-.book-now-date-time{   
+.react-datepicker-wrapper {
+    width: 91.5%;
+  }
+  
+  .book-now-date-time {
     width: 95%;
-    padding: .375rem .75rem;
+    padding: 0.375rem 0.75rem;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
     border: none;
     border-radius: 8px;
     color: #05103699;
-}
-
-.ticket-label{
+  }
+  
+  .ticket-label {
     color: rgba(5, 16, 54, 0.6);
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: 142.857%;
-}
-
-.available-time-loading{
-font-size: 14px;
-color: #051036;
-}
-
-.no-time-available{
-    color:red;
-}
-
-
-
-
-
+  }
   
-
+  .available-time-loading {
+    font-size: 14px;
+    color: #051036;
+  }
+  
+  .no-time-available {
+    color: red;
+  }
+  
+  
+  .react-select-container {
+    width: 95%;
+  }
+  
+  .react-select__control {
+    border-radius: 8px;
+    border: none;
+    padding: 2px 4px;
+    box-shadow: none;
+    background-color: white;
+    color: #05103699;
+  }
+  
+  .react-select__placeholder {
+    color: #05103699;
+    font-size: 1rem;
+  }
+  
+  .react-select__menu {
+    z-index: 9999;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  
+  .react-select__option {
+    font-size: 1rem;
+    color: #051036;
+  }
+  
