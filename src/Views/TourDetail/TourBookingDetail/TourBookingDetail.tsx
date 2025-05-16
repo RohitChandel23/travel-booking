@@ -63,7 +63,7 @@ function TourBookingDetail({
 
   const hasTickets = adultsCount > 0 || kidsCount > 0 || childrenCount > 0;
 
-  const handleBooking = async () => {
+  const handleBookingSuccess = async () => {
     const auth = getAuth();
     const user = auth.currentUser;
   
@@ -88,19 +88,24 @@ function TourBookingDetail({
       time: selectedDateTime[1],
       createdAt: serverTimestamp(),
       tourBookedAt: new Date().toISOString(),
+      adultsCount,
+      kidsCount,
+      childrenCount
     };
   
     try {
       const docRef = await addDoc(collection(db, 'bookings'), bookingDetail);
       toast.success('Booked successfully!');
       
+      // Reset form after successful booking
       setAdultsCount(0);
       setKidsCount(0);
       setChildrenCount(0);
+      setSelectedDateTime([null, null]);
       
       console.log("Booked...", bookingDetail);
       console.log(docRef);
-      navigate(ROUTES_CONFIG.BOOKED_TOURS.path);  
+      // Don't navigate here - the ConnectWalletButton will handle navigation
 
     } catch (error) {
       toast.error(`Error in booking: ${error}`);
@@ -226,7 +231,7 @@ function TourBookingDetail({
         {isConnected ? (
           <span className='booking-btn-container'>
             <ConnectWalletButton 
-              onSuccess={handleBooking} 
+              onSuccess={handleBookingSuccess} 
               totalEthPrice={totalPrice}
               hasDate={hasDate}
               hasTime={hasTime}
@@ -244,4 +249,3 @@ function TourBookingDetail({
 }
 
 export default TourBookingDetail;
-

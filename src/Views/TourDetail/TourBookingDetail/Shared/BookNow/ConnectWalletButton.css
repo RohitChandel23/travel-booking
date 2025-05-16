@@ -8,3 +8,43 @@
     opacity: 0.5;
     cursor: not-allowed;
   }
+
+
+
+  .tx-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .tx-modal-content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .tx-modal-buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .close-modal-button {
+    margin-top: 1rem;
+    background: transparent;
+    border: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
