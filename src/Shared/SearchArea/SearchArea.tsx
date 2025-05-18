@@ -71,25 +71,18 @@ function SearchArea({
     const formatDate = (date: Date | null): string | null =>
       date ? date.toISOString().split("T")[0] : null;
 
-    const formattedData: SearchFormFormattedValues = {
-      ...values,
-      destinationName: trimmedDestinationName,
-      activity: trimmedActivity,
-      selectDate: [formatDate(startDate), formatDate(endDate)],
-    };
+    // Build query params
+    const params = new URLSearchParams();
+    params.set("destination", trimmedDestinationName);
+    params.set("activity", trimmedActivity);
+    if (formatDate(startDate)) params.set("startDate", formatDate(startDate)!);
+    if (formatDate(endDate)) params.set("endDate", formatDate(endDate)!);
+    if (values["guest-numbers"]) params.set("guests", values["guest-numbers"]);
+    // Default sort and page
+    params.set("sort", "trending");
+    params.set("page", "1");
 
-    if (
-      data.pathname === ROUTES_CONFIG.DESTINATION.path ||
-      data.pathname === ROUTES_CONFIG.HOMEPAGE.path
-    ) {
-      navigate(ROUTES_CONFIG.TOURS.path, {
-        state: {
-          formattedData,
-        },
-      });
-    } else {
-      searchAreaData?.(formattedData);
-    }
+    navigate(`${ROUTES_CONFIG.TOURS.path}?${params.toString()}`);
     actions.setSubmitting(false);
   };
 
