@@ -5,11 +5,12 @@ import { Formik, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Location } from "react-router-dom";
 import { ROUTES_CONFIG } from "../Constants";
 import { useState, useEffect, useCallback } from "react";
 
 interface SearchAreaProps {
+  readonly searchAreaData?: (data: SearchFormFormattedValues) => void;
   readonly initialSearchValues?: Partial<SearchFormValues>;
   readonly isSearchArea?: boolean;
   readonly onFocusResetSidebarFilters?: () => void;
@@ -23,13 +24,22 @@ interface SearchFormValues {
   "guest-numbers": string;
 }
 
+interface SearchFormFormattedValues {
+  destinationName: string;
+  activity: string;
+  selectDate: [string | null, string | null];
+  "guest-numbers": string;
+}
+
 function SearchArea({
+  searchAreaData = () => {},
   initialSearchValues = {},
   isSearchArea,
   onFocusResetSidebarFilters,
   formKey = 0,
 }: SearchAreaProps) {
   const navigate = useNavigate();
+  const data: Location = useLocation();
   const [datePickerBlurred, setDatePickerBlurred] = useState(false);
   const [shouldResetForm, setShouldResetForm] = useState(false);
 
@@ -61,19 +71,25 @@ function SearchArea({
     const formatDate = (date: Date | null): string | null =>
       date ? date.toISOString().split("T")[0] : null;
 
-    // Build query params (clear sidebar filters)
-    const params = new URLSearchParams();
-    params.set("destination", trimmedDestinationName);
-    params.set("activity", trimmedActivity);
-    if (formatDate(startDate)) params.set("startDate", formatDate(startDate)!);
-    if (formatDate(endDate)) params.set("endDate", formatDate(endDate)!);
-    if (values["guest-numbers"]) params.set("guests", values["guest-numbers"]);
-    // Default sort and page
-    params.set("sort", "trending");
-    params.set("page", "1");
-    // Do NOT include sidebar filter params (sidebarSearch, sidebarDestination, priceMin, priceMax, review)
+    const formattedData: SearchFormFormattedValues = {
+      ...values,
+      destinationName: trimmedDestinationName,
+      activity: trimmedActivity,
+      selectDate: [formatDate(startDate), formatDate(endDate)],
+    };
 
-    navigate(`${ROUTES_CONFIG.TOURS.path}?${params.toString()}`);
+    if (
+      data.pathname === ROUTES_CONFIG.DESTINATION.path ||
+      data.pathname === ROUTES_CONFIG.HOMEPAGE.path
+    ) {
+      navigate(ROUTES_CONFIG.TOURS.path, {
+        state: {
+          formattedData,
+        },
+      });
+    } else {
+      searchAreaData?.(formattedData);
+    }
     actions.setSubmitting(false);
   };
 

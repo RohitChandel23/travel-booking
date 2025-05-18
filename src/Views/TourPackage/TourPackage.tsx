@@ -81,7 +81,6 @@ const generatePageNumbers = (
 function TourPackagePage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Read values from URL query params
   const destination = searchParams.get("destination") || "";
   const activity = searchParams.get("activity") || "";
   const startDate = searchParams.get("startDate") || null;
@@ -89,24 +88,19 @@ function TourPackagePage() {
   const guests = searchParams.get("guests") || "";
   const sortBy = searchParams.get("sort") || "trending";
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
-  // Sidebar-specific params
   const sidebarSearch = searchParams.get("sidebarSearch") || "";
   const sidebarDestination = searchParams.get("sidebarDestination") || "";
 
-  // Local state for sidebar search input
   const [sidebarSearchInput, setSidebarSearchInput] = useState(sidebarSearch);
 
-  // Keep sidebarSearchInput in sync with the URL param
   useEffect(() => {
     setSidebarSearchInput(sidebarSearch);
   }, [sidebarSearch]);
 
-  // State for filters (not in URL):
   const [selectedRating, setSelectedRating] = useState<number[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<number[]>([]);
   const [searchFormKey, setSearchFormKey] = useState<number>(0);
 
-  // For SearchArea initial values
   const currentSearchValues = {
     destinationName: destination,
     activity: activity,
@@ -114,10 +108,8 @@ function TourPackagePage() {
     "guest-numbers": guests,
   };
 
-  // Determine which destination/search to use for filtering
   const activeDestination = destination || sidebarDestination || sidebarSearch || "";
 
-  // Data fetching logic (unchanged, but use values from URL)
   const {
     data: filteredDestination,
     isLoading: isLoadingDestination,
@@ -252,10 +244,11 @@ function TourPackagePage() {
 
   const shimmerCardId = Array.from({ length: 21 }, (_, i) => i + 1);
 
-  // Handlers to update URL params
   function handleSortChange(value: string) {
     searchParams.set("sort", value);
     searchParams.set("page", "1");
+    setSelectedRating([]);
+    setSelectedPrice([]);
     setSearchParams(searchParams);
   }
 
@@ -276,37 +269,31 @@ function TourPackagePage() {
     }
   }
 
-  // Handler for sidebar search (destination)
   function handleSidebarSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSidebarSearchInput(e.target.value);
   }
 
   function handleSidebarSearchSubmit() {
-    // Remove SearchArea params when using sidebar search
     searchParams.delete("destination");
     searchParams.delete("activity");
     searchParams.delete("startDate");
     searchParams.delete("endDate");
     searchParams.delete("guests");
-    // Clear all other sidebar filter params except sidebarSearch
     searchParams.delete("sidebarDestination");
     searchParams.delete("priceMin");
     searchParams.delete("priceMax");
     searchParams.delete("review");
-    // Set sidebar search param from local input
     searchParams.set("sidebarSearch", sidebarSearchInput);
     searchParams.set("page", "1");
     setSearchParams(searchParams);
   }
 
   function handleDestinationData(data: string | null) {
-    // Remove SearchArea params when using sidebar destination filter
     searchParams.delete("destination");
     searchParams.delete("activity");
     searchParams.delete("startDate");
     searchParams.delete("endDate");
     searchParams.delete("guests");
-    // Clear sidebarSearch param when a destination is selected
     searchParams.delete("sidebarSearch");
     if (data) {
       searchParams.set("sidebarDestination", data);
