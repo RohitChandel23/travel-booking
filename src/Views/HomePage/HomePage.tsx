@@ -70,7 +70,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <SearchArea searchAreaData={() => { }} />
+      <SearchArea />
 
       <div className="tour-container">
         <div className="section-headers">

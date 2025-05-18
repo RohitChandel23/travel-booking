@@ -1,5 +1,5 @@
 import "./TourPackage.css";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { CLASSNAMES } from "./Shared/Constants";
 import PageBanner from "../../Shared/PageBanner";
 import SearchArea from "../../Shared/SearchArea";
@@ -15,7 +15,7 @@ import {
   useGetAttractionQuery,
   useGetSearchedToursQuery,
 } from "../../Services/Api/module/demoApi";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { ProjectImages } from "../../assets/ProjectImages";
 
 interface AttractionType {
@@ -42,13 +42,6 @@ interface AttractionType {
   representativePrice: {
     chargeAmount: number;
   };
-}
-
-interface SearchAreaDataProps {
-  readonly selectDate: [string | null, string | null];
-  readonly destinationName: string;
-  readonly activity: string;
-  readonly "guest-numbers": string;
 }
 
 const TOURS_PER_PAGE = 21;
@@ -86,81 +79,36 @@ const generatePageNumbers = (
 };
 
 function TourPackagePage() {
-  const [selectedDestination, setSelectedDestination] = useState<string | null>(
-    null
-  );
-  const [searchedDestination, setSearchedDestination] = useState<string>("");
-  const [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>(
-    []
-  );
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [selectedRating, setSelectedRating] = useState<number[]>([]);
-  const [selectedPrice, setSelectedPrice] = useState<number[]>([]);
-  const [selectedDate, setSelectedDate] = useState<[string | null, string | null]>([null, null]);
-  const [isSearchArea, setIsSearchArea] = useState(false);
-  const [sortBy, setSortBy] = useState<string>("trending");
-  const [totalTours, setTotalTours] = useState<number>(0);
-  const [searchSource, setSearchSource] = useState<"searchArea" | "filterSearch" | null>(null);
-  const [initialLoadComplete, setInitialLoadComplete] = useState<boolean>(false);
-  const [currentSearchValues, setCurrentSearchValues] = useState<any>(null);
-  const [searchFormKey, setSearchFormKey] = useState<number>(0);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const location = useLocation();
-  const searchingData = (location.state as { formattedData?: SearchAreaDataProps; footerDestination?: string } | string | null) || null;
+  const destination = searchParams.get("destination") || "";
+  const activity = searchParams.get("activity") || "";
+  const startDate = searchParams.get("startDate") || null;
+  const endDate = searchParams.get("endDate") || null;
+  const guests = searchParams.get("guests") || "";
+  const sortBy = searchParams.get("sort") || "trending";
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  const sidebarSearch = searchParams.get("sidebarSearch") || "";
+  const sidebarDestination = searchParams.get("sidebarDestination") || "";
+
+  const [sidebarSearchInput, setSidebarSearchInput] = useState(sidebarSearch);
 
   useEffect(() => {
-    let initialDest: string | null = null;
-    let initialSearchInput: string = "";
-    let initialDate: [string | null, string | null] = [null, null];
-    let cameFromSearchArea = false;
-    let source: "searchArea" | "filterSearch" | null = null;
-    let formData = null;
+    setSidebarSearchInput(sidebarSearch);
+  }, [sidebarSearch]);
 
-    if (typeof searchingData === "string") {
-      initialDest = searchingData;
-      initialSearchInput = searchingData;
-      source = "filterSearch";
-    } else if (searchingData?.formattedData) {
-      initialDest = searchingData.formattedData.destinationName || null;
-      initialDate = searchingData.formattedData.selectDate || [null, null];
-      source = "searchArea";
-      cameFromSearchArea = true;
-      formData = searchingData.formattedData;
-    } else if (searchingData?.footerDestination) {
-      initialDest = searchingData.footerDestination;
-      initialSearchInput = searchingData.footerDestination;
-      source = "filterSearch";
-    }
+  const [selectedRating, setSelectedRating] = useState<number[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState<number[]>([]);
+  const [searchFormKey, setSearchFormKey] = useState<number>(0);
 
-    setSearchSource(source);
-    console.log("searchSource", searchSource);
-    setSelectedDestination(initialDest);
-    setSearchedDestination(initialSearchInput);
-    setSelectedDate(initialDate);
-    setCurrentPage(1);
-    setInitialLoadComplete(false);
+  const currentSearchValues = {
+    destinationName: destination,
+    activity: activity,
+    selectDate: [startDate ? new Date(startDate) : null, endDate ? new Date(endDate) : null] as [Date | null, Date | null],
+    "guest-numbers": guests,
+  };
 
-    if (cameFromSearchArea && formData) {
-      setCurrentSearchValues({
-        destinationName: formData.destinationName || "",
-        activity: formData.activity || "",
-        selectDate: [
-          formData.selectDate?.[0] ? new Date(formData.selectDate[0]) : null,
-          formData.selectDate?.[1] ? new Date(formData.selectDate[1]) : null,
-        ],
-        "guest-numbers": formData["guest-numbers"] || "",
-      });
-    } else {
-      setCurrentSearchValues(null);
-    }
-
-    if (cameFromSearchArea) {
-      setSelectedRating([]);
-      setSelectedPrice([]);
-    }
-    setIsSearchArea(cameFromSearchArea);
-    setSearchFormKey(prev => prev + 1);
-  }, [searchingData]);
+  const activeDestination = destination || sidebarDestination || sidebarSearch || "";
 
   const {
     data: filteredDestination,
@@ -168,13 +116,12 @@ function TourPackagePage() {
     isFetching: isFetchingDestination,
     isSuccess: isSuccessDestination,
     isError: isErrorDestination,
-  } = useGetFilteredDestinationToursQuery(selectedDestination ?? "", {
-    skip: !selectedDestination,
+  } = useGetFilteredDestinationToursQuery(activeDestination, {
+    skip: !activeDestination,
   });
 
   const destinationId = filteredDestination?.data?.products?.[0]?.id;
-
-  const isDateFilterActive = selectedDate[1] !== null;
+  const isDateFilterActive = !!endDate;
 
   const {
     data: searchedTours,
@@ -183,7 +130,7 @@ function TourPackagePage() {
     isSuccess: isSuccessSearched,
     isError: isErrorSearched,
   } = useGetSearchedToursQuery(
-    { destinationId, selectedDate, currentPage, sortBy, limit: TOURS_PER_PAGE },
+    { destinationId, selectedDate: [startDate, endDate], currentPage, sortBy, limit: TOURS_PER_PAGE },
     { skip: !destinationId || !isSuccessDestination || !isDateFilterActive }
   );
 
@@ -203,26 +150,29 @@ function TourPackagePage() {
     isLoading: isLoadingTrending,
     isFetching: isFetchingTrending,
     isSuccess: isSuccessTrending,
-    // isError: isErrorTrending,
   } = useGetTrendingToursQuery(
     { currentPage, sortBy, limit: TOURS_PER_PAGE },
-    { skip: !!selectedDestination || isDateFilterActive }
+    { skip: !!activeDestination || isDateFilterActive }
   );
+
+  const [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>([]);
+  const [totalTours, setTotalTours] = useState<number>(0);
+  const [initialLoadComplete, setInitialLoadComplete] = useState<boolean>(false);
 
   useEffect(() => {
     let activeData = null;
     let activeSuccess = false;
     let activeFetching = true;
 
-    if (selectedDestination && destinationId && isDateFilterActive) {
+    if (activeDestination && destinationId && isDateFilterActive) {
       activeData = searchedTours;
       activeSuccess = isSuccessSearched;
       activeFetching = isFetchingSearched || isFetchingDestination;
-    } else if (selectedDestination && destinationId && !isDateFilterActive) {
+    } else if (activeDestination && destinationId && !isDateFilterActive) {
       activeData = attractionData;
       activeSuccess = isSuccessAttraction;
       activeFetching = isFetchingAttraction || isFetchingDestination;
-    } else if (!selectedDestination && !isDateFilterActive) {
+    } else if (!activeDestination && !isDateFilterActive) {
       activeData = trendingDestination;
       activeSuccess = isSuccessTrending;
       activeFetching = isFetchingTrending;
@@ -242,8 +192,7 @@ function TourPackagePage() {
       setTotalTours(0);
     }
   }, [
-    selectedDestination,
-    selectedDate,
+    activeDestination,
     destinationId,
     isDateFilterActive,
     searchedTours,
@@ -296,58 +245,66 @@ function TourPackagePage() {
   const shimmerCardId = Array.from({ length: 21 }, (_, i) => i + 1);
 
   function handleSortChange(value: string) {
-    setSortBy(value);
-    setCurrentPage(1);
+    searchParams.set("sort", value);
+    searchParams.set("page", "1");
+    setSelectedRating([]);
+    setSelectedPrice([]);
+    setSearchParams(searchParams);
+  }
+
+  function handlePageChange(value: number) {
+    const newPage = currentPage + value;
+    if (newPage >= 1) {
+      searchParams.set("page", newPage.toString());
+      setSearchParams(searchParams);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  function goToPage(pageNumber: number) {
+    if (pageNumber >= 1 && pageNumber !== currentPage) {
+      searchParams.set("page", pageNumber.toString());
+      setSearchParams(searchParams);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 
   function handleSidebarSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setSearchedDestination(e.target.value);
+    setSidebarSearchInput(e.target.value);
   }
 
   function handleSidebarSearchSubmit() {
-    setSearchSource("filterSearch");
-    const trimmedData = searchedDestination.trim() || null;
-    setSelectedDestination(trimmedData);
-    setCurrentPage(1);
-    setIsSearchArea(false);
-    setSelectedDate([null, null]);
-    setInitialLoadComplete(false);
-    setCurrentSearchValues(null);
-    setSearchFormKey(prev => prev + 1);
-  }
-
-  function searchAreaData(values: SearchAreaDataProps) {
-    setSearchSource("searchArea");
-    setIsSearchArea(true);
-    setSelectedDate(values.selectDate || [null, null]);
-    setSelectedDestination(values.destinationName.trim() || null);
-    setSearchedDestination("");
-    setSelectedRating([]);
-    setSelectedPrice([]);
-    setCurrentPage(1);
-    setInitialLoadComplete(false);
-    setCurrentSearchValues({
-      destinationName: values.destinationName || "",
-      activity: values.activity || "",
-      selectDate: [
-        values.selectDate?.[0] ? new Date(values.selectDate[0]) : null,
-        values.selectDate?.[1] ? new Date(values.selectDate[1]) : null,
-      ],
-      "guest-numbers": values["guest-numbers"] || "",
-    });
-    setSearchFormKey(prev => prev + 1);
+    searchParams.delete("destination");
+    searchParams.delete("activity");
+    searchParams.delete("startDate");
+    searchParams.delete("endDate");
+    searchParams.delete("guests");
+    searchParams.delete("sidebarDestination");
+    searchParams.delete("priceMin");
+    searchParams.delete("priceMax");
+    searchParams.delete("review");
+    searchParams.set("sidebarSearch", sidebarSearchInput);
+    searchParams.set("page", "1");
+    setSearchParams(searchParams);
   }
 
   function handleDestinationData(data: string | null) {
-    setSearchSource("filterSearch");
-    setSelectedDestination(data);
-    setSearchedDestination(data ?? "");
-    setCurrentPage(1);
-    setIsSearchArea(false);
-    setSelectedDate([null, null]);
+    searchParams.delete("destination");
+    searchParams.delete("activity");
+    searchParams.delete("startDate");
+    searchParams.delete("endDate");
+    searchParams.delete("guests");
+    searchParams.delete("sidebarSearch");
+    if (data) {
+      searchParams.set("sidebarDestination", data);
+      searchParams.set("page", "1");
+    } else {
+      searchParams.delete("sidebarDestination");
+      searchParams.set("page", "1");
+    }
     setInitialLoadComplete(false);
-    setCurrentSearchValues(null);
     setSearchFormKey(prev => prev + 1);
+    setSearchParams(searchParams);
   }
 
   function handleRatingData(value: number[]) {
@@ -358,28 +315,6 @@ function TourPackagePage() {
     setSelectedPrice(value);
   }
 
-  function handlePageChange(value: number) {
-    const newPage = currentPage + value;
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }
-
-  function goToPage(pageNumber: number) {
-    if (pageNumber >= 1 && pageNumber <= totalPages && pageNumber !== currentPage) {
-      setCurrentPage(pageNumber);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }
-
-  const resetSidebarFilters = useCallback(() => {
-    if (selectedRating.length > 0 || selectedPrice.length > 0) {
-      setSelectedRating([]);
-      setSelectedPrice([]);
-    }
-  }, [selectedRating, selectedPrice]);
-
   const isOverallLoading =
     (isLoadingDestination || isFetchingDestination) ||
     (isLoadingSearched || isFetchingSearched) ||
@@ -389,21 +324,19 @@ function TourPackagePage() {
 
   const hasError =
     initialLoadComplete &&
-    ((selectedDestination && !destinationId && isErrorDestination) ||
+    ((destination && !destinationId && isErrorDestination) ||
       (destinationId && isDateFilterActive && isErrorSearched) ||
       (destinationId && !isDateFilterActive && isErrorAttraction))
-      // (!selectedDestination && !isDateFilterActive && isErrorTrending));
 
   const failedToFindDestinationId =
     initialLoadComplete &&
-    selectedDestination !== null &&
+    destination &&
     isSuccessDestination &&
     !destinationId;
 
   const showShimmer = isOverallLoading;
   const showError = !isOverallLoading && hasError;
   const showNoResults =
-    // initialLoadComplete &&
     !isOverallLoading &&
     !hasError &&
     (failedToFindDestinationId || displayedAttractions.length === 0);
@@ -485,12 +418,14 @@ function TourPackagePage() {
         bannerImage={ProjectImages.TOURPAGE_BANNER}
       />
       <SearchArea
-  searchAreaData={searchAreaData}
-  initialSearchValues={currentSearchValues || undefined}
-  isSearchArea={isSearchArea}
-  onFocusResetSidebarFilters={resetSidebarFilters}
-  formKey={searchFormKey}
-/>
+        initialSearchValues={currentSearchValues}
+        isSearchArea={true}
+        onFocusResetSidebarFilters={() => {
+          setSelectedRating([]);
+          setSelectedPrice([]);
+        }}
+        formKey={searchFormKey}
+      />
 
       <div className={CLASSNAMES.FILTER_DISPLAY}>
         <div className={CLASSNAMES.FILTER_CONTAINER}>
@@ -500,7 +435,7 @@ function TourPackagePage() {
               <div className="search-input-with-icon">
                 <input
                   type="text"
-                  value={searchedDestination}
+                  value={sidebarSearchInput}
                   onChange={handleSidebarSearchChange}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleSidebarSearchSubmit();
@@ -530,7 +465,7 @@ function TourPackagePage() {
           <div className="tour-filter-types">
             <FilterByDestination
               handleDestinationData={handleDestinationData}
-              currentDestination={selectedDestination}
+              currentDestination={sidebarDestination}
             />
           </div>
 
