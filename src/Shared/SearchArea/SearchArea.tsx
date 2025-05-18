@@ -5,12 +5,11 @@ import { Formik, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useLocation, useNavigate, Location } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ROUTES_CONFIG } from "../Constants";
 import { useState, useEffect, useCallback } from "react";
 
 interface SearchAreaProps {
-  readonly searchAreaData?: (data: SearchFormFormattedValues) => void;
   readonly initialSearchValues?: Partial<SearchFormValues>;
   readonly isSearchArea?: boolean;
   readonly onFocusResetSidebarFilters?: () => void;
@@ -24,22 +23,13 @@ interface SearchFormValues {
   "guest-numbers": string;
 }
 
-interface SearchFormFormattedValues {
-  destinationName: string;
-  activity: string;
-  selectDate: [string | null, string | null];
-  "guest-numbers": string;
-}
-
 function SearchArea({
-  searchAreaData = () => {},
   initialSearchValues = {},
   isSearchArea,
   onFocusResetSidebarFilters,
   formKey = 0,
 }: SearchAreaProps) {
   const navigate = useNavigate();
-  const data: Location = useLocation();
   const [datePickerBlurred, setDatePickerBlurred] = useState(false);
   const [shouldResetForm, setShouldResetForm] = useState(false);
 
@@ -71,7 +61,7 @@ function SearchArea({
     const formatDate = (date: Date | null): string | null =>
       date ? date.toISOString().split("T")[0] : null;
 
-    // Build query params
+    // Build query params (clear sidebar filters)
     const params = new URLSearchParams();
     params.set("destination", trimmedDestinationName);
     params.set("activity", trimmedActivity);
@@ -81,6 +71,7 @@ function SearchArea({
     // Default sort and page
     params.set("sort", "trending");
     params.set("page", "1");
+    // Do NOT include sidebar filter params (sidebarSearch, sidebarDestination, priceMin, priceMax, review)
 
     navigate(`${ROUTES_CONFIG.TOURS.path}?${params.toString()}`);
     actions.setSubmitting(false);

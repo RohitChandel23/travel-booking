@@ -59,7 +59,7 @@ function DestinationPage() {
         bannerImage={ProjectImages.DESTINATION_BANNER}
       />
 
-      <SearchArea searchAreaData={() => {}} />
+      <SearchArea />
 
       <div className="destination-grid-wrapper">
         <div className="destination-grid-container">

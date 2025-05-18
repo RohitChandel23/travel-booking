@@ -1,5 +1,5 @@
 import "./TourPackage.css";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { CLASSNAMES } from "./Shared/Constants";
 import PageBanner from "../../Shared/PageBanner";
 import SearchArea from "../../Shared/SearchArea";
@@ -15,7 +15,7 @@ import {
   useGetAttractionQuery,
   useGetSearchedToursQuery,
 } from "../../Services/Api/module/demoApi";
-import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { ProjectImages } from "../../assets/ProjectImages";
 
 interface AttractionType {
@@ -42,13 +42,6 @@ interface AttractionType {
   representativePrice: {
     chargeAmount: number;
   };
-}
-
-interface SearchAreaDataProps {
-  readonly selectDate: [string | null, string | null];
-  readonly destinationName: string;
-  readonly activity: string;
-  readonly "guest-numbers": string;
 }
 
 const TOURS_PER_PAGE = 21;
@@ -87,7 +80,6 @@ const generatePageNumbers = (
 
 function TourPackagePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
 
   // Read values from URL query params
   const destination = searchParams.get("destination") || "";
@@ -97,6 +89,17 @@ function TourPackagePage() {
   const guests = searchParams.get("guests") || "";
   const sortBy = searchParams.get("sort") || "trending";
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  // Sidebar-specific params
+  const sidebarSearch = searchParams.get("sidebarSearch") || "";
+  const sidebarDestination = searchParams.get("sidebarDestination") || "";
+
+  // Local state for sidebar search input
+  const [sidebarSearchInput, setSidebarSearchInput] = useState(sidebarSearch);
+
+  // Keep sidebarSearchInput in sync with the URL param
+  useEffect(() => {
+    setSidebarSearchInput(sidebarSearch);
+  }, [sidebarSearch]);
 
   // State for filters (not in URL):
   const [selectedRating, setSelectedRating] = useState<number[]>([]);
@@ -111,6 +114,9 @@ function TourPackagePage() {
     "guest-numbers": guests,
   };
 
+  // Determine which destination/search to use for filtering
+  const activeDestination = destination || sidebarDestination || sidebarSearch || "";
+
   // Data fetching logic (unchanged, but use values from URL)
   const {
     data: filteredDestination,
@@ -118,8 +124,8 @@ function TourPackagePage() {
     isFetching: isFetchingDestination,
     isSuccess: isSuccessDestination,
     isError: isErrorDestination,
-  } = useGetFilteredDestinationToursQuery(destination, {
-    skip: !destination,
+  } = useGetFilteredDestinationToursQuery(activeDestination, {
+    skip: !activeDestination,
   });
 
   const destinationId = filteredDestination?.data?.products?.[0]?.id;
@@ -154,13 +160,11 @@ function TourPackagePage() {
     isSuccess: isSuccessTrending,
   } = useGetTrendingToursQuery(
     { currentPage, sortBy, limit: TOURS_PER_PAGE },
-    { skip: !!destination || isDateFilterActive }
+    { skip: !!activeDestination || isDateFilterActive }
   );
 
-  const [selectedDestination, setSelectedDestination] = useState<string | null>(destination);
   const [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>([]);
   const [totalTours, setTotalTours] = useState<number>(0);
-  const [isSearchArea, setIsSearchArea] = useState(true);
   const [initialLoadComplete, setInitialLoadComplete] = useState<boolean>(false);
 
   useEffect(() => {
@@ -168,15 +172,15 @@ function TourPackagePage() {
     let activeSuccess = false;
     let activeFetching = true;
 
-    if (selectedDestination && destinationId && isDateFilterActive) {
+    if (activeDestination && destinationId && isDateFilterActive) {
       activeData = searchedTours;
       activeSuccess = isSuccessSearched;
       activeFetching = isFetchingSearched || isFetchingDestination;
-    } else if (selectedDestination && destinationId && !isDateFilterActive) {
+    } else if (activeDestination && destinationId && !isDateFilterActive) {
       activeData = attractionData;
       activeSuccess = isSuccessAttraction;
       activeFetching = isFetchingAttraction || isFetchingDestination;
-    } else if (!selectedDestination && !isDateFilterActive) {
+    } else if (!activeDestination && !isDateFilterActive) {
       activeData = trendingDestination;
       activeSuccess = isSuccessTrending;
       activeFetching = isFetchingTrending;
@@ -196,7 +200,7 @@ function TourPackagePage() {
       setTotalTours(0);
     }
   }, [
-    selectedDestination,
+    activeDestination,
     destinationId,
     isDateFilterActive,
     searchedTours,
@@ -273,22 +277,47 @@ function TourPackagePage() {
   }
 
   // Handler for sidebar search (destination)
+  function handleSidebarSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSidebarSearchInput(e.target.value);
+  }
+
   function handleSidebarSearchSubmit() {
-    if (destination) searchParams.set("destination", destination);
+    // Remove SearchArea params when using sidebar search
+    searchParams.delete("destination");
+    searchParams.delete("activity");
+    searchParams.delete("startDate");
+    searchParams.delete("endDate");
+    searchParams.delete("guests");
+    // Clear all other sidebar filter params except sidebarSearch
+    searchParams.delete("sidebarDestination");
+    searchParams.delete("priceMin");
+    searchParams.delete("priceMax");
+    searchParams.delete("review");
+    // Set sidebar search param from local input
+    searchParams.set("sidebarSearch", sidebarSearchInput);
     searchParams.set("page", "1");
     setSearchParams(searchParams);
   }
 
-  // Handler for SearchArea search (should update URL, but SearchArea already does this)
-  function searchAreaData() {
-    // No-op, SearchArea now handles navigation
-  }
-
   function handleDestinationData(data: string | null) {
-    setSelectedDestination(data);
-    setIsSearchArea(false);
+    // Remove SearchArea params when using sidebar destination filter
+    searchParams.delete("destination");
+    searchParams.delete("activity");
+    searchParams.delete("startDate");
+    searchParams.delete("endDate");
+    searchParams.delete("guests");
+    // Clear sidebarSearch param when a destination is selected
+    searchParams.delete("sidebarSearch");
+    if (data) {
+      searchParams.set("sidebarDestination", data);
+      searchParams.set("page", "1");
+    } else {
+      searchParams.delete("sidebarDestination");
+      searchParams.set("page", "1");
+    }
     setInitialLoadComplete(false);
     setSearchFormKey(prev => prev + 1);
+    setSearchParams(searchParams);
   }
 
   function handleRatingData(value: number[]) {
@@ -299,13 +328,6 @@ function TourPackagePage() {
     setSelectedPrice(value);
   }
 
-  const resetSidebarFilters = useCallback(() => {
-    if (selectedRating.length > 0 || selectedPrice.length > 0) {
-      setSelectedRating([]);
-      setSelectedPrice([]);
-    }
-  }, [selectedRating, selectedPrice]);
-
   const isOverallLoading =
     (isLoadingDestination || isFetchingDestination) ||
     (isLoadingSearched || isFetchingSearched) ||
@@ -315,13 +337,13 @@ function TourPackagePage() {
 
   const hasError =
     initialLoadComplete &&
-    ((selectedDestination && !destinationId && isErrorDestination) ||
+    ((destination && !destinationId && isErrorDestination) ||
       (destinationId && isDateFilterActive && isErrorSearched) ||
       (destinationId && !isDateFilterActive && isErrorAttraction))
 
   const failedToFindDestinationId =
     initialLoadComplete &&
-    selectedDestination !== null &&
+    destination &&
     isSuccessDestination &&
     !destinationId;
 
@@ -426,10 +448,8 @@ function TourPackagePage() {
               <div className="search-input-with-icon">
                 <input
                   type="text"
-                  value={destination}
-                  onChange={(e) => {
-                    setSelectedDestination(e.target.value);
-                  }}
+                  value={sidebarSearchInput}
+                  onChange={handleSidebarSearchChange}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleSidebarSearchSubmit();
                   }}
@@ -458,7 +478,7 @@ function TourPackagePage() {
           <div className="tour-filter-types">
             <FilterByDestination
               handleDestinationData={handleDestinationData}
-              currentDestination={selectedDestination}
+              currentDestination={sidebarDestination}
             />
           </div>
 
