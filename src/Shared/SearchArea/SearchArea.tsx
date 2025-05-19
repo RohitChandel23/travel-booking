@@ -5,7 +5,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useLocation, useNavigate, Location } from "react-router-dom";
+import { useLocation, useNavigate, Location, useSearchParams } from "react-router-dom";
 import { ROUTES_CONFIG } from "../Constants";
 import { useState, useEffect, useCallback } from "react";
 
@@ -40,6 +40,7 @@ function SearchArea({
 }: SearchAreaProps) {
   const navigate = useNavigate();
   const data: Location = useLocation();
+  const [, setSearchParams] = useSearchParams();
   const [datePickerBlurred, setDatePickerBlurred] = useState(false);
   const [shouldResetForm, setShouldResetForm] = useState(false);
 
@@ -78,15 +79,21 @@ function SearchArea({
       selectDate: [formatDate(startDate), formatDate(endDate)],
     };
 
+    // Update URL parameters
+    const newSearchParams = new URLSearchParams();
+    newSearchParams.set("destination", trimmedDestinationName);
+    newSearchParams.set("activity", trimmedActivity);
+    if (startDate) newSearchParams.set("startDate", formatDate(startDate) || "");
+    if (endDate) newSearchParams.set("endDate", formatDate(endDate) || "");
+    newSearchParams.set("guests", values["guest-numbers"]);
+    newSearchParams.set("page", "1"); // Reset to first page on new search
+    setSearchParams(newSearchParams);
+
     if (
       data.pathname === ROUTES_CONFIG.DESTINATION.path ||
       data.pathname === ROUTES_CONFIG.HOMEPAGE.path
     ) {
-      navigate(ROUTES_CONFIG.TOURS.path, {
-        state: {
-          formattedData,
-        },
-      });
+      navigate(ROUTES_CONFIG.TOURS.path);
     } else {
       searchAreaData?.(formattedData);
     }
