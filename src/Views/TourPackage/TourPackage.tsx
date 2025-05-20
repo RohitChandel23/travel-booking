@@ -78,10 +78,41 @@ const generatePageNumbers = (
   return pages;
 };
 
+const calculatePriceRange = (attractions: AttractionType[]): [number, number] => {
+  if (!attractions || attractions.length === 0) {
+    return [0.0001, 1];
+  }
+
+  const ethPrices = attractions
+    .map(item => {
+      const usdPrice = item?.representativePrice?.chargeAmount;
+      if (typeof usdPrice === "number" && ETH_PRICE > 0) {
+        return usdPrice / ETH_PRICE;
+      }
+      return null;
+    })
+    .filter((price): price is number => price !== null);
+
+  if (ethPrices.length === 0) {
+    return [0.0001, 1];
+  }
+
+  const minPrice = Math.min(...ethPrices);
+  const maxPrice = Math.max(...ethPrices);
+
+  const padding = (maxPrice - minPrice) * 0.1;
+  const paddedMin = Math.max(0.0001, minPrice - padding);
+  const paddedMax = maxPrice + padding;
+
+  return [
+    Math.round(paddedMin * 100000) / 100000,
+    Math.round(paddedMax * 100000) / 100000
+  ];
+};
+
 function TourPackagePage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Read values from URL query params
   const destination = searchParams.get("destination") || "";
   const activity = searchParams.get("activity") || "";
   const startDate = searchParams.get("startDate") || null;
@@ -89,24 +120,19 @@ function TourPackagePage() {
   const guests = searchParams.get("guests") || "";
   const sortBy = searchParams.get("sort") || "trending";
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
-  // Sidebar-specific params
   const sidebarSearch = searchParams.get("sidebarSearch") || "";
   const sidebarDestination = searchParams.get("sidebarDestination") || "";
 
-  // Local state for sidebar search input
   const [sidebarSearchInput, setSidebarSearchInput] = useState(sidebarSearch);
 
-  // Keep sidebarSearchInput in sync with the URL param
   useEffect(() => {
     setSidebarSearchInput(sidebarSearch);
   }, [sidebarSearch]);
 
-  // State for filters (not in URL):
   const [selectedRating, setSelectedRating] = useState<number[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<number[]>([]);
   const [searchFormKey, setSearchFormKey] = useState<number>(0);
 
-  // For SearchArea initial values
   const currentSearchValues = {
     destinationName: destination,
     activity: activity,
@@ -114,10 +140,8 @@ function TourPackagePage() {
     "guest-numbers": guests,
   };
 
-  // Determine which destination/search to use for filtering
   const activeDestination = destination || sidebarDestination || sidebarSearch || "";
 
-  // Data fetching logic (unchanged, but use values from URL)
   const {
     data: filteredDestination,
     isLoading: isLoadingDestination,
@@ -166,6 +190,7 @@ function TourPackagePage() {
   const [mergedAttractions, setMergedAttractions] = useState<AttractionType[]>([]);
   const [totalTours, setTotalTours] = useState<number>(0);
   const [initialLoadComplete, setInitialLoadComplete] = useState<boolean>(false);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0.0001, 1]);
 
   useEffect(() => {
     let activeData = null;
@@ -193,11 +218,19 @@ function TourPackagePage() {
     }
 
     if (activeSuccess && activeData?.data?.products) {
-      setMergedAttractions(activeData.data.products);
+      const attractions = activeData.data.products;
+      setMergedAttractions(attractions);
       setTotalTours(activeData.data.filterStats?.filteredProductCount || 0);
+      
+      const newPriceRange = calculatePriceRange(attractions);
+      setPriceRange(newPriceRange);
+      
+      setSelectedPrice([]);
     } else if (initialLoadComplete && !activeFetching) {
       setMergedAttractions([]);
       setTotalTours(0);
+      setPriceRange([0.0001, 1]);
+      setSelectedPrice([]);
     }
   }, [
     activeDestination,
@@ -252,7 +285,6 @@ function TourPackagePage() {
 
   const shimmerCardId = Array.from({ length: 21 }, (_, i) => i + 1);
 
-  // Handlers to update URL params
   function handleSortChange(value: string) {
     searchParams.set("sort", value);
     searchParams.set("page", "1");
@@ -276,37 +308,31 @@ function TourPackagePage() {
     }
   }
 
-  // Handler for sidebar search (destination)
   function handleSidebarSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSidebarSearchInput(e.target.value);
   }
 
   function handleSidebarSearchSubmit() {
-    // Remove SearchArea params when using sidebar search
     searchParams.delete("destination");
     searchParams.delete("activity");
     searchParams.delete("startDate");
     searchParams.delete("endDate");
     searchParams.delete("guests");
-    // Clear all other sidebar filter params except sidebarSearch
     searchParams.delete("sidebarDestination");
     searchParams.delete("priceMin");
     searchParams.delete("priceMax");
     searchParams.delete("review");
-    // Set sidebar search param from local input
     searchParams.set("sidebarSearch", sidebarSearchInput);
     searchParams.set("page", "1");
     setSearchParams(searchParams);
   }
 
   function handleDestinationData(data: string | null) {
-    // Remove SearchArea params when using sidebar destination filter
     searchParams.delete("destination");
     searchParams.delete("activity");
     searchParams.delete("startDate");
     searchParams.delete("endDate");
     searchParams.delete("guests");
-    // Clear sidebarSearch param when a destination is selected
     searchParams.delete("sidebarSearch");
     if (data) {
       searchParams.set("sidebarDestination", data);
@@ -471,6 +497,8 @@ function TourPackagePage() {
               <FilterByPrice
                 handleSelectedPrice={handleSelectedPrice}
                 currentPriceRange={selectedPrice}
+                minPrice={priceRange[0]}
+                maxPrice={priceRange[1]}
               />
             </div>
           )}
