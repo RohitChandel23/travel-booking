@@ -8,6 +8,8 @@ import FilterByReviews from "./Filter/FilterByReviews/index";
 import FilterByPrice from "./Filter/FilterByPrice/index";
 import TourCardSkeleton from "../../Shared/TourCardSkeleton/TourCardSkeleton";
 import TourCard from "../../Shared/TourCard/index";
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { auth, db } from "../../firebaseConfig";
 
 import {
   useGetTrendingToursQuery,
@@ -124,10 +126,55 @@ function TourPackagePage() {
   const sidebarDestination = searchParams.get("sidebarDestination") || "";
 
   const [sidebarSearchInput, setSidebarSearchInput] = useState(sidebarSearch);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [isLoadingFavorites, setIsLoadingFavorites] = useState(true);
 
   useEffect(() => {
     setSidebarSearchInput(sidebarSearch);
   }, [sidebarSearch]);
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      const user = auth.currentUser;
+      if (!user) {
+        setIsLoadingFavorites(false);
+        return;
+      }
+
+      try {
+        setIsLoadingFavorites(true);
+        const q = query(collection(db, 'favorites'), where('userId', '==', user.uid));
+        const querySnapshot = await getDocs(q);
+        
+        const favoriteSlugs: string[] = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          if (data.tourSlug) {
+            favoriteSlugs.push(data.tourSlug);
+          }
+        });
+        
+        setFavorites(favoriteSlugs);
+      } catch (error) {
+        console.error('Error fetching favorites:', error);
+      } finally {
+        setIsLoadingFavorites(false);
+      }
+    };
+
+    fetchFavorites();
+
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        fetchFavorites();
+      } else {
+        setFavorites([]);
+        setIsLoadingFavorites(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const [selectedRating, setSelectedRating] = useState<number[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<number[]>([]);
@@ -250,6 +297,14 @@ function TourPackagePage() {
     initialLoadComplete,
   ]);
 
+  const handleFavoriteChange = (slugValue: string, isFavorite: boolean) => {
+    if (isFavorite) {
+      setFavorites(prev => [...prev, slugValue]);
+    } else {
+      setFavorites(prev => prev.filter(slug => slug !== slugValue));
+    }
+  };
+
   const totalPages = Math.max(1, Math.ceil(totalTours / TOURS_PER_PAGE));
   const pageNumbersToDisplay = generatePageNumbers(currentPage, totalPages);
 
@@ -359,7 +414,8 @@ function TourPackagePage() {
     (isLoadingSearched || isFetchingSearched) ||
     (isLoadingAttraction || isFetchingAttraction) ||
     (isLoadingTrending || isFetchingTrending) ||
-    !initialLoadComplete;
+    !initialLoadComplete ||
+    isLoadingFavorites;
 
   const hasError =
     initialLoadComplete &&
@@ -414,6 +470,7 @@ function TourPackagePage() {
         : "N/A";
       const slugValue = item?.slug || item.id?.toString();
       const uniqueKey = `${item.destinationId || "dest"}-${item.id || slugValue}-${currentPage}`;
+      const isFavorite = favorites.includes(slugValue);
 
       return (
         <TourCard
@@ -427,6 +484,8 @@ function TourPackagePage() {
           tourPrice={tourPrice}
           tourDuration="1 day"
           slugValue={slugValue}
+          isFavorite={isFavorite}
+          onFavoriteChange={handleFavoriteChange}
         />
       );
     });
